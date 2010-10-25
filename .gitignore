@@ -1,5 +1,5 @@
 settings_local.py
-*.py[co]
+*.py[co~]
 *.sw[po]
 pip-log.txt
 .DS_Store

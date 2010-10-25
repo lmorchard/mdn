@@ -34,9 +34,12 @@
 #mdn-forums-sidebar a { 
 
    background: -moz-linear-gradient(-90deg, #f2bf50, #f9e5ad);
-   background: linear-gradient(-90deg, #f9e5ad, #f2bf50);
+   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f9e5ad), color-stop(100%, #f2bf50));
+   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9e5ad', endColorstr='#f2bf50',GradientType=0 );
+
    -moz-box-shadow: 0 3px 0 #914808;
    -webkit-box-shadow: 0 3px 0 #914808;
+
    box-shadow: 0 3px 0 #914808;
    box-sizing: border-box;
    color: #82460b;
