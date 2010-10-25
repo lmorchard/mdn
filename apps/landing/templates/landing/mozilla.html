@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 
-{% block pageid %}apps{% endblock %}
+{% block pageid %}mozilla{% endblock %}
 
-{% block bodyclass %}section-apps landing{% endblock %}
+{% block bodyclass %}section-moz landing{% endblock %}
 
 {% block title %}{{ page_title(_('Mozilla')) }}{% endblock %}
 
 {% block content %}
 <header id="section-head">
 <div class="wrap">
-  <p class="intro">{{ _('Welcome to the Apps Developer Community:') }}</p> 
-  <h1 id="logo-apps" class="apps">{{ _('Apps') }}</h1>
+  <p class="intro">{{ _('Welcome to the Mozilla Developer Community:') }}</p> 
+  <h1 id="logo-moz" class="moz">{{ _('Mozilla') }}</h1>
   
   <div class="util">
     <p><strong>{{ _('Are you ready to make browsing better?') }}</strong></p>
     <ul>
       <li class="util-twitter"><a href="http://twitter.com/planetmozilla">{{ _('Twitter') }}</a></li>
       <li class="util-rss"><a href="http://blog.mozilla.com/about_mozilla/feed/">{{ _('Subscribe') }}</a></li>
-      <li class="util-discuss"><a href="/forums/viewforum.php?f=6">{{ _('Join the Apps discussions!') }}</a></li>
+      <li class="util-discuss"><a href="/forums/viewforum.php?f=6">{{ _('Join the Mozilla discussions!') }}</a></li>
     </ul>
   </div>
 </div>
@@ -29,9 +29,9 @@
   
     <section class="boxed">
       <div id="popular-docs">
-        <header class="head section-apps">
+        <header class="head section-moz">
           {# L10n: Please escape HTML entities here, like &amp; #}
-          <h2>{{ _('Popular <span class="apps">Mozilla</span> Documentation')|safe }}</h2>
+          <h2>{{ _('Popular <span class="moz">Mozilla</span> Documentation')|safe }}</h2>
         </header>
         
         <ul class="hfeed">
@@ -91,7 +91,7 @@
       <div id="fave-tools">
         <header class="subhead">
           {# L10n: Please escape HTML entities here, like &amp; #}
-          <h3>{{ _('Favorite <span class="apps">Mozilla</span> Tools')|safe }}</h3>
+          <h3>{{ _('Favorite <span class="moz">Mozilla</span> Tools')|safe }}</h3>
         </header>
         <ul class="tools">
           <li>
@@ -109,7 +109,7 @@
       <div id="recent-news">
         <header class="subhead">
           {# L10n: Please escape HTML entities here, like &amp; #}
-          <h3>{{ _('Recent <span class="apps">Mozilla</span> News &amp; Updates')|safe }}</h3>
+          <h3>{{ _('Recent <span class="moz">Mozilla</span> News &amp; Updates')|safe }}</h3>
         </header>
 
         {{ newsfeed(updates) }}
