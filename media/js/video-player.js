@@ -229,7 +229,6 @@ Mozilla.VideoPlayer.prototype.getFlashPlayerContent = function ()
     } else {
         url += '&autoplay=false';
     }
-
     content =
         '<object type="application/x-shockwave-flash" style="' +
         'width: ' + Mozilla.VideoPlayer.width + 'px; ' + 
@@ -343,8 +342,10 @@ Mozilla.VideoPlayer.getFlashVersion = function ()
                 } catch (e4) {}
             }
             if (axo !== null) {
-                version = new Mozilla.FlashVersion(
-                    axo.GetVariable('$version').split(' ')[1].split(','));
+                try {
+                    version = new Mozilla.FlashVersion(
+                        axo.GetVariable('$version').split(' ')[1].split(','));
+                } catch (e4) {}
             }
         }
     }
@@ -412,7 +413,7 @@ Mozilla.VideoPlayer.prepare_video = function (i, thumb) {
                    {url: cdn + video_path + '.ogv',  type: 'video/ogg'},
                    {url: cdn + video_path + '.mp4',  type: 'video/mp4'}];
     _unused = new Mozilla.VideoPlayer(id, video_files, 
-                                      cdn + video_path + '.flv');
+                                      'serv/mdn/' + video_path + '.mp4');
 };
 
 $(document).ready(function () {
