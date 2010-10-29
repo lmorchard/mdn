@@ -607,32 +607,15 @@ section.boxed:after, div.boxed:after { content: "."; display: block; clear: both
 #content-latest .category { font: 9px Verdana, Arial, Helvetica, sans-serif; text-transform: uppercase; }
 
 /* @Section @Landing pages *********/
-/*** @Popular docs, @Recent news, and @Videos *********/
-#popular-docs .hfeed, #recent-news .hfeed, #videos .hfeed { 
-    margin: 0; 
-}
-#popular-docs .hfeed li.hentry, #recent-news .hfeed li.hentry, #videos .hfeed li.hentry { 
-    padding: 0 1px 1em; 
-    margin: 0 0 1em; 
-    background: none; 
-    border-bottom: 1px dotted #2f2f2f; 
-}
-#popular-docs .hfeed li.hentry:last-child, 
-#recent-news .hfeed li.hentry:last-child, 
-#videos .hfeed li.hentry:last-child { 
-    border: 0; margin: 0; 
-}
-#popular-docs .entry-title, #recent-news .entry-title, #videos .entry-title { 
-    margin-bottom: .25em; 
-}
-#popular-docs .entry-summary, #recent-news .entry-summary, #videos .entry-summary {
-    font-size: .857em; 
-}
-#popular-docs .entry-meta, #recent-news .entry-meta, #videos .entry-meta {
-    margin: 0; font-size: .785em; 
-}
-#popular-docs .entry-meta a, #recent-news .entry-meta a { font-weight: bold; }
-#popular-docs .all, #recent-news .all { padding: 1em 1px; font-size: .785em; text-transform: uppercase; font-style: italic; font-weight: bold; border-bottom: 1px solid #999; border-top: 1px solid #999; }
+/*** @Popular docs, @Recent news, @Favorite articles *********/
+.articles-list .hfeed { margin: 0; }
+#content-main .articles-list .hfeed li.hentry { padding: 0 1px 1em; margin: 0 0 1em; background: none; border-bottom: 1px dotted #2f2f2f; }
+#content-main .articles-list .hfeed li.hentry:last-child { border: 0; margin: 0; }
+.articles-list .entry-title { margin-bottom: .25em; }
+.articles-list .entry-summary { font-size: .857em; margin-bottom: 0; }
+.articles-list .entry-meta { margin: 1.3em 0 0; font-size: .785em; }
+.articles-list .entry-meta a { font-weight: bold; }
+.articles-list .all { padding: 1em 1px; font-size: .785em; text-transform: uppercase; font-style: italic; font-weight: bold; border-bottom: 1px solid #999; border-top: 1px solid #999; }
 
 /*** @Favorite tools *********/
 #fave-tools .tools { margin: 1em 0; padding: 18px 0 18px 18px; background: #f5f5f1; }
@@ -643,6 +626,14 @@ section.boxed:after, div.boxed:after { content: "."; display: block; clear: both
 #fave-tools .desc { font-size: .857em; }
 #fave-tools .meta { font-size: .785em; font-weight: bold; }
 #fave-tools .tools li.all { width: auto; float: none; clear: both; padding: .5em 18px; background: #ebebe4; font-size: .785em; text-transform: uppercase; font-style: italic; font-weight: bold; }
+
+/*** @Videos *********/
+#videos .hfeed { overflow: hidden; }
+#videos .hfeed .hentry { float: left; width: 270px; font-size: .857em; position: relative; padding: 165px 20px 0; background: transparent none; }
+#videos .hentry h3 { color: #fff; height: 150px; font-size: 1.2em; position: absolute; top: 3px; left: 20px; }
+#videos .hentry h3 span { position: absolute; bottom: 0; left: 0; display: block; width: 250px; padding: 4px 10px; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,.75); background: rgba(0,0,0,.4); }
+#videos .hentry h3 img { border: 3px solid #ccc; margin: -3px 0 0 -3px; }
+#videos .hentry h3 a:hover img { border-color: inherit; }
 
 /* @Search @Results *********/
 #google-branding { font-size: .785em; float: right; margin-top: -3.75em; opacity: .3; }

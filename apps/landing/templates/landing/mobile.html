@@ -28,7 +28,7 @@
   <section id="content-main" role="main">
 
     <section class="boxed">
-      <div id="popular-docs">
+      <div id="popular-docs" class="articles-list">
         <header class="head section-mobile">
           {# L10n: Please escape HTML entities here, like &amp; #}
           <h2>{{ _('Popular <span class="mobile">Mobile</span> Documentation')|safe }}</h2>
@@ -82,18 +82,23 @@
           </li>
         </ul>
         <p class="all"><a href="{{ devmo_url('/En/Mobile') }}" class="go">{{ _('All mobile development documentation') }}</a></p>
-
+      </div>
+      
+      <div id="videos">
         <header class="subhead">
           <h2>{{ _('Watch <span class="mobile">Mobile</span> Videos')|safe }}</h2>
         </header>
         {% include "includes/video_player.html" %}
         <ul class="hfeed">
-          <li class="hentry video">
-            <a href="/en-US/firefox/video/?video=about-mobile" 
-               id="ragavan_summit_2010" class="video_thumbnail">
-              <img src="http://videos-cdn.mozilla.net/serv/mdn/ragavan_summit_2010/ragavan_summit_2010.png" 
-                   alt="{{ _('View Video') }}" height="148" width="255" /></a>
-            <h3>{{ _('Firefox Sync')}}</h4>
+          <li class="hentry">
+            <h3>
+              <a href="/en-US/firefox/video/?video=about-mobile" title="{{ _('Watch this video') }}"
+                 id="ragavan_summit_2010" class="video_thumbnail">
+                <img src="http://videos-cdn.mozilla.net/serv/mdn/ragavan_summit_2010/ragavan_summit_2010.jpg" 
+                   alt="" height="150" width="270">
+                <span>{{ _('Firefox Sync')}}</span>
+              </a>
+            </h3>
             <h4 class="entry-title">{{ 
               _('Why Sync up, Security and More')}}</h4>
             <p class="entry-summary">{% trans %}
@@ -101,12 +106,15 @@
               purpose and goals behind the development of Firefox Sync.
               {% endtrans %}</p>
           </li>
-          <li class="hentry video">
-            <a href="/en-US/firefox/video/?video=about-mobile"
-               id="stuart_summit_2010" class="video_thumbnail">
-              <img src="http://videos-cdn.mozilla.net/serv/mdn/stuart_summit_2010/stuart_summit_2010.png" 
-                   alt="{{ _('View Video') }}" height="148" width="255" /></a>
-            <h3>{{ _("Fennec") }}</h3>
+          <li class="hentry">
+            <h3>
+              <a href="/en-US/firefox/video/?video=about-mobile" title="{{ _('Watch this video') }}"
+                 id="stuart_summit_2010" class="video_thumbnail">
+                <img src="http://videos-cdn.mozilla.net/serv/mdn/stuart_summit_2010/stuart_summit_2010.jpg" 
+                   alt="" height="150" width="270">
+                <span>{{ _("Fennec") }}</span>
+              </a>
+            </h3>
             <h4 class="entry-title">{{ 
               _("Pre-Alpha Fennec and HTML5 Demos") }}</h4>
             <p class="entry-summary">{% trans %}
@@ -116,7 +124,9 @@
             </p>
           </li>
         </ul>
+      </div>
 
+      <div id="fave-articles" class="articles-list">
         <header class="subhead">
           {# L10n: Please escape HTML entities here, like &amp; #}
           <h2>{{ _('Favorite <span class="mobile">Mobile</span> Articles')|safe }}</h2>
@@ -161,7 +171,7 @@
         </ul>
       </div>
 
-      <div id="recent-news">
+      <div id="recent-news" class="articles-list">
         <header class="subhead">
           {# L10n: Please escape HTML entities here, like &amp; #}
           <h3>{{ _('Recent <span class="mobile">Mobile</span> News &amp; Updates')|safe }}</h3>
