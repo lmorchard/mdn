@@ -6,3 +6,4 @@
 
 # L10n.
 translate-toolkit==1.6.0
+-e git://github.com/jbalogh/test-utils.git#egg=test-utils
