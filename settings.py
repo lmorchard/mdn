@@ -220,6 +220,8 @@ INSTALLED_APPS = (
     'jingo_minify',
     'product_details',
     'tower',
+
+    'django_nose',
 )
 
 # Logging
@@ -244,3 +246,6 @@ FEEDER_TIMEOUT = 6 # in seconds
 
 # Cookie prefix from PHPBB settings.
 PHPBB_COOKIE_PREFIX = 'phpbb3_jzxvr'
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+

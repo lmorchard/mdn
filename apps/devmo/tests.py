@@ -47,7 +47,7 @@ class TestDevMoRobots(test_utils.TestCase):
         eq_(parse_robots('http://developer.mozilla.org'),  rules)
         eq_(parse_robots('https://developer.mozilla.org'), rules)
 
-    def test_stage(self):
+    def test_stage_bug607996(self):
         rules = [
             ("User-agent", "*"),
             ("Disallow", "/"),
