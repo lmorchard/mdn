@@ -225,7 +225,7 @@ INSTALLED_APPS = (
 )
 
 # Logging
-LOG_LEVEL = logging.DEBUG
+LOG_LEVEL = logging.WARN
 HAS_SYSLOG = True # syslog is used if HAS_SYSLOG and NOT DEBUG.
 SYSLOG_TAG = "http_app_mdn"
 # See PEP 391 and log_settings.py for formatting help. Each section of LOGGING
