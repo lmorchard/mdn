@@ -39,7 +39,7 @@ class Command(NoArgsCommand):
 
         feeds = Feed.objects.all()
         if not options.get('force', False):
-            feeds = feeds.filter(enabled=True)
+            feeds = feeds.filter()
         else:
             log.info('--force option set: Trying to fetch all known feeds.')
 
