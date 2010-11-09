@@ -95,5 +95,8 @@ def cleank(txt):
 
 @register.function
 def devmo_url(path):
-    """Create a URL pointing to devmo."""
-    return 'https://developer.mozilla.org/%s' % path.lstrip('/')
+    """ Create a URL pointing to devmo.
+        Currently a no-op from when staging was on several servers. 
+        Might be a useful shim in the future.
+    """
+    return path
