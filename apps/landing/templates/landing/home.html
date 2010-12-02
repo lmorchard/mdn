@@ -42,13 +42,28 @@ try {
 
   <div id="slideshow">
     <ol id="slide-control">
-      <li id="slide1" class="on"><a href="#slide-one">{{ _('School of Webcraft') }}</a></li>
-      <li id="slide2"><a href="#slide-two">{{ _('HTML5') }}</a></li>
-      <li id="slide3"><a href="#slide-three">{{ _('Firefox 4 Beta') }}</a></li>
-      <li id="slide4"><a href="#slide-four">{{ _('Addons Builder Preview') }}</a></li>
+      <li id="slide1" class="on"><a href="#slide-one">{{ _('Mobile Add-ons Cup') }}</a></li>
+      <li id="slide2"><a href="#slide-two">{{ _('School of Webcraft') }}</a></li>
+      <li id="slide3"><a href="#slide-three">{{ _('HTML5') }}</a></li>
+      <li id="slide4"><a href="#slide-four">{{ _('Firefox 4 Beta') }}</a></li>
+      <li id="slide5"><a href="#slide-five">{{ _('Addons Builder Preview') }}</a></li>
     </ol>
     <ol id="slides">
       <li id="slide-one" class="slide">
+        <img src="{{ MEDIA_URL }}img/features/feature-mobilecup.png" alt="" width="660">
+        <div class="slide-desc">
+          <h2>{{ _('Could you be the big winner?') }}</h2>
+          <p>
+          {% trans cup_enter='https://addons.mozilla.org/mobile-cup/enter.php',
+                   cup_info='https://addons.mozilla.org/mobile-cup/' %}
+          Develop an awesome add-on for Firefox mobile for your chance to win a trip to 
+          Barcelona, cash, prizes and tons of priceless exposure! 
+          <a href="{{ cup_enter }}">Enter now</a> 
+          until <strong>January 7, 2011</strong>. Good luck!</p>
+          <p class="more"><a href="{{ cup_info }}" class="button">{{ _('More') }}</a></p>
+        </div>
+      </li>
+      <li id="slide-two" class="slide">
         <img src="{{ MEDIA_URL }}img/features/feature-p2pu.jpg" alt="" width="660">
         <div class="slide-desc">
           <h2>{{ _('School of Webcraft') }}</h2>
@@ -64,7 +79,7 @@ try {
           <p class="more"><a href="http://www.drumbeat.org/p2pu-webcraft" class="button">{{ _('More') }}</a></p>
         </div>
       </li>
-      <li id="slide-two" class="slide">
+      <li id="slide-three" class="slide">
         <img src="{{ MEDIA_URL }}img/features/feature-html5.jpg" alt="" width="660">
         <div class="slide-desc">
           <h2>{{ _('HTML5') }}</h2>
@@ -78,7 +93,7 @@ try {
           <p class="more"><a href="{{ devmo_url('/en/HTML/HTML5') }}" class="button">{{ _('More') }}</a></p>
         </div>
       </li>
-      <li id="slide-three" class="slide">
+      <li id="slide-four" class="slide">
         <img src="{{ MEDIA_URL }}img/features/feature-firefox4b.jpg" alt="" width="660">
         <div class="slide-desc">
           <h2>{{ _('Firefox 4 Beta') }}</h2>
@@ -93,7 +108,7 @@ try {
           <p class="more"><a href="https://www.mozilla.com/firefox/beta/" class="button">{{ _('More') }}</a></p>
         </div>
       </li>
-      <li id="slide-four" class="slide">
+      <li id="slide-five" class="slide">
         <img src="{{ MEDIA_URL }}img/features/feature-addonsbuilder.jpg" alt="" width="660">
         <div class="slide-desc">
           <h2>{{ _('Addons Builder Preview') }}</h2>

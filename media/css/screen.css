@@ -526,7 +526,7 @@ ul.index a:hover, ul.index a:focus, ul.index a:active { color: #2f2f2f; text-dec
 #site-info p { margin: 0 0 .5em; }
 
 /* @Boxes *********/
-section.boxed, div.boxed { background: #fff; padding: 18px; margin: 0 4px 26px 0; 
+section.boxed, div.boxed { background: #fff; padding: 18px; margin: 0 4px 26px 0; border: 1px solid #ecece7;
   -moz-box-shadow: 2px 2px 0 rgba(170,160,130,.5), 4px 4px 0 rgba(200,190,165,.5);
   -webkit-box-shadow: 2px 2px 0 rgba(170,160,130,.5), 4px 4px 0 rgba(200,190,165,.5);
   box-shadow: 2px 2px 0 rgba(170,160,130,.5), 4px 4px 0 rgba(200,190,165,.5); 
