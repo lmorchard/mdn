@@ -1,5 +1,8 @@
 from hashlib import md5
 
+import zipfile
+import tarfile
+
 from django import forms
 
 from django.conf import settings
@@ -28,11 +31,11 @@ except ImportError:
     import Image
 
 
-SCREENSHOT_MAX_WIDTH  = getattr(settings, 'DEMO_SCREENSHOT_MAX_WIDTH', 320)
-SCREENSHOT_MAX_HEIGHT = getattr(settings, 'DEMO_SCREENSHOT_MAX_HEIGHT', 240)
+SCREENSHOT_MAXW  = getattr(settings, 'DEMO_SCREENSHOT_MAX_WIDTH', 320)
+SCREENSHOT_MAXH = getattr(settings, 'DEMO_SCREENSHOT_MAX_HEIGHT', 240)
 
-THUMBNAIL_MAX_WIDTH  = getattr(settings, 'DEMO_THUMBNAIL_MAX_WIDTH', 100)
-THUMBNAIL_MAX_HEIGHT = getattr(settings, 'DEMO_THUMBNAIL_MAX_HEIGHT', 100)
+THUMBNAIL_MAXW = getattr(settings, 'DEMO_THUMBNAIL_MAX_WIDTH', 100)
+THUMBNAIL_MAXH = getattr(settings, 'DEMO_THUMBNAIL_MAX_HEIGHT', 100)
 
 RESIZE_METHOD = getattr(settings, 'RESIZE_METHOD', Image.ANTIALIAS)
 
@@ -62,11 +65,16 @@ class MyForm(forms.Form):
 def scale_image(files, img_name, img_max_size):
     """Crop and scale an image in-place in form upload, normalize filename."""
     if img_name not in files:
-        return
+        return True
 
     img_upload = files[img_name]
+    if not img_upload.file:
+        return True
 
-    img = Image.open(img_upload.file)
+    try:
+        img = Image.open(img_upload.file)
+    except IOError:
+        return False
 
     src_width, src_height = img.size
     src_ratio = float(src_width) / float(src_height)
@@ -76,13 +84,13 @@ def scale_image(files, img_name, img_max_size):
     if dst_ratio < src_ratio:
         crop_height = src_height
         crop_width = crop_height * dst_ratio
-        x_offset = float(src_width - crop_width) / 2
+        x_offset = int(float(src_width - crop_width) / 2)
         y_offset = 0
     else:
         crop_width = src_width
         crop_height = crop_width / dst_ratio
         x_offset = 0
-        y_offset = float(src_height - crop_height) / 3
+        y_offset = int(float(src_height - crop_height) / 3)
 
     img = img.crop((x_offset, y_offset, 
         x_offset+int(crop_width), y_offset+int(crop_height)))
@@ -97,6 +105,8 @@ def scale_image(files, img_name, img_max_size):
     img_upload.file = ContentFile(img_data)
     img_upload.name = '%s.png' % (md5(img_data).hexdigest())
 
+    return True
+
 
 class SubmissionForm(MyModelForm):
 
@@ -109,8 +119,10 @@ class SubmissionForm(MyModelForm):
         )
 
     def clean(self):
-
         cleaned_data = super(SubmissionForm, self).clean()
+
+        # TODO: Should this be moved to model class?
+        # If so, how to use screenshot for thumbnail if thumbnail not uploaded?
 
         if 'screenshot' in self.files and 'thumbnail' not in self.files:
             sf = self.files['screenshot']
@@ -120,12 +132,15 @@ class SubmissionForm(MyModelForm):
             self.cleaned_data['thumbnail'] = self.files['thumbnail']
 
         if 'screenshot' in self.files:
-            scale_image(self.files, 'screenshot',
-                ( SCREENSHOT_MAX_WIDTH, SCREENSHOT_MAX_HEIGHT ) )
+            if not scale_image(self.files, 'screenshot',
+                    ( SCREENSHOT_MAXW, SCREENSHOT_MAXH ) ):
+                self._errors['screenshot'] = self.error_class(
+                        [_('Cannot process screenshot image')])
 
         if 'thumbnail' in self.files:
-            scale_image(self.files, 'thumbnail',
-                ( THUMBNAIL_MAX_WIDTH, THUMBNAIL_MAX_HEIGHT ) )
+            if not scale_image(self.files, 'thumbnail',
+                    ( THUMBNAIL_MAXW, THUMBNAIL_MAXH ) ):
+                self._errors['thumbnail'] = self.error_class(
+                        [_('Cannot process thumbnail image')])
 
         return cleaned_data
-
