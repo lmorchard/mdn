@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block site_css %}
+    {{ super() }}
+    <link rel="stylesheet" media="screen,projection,tv" 
+        href="{{MEDIA_URL}}css/clearfix.css" />
+    <link rel="stylesheet" media="screen,projection,tv" 
+        href="{{MEDIA_URL}}css/demos/screen.css" />
+{% endblock %}
+
+{% block site_js %}
+    {{ super() }}
+    <script src="{{MEDIA_URL}}js/demos.js" 
+        type="text/javascript"></script>
+{% endblock %}

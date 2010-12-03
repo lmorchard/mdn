@@ -1,0 +1,71 @@
+{% extends "demos/base.html" %}
+
+{% block pageid %}demos{% endblock %}
+
+{% block bodyclass %}section-demos landing{% endblock %}
+
+{% block title %}{{ page_title(_('Web')) }}{% endblock %}
+
+{% block content %}
+
+<section id="content">
+    <div class="wrap sidebar">
+        <section id="content-main" role="main">
+
+        <section class="boxed">
+
+        <div id="popular-docs" class="articles-list">
+            <header class="head section-moz">
+            {# L10n: Please escape HTML entities here, like &amp; #}
+            <h2>{{ _('Demos <span class="moz">Demos</span> Demos')|safe }}</h2>
+            </header>
+
+            <div class="auth">
+                <b>Temporary auth</b> &raquo;
+                {% if request.user.is_authenticated() %}
+                <span>Logged in as <em>{{ request.user }}</em></span>
+                <form method="POST" action="{{ url('demos_logout') }}">
+                    <input type="hidden" name="next" value="/demos/" />
+                    <input type="submit" value="logout" />
+                </form>
+                {% else %}
+                <form method="post" action="{{ url('demos_login') }}">
+                    {{ csrf() }}
+                    <input type="hidden" name="next" value="{{ url('demos') }}" />
+                    <label for="id_username">Username:</label> 
+                    <input id="id_username" type="text" name="username" maxlength="30" />
+                    <label for="id_password">Password:</label> 
+                    <input type="password" name="password" id="id_password" />
+                    <input type="submit" value="login" />
+                </form>
+                {% endif %}
+            </div>
+
+            {% if request.user.is_authenticated() %}
+            <a class="submit_demo" href="{{ url('demos_submit') }}">Submit a new demo</a>
+            {% endif %}
+
+            <div>
+                <h3>{{_('Top demos')}}</h3>
+                <ul class="submissions clearfix">
+                    {% for submission in submission_list %}
+                        <li class="submission">{{ submission_thumb(submission) }}</li>
+                    {% endfor %}
+                </ul>
+                <p><a href="{{ url('demos_all') }}">{{_('Browse all demos')}}</a></p>
+            </div>
+
+        </div>
+
+        </section>{# /.boxed #}
+
+        </section>{# /#content-main #}
+
+        <aside id="content-sub" role="complementary">
+        {{ twitter(tweets, title=_('Correspondence on Twitter from the Web developer community.')) }}
+        </aside>{# /#content-sub #}
+
+    </div>
+</section>{# /#content #}
+
+{% endblock %}

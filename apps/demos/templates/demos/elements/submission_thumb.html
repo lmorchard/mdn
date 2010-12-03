@@ -1,0 +1,14 @@
+<div class="submission_thumb">
+    {% set score = vote_score_for_object(submission) %}
+    <div class="thumbnail">
+        {% if submission.thumbnail %}
+            {% set thumbnail_url = submission.thumbnail.url %}
+        {% else %}
+            {% set thumbnail_url = MEDIA_URL + "img/mdn-logo.png" %}
+        {% endif %}
+        <a href="{{ submission.get_absolute_url() }}"><img src="{{thumbnail_url}}" width="100" height="100" alt="{{ submission.title }}" /></a>
+    </div>
+    <h4 class="title"><a href="{{ submission.get_absolute_url() }}">{{ submission.title }}</a></h4>
+    <h5 class="submitter_name">{{ submission.submitter_name }}</h5>
+    <p class="score">{{ score.score }}</p>
+</div>

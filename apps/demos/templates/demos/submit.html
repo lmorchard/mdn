@@ -1,0 +1,49 @@
+{% extends "demos/base.html" %}
+
+{% block pageid %}demos{% endblock %}
+
+{% block bodyclass %}section-demos landing{% endblock %}
+
+{% block title %}{{ page_title(_('Web')) }}{% endblock %}
+
+{% block content %}
+
+<section id="content">
+    <div class="wrap sidebar">
+        <section id="content-main" role="main">
+
+            <section class="boxed">
+
+                <header class="head section-moz">
+                    <h2>{{_("Submit new demo")}}</h2>
+                </header>
+                    
+                <form enctype="multipart/form-data" action="" method="POST">
+                    {{ csrf() }}
+                    
+                    <fieldset>
+                        <ul>
+                            {{ form.as_ul()|safe }}
+                            <li class="form_block">
+                                <input type="submit" name="action_create" 
+                                value="{{ _("Submit demo") }}" />
+                            </li>
+                        </ul>
+                    </fieldset>
+                </form>
+
+            </section>
+
+        </section>
+
+        <aside id="content-sub" role="complementary">
+            <div id="mdn-sidebar" class="module">
+                <h3 class="mod-title">{{_('Demos on MDN')}}</h3>
+                <p class="mod-intro">{{_('Some guidelines on demos could go here.')}}</p>
+            </div>
+        </aside>
+
+    </div>
+</section>
+
+{% endblock %}

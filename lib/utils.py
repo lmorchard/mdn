@@ -89,3 +89,27 @@ Lifted from werkzeug.
 def entity_decode(str):
     """Turn HTML entities in a string into unicode."""
     return htmlparser.unescape(str)
+
+import jingo
+
+class JingoTemplateLoaderWrapper():
+
+    def __init__(self, template):
+        self.template = template
+
+    def render(self, context):
+        context_dict = {}
+        for d in context.dicts:
+            context_dict.update(d)
+        return self.template.render(context_dict)
+
+class JingoTemplateLoader():
+    """Quick & dirty adaptor to load jinja2 templates via jingo"""
+    is_usable = True
+
+    def get_template(self, template_name, template_dirs=None):
+        if not jingo._helpers_loaded:
+            jingo.load_helpers()
+        template = jingo.env.get_template(template_name)
+        return JingoTemplateLoaderWrapper(template)
+

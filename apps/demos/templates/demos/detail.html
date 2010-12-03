@@ -1,0 +1,101 @@
+{% extends "demos/base.html" %}
+
+{% block pageid %}demos{% endblock %}
+
+{% block bodyclass %}section-demos landing{% endblock %}
+
+{% block title %}{{ page_title(_('Web')) }}{% endblock %}
+
+{% block content %}
+
+<section id="content">
+<div class="wrap sidebar">
+  <section id="content-main" role="main">
+
+    <section class="boxed">
+    
+      <div id="demo-detail">
+
+        <header class="head section-moz">
+          <h2>{{ _('Demo: {demo_title}')|f(demo_title=submission.title) }}</h2>
+          <p>
+              Submitted by 
+              {% if submission.submitter_url %}<a href="{{ submission.submitter_url }}">{% endif %}<span class="submitter">{{ submission.submitter_name }}</span>{% if submission.submitter_url %}</a>{% endif %},
+              {{ submission.created.date() | date_diff() }}
+              {# at {{ submission.created.time() }} #}
+              {% if request.user.is_authenticated() %}
+                  - <a href="{{ url('demos_edit', slug=submission.slug) }}">{{_('Edit demo details')}}</a>
+              {% endif %}
+          </p>
+        </header>
+
+        <div class="screenshot">
+            {% if submission.screenshot %}
+                {% set screenshot_url = submission.screenshot.url %}
+            {% else %}
+                {% set screenshot_url = MEDIA_URL + "img/mdn-logo.png" %}
+            {% endif %}
+            <img src="{{screenshot_url}}"
+                width="320" height="240" alt="{{ submission.title }}" />
+        </div>
+
+        <div class="info description">
+            <h4>Description:</h4>
+            <p>{{ submission.description }}</p>
+        </div>
+
+        <div class="info vote">
+            <h4>Vote:</h4>
+
+            {% set score = vote_score_for_object(submission) %}
+            <div class="score">{{ score.score }} by {{ score.num_votes }} people</div>
+
+            {% if request.user.is_authenticated() %}
+            {% set vote = vote_by_user_for_object(request.user, submission) %}
+            <div class="vote_actions">
+
+                <form action="{{ url('demos_vote', slug=submission.slug, direction="down") }}" method="POST">
+                    {{ csrf() }}
+                    <input class="downvote button" type="submit" value="{{_("-1")}}"
+                        {% if vote and vote.is_downvote() %}disabled="disabled"{% endif %} />
+                </form>
+                <form action="{{ url('demos_vote', slug=submission.slug, direction="clear") }}" method="POST">
+                    {{ csrf() }}
+                    <input class="novote button" type="submit" value="{{_("0")}}" 
+                        {% if not vote or not vote.vote %}disabled="disabled"{% endif %}  />
+                </form>
+                <form action="{{ url('demos_vote', slug=submission.slug, direction="up") }}" method="POST">
+                    {{ csrf() }}
+                    <input class="upvote button" type="submit" value="{{_("+1")}}" 
+                        {% if vote and vote.is_upvote() %}disabled="disabled"{% endif %}  />
+                </form>
+            </div>
+            {% endif %}
+
+        </div>
+
+        <div class="info tags">
+            <h4>Tagged as:</h4>
+            <ul class="tags clearfix">
+                {% for tag in tags_for_object(submission) %}
+                    <li>
+                        <a href="{{ url('demos_tag', tag=tag.name) }}">{{ tag.name }}</a> 
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+      </div>
+
+    </section>{# /.boxed #}
+
+  </section>{# /#content-main #}
+
+  <aside id="content-sub" role="complementary">
+    {{ twitter(tweets, title=_('Correspondence on Twitter from the Web developer community.')) }}
+  </aside>{# /#content-sub #}
+
+</div>
+</section>{# /#content #}
+
+{% endblock %}

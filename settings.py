@@ -228,6 +228,12 @@ INSTALLED_APPS = (
     'feeder',
     'landing',
 
+    "voting",
+    "tagging",
+    "tagging_ext",
+    
+    'demos',
+
     'cronjobs',
     'jingo_minify',
     'product_details',
@@ -261,3 +267,8 @@ PHPBB_COOKIE_PREFIX = 'phpbb3_jzxvr'
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
+# Filesystem location for uploaded media files, relative to MEDIA_ROOT
+UPLOADED_MEDIA_ROOT = 'uploads'
+
+# URL location for uploaded media files
+UPLOADED_MEDIA_URL = '%s/uploads/' % MEDIA_URL
