@@ -1,0 +1,123 @@
+{% extends "demos/base.html" %}
+
+{% block pageid %}demos{% endblock %}
+
+{% block bodyclass %}section-demos landing{% endblock %}
+
+{% block title %}{{ page_title(_('Web')) }}{% endblock %}
+
+{% block content %}
+
+<section id="content">
+<div class="wrap sidebar">
+  <section id="content-main" role="main">
+
+    <section class="boxed">
+    
+      <div id="demo-detail">
+
+        <header class="head section-moz">
+          <h2>{{ _('Demo: {demo_title}')|f(demo_title=submission.title) }}</h2>
+          <p>
+              Submitted by {{ submission_creator(submission) }},
+              {{ submission.created.date() | date_diff() }}
+          </p>
+        </header>
+
+        <div class="screenshot">
+            {% if submission.screenshot_1 %}
+                {% set screenshot_url = submission.screenshot_1.url %}
+            {% else %}
+                {% set screenshot_url = MEDIA_URL + "img/mdn-logo.png" %}
+            {% endif %}
+            <img src="{{screenshot_url}}"
+                width="320" height="240" alt="{{ submission.title }}" />
+        </div>
+
+        <div class="info launch">
+
+            {% if request.user.is_authenticated() %}
+                <a class="launch_button" href="{{ url('demos_edit', slug=submission.slug) }}">{{_('Edit demo details')}}</a>
+            {% endif %}
+            {% if submission.demo_package %}
+                <a class="launch_button" target="_new" href="{{ url('demos_launch', slug=submission.slug) }}">Launch demo</a>
+                <a class="launch_button download_button" href="{{ url('demos_download', slug=submission.slug) }}">Download source</a>
+                <a class="launch_button flag_button" href="{{ url('demos_flag', slug=submission.slug) }}">Flag demo</a>
+            {% endif %}
+
+            {% if submission.allows_deletion_by(request.user) %}
+                <form action="{{ url('demos_delete', slug=submission.slug) }}" method="POST">
+                    {{ csrf() }} 
+                    <input class="launch_button" type="submit" value="{{_("Delete demo")}}" />
+                </form>
+            {% endif %}
+
+            {% if submission.allows_hiding_by(request.user) %}
+                {% if submission.hidden %}
+                    <form action="{{ url('demos_show', slug=submission.slug) }}" method="POST">
+                        {{ csrf() }} 
+                        <input class="launch_button" type="submit" value="{{_("Show demo")}}" />
+                    </form>
+                {% else %}
+                    <form action="{{ url('demos_hide', slug=submission.slug) }}" method="POST">
+                        {{ csrf() }} 
+                        <input class="launch_button" type="submit" value="{{_("Hide demo")}}" />
+                    </form>
+                {% endif %}
+            {% endif %}
+
+        </div>
+
+        <div class="info description">
+            <h4>Summary:</h4>
+            <p>{{ submission.summary }}</p>
+        </div>
+
+        <div class="info description">
+            <h4>Description:</h4>
+            <p>{{ submission.description }}</p>
+        </div>
+
+        <div class="info meta">
+            <h4>Meta:</h4>
+            <div class="meta">
+                <p class="likes">{{ action_count_for_object('like', submission) }}</p>
+                <p class="views">{{ action_count_for_object('launch', submission) }}</p>
+                <p class="downloads">{{ action_count_for_object('download', submission) }}</p>
+            </div>
+            {% set likes = action_count_for_object_by_request('like', request, submission) %}
+            {% if likes > 0 %}
+                <span>Liked!</span>
+            {% else %}
+                <form action="{{ url('demos_like', slug=submission.slug) }}" method="POST">
+                    {{ csrf() }}
+                    <input class="launch_button like button" type="submit" value="{{_("Like")}}" />
+                </form>
+            {% endif %}
+
+        </div>
+
+        <div class="info tags">
+            <h4>Tagged as:</h4>
+            <ul class="tags clearfix">
+                {% for tag in tags_for_object(submission) %}
+                    <li>
+                        <a href="{{ url('demos_tag', tag=tag.name) }}">{{ tag_title(tag) }}</a> 
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+      </div>
+
+    </section>{# /.boxed #}
+
+  </section>{# /#content-main #}
+
+  <aside id="content-sub" role="complementary">
+  </aside>{# /#content-sub #}
+
+</div>
+</section>{# /#content #}
+
+{% endblock %}

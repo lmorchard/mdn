@@ -1,0 +1,57 @@
+{% extends "demos/base.html" %}
+
+{% block pageid %}demos{% endblock %}
+
+{% block bodyclass %}section-demos landing{% endblock %}
+
+{% block title %}{{ page_title(_('Web')) }}{% endblock %}
+
+{% block content %}
+
+<section id="content">
+    <div class="wrap sidebar">
+        <section id="content-main" role="main">
+
+        <section class="boxed">
+
+        <div id="popular-docs" class="articles-list">
+            <header class="head section-moz">
+            {# L10n: Please escape HTML entities here, like &amp; #}
+            <h2>{{ _('Demos <span class="moz">Demos</span> Demos')|safe }}</h2>
+            </header>
+
+            {% if request.user.is_authenticated() %}
+                <a class="submit_demo" href="{{ url('demos_submit') }}">Submit a new demo</a>
+            {% endif %}
+
+            <div>
+                <h3>{{_('Featured')}}</h3>
+                <ul class="submissions clearfix">
+                    {% for submission in featured_submission_list %}
+                        <li class="submission">{{ submission_thumb(submission) }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div>
+                <h3>{{_('Demos')}}</h3>
+                <ul class="submissions clearfix">
+                    {% for submission in submission_list %}
+                        <li class="submission">{{ submission_thumb(submission) }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+
+        </section>{# /.boxed #}
+
+        </section>{# /#content-main #}
+
+        <aside id="content-sub" role="complementary">
+        </aside>{# /#content-sub #}
+
+    </div>
+</section>{# /#content #}
+
+{% endblock %}

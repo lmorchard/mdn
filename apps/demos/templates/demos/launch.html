@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <style type="text/css">
+            body { 
+                padding: 0; margin: 0; 
+            }
+            .navbar {
+                position: absolute; 
+                left: 0px; right: 0px; top: 0px; 
+                height: 25px; opacity: 0.75;
+                border-bottom: 1px solid #fff;
+                background: #fff;
+                z-index: 999;
+            }
+            form {
+                display: inline;
+            }
+            iframe.demo {
+                position: absolute; 
+                top: 0px; left: 0px; right: 0px; bottom: 0px; 
+                width: 100%; height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="navbar">
+            <a class="title" href="{{ submission.get_absolute_url() }}">{{ submission.title }}</a>
+            by 
+            <a class="author" href="{{ url('demos_profile_detail', username=submission.creator.username) }}">{{ submission.creator.username }}</a>
+            {% set likes = action_count_for_object_by_request('like', request, submission) %}
+            {% if likes > 0 %}
+                <span>Liked!</span>
+            {% else %}
+                <form action="{{ url('demos_like', slug=submission.slug) }}" method="POST">
+                    {{ csrf() }}
+                    <input class="like button" type="submit" value="{{_("like")}}"/>
+                </form>
+            {% endif %}
+        </div>
+
+        <iframe class="demo" border="no" frameborder="0" scrolling="auto"
+            src="{{ submission.demo_package.url.replace('.zip', '/demo.html') }}"></iframe>
+
+    </body>
+</html>

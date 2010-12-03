@@ -1,0 +1,97 @@
+{% extends "demos/base.html" %}
+
+{% block pageid %}demos{% endblock %}
+
+{% block bodyclass %}section-demos landing{% endblock %}
+
+{% block title %}{{ page_title(_('Web')) }}{% endblock %}
+
+{% block content %}
+
+<!--
+<header id="section-head">
+<div class="wrap">
+  <p class="intro">{{ _('Welcome to the Demos:') }}</p>
+  <h1 id="logo-demos" class="demos">{{ _('Demos') }}</h1>
+
+  <div class="util">
+    <p><strong>{{ _('Demos for an open and participatory Web.') }}</strong></p>
+    <ul>
+      <li class="util-twitter"><a href="http://twitter.com/mozhacks">{{ _('Twitter') }}</a></li>
+      <li class="util-rss"><a href="http://hacks.mozilla.org/feed/">{{ _('Subscribe') }}</a></li>
+      <li class="util-discuss"><a href="/forums/viewforum.php?f=4">{{ _('Join the Web discussions!') }}</a></li>
+    </ul>
+  </div>
+</div>
+</header>
+-->
+
+<section id="content">
+<div class="wrap sidebar">
+  <section id="content-main" role="main">
+
+    <section class="boxed">
+    
+      <div id="popular-docs" class="articles-list">
+        <header class="head section-moz">
+          {% if tag %}
+              <h2>{{ _('Demos tagged "{tag}"') | f(tag=tag_title(tag)) }}</h2>
+              <p>{{ tag_description(tag) }}</p>
+          {% else %}
+              <h2>{{ _('Browse All Demos') }}</h2>
+          {% endif %}
+        </header>
+
+        {% if related_tags %}
+            <div class="related_tags">
+                <ul class="tags clearfix">
+                    {% for tag in related_tags %}
+                        <li>
+                            <a href="{{ url('demos_tag', tag=tag.name) }}">{{ tag_title(tag) }}</a> 
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <ul class="submissions clearfix">
+            {% for submission in submission_list %}
+                <li class="submission">{{ submission_thumb(submission) }}</li>
+            {% endfor %}
+        </ul>
+
+        {% if is_paginated %}
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous() %}
+                        <a href="?page={{ page_obj.previous_page_number() }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ page_obj.number }} of {{ paginator.num_pages }}
+                    </span>
+
+                    {% if page_obj.has_next() %}
+                        <a href="?page={{ page_obj.next_page_number() }}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+        
+      </div>
+
+    </section>{# /.boxed #}
+
+  </section>{# /#content-main #}
+
+  {#
+  <aside id="content-sub" role="complementary">
+    {{ twitter(tweets, title=_('Correspondence on Twitter from the Web developer community.')) }}
+  </aside>
+  #}
+
+</div>
+</section>{# /#content #}
+
+{% endblock %}
+

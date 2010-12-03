@@ -1,0 +1,18 @@
+<div class="submission_thumb">
+    <div class="thumbnail">
+        {% if submission.screenshot_1 %}
+        {# HACK: This .replace() should probably be done in the model #}
+            {% set thumbnail_url = submission.screenshot_1.url.replace('screenshot','screenshot_thumb') %}
+        {% else %}
+            {% set thumbnail_url = MEDIA_URL + "img/mdn-logo.png" %}
+        {% endif %}
+        <a href="{{ submission.get_absolute_url() }}"><img src="{{thumbnail_url}}" width="133" height="100" alt="{{ submission.title }}" /></a>
+    </div>
+    <h4 class="title"><a href="{{ submission.get_absolute_url() }}">{{ submission.title }}</a></h4>
+    <h5 class="submitter_name">{{ submission_creator(submission) }}</h5>
+    <div class="meta">
+        <p class="likes">{{ action_count_for_object('like', submission) }}</p>
+        <p class="views">{{ action_count_for_object('launch', submission) }}</p>
+        <p class="downloads">{{ action_count_for_object('download', submission) }}</p>
+    </div>
+</div>

@@ -1,0 +1,147 @@
+{% extends "demos/base.html" %}
+{% set obj = submission %}
+
+{% block pageid %}demos{% endblock %}
+
+{% block bodyclass %}section-demos landing{% endblock %}
+
+{% block title %}{{ page_title(_('Web')) }}{% endblock %}
+
+{% macro li_field(form, field_name, classes='',image=False) %}
+    {% set field = form[field_name] %}
+    <li id="field_{{field_name}}" class="field {{ 'type_%s' % field.field.widget.input_type if field.field.widget.input_type }}{{ ' required' if field.field.required }}{{ ' error' if field.errors }} {{classes}}">
+        <label for="id_{{field_name}}">{{field.label}}</label>
+        {% if edit %}
+            {% if 'file' == field.field.widget.input_type and obj[field_name] %}
+                {% if image %}
+                    <img class="current_file" src="{{obj[field_name].url}}" />
+                {% else %}
+                    <span class="current_file">{{ obj[field_name] }}</span>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+        {{ field|safe }}
+        {{ field.errors|safe }}
+    </li>
+{% endmacro %}
+
+{% block content %}
+
+<section id="content">
+    <div class="wrap sidebar">
+        <section id="content-main" role="main">
+
+            <section class="boxed">
+
+                <header class="head section-moz">
+                    <h2>
+                        {% if edit %}
+                            {{_("Edit %s") % submission.title}}
+                        {% else %}
+                            {{_("Submit a demo")}}
+                        {% endif %}
+                    </h2>
+                    <p class="intro">{% trans %}
+                        Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit. Ut elementum erat quis leo
+                        placerat nec porta purus ornare.
+                    {% endtrans %}</p>
+
+                </header>
+
+                {% if not edit %}
+                <section class="checklist">
+                    <h3>Demo Checklist</h3>
+                    <ul>
+                        <li>Foo</li>
+                        <li>Bar</li>
+                        <li>Baz</li>
+                    </ul>
+                </section>
+                {% endif %}
+
+                <section class="form">
+                <form enctype="multipart/form-data" action="" method="POST">
+                    {{ csrf() }}
+
+                    <fieldset><legend>{{_('Describe your demo')}}</legend>
+                        <p class="intro">{% trans %}
+                            Lorem ipsum dolor sit amet, consectetur
+                            adipiscing elit. Ut elementum erat quis leo
+                            placerat nec porta purus ornare.
+                        {% endtrans %}</p>
+                        <ul>
+                            {{ li_field(form, 'title') }}
+                            {{ li_field(form, 'summary') }}
+                            {{ li_field(form, 'description') }}
+                            {{ li_field(form, 'tags', classes='clearfix') }}
+                            <li id="field_screenshots" class="field">
+                                <label>{{_('Provide at least one screenshot of your demo in action')}}</label>
+                                <ul class="screenshots">
+                                    {{ li_field(form, 'screenshot_1', image=True) }}
+                                    {{ li_field(form, 'screenshot_2', image=True) }}
+                                    {{ li_field(form, 'screenshot_3', image=True) }}
+                                    {{ li_field(form, 'screenshot_4', image=True) }}
+                                    {{ li_field(form, 'screenshot_5', image=True) }}
+                                </ul>
+                            </li>
+                            {{ li_field(form, 'video_url') }}
+                        </ul>
+                    </fieldset>
+
+                    <fieldset><legend>{{_('Provide the Source Code')}}</legend>
+                        <p class="intro">{% trans %}
+                            Lorem ipsum dolor sit amet, consectetur
+                            adipiscing elit. Ut elementum erat quis leo
+                            placerat nec porta purus ornare.
+                        {% endtrans %}</p>
+                        <ul>
+                            {{ li_field(form, 'demo_package') }}
+                            {{ li_field(form, 'source_code_url') }}
+                            {{ li_field(form, 'license_name') }}
+                        </ul>
+                    </fieldset>
+
+                        {% if not edit %}
+                        <fieldset>
+                            <p></p>
+                            <ul>
+                                {{ li_field(form, 'captcha') }}
+                                <li id="field_accept_terms" class="field{{ ' error' if form.accept_terms.errors }}">
+                                    <p>{{ form.accept_terms|safe }} 
+                                        <label for="id_accept_terms">{% trans %}
+                                            I accept the <a href="#">MDN Terms of Use</a> 
+                                            and <a href="#">Demo Gallery License Agreement</a>
+                                        {% endtrans %}</label></p>
+                                    {{ form.accept_terms.errors|safe }}
+                                </li>
+                            </ul>
+                        </fieldset>
+                        {% endif %}
+
+                        <div class="submit">
+                            {% if not edit %}
+                                <input type="submit" name="action_create" 
+                                    value="{{ _("Submit demo") }}" />
+                                <a href="{{ url('demos') }}">{{_('Discard Demo')}}</a>
+                            {% else %}
+                                <input type="submit" name="action_edit" 
+                                    value="{{ _("Save changes") }}" />
+                                <a href="{{ url('demos_detail', slug=submission.slug) }}">{{_('Discard Changes')}}</a>
+                            {% endif %}
+                        </div>
+
+                    </form>
+                </section>
+
+            </section>
+
+        </section>
+
+        <aside id="content-sub" role="complementary">
+        </aside>
+
+    </div>
+</section>
+
+{% endblock %}
