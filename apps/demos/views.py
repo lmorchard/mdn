@@ -63,6 +63,8 @@ def submit(request):
             new_sub.creator = request.user
             new_sub.slug = slugify(new_sub.title)
             new_sub.save()
+            # TODO: Process in a cronjob
+            new_sub.process_demo_package()
             return HttpResponseRedirect(reverse(
                 'demos.views.detail', args=(new_sub.slug,)))
 
@@ -76,12 +78,13 @@ def edit(request, slug):
     else:
         form = SubmissionForm(request.POST, request.FILES, instance=submission)
         if form.is_valid():
-            new_sub = form.save(commit=False)
-            new_sub.creator = request.user
-            new_sub.slug = slugify(new_sub.title)
-            new_sub.save()
+            sub = form.save(commit=False)
+            sub.slug = slugify(sub.title)
+            sub.save()
+            # TODO: Process in a cronjob
+            sub.process_demo_package()
             return HttpResponseRedirect(reverse(
-                'demos.views.detail', args=(new_sub.slug,)))
+                'demos.views.detail', args=(sub.slug,)))
 
     return jingo.render(request, 'demos/edit.html', { 'form': form })
 

@@ -1,11 +1,18 @@
 from datetime import datetime
 from time import strftime
-from os import unlink
-from os.path import dirname, isfile
+from os import unlink, makedirs
+from os.path import basename, dirname, isfile, isdir
+import re
+
+import logging
+
+import zipfile
+import tarfile
 
 from django.conf import settings
 
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
@@ -18,15 +25,15 @@ import tagging
 from tagging.fields import TagField
 from tagging.models import Tag
 
-#from threadedcomments.models import ThreadedComment
 
 def mk_upload_to(subpath):
     def upload_to(instance, filename):
         c_name = ( instance.creator and 
                 instance.creator.username or '_anon_' )
         return 'uploads/%s/%s/%s/%s' % ( 
-                subpath, strftime('%Y/%m'), c_name, filename )
+                strftime('%Y/%m'), c_name, subpath, filename )
     return upload_to
+
 
 class Submission(models.Model):
 
@@ -41,7 +48,7 @@ class Submission(models.Model):
 
     tags = TagField()
 
-    demo_package = models.ImageField(_('demo package (zip or tar.gz)'),
+    demo_package = models.FileField(_('demo package (.zip)'),
             upload_to=mk_upload_to('demo_package'),
             blank=False)
     screenshot = models.ImageField(_('screenshot'),
@@ -65,7 +72,76 @@ class Submission(models.Model):
     modified = models.DateTimeField( _('date last modified'), 
             auto_now=True, blank=False)
 
+    def __unicode__(self):
+        return "<Submission %(title)s %(fn)s>" % dict(
+            title=self.title, fn=self.demo_package )
+
     @models.permalink
     def get_absolute_url(self):
         return ('demos_detail', [self.slug]) 
+
+    def clean(self):
+
+        if self.demo_package:
+            try:
+                zf = zipfile.ZipFile(self.demo_package.file)
+            except:
+                raise ValidationError(
+                    _('Demo package is not a valid zip file'))
+
+            bad_file = zf.testzip()
+            if bad_file:
+                raise ValidationError(
+                    _('Demo package is corrupt'))
+
+            root_dir = self.get_demo_package_root()
+            if not root_dir:
+                raise ValidationError(
+                    _('Demo package does not contain demo.html'))
+
+            for name in zf.namelist():
+                if name.startswith('/') or '/..' in name:
+                    raise ValidationError(
+                        _('Demo package contains invalid file entries'))
+
+
+    def get_demo_package_root(self):
+        zf = zipfile.ZipFile(self.demo_package.file)
+        root_dir = None
+        root_re = re.compile(r'(?P<root_dir>[^/]+)/demo.html')
+        for name in zf.namelist():
+            m = root_re.match(name)
+            if m:
+                root_dir = m.group('root_dir')
+                break
+        return root_dir
+
+    def process_demo_package(self):
+
+        zf = zipfile.ZipFile(self.demo_package.file)
+        root_dir = self.get_demo_package_root()
+        new_root_dir = self.demo_package.path.replace('.zip','')
+
+        # Only accept non-empty files under the detected root directory that
+        # don't start with "."
+        valid_entries = [ x for x in zf.infolist() if 
+                x.filename.startswith('%s/' % root_dir) and 
+                not basename(x.filename).startswith('.') and
+                x.file_size > 0 ]
+
+        for zi in valid_entries:
+
+            # Relocate all files from detected root dir to a directory named
+            # for the zip file in storage
+            out_fn = zi.filename.replace('%s/'%root_dir, '%s/'%new_root_dir)
+            out_dir = dirname(out_fn)
+
+            # Create parent directories where necessary.
+            if not isdir(out_dir):
+                makedirs(out_dir, 0775)
+
+            # Extract the file from the zip into the desired location.
+            open(out_fn, 'w').write(zf.read(zi))
+
+
 
