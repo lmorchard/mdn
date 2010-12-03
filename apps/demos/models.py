@@ -69,7 +69,3 @@ class Submission(models.Model):
     def get_absolute_url(self):
         return ('demos_detail', [self.slug]) 
 
-    def save(self):
-
-        super(Submission, self).save()
-

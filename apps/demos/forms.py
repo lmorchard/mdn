@@ -12,6 +12,7 @@ from django.core import validators
 from django.core.exceptions import ValidationError
 #from uni_form.helpers import FormHelper, Submit, Reset
 from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from demos.models import Submission
 
@@ -108,13 +109,23 @@ class SubmissionForm(MyModelForm):
         )
 
     def clean(self):
-        cleaned_data = super(SubmissionForm, self).clean()
-        
-        scale_image(self.files, 'screenshot',
-            ( SCREENSHOT_MAX_WIDTH, SCREENSHOT_MAX_HEIGHT ) )
 
-        scale_image(self.files, 'thumbnail',
-            ( THUMBNAIL_MAX_WIDTH, THUMBNAIL_MAX_HEIGHT ) )
+        cleaned_data = super(SubmissionForm, self).clean()
+
+        if 'screenshot' in self.files and 'thumbnail' not in self.files:
+            sf = self.files['screenshot']
+            self.files['thumbnail'] = InMemoryUploadedFile(
+                ContentFile(sf.file.getvalue()), 'thumbnail',
+                sf.name, sf.content_type, sf.size, sf.charset)
+            self.cleaned_data['thumbnail'] = self.files['thumbnail']
+
+        if 'screenshot' in self.files:
+            scale_image(self.files, 'screenshot',
+                ( SCREENSHOT_MAX_WIDTH, SCREENSHOT_MAX_HEIGHT ) )
+
+        if 'thumbnail' in self.files:
+            scale_image(self.files, 'thumbnail',
+                ( THUMBNAIL_MAX_WIDTH, THUMBNAIL_MAX_HEIGHT ) )
 
         return cleaned_data
 
