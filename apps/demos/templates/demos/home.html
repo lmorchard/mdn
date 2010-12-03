@@ -47,12 +47,12 @@
 
             <div>
                 <h3>{{_('Top demos')}}</h3>
+                <p><a href="{{ url('demos_all') }}">{{_('Browse all demos')}}</a></p>
                 <ul class="submissions clearfix">
                     {% for submission in submission_list %}
                         <li class="submission">{{ submission_thumb(submission) }}</li>
                     {% endfor %}
                 </ul>
-                <p><a href="{{ url('demos_all') }}">{{_('Browse all demos')}}</a></p>
             </div>
 
         </div>

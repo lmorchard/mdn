@@ -20,7 +20,7 @@
           <h2>{{ _('Demo: {demo_title}')|f(demo_title=submission.title) }}</h2>
           <p>
               Submitted by 
-              {% if submission.submitter_url %}<a href="{{ submission.submitter_url }}">{% endif %}<span class="submitter">{{ submission.submitter_name }}</span>{% if submission.submitter_url %}</a>{% endif %},
+              {% if submission.submitter_url %}<a href="{{ submission.submitter_url }}">{% endif %}<span class="submitter">{{ submission.creator.username }}</span>{% if submission.submitter_url %}</a>{% endif %},
               {{ submission.created.date() | date_diff() }}
               {# at {{ submission.created.time() }} #}
               {% if request.user.is_authenticated() %}
