@@ -115,7 +115,7 @@ class SubmissionForm(MyModelForm):
         fields = (
             'title', 'description', 'tags',
             'demo_package', 'screenshot', 'thumbnail',
-            'launch_url', 'more_info_url', 'source_code_url',
+            'more_info_url', 'source_code_url',
         )
 
     def clean(self):

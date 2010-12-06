@@ -59,7 +59,7 @@ class Submission(models.Model):
             blank=True)
 
     launch_url = models.URLField(_("launch demo URL"),
-            verify_exists=False, blank=False)
+            verify_exists=False, blank=True)
     more_info_url = models.URLField(_("more information URL"),
             verify_exists=False, blank=True, null=True)
     source_code_url = models.URLField(_("source code URL"),
