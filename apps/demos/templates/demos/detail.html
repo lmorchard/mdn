@@ -43,6 +43,7 @@
             {% if submission.demo_package %}
                 {# TODO: This is a big fat hack - produce this link in the model? #}
                 <a class="launch_button" target="_new" href="{{ submission.demo_package.url.replace('.zip', '/demo.html') }}">Launch demo</a>
+                <a class="launch_button download_button" href="{{ submission.demo_package.url }}">Download source</a>
             {% endif %}
         </div>
 
