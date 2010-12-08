@@ -87,7 +87,7 @@
             <ul class="tags clearfix">
                 {% for tag in tags_for_object(submission) %}
                     <li>
-                        <a href="{{ url('demos_tag', tag=tag.name) }}">{{ tag.name }}</a> 
+                        <a href="{{ url('demos_tag', tag=tag.name) }}">{{ tag_title(tag) }}</a> 
                     </li>
                 {% endfor %}
             </ul>

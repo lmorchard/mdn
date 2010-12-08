@@ -5,6 +5,8 @@ import tarfile
 
 from django import forms
 
+from django.utils.encoding import smart_unicode, smart_str
+
 from django.conf import settings
 
 from django.utils.translation import ugettext_lazy as _
@@ -17,8 +19,13 @@ from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
-from demos.models import Submission
+from .models import Submission
 
+import django.forms.fields
+from django.forms.widgets import CheckboxSelectMultiple
+
+import tagging.forms
+from tagging.utils import parse_tag_input
 
 try:
     from cStringIO import StringIO
@@ -108,7 +115,41 @@ def scale_image(files, img_name, img_max_size):
     return True
 
 
+class ConstrainedTagWidget(CheckboxSelectMultiple):
+    """Checkbox select widget for set of TagDescription objects"""
+
+    def __init__(self, attrs=None, choices=()):
+        super(ConstrainedTagWidget, self).__init__(attrs)
+
+        if not choices:
+            from .models import TagDescription
+            choices = ( (x.tag_name, x.title) 
+                    for x in TagDescription.objects.all() )
+
+        self.choices = list(choices)
+
+    def render(self, name, value, attrs=None, choices=()):
+        if not isinstance(value, (list, tuple)):
+            value = parse_tag_input(value)
+        return super(ConstrainedTagWidget, self).render(
+                name, value, attrs, choices)
+
+
+class ConstrainedTagFormField(tagging.forms.TagField):
+    """Tag field that constrains its input to the set of available
+    TagDescription objects."""
+
+    widget = ConstrainedTagWidget
+
+    def clean(self, value):
+        # Concatenate the checkboxes into a string usable by the superclass,
+        # but skip superclass' clean() because we'll assume that TagDescription
+        # tag names don't exceed the intended MAX_TAG_LENGTH
+        return ','.join('"%s"' % x for x in value)
+
+
 class SubmissionForm(MyModelForm):
+    """Form accepting demo submissions"""
 
     class Meta:
         model = Submission

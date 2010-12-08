@@ -10,6 +10,8 @@ from tagging.utils import LINEAR, LOGARITHMIC
 
 from voting.models import Vote
 
+from .models import TagDescription
+
 
 @register.inclusion_tag('demos/elements/submissions_list.html')
 @jinja2.contextfunction
@@ -20,6 +22,22 @@ def submissions_list(context, submissions):
 @jinja2.contextfunction
 def submission_thumb(context, submission):
     return new_context(**locals())
+
+@register.function
+def tag_title(tag):
+    try:
+        desc = TagDescription.objects.get(tag_name=tag.name)
+        return desc.title
+    except TagDescription.DoesNotExist:
+        return tag.name
+
+@register.function
+def tag_description(tag):
+    try:
+        desc = TagDescription.objects.get(tag_name=tag.name)
+        return desc.description
+    except TagDescription.DoesNotExist:
+        return ''
 
 @register.function
 def tags_for_object(obj):

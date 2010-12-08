@@ -35,7 +35,8 @@
       <div id="popular-docs" class="articles-list">
         <header class="head section-moz">
           {% if tag %}
-              <h2>{{ _('Demos tagged "{tag}"') | f(tag=tag) }}</h2>
+              <h2>{{ _('Demos tagged "{tag}"') | f(tag=tag_title(tag)) }}</h2>
+              <p>{{ tag_description(tag) }}</p>
           {% else %}
               <h2>{{ _('Browse All Demos') }}</h2>
           {% endif %}
@@ -46,7 +47,7 @@
                 <ul class="tags clearfix">
                     {% for tag in related_tags %}
                         <li>
-                            <a href="{{ url('demos_tag', tag=tag.name) }}">{{ tag.name }}</a> 
+                            <a href="{{ url('demos_tag', tag=tag.name) }}">{{ tag_title(tag) }}</a> 
                         </li>
                     {% endfor %}
                 </ul>

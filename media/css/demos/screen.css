@@ -13,8 +13,13 @@
         padding: 6px 8px; width: 90%; border: 1px solid #CBC8B9;
     }
 #demos form fieldset ul li p.help { }
+
+#demos form fieldset ul li ul { margin: 1em 0.25em; }
+#demos form fieldset ul li ul li { float: left; }
+#demos form fieldset ul li ul li label { font-size: 80%; width: 16ex; white-space: nowrap; }
+
 #demos form fieldset ul li ul.errorlist { margin: 0; }
-#demos form fieldset ul li ul.errorlist li { color: red; font-size: 90%; }
+#demos form fieldset ul li ul.errorlist li { float: none; color: red; font-size: 90%; }
 
 #demos a.submit_demo {
     display: block; padding: 0.5em; margin: 0.5em;

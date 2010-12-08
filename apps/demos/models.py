@@ -22,6 +22,10 @@ from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
 
 import tagging
+import tagging.fields
+import tagging.models
+
+from tagging.utils import parse_tag_input
 from tagging.fields import TagField
 from tagging.models import Tag
 
@@ -35,7 +39,52 @@ def mk_upload_to(subpath):
     return upload_to
 
 
+class TagDescription(models.Model):
+    """Description of a tag"""
+    tag_name = models.CharField(_('name'), 
+            max_length=50, unique=True, db_index=True, primary_key=True)
+    title = models.CharField(_("title"), 
+            max_length=255, blank=False, unique=True)
+    description = models.TextField(_("description"), 
+            blank=True)
+
+
+class ConstrainedTagField(tagging.fields.TagField):
+    """Tag field constrained to described tags"""
+
+    def __init__(self, *args, **kwargs):
+        if 'max_tags' not in kwargs:
+            self.max_tags = 5
+        else:
+            self.max_tags = kwargs['max_tags']
+            del kwargs['max_tags']
+        super(ConstrainedTagField, self).__init__(*args, **kwargs)
+
+    def validate(self, value, instance):
+        tags = parse_tag_input(value)
+
+        if len(tags) > self.max_tags:
+            raise ValidationError(
+                    _('Maximum of %s tags allowed') % self.max_tags)
+
+        for tag_name in tags:
+            try:
+                # TODO: Maybe do just an existence check, rather than a get?
+                desc = TagDescription.objects.get(tag_name=tag_name)
+            except TagDescription.DoesNotExist:
+                raise ValidationError(
+                    _('Tag "%s" is not in the set of described tags' % 
+                        tag_name ))
+
+    def formfield(self, **kwargs):
+        from .forms import ConstrainedTagFormField
+        defaults = {'form_class': ConstrainedTagFormField}
+        defaults.update(kwargs)
+        return super(ConstrainedTagField, self).formfield(**defaults)
+
+
 class Submission(models.Model):
+    """Representation of a demo submission"""
 
     title = models.CharField(_("title"), 
             max_length=255, blank=False, unique=True)
@@ -46,7 +95,9 @@ class Submission(models.Model):
 
     featured = models.BooleanField()
 
-    tags = TagField()
+    tags = ConstrainedTagField(
+            _('select up to 5 tags that describe your demo'),
+            max_tags=5)
 
     demo_package = models.FileField(_('demo package (.zip)'),
             upload_to=mk_upload_to('demo_package'),
