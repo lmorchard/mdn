@@ -194,5 +194,3 @@ class Submission(models.Model):
             # Extract the file from the zip into the desired location.
             open(out_fn, 'w').write(zf.read(zi))
 
-
-

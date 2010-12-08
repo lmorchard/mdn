@@ -15,6 +15,8 @@ from devmo import (SECTION_USAGE, SECTION_ADDONS, SECTION_APPS, SECTION_MOBILE,
                    SECTION_WEB)
 from feeder.models import Bundle, Feed
 
+from django.contrib.auth.models import User
+
 from tagging.models import Tag, TaggedItem
 from tagging.utils import LINEAR, LOGARITHMIC
 
@@ -87,4 +89,9 @@ def edit(request, slug):
                 'demos.views.detail', args=(sub.slug,)))
 
     return jingo.render(request, 'demos/edit.html', { 'form': form })
+
+def profile_detail(request, username):
+    user = get_object_or_404(User, username=username)
+    return jingo.render(request, 'demos/profile_detail.html', dict(  
+        user=user))
 

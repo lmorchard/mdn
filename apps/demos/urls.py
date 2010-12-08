@@ -45,6 +45,9 @@ urlpatterns = patterns('demos.views',
         dict(slug_field='slug', model=Submission),
         name='demos_vote'),
 
+    url(r'^profile/(?P<username>[^/]+)/?$', 'profile_detail',
+        name="demos_profile_detail"),
+
 )
 
 urlpatterns += patterns('django.contrib.auth.views',
