@@ -52,6 +52,20 @@
             <p>{{ submission.description }}</p>
         </div>
 
+        <div class="info like">
+            {% set likes = action_count_for_object_by_request('like', request, submission) %}
+            <h4>Like:</h4>
+            {% if likes > 0 %}
+                <span>Liked!</span>
+            {% else %}
+                <form action="{{ url('demos_like', slug=submission.slug) }}" method="POST">
+                    {{ csrf() }}
+                    <input class="like button" type="submit" value="{{_("like")}}"
+                        {% if False %}disabled="disabled"{% endif %} />
+                </form>
+            {% endif %}
+        </div>
+
         <div class="info vote">
             <h4>Vote:</h4>
 

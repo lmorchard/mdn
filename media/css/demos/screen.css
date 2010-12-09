@@ -15,7 +15,7 @@
 #demos form fieldset ul li p.help { }
 
 #demos form fieldset ul li ul { margin: 1em 0.25em; }
-#demos form fieldset ul li ul li { float: left; }
+#demos form fieldset ul li ul li { float: left; margin: 0 0 0.25em 0 }
 #demos form fieldset ul li ul li label { font-size: 80%; width: 16ex; white-space: nowrap; }
 
 #demos form fieldset ul li ul.errorlist { margin: 0; }
@@ -47,8 +47,10 @@
 .submissions .submission .title { border: 0; margin: 0em; }
 .submissions .submission .submitter_name { border: 0; margin: 0em; font-size: 85%; font-weight: normal; }
 .submissions .submission .thumbnail { border: 0; margin: 0.5em; }
-.submissions .submission .score { font-size: 80%; margin: 0; padding: 0 }
+.submissions .submission .score { font-size: 80%; margin: 0; padding: 0; display: inline; }
 .submissions .submission .score:before { content: "\272d"; padding-right: 0.5ex; }
+.submissions .submission .likes { font-size: 80%; margin: 0; padding: 0; display: inline; }
+.submissions .submission .likes:before { content: "\263a"; padding-right: 0.5ex; font-size: 150%; }
 
 
 #content-main ul.tags { margin: 0em 0.5em 1em 0.5em; }
@@ -77,4 +79,5 @@
 #demo-detail .info { margin: 0 0 1.286em 340px; font-size: 0.857em; }
 #demo-detail .launch a.launch_button { display: block;  border: 3px solid #666; background: #eee; text-align: center; padding: 0.5em; font-weight: bold; }
 #demo-detail .launch a.launch_button:hover { border: 3px solid #333; background: #ddd; text-decoration: none; }
+
 

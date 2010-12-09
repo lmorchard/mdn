@@ -15,11 +15,17 @@ urlpatterns = patterns('demos.views',
     url(r'^$', 'home', 
         name='demos'),
 
+    url(r'^submit', 'submit', 
+        name='demos_submit'),
+
     url(r'^detail/(?P<slug>[^/]+)/?$', 'detail',
         name='demos_detail'),
 
-    url(r'^submit', 'submit', 
-        name='demos_submit'),
+    url(r'^detail/(?P<slug>[^/]+)/like$', 'like',
+        name='demos_like'),
+
+    url(r'^detail/(?P<slug>[^/]+)/launch$', 'launch',
+        name='demos_launch'),
     
     url(r'^detail/(?P<slug>[^/]+)/edit$', 'edit',
         name='demos_edit'),

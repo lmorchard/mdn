@@ -11,4 +11,5 @@
     <h4 class="title"><a href="{{ submission.get_absolute_url() }}">{{ submission.title }}</a></h4>
     <h5 class="submitter_name"><a href="{{ url('demos_profile_detail', username=submission.creator.username) }}">{{ submission.creator.username }}</a></h5>
     <p class="score">{{ score.score }}</p>
+    <p class="likes">{{ action_count_for_object('like', submission) }}</p>
 </div>

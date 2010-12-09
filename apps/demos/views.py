@@ -25,6 +25,8 @@ from voting.models import Vote
 from demos.models import Submission
 from demos.forms import SubmissionForm
 
+from demos.actioncounters.models import Action
+
 def _get_tweets():
     tweets = []
     for section in SECTION_USAGE:
@@ -52,6 +54,16 @@ def detail(request, slug):
     
     return jingo.render(request, 'demos/detail.html', {
         'tweets': _get_tweets(), 'submission': submission })
+
+def like(request, slug):
+    submission = get_object_or_404(Submission, slug=slug)
+    if request.method == "POST":
+        Action.objects['like'].increment(request=request, object=submission)
+    return HttpResponseRedirect(reverse(
+        'demos.views.detail', args=(submission.slug,)))
+
+def launch(request, slug):
+    """Demo launch view"""
 
 def submit(request):
     """Accept submission of a demo"""

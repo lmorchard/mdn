@@ -232,6 +232,7 @@ INSTALLED_APPS = (
     "tagging",
     "tagging_ext",
     
+    'demos.actioncounters',
     'demos',
 
     'cronjobs',
