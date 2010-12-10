@@ -62,8 +62,18 @@ def like(request, slug):
     return HttpResponseRedirect(reverse(
         'demos.views.detail', args=(submission.slug,)))
 
+def download(request, slug):
+    """Demo download with action counting"""
+    submission = get_object_or_404(Submission, slug=slug)
+    Action.objects['download'].increment(request=request, object=submission)
+    return HttpResponseRedirect(submission.demo_package.url)
+
 def launch(request, slug):
-    """Demo launch view"""
+    """Demo launch view with action counting"""
+    submission = get_object_or_404(Submission, slug=slug)
+    Action.objects['launch'].increment(request=request, object=submission)
+    return HttpResponseRedirect(
+            submission.demo_package.url.replace('.zip', '/demo.html'))
 
 def submit(request):
     """Accept submission of a demo"""

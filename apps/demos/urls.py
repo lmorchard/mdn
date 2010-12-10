@@ -24,6 +24,9 @@ urlpatterns = patterns('demos.views',
     url(r'^detail/(?P<slug>[^/]+)/like$', 'like',
         name='demos_like'),
 
+    url(r'^detail/(?P<slug>[^/]+)/download$', 'download',
+        name='demos_download'),
+
     url(r'^detail/(?P<slug>[^/]+)/launch$', 'launch',
         name='demos_launch'),
     
@@ -45,11 +48,6 @@ urlpatterns = patterns('demos.views',
              template_object_name='submission',
              template_name='demos/listing.html'),
         name='demos_tag'),
-
-    url(r'^detail/(?P<slug>[^/]+)/(?P<direction>up|down|clear)vote/?$', 
-        vote_on_object,
-        dict(slug_field='slug', model=Submission),
-        name='demos_vote'),
 
     url(r'^profile/(?P<username>[^/]+)/?$', 'profile_detail',
         name="demos_profile_detail"),

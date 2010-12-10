@@ -228,9 +228,7 @@ INSTALLED_APPS = (
     'feeder',
     'landing',
 
-    "voting",
     "tagging",
-    "tagging_ext",
     
     'demos.actioncounters',
     'demos',

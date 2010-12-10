@@ -41,9 +41,8 @@
 
         <div class="info launch">
             {% if submission.demo_package %}
-                {# TODO: This is a big fat hack - produce this link in the model? #}
-                <a class="launch_button" target="_new" href="{{ submission.demo_package.url.replace('.zip', '/demo.html') }}">Launch demo</a>
-                <a class="launch_button download_button" href="{{ submission.demo_package.url }}">Download source</a>
+                <a class="launch_button" target="_new" href="{{ url('demos_launch', slug=submission.slug) }}">Launch demo</a>
+                <a class="launch_button download_button" href="{{ url('demos_download', slug=submission.slug) }}">Download source</a>
             {% endif %}
         </div>
 
@@ -52,9 +51,14 @@
             <p>{{ submission.description }}</p>
         </div>
 
-        <div class="info like">
+        <div class="info meta">
+            <h4>Meta:</h4>
+            <div class="meta">
+                <p class="likes">{{ action_count_for_object('like', submission) }}</p>
+                <p class="views">{{ action_count_for_object('launch', submission) }}</p>
+                <p class="downloads">{{ action_count_for_object('download', submission) }}</p>
+            </div>
             {% set likes = action_count_for_object_by_request('like', request, submission) %}
-            <h4>Like:</h4>
             {% if likes > 0 %}
                 <span>Liked!</span>
             {% else %}
@@ -64,36 +68,6 @@
                         {% if False %}disabled="disabled"{% endif %} />
                 </form>
             {% endif %}
-        </div>
-
-        <div class="info vote">
-            <h4>Vote:</h4>
-
-            {% set score = vote_score_for_object(submission) %}
-            <div class="score">{{ score.score }} by {{ score.num_votes }} people</div>
-
-            {% if request.user.is_authenticated() %}
-            {% set vote = vote_by_user_for_object(request.user, submission) %}
-            <div class="vote_actions">
-
-                <form action="{{ url('demos_vote', slug=submission.slug, direction="down") }}" method="POST">
-                    {{ csrf() }}
-                    <input class="downvote button" type="submit" value="{{_("-1")}}"
-                        {% if vote and vote.is_downvote() %}disabled="disabled"{% endif %} />
-                </form>
-                <form action="{{ url('demos_vote', slug=submission.slug, direction="clear") }}" method="POST">
-                    {{ csrf() }}
-                    <input class="novote button" type="submit" value="{{_("0")}}" 
-                        {% if not vote or not vote.vote %}disabled="disabled"{% endif %}  />
-                </form>
-                <form action="{{ url('demos_vote', slug=submission.slug, direction="up") }}" method="POST">
-                    {{ csrf() }}
-                    <input class="upvote button" type="submit" value="{{_("+1")}}" 
-                        {% if vote and vote.is_upvote() %}disabled="disabled"{% endif %}  />
-                </form>
-            </div>
-            {% endif %}
-
         </div>
 
         <div class="info tags">

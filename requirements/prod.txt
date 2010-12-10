@@ -32,6 +32,4 @@ lockfile==0.8
 
 # Misc
 django-tagging==0.3.1
--e git+git://github.com/pydanny/django-tagging-ext.git#egg=django-tagging-ext
 django-threadedcomments==0.5.2
-django-voting==0.1
