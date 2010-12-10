@@ -36,16 +36,11 @@ def _get_tweets():
 
 def home(request):
     """Home page."""
-    
-    top_list = Vote.objects.get_top(Submission, 25)
-    submissions = [ x[0] for x in top_list ]
-    scores = [ x[1] for x in top_list ]
-    
-    login_form = AuthenticationForm()
+    featured_submissions = Submission.objects.all().filter(featured=True)[:15]
+    submissions = Submission.objects.all()[:15]
 
     return jingo.render(request, 'demos/home.html', {
-        'login_form': login_form,
-        'tweets': _get_tweets(), 
+        'featured_submission_list': featured_submissions,
         'submission_list': submissions })
 
 def detail(request, slug):
@@ -53,7 +48,7 @@ def detail(request, slug):
     submission = get_object_or_404(Submission, slug=slug)
     
     return jingo.render(request, 'demos/detail.html', {
-        'tweets': _get_tweets(), 'submission': submission })
+        'submission': submission })
 
 def like(request, slug):
     submission = get_object_or_404(Submission, slug=slug)
@@ -72,8 +67,8 @@ def launch(request, slug):
     """Demo launch view with action counting"""
     submission = get_object_or_404(Submission, slug=slug)
     Action.objects['launch'].increment(request=request, object=submission)
-    return HttpResponseRedirect(
-            submission.demo_package.url.replace('.zip', '/demo.html'))
+    return jingo.render(request, 'demos/launch.html', {
+        'submission': submission })
 
 def submit(request):
     """Accept submission of a demo"""

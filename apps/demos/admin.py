@@ -10,7 +10,7 @@ admin.site.register(TagDescription, TagDescriptionAdmin)
 
 
 class SubmissionAdmin(admin.ModelAdmin):
-    list_display = ( 'creator', 'title', 'featured', 'tags', 'modified', )
+    list_display = ( 'title', 'creator', 'featured', 'tags', 'modified', )
 
 admin.site.register(Submission, SubmissionAdmin)
 

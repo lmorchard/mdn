@@ -46,8 +46,16 @@
             {% endif %}
 
             <div>
-                <h3>{{_('Top demos')}}</h3>
-                <p><a href="{{ url('demos_all') }}">{{_('Browse all demos')}}</a></p>
+                <h3>{{_('Featured')}}</h3>
+                <ul class="submissions clearfix">
+                    {% for submission in featured_submission_list %}
+                        <li class="submission">{{ submission_thumb(submission) }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div>
+                <h3>{{_('Demos')}}</h3>
                 <ul class="submissions clearfix">
                     {% for submission in submission_list %}
                         <li class="submission">{{ submission_thumb(submission) }}</li>
@@ -62,7 +70,6 @@
         </section>{# /#content-main #}
 
         <aside id="content-sub" role="complementary">
-        {{ twitter(tweets, title=_('Correspondence on Twitter from the Web developer community.')) }}
         </aside>{# /#content-sub #}
 
     </div>

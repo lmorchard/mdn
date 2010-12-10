@@ -33,10 +33,7 @@
 #demos .auth form input[type="text"],
 #demos .auth form input[type="password"] { width: 8ex; }
 
-.submissions { 
-    margin: 1em; padding: 0.25em; border: 1px solid #666; 
-    text-align: center;
-}
+.submissions { margin: 0.25em; padding: 0em; text-align: center; }
 #content-main ul.submissions li.submission { 
     padding: 0.25em 0.5em; background: transparent; 
 }

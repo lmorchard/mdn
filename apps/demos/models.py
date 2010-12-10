@@ -86,11 +86,16 @@ class ConstrainedTagField(tagging.fields.TagField):
 class Submission(models.Model):
     """Representation of a demo submission"""
 
-    title = models.CharField(_("title"), 
+    title = models.CharField(
+            _("what is your demo's name?"), 
             max_length=255, blank=False, unique=True)
     slug = models.SlugField(_("slug"), 
             blank=False, unique=True)
-    description = models.TextField(_("description"), 
+    summary = models.CharField(
+            _("describe your demo in one line"),
+            max_length=255, blank=False)
+    description = models.TextField(
+            _("describe your demo in more detail (optional)"), 
             blank=True)
 
     featured = models.BooleanField()
@@ -99,21 +104,26 @@ class Submission(models.Model):
             _('select up to 5 tags that describe your demo'),
             max_tags=5)
 
-    demo_package = models.FileField(_('demo package (.zip)'),
-            upload_to=mk_upload_to('demo_package'),
-            blank=False)
-    screenshot = models.ImageField(_('screenshot'),
+    screenshot = models.ImageField(
+            _('provide at least one screenshot of your demo in action'),
             upload_to=mk_upload_to('screenshot'),
             blank=False)
-    thumbnail = models.ImageField(_('thumbnail'),
+    thumbnail = models.ImageField(
+            _('thumbnail'),
             upload_to=mk_upload_to('thumbnail'),
             blank=True)
 
-    launch_url = models.URLField(_("launch demo URL"),
-            verify_exists=False, blank=True)
-    more_info_url = models.URLField(_("more information URL"),
+    video_url = models.URLField(
+            _("have a video of your demo in action? (optional)"),
             verify_exists=False, blank=True, null=True)
-    source_code_url = models.URLField(_("source code URL"),
+
+    demo_package = models.FileField(
+            _('select a ZIP file containing your demo'),
+            upload_to=mk_upload_to('demo_package'),
+            blank=False)
+
+    source_code_url = models.URLField(
+            _("is your source code hosted online? (optional)"),
             verify_exists=False, blank=True, null=True)
 
     creator = models.ForeignKey(User, blank=False)
