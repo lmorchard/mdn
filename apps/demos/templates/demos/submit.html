@@ -153,7 +153,7 @@
                             {% else %}
                                 <input type="submit" name="action_edit" 
                                     value="{{ _("Save changes") }}" />
-                                <a href="{{ url('demos') }}">{{_('Discard Changes')}}</a>
+                                <a href="{{ url('demos_detail', slug=submission.slug) }}">{{_('Discard Changes')}}</a>
                             {% endif %}
                         </div>
 

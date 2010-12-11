@@ -72,12 +72,16 @@ def submit(request):
     else:
         form = SubmissionNewForm(request.POST, request.FILES)
         if form.is_valid():
+            
             new_sub = form.save(commit=False)
             new_sub.creator = request.user
             new_sub.slug = slugify(new_sub.title)
             new_sub.save()
-            # TODO: Process in a cronjob
+            
+            # TODO: Process in a cronjob?
+            new_sub.generate_thumbnails()
             new_sub.process_demo_package()
+
             return HttpResponseRedirect(reverse(
                     'demos.views.detail', args=(new_sub.slug,)))
 
@@ -92,11 +96,15 @@ def edit(request, slug):
     else:
         form = SubmissionEditForm(request.POST, request.FILES, instance=submission)
         if form.is_valid():
+
             sub = form.save(commit=False)
             sub.slug = slugify(sub.title)
             sub.save()
-            # TODO: Process in a cronjob
+            
+            # TODO: Process in a cronjob?
+            sub.generate_thumbnails()
             sub.process_demo_package()
+            
             return HttpResponseRedirect(reverse(
                     'demos.views.detail', args=(sub.slug,)))
 

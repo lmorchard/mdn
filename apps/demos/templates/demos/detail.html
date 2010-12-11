@@ -26,8 +26,8 @@
         </header>
 
         <div class="screenshot">
-            {% if submission.screenshot %}
-                {% set screenshot_url = submission.screenshot.url %}
+            {% if submission.screenshot_1 %}
+                {% set screenshot_url = submission.screenshot_1.url %}
             {% else %}
                 {% set screenshot_url = MEDIA_URL + "img/mdn-logo.png" %}
             {% endif %}

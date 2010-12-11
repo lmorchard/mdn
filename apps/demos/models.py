@@ -2,6 +2,7 @@ from datetime import datetime
 from time import strftime
 from os import unlink, makedirs
 from os.path import basename, dirname, isfile, isdir
+from shutil import rmtree
 import re
 
 import logging
@@ -16,6 +17,7 @@ from django.utils.encoding import smart_unicode, smart_str
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models.fields.files import FieldFile, ImageFieldFile
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 from django.template.loader import render_to_string
@@ -30,6 +32,20 @@ import tagging.models
 from tagging.utils import parse_tag_input
 from tagging.fields import TagField
 from tagging.models import Tag
+
+from . import scale_image
+
+
+try:
+    from PIL import Image
+except ImportError:
+    import Image
+
+
+THUMBNAIL_MAXW = getattr(settings, 'DEMO_THUMBNAIL_MAX_WIDTH', 133)
+THUMBNAIL_MAXH = getattr(settings, 'DEMO_THUMBNAIL_MAX_HEIGHT', 100)
+
+RESIZE_METHOD = getattr(settings, 'RESIZE_METHOD', Image.ANTIALIAS)
 
 
 def get_licenses():
@@ -49,15 +65,6 @@ def get_licenses():
         "publicdomain": _("Public Domain"),
         "other": _("Other (N/A)"),
     }
-
-
-def mk_upload_to(subpath):
-    def upload_to(instance, filename):
-        c_name = ( instance.creator and 
-                instance.creator.username or '_anon_' )
-        return 'uploads/%s/%s/%s/%s' % ( 
-                strftime('%Y/%m'), c_name, subpath, filename )
-    return upload_to
 
 
 class TagDescription(models.Model):
@@ -106,6 +113,49 @@ class ConstrainedTagField(tagging.fields.TagField):
         return super(ConstrainedTagField, self).formfield(**defaults)
 
 
+class OverwritingFieldFile(FieldFile):
+    """The built-in FieldFile alters the filename when saving, if a file with
+    that name already exists. This subclass deletes an existing file first so
+    that an upload will replace it."""
+    def save(self, name, content, save=True):
+        name = self.field.generate_filename(self.instance, name)
+        self.storage.delete(name)
+        super(OverwritingFieldFile, self).save(name,content,save)
+    
+
+class OverwritingFileField(models.FileField):
+    """This field causes an uploaded file to replace an existing one on disk."""
+    attr_class = OverwritingFieldFile
+
+
+class OverwritingImageFieldFile(ImageFieldFile):
+    """The built-in FieldFile alters the filename when saving, if a file with
+    that name already exists. This subclass deletes an existing file first so
+    that an upload will replace it."""
+    def save(self, name, content, save=True):
+        name = self.field.generate_filename(self.instance, name)
+        self.storage.delete(name)
+        super(OverwritingImageFieldFile, self).save(name,content,save)
+    
+
+class OverwritingImageField(models.ImageField):
+    """This field causes an uploaded file to replace an existing one on disk."""
+    attr_class = OverwritingImageFieldFile
+
+
+def mk_upload_to(field_fn):
+     def upload_to(instance, filename):
+         c_name = ( instance.creator and 
+                 instance.creator.username or '_anon_' )
+         return 'uploads/demos/%(h1)s/%(h2)s/%(username)s/%(slug)s/%(field_fn)s' % dict( 
+             h1=c_name[0],
+             h2=c_name[1],
+             username=c_name,
+             slug=instance.slug,
+             field_fn=field_fn)
+     return upload_to
+
+
 class Submission(models.Model):
     """Representation of a demo submission"""
 
@@ -127,29 +177,29 @@ class Submission(models.Model):
             _('select up to 5 tags that describe your demo'),
             max_tags=5)
 
-    screenshot_1 = models.ImageField(
+    screenshot_1 = OverwritingImageField(
             _('Screenshot #1'),
-            upload_to=mk_upload_to('screenshot_1'), blank=False)
-    screenshot_2 = models.ImageField(
+            upload_to=mk_upload_to('screenshot_1.png'), blank=False)
+    screenshot_2 = OverwritingImageField(
             _('Screenshot #2'),
-            upload_to=mk_upload_to('screenshot_2'), blank=True)
-    screenshot_3 = models.ImageField(
+            upload_to=mk_upload_to('screenshot_2.png'), blank=True)
+    screenshot_3 = OverwritingImageField(
             _('Screenshot #3'),
-            upload_to=mk_upload_to('screenshot_3'), blank=True)
-    screenshot_4 = models.ImageField(
+            upload_to=mk_upload_to('screenshot_3.png'), blank=True)
+    screenshot_4 = OverwritingImageField(
             _('Screenshot #4'),
-            upload_to=mk_upload_to('screenshot_4'), blank=True)
-    screenshot_5 = models.ImageField(
+            upload_to=mk_upload_to('screenshot_4.png'), blank=True)
+    screenshot_5 = OverwritingImageField(
             _('Screenshot #5'),
-            upload_to=mk_upload_to('screenshot_5'), blank=True)
+            upload_to=mk_upload_to('screenshot_5.png'), blank=True)
 
     video_url = models.URLField(
             _("have a video of your demo in action? (optional)"),
             verify_exists=False, blank=True, null=True)
 
-    demo_package = models.FileField(
+    demo_package = OverwritingFileField(
             _('select a ZIP file containing your demo'),
-            upload_to=mk_upload_to('demo_package'),
+            upload_to=mk_upload_to('demo_package.zip'),
             blank=False)
     source_code_url = models.URLField(
             _("is your source code hosted online? (optional)"),
@@ -199,7 +249,7 @@ class Submission(models.Model):
             if bad_file:
                 raise ValidationError(
                     _('Demo package is corrupt'))
-
+            
             root_dir = self.get_demo_package_root()
             if not root_dir:
                 raise ValidationError(
@@ -209,7 +259,6 @@ class Submission(models.Model):
                 if name.startswith('/') or '/..' in name:
                     raise ValidationError(
                         _('Demo package contains invalid file entries'))
-
 
     def get_demo_package_root(self):
         zf = zipfile.ZipFile(self.demo_package.file)
@@ -222,11 +271,33 @@ class Submission(models.Model):
                 break
         return root_dir
 
+    def generate_thumbnails(self):
+
+        for idx in range(1, 6):
+
+            name = 'screenshot_%s' % idx
+            field = getattr(self, name)
+            if not field: continue
+
+            try:
+                thumb_name = field.name.replace('screenshot','screenshot_thumb')
+                scaled_file = scale_image(field.file, (THUMBNAIL_MAXW, THUMBNAIL_MAXH))
+                if scaled_file:
+                    field.storage.delete(thumb_name)
+                    field.storage.save(thumb_name, scaled_file)
+            except:
+                pass
+
     def process_demo_package(self):
 
         zf = zipfile.ZipFile(self.demo_package.file)
         root_dir = self.get_demo_package_root()
+
+        # Derive a directory name from the zip filename, clean up any existing
+        # directory before unpacking.
         new_root_dir = self.demo_package.path.replace('.zip','')
+        if isdir(new_root_dir):
+            rmtree(new_root_dir)
 
         # Only accept non-empty files under the detected root directory that
         # don't start with "."

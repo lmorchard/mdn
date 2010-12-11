@@ -1,7 +1,8 @@
 <div class="submission_thumb">
     <div class="thumbnail">
-        {% if submission.thumbnail %}
-            {% set thumbnail_url = submission.thumbnail.url %}
+        {% if submission.screenshot_1 %}
+        {# HACK: This .replace() should probably be done in the model #}
+            {% set thumbnail_url = submission.screenshot_1.url.replace('screenshot','screenshot_thumb') %}
         {% else %}
             {% set thumbnail_url = MEDIA_URL + "img/mdn-logo.png" %}
         {% endif %}
