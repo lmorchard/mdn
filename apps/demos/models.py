@@ -21,6 +21,7 @@ from django.db.models.fields.files import FieldFile, ImageFieldFile
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 from django.template.loader import render_to_string
+from django.template.defaultfilters import slugify
 
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
@@ -232,36 +233,43 @@ class Submission(models.Model):
         return "<Submission %(title)s %(fn)s>" % dict(
             title=self.title, fn=self.demo_package )
 
+    @classmethod
+    def validate_demo_zipfile(cls, file):
+        """Ensure a given file is a valid ZIP file without disallowed file
+        entries and with an HTML index."""
+        try:
+            zf = zipfile.ZipFile(file)
+        except:
+            raise ValidationError(_('Valid ZIP file is required'))
+
+        if zf.testzip():
+            raise ValidationError(_('ZIP file corrupted'))
+        
+        index_found = False
+        for name in zf.namelist():
+            if 'index.html' in name or 'demo.html' in name:
+                index_found = True
+            if name.startswith('/') or '/..' in name:
+                raise ValidationError(_('ZIP file contains invalid entries'))
+        
+        if not index_found:
+            raise ValidationError(_('HTML index not found in ZIP'))
+
     @models.permalink
     def get_absolute_url(self):
         return ('demos_detail', [self.slug]) 
 
+    def save(self):
+        """Save the submission, updating slug and screenshot thumbnails"""
+        self.slug = slugify(self.title)
+        super(Submission,self).save()
+        self.update_thumbnails()
+
     def clean(self):
-
         if self.demo_package:
-            try:
-                zf = zipfile.ZipFile(self.demo_package.file)
-            except:
-                raise ValidationError(
-                    _('Demo package is not a valid zip file'))
+            Submission.validate_demo_zipfile(self.demo_package)
 
-            bad_file = zf.testzip()
-            if bad_file:
-                raise ValidationError(
-                    _('Demo package is corrupt'))
-            
-            root_dir = self.get_demo_package_root()
-            if not root_dir:
-                raise ValidationError(
-                    _('Demo package does not contain demo.html'))
-
-            for name in zf.namelist():
-                if name.startswith('/') or '/..' in name:
-                    raise ValidationError(
-                        _('Demo package contains invalid file entries'))
-
-    def get_demo_package_root(self):
-        zf = zipfile.ZipFile(self.demo_package.file)
+    def get_demo_package_root(self, zf):
         root_dir = None
         root_re = re.compile(r'(?P<root_dir>[^/]+)/demo.html')
         for name in zf.namelist():
@@ -271,8 +279,8 @@ class Submission(models.Model):
                 break
         return root_dir
 
-    def generate_thumbnails(self):
-
+    def update_thumbnails(self):
+        """Update thumbnails to accompany full-size screenshots"""
         for idx in range(1, 6):
 
             name = 'screenshot_%s' % idx
@@ -280,18 +288,21 @@ class Submission(models.Model):
             if not field: continue
 
             try:
+                # TODO: Only update thumbnail if source image has changed / is newer
                 thumb_name = field.name.replace('screenshot','screenshot_thumb')
                 scaled_file = scale_image(field.file, (THUMBNAIL_MAXW, THUMBNAIL_MAXH))
                 if scaled_file:
                     field.storage.delete(thumb_name)
                     field.storage.save(thumb_name, scaled_file)
             except:
+                # TODO: Had some exceptions here related to scaling that
+                # nonetheless resulted in an updated thumbnail. Investigate further.
                 pass
 
     def process_demo_package(self):
 
         zf = zipfile.ZipFile(self.demo_package.file)
-        root_dir = self.get_demo_package_root()
+        root_dir = self.get_demo_package_root(zf)
 
         # Derive a directory name from the zip filename, clean up any existing
         # directory before unpacking.

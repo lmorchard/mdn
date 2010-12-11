@@ -120,6 +120,13 @@ class SubmissionEditForm(MyModelForm):
     def clean(self):
         cleaned_data = super(SubmissionEditForm, self).clean()
 
+        if 'demo_package' in self.files:
+            try:
+                demo_package = self.files['demo_package']
+                Submission.validate_demo_zipfile(demo_package)
+            except ValidationError, e:
+                self._errors['demo_package'] = self.error_class(e.messages)
+
         # TODO: Should this be moved to model class?
         for idx in range(1, 6):
             name = 'screenshot_%s' % idx

@@ -30,8 +30,8 @@ from demos.actioncounters.models import Action
 
 def home(request):
     """Home page."""
-    featured_submissions = Submission.objects.all().filter(featured=True)[:15]
-    submissions = Submission.objects.all()[:15]
+    featured_submissions = Submission.objects.order_by('-modified').all().filter(featured=True)[:15]
+    submissions = Submission.objects.order_by('-modified').all()[:15]
 
     return jingo.render(request, 'demos/home.html', {
         'featured_submission_list': featured_submissions,
@@ -74,12 +74,11 @@ def submit(request):
         if form.is_valid():
             
             new_sub = form.save(commit=False)
-            new_sub.creator = request.user
-            new_sub.slug = slugify(new_sub.title)
+            if request.user.is_authenticated():
+                new_sub.creator = request.user
             new_sub.save()
             
             # TODO: Process in a cronjob?
-            new_sub.generate_thumbnails()
             new_sub.process_demo_package()
 
             return HttpResponseRedirect(reverse(
@@ -98,11 +97,9 @@ def edit(request, slug):
         if form.is_valid():
 
             sub = form.save(commit=False)
-            sub.slug = slugify(sub.title)
             sub.save()
             
             # TODO: Process in a cronjob?
-            sub.generate_thumbnails()
             sub.process_demo_package()
             
             return HttpResponseRedirect(reverse(
