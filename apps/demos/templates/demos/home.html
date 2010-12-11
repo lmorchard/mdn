@@ -41,9 +41,7 @@
                 {% endif %}
             </div>
 
-            {% if request.user.is_authenticated() %}
             <a class="submit_demo" href="{{ url('demos_submit') }}">Submit a new demo</a>
-            {% endif %}
 
             <div>
                 <h3>{{_('Featured')}}</h3>

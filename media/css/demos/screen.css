@@ -1,25 +1,37 @@
 /** Styles for demos section */
 
 #demos form { }
-#demos form fieldset { }
+#demos form fieldset {border: 1px solid #ccc; padding: 0em; margin: 1em 0 1em 0;}
+#demos form fieldset legend { font: 200 1.285em/1.1 "League Gothic",Haettenschweiler,sans-serif; letter-spacing: 0.5px;
+    margin: 0px 1em 0px 1em; 
+    text-transform: uppercase; }
+#demos form fieldset p.intro { 
+    margin: 1em 1em 1em 1em; 
+
+}
 #demos form fieldset ul { }
-#demos form fieldset ul li { background: transparent; margin-bottom: 1em; }
-#demos form fieldset ul li label { display: block; }
+#demos form fieldset ul li { background: transparent; margin-bottom: 1em; padding: 0 0 0 0; }
+#demos form fieldset ul li.field { padding-left: 1em; }
+#demos form fieldset ul li.error { background: #fee; }
+#demos form fieldset ul li label { display: block; font-size: 90%; font-weight: bold; }
+#demos form fieldset ul li p label { display: inline; font-size: 100%; font-weight: normal; }
 #demos form fieldset ul li input { }
 #demos form fieldset ul li input[type="text"], 
     #demos form fieldset ul li input[type="password"], 
     #demos form fieldset ul li input[type="search"], 
     #demos form fieldset ul li textarea { 
-        padding: 6px 8px; width: 90%; border: 1px solid #CBC8B9;
+        padding: 6px 8px; width: 95%; border: 1px solid #CBC8B9;
     }
 #demos form fieldset ul li p.help { }
 
-#demos form fieldset ul li ul { margin: 1em 0.25em; }
-#demos form fieldset ul li ul li { float: left; margin: 0 0 0.25em 0 }
-#demos form fieldset ul li ul li label { font-size: 80%; width: 16ex; white-space: nowrap; }
-
 #demos form fieldset ul li ul.errorlist { margin: 0; }
 #demos form fieldset ul li ul.errorlist li { float: none; color: red; font-size: 90%; }
+
+#demos form fieldset ul li#field_tags ul { margin: 1em 0.25em; }
+#demos form fieldset ul li#field_tags ul li { float: left; margin: 0.25em 1em 0.25em 1em }
+#demos form fieldset ul li#field_tags ul li label { font-weight: normal; font-size: 80%; width: 16ex; white-space: nowrap; }
+
+#demos form fieldset ul li#field_screenshots ul.screenshots { margin: 1em 0 1em 2em; }
 
 #demos a.submit_demo {
     display: block; padding: 0.5em; margin: 0.5em;
@@ -77,5 +89,7 @@
 #demo-detail .info { margin: 0 0 1.286em 340px; font-size: 0.857em; }
 #demo-detail .launch a.launch_button { display: block;  border: 3px solid #666; background: #eee; text-align: center; padding: 0.5em; font-weight: bold; }
 #demo-detail .launch a.launch_button:hover { border: 3px solid #333; background: #ddd; text-decoration: none; }
+
+
 
 

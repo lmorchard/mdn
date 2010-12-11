@@ -11,6 +11,8 @@ import tarfile
 
 from django.conf import settings
 
+from django.utils.encoding import smart_unicode, smart_str
+
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -28,6 +30,25 @@ import tagging.models
 from tagging.utils import parse_tag_input
 from tagging.fields import TagField
 from tagging.models import Tag
+
+
+def get_licenses():
+    return {
+        "cc-by-sa": _("CC-BY-SA Creative Commons Attribution-ShareAlike 3.0 [DEFAULT]"),
+        "cc-by": _("CC-BY Creative Commons Attribution 3.0"),
+        "cc-by-no": _("CC-BY-NO Creative Commons Attribution-NonCommercial 3.0"),
+        "cc-by-no-sa": _("CC-BY-NO-SA Createive Commons Attribution-NonCommercial-ShareAlike 3.0"),
+        "mpl": _("MPL/GPL/LGPL"),
+        "gpl": _("GPL"),
+        "lgpl": _("LGPL"),
+        "bsd": _("BSD"),
+        "apache": _("Apache"),
+        "agpl": _("AGPL"),
+        "cc-by-nd": _("CC-BY-ND Creative Commons Attribution-NonCommercial-NoDervis"),
+        "cc-by-no-nd": _("CC-BY-NO-ND Creative Commons Attribution-NoDervis"),
+        "publicdomain": _("Public Domain"),
+        "other": _("Other (N/A)"),
+    }
 
 
 def mk_upload_to(subpath):
@@ -61,20 +82,22 @@ class ConstrainedTagField(tagging.fields.TagField):
         super(ConstrainedTagField, self).__init__(*args, **kwargs)
 
     def validate(self, value, instance):
-        tags = parse_tag_input(value)
 
-        if len(tags) > self.max_tags:
-            raise ValidationError(
-                    _('Maximum of %s tags allowed') % self.max_tags)
+        if not isinstance(value, (list, tuple)):
+            value = parse_tag_input(value)
 
-        for tag_name in tags:
+        if len(value) > self.max_tags:
+            raise ValidationError(_('Maximum of %s tags allowed') % 
+                    (self.max_tags))
+
+        for tag_name in value:
             try:
                 # TODO: Maybe do just an existence check, rather than a get?
                 desc = TagDescription.objects.get(tag_name=tag_name)
             except TagDescription.DoesNotExist:
                 raise ValidationError(
-                    _('Tag "%s" is not in the set of described tags' % 
-                        tag_name ))
+                    _('Tag "%s" is not in the set of described tags') % 
+                        (tag_name))
 
     def formfield(self, **kwargs):
         from .forms import ConstrainedTagFormField
@@ -104,14 +127,21 @@ class Submission(models.Model):
             _('select up to 5 tags that describe your demo'),
             max_tags=5)
 
-    screenshot = models.ImageField(
-            _('provide at least one screenshot of your demo in action'),
-            upload_to=mk_upload_to('screenshot'),
-            blank=False)
-    thumbnail = models.ImageField(
-            _('thumbnail'),
-            upload_to=mk_upload_to('thumbnail'),
-            blank=True)
+    screenshot_1 = models.ImageField(
+            _('Screenshot #1'),
+            upload_to=mk_upload_to('screenshot_1'), blank=False)
+    screenshot_2 = models.ImageField(
+            _('Screenshot #2'),
+            upload_to=mk_upload_to('screenshot_2'), blank=True)
+    screenshot_3 = models.ImageField(
+            _('Screenshot #3'),
+            upload_to=mk_upload_to('screenshot_3'), blank=True)
+    screenshot_4 = models.ImageField(
+            _('Screenshot #4'),
+            upload_to=mk_upload_to('screenshot_4'), blank=True)
+    screenshot_5 = models.ImageField(
+            _('Screenshot #5'),
+            upload_to=mk_upload_to('screenshot_5'), blank=True)
 
     video_url = models.URLField(
             _("have a video of your demo in action? (optional)"),
@@ -121,12 +151,27 @@ class Submission(models.Model):
             _('select a ZIP file containing your demo'),
             upload_to=mk_upload_to('demo_package'),
             blank=False)
-
     source_code_url = models.URLField(
             _("is your source code hosted online? (optional)"),
             verify_exists=False, blank=True, null=True)
+    license_name = models.CharField(
+            _("select a license for your source code"),
+            max_length=64, blank=False, choices=get_licenses().items())
 
     creator = models.ForeignKey(User, blank=False)
+    
+    creator_name = models.CharField(
+            _('what is your name?'),
+            max_length=255, blank=True)
+    creator_email = models.EmailField(
+            _('what is your email address?'),
+            max_length=255, blank=True)
+    creator_location = models.CharField(
+            _('where are you from?'),
+            max_length=255, blank=True)
+    creator_url = models.URLField(
+            _("what is the URL of your home page?"),
+            verify_exists=False, blank=True, null=True)
     
     created = models.DateTimeField( _('date created'), 
             auto_now_add=True, blank=False)

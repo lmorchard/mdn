@@ -23,16 +23,10 @@ from tagging.utils import LINEAR, LOGARITHMIC
 from voting.models import Vote
 
 from demos.models import Submission
-from demos.forms import SubmissionForm
+from demos.forms import SubmissionNewForm, SubmissionEditForm
 
 from demos.actioncounters.models import Action
 
-def _get_tweets():
-    tweets = []
-    for section in SECTION_USAGE:
-        tweets += Bundle.objects.recent_entries(section.twitter)[:2]
-    tweets.sort(key=lambda t: t.last_published, reverse=True)
-    return tweets
 
 def home(request):
     """Home page."""
@@ -74,9 +68,9 @@ def submit(request):
     """Accept submission of a demo"""
 
     if request.method != "POST":
-        form = SubmissionForm()
+        form = SubmissionNewForm()
     else:
-        form = SubmissionForm(request.POST, request.FILES)
+        form = SubmissionNewForm(request.POST, request.FILES)
         if form.is_valid():
             new_sub = form.save(commit=False)
             new_sub.creator = request.user
@@ -85,17 +79,18 @@ def submit(request):
             # TODO: Process in a cronjob
             new_sub.process_demo_package()
             return HttpResponseRedirect(reverse(
-                'demos.views.detail', args=(new_sub.slug,)))
+                    'demos.views.detail', args=(new_sub.slug,)))
 
-    return jingo.render(request, 'demos/submit.html', { 'form': form })
+    return jingo.render(request, 'demos/submit.html', { 
+            'form': form })
 
 def edit(request, slug):
     submission = get_object_or_404(Submission, slug=slug)
 
     if request.method != "POST":
-        form = SubmissionForm(instance=submission)
+        form = SubmissionEditForm(instance=submission)
     else:
-        form = SubmissionForm(request.POST, request.FILES, instance=submission)
+        form = SubmissionEditForm(request.POST, request.FILES, instance=submission)
         if form.is_valid():
             sub = form.save(commit=False)
             sub.slug = slugify(sub.title)
@@ -103,12 +98,12 @@ def edit(request, slug):
             # TODO: Process in a cronjob
             sub.process_demo_package()
             return HttpResponseRedirect(reverse(
-                'demos.views.detail', args=(sub.slug,)))
+                    'demos.views.detail', args=(sub.slug,)))
 
-    return jingo.render(request, 'demos/edit.html', { 'form': form })
+    return jingo.render(request, 'demos/submit.html', { 
+        'form': form, 'submission': submission, 'edit': True })
 
 def profile_detail(request, username):
     user = get_object_or_404(User, username=username)
-    return jingo.render(request, 'demos/profile_detail.html', dict(  
-        user=user))
+    return jingo.render(request, 'demos/profile_detail.html', {'user':user})
 

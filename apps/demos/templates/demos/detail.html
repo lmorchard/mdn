@@ -40,7 +40,7 @@
                 <a class="launch_button" href="{{ url('demos_edit', slug=submission.slug) }}">{{_('Edit demo details')}}</a>
             {% endif %}
             {% if submission.demo_package %}
-                <a class="launch_button" href="{{ url('demos_launch', slug=submission.slug) }}">Launch demo</a>
+                <a class="launch_button" target="_new" href="{{ url('demos_launch', slug=submission.slug) }}">Launch demo</a>
                 <a class="launch_button download_button" href="{{ url('demos_download', slug=submission.slug) }}">Download source</a>
             {% endif %}
         </div>

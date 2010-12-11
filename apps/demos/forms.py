@@ -19,7 +19,7 @@ from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
-from .models import Submission
+from .models import Submission, get_licenses
 
 import django.forms.fields
 from django.forms.widgets import CheckboxSelectMultiple
@@ -145,22 +145,28 @@ class ConstrainedTagFormField(tagging.forms.TagField):
         # Concatenate the checkboxes into a string usable by the superclass,
         # but skip superclass' clean() because we'll assume that TagDescription
         # tag names don't exceed the intended MAX_TAG_LENGTH
-        return ','.join('"%s"' % x for x in value)
+        if not isinstance(value, (list, tuple)):
+            return value
+        else:
+            return ','.join('"%s"' % x for x in value)
 
 
-class SubmissionForm(MyModelForm):
+class SubmissionEditForm(MyModelForm):
     """Form accepting demo submissions"""
 
     class Meta:
         model = Submission
         fields = (
             'title', 'summary', 'description', 'tags',
-            'demo_package', 'screenshot', 'thumbnail',
-            'video_url', 'source_code_url',
+            'screenshot_1', 'screenshot_2', 'screenshot_3', 
+            'screenshot_4', 'screenshot_5', 
+            'video_url', 
+            'demo_package', 'source_code_url', 'license_name',
+            'creator_name', 'creator_email', 'creator_location', 'creator_url',
         )
 
     def clean(self):
-        cleaned_data = super(SubmissionForm, self).clean()
+        cleaned_data = super(SubmissionEditForm, self).clean()
 
         # TODO: Should this be moved to model class?
         # If so, how to use screenshot for thumbnail if thumbnail not uploaded?
@@ -185,3 +191,13 @@ class SubmissionForm(MyModelForm):
                         [_('Cannot process thumbnail image')])
 
         return cleaned_data
+
+
+class SubmissionNewForm(SubmissionEditForm):
+
+    class Meta(SubmissionEditForm.Meta):
+        fields = SubmissionEditForm.Meta.fields + ( 'accept_terms', )
+
+    accept_terms = forms.BooleanField(initial=False, required=True)
+
+
