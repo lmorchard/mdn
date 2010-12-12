@@ -30,6 +30,7 @@ jsonpickle==0.3.1
 lockfile==0.8
 -e git://github.com/jsocol/django-cronjobs.git#egg=django_cronjobs
 
-# Misc
+# Demo Room dependencies
+-e git://github.com/mozilla/django-recaptcha.git#egg=django-recaptcha
 django-tagging==0.3.1
 django-threadedcomments==0.5.2

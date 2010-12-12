@@ -130,9 +130,7 @@
                         <fieldset>
                             <p></p>
                             <ul>
-                                <li id="field_captcha" class="field">
-                                    <label>Are you human?</label>
-                                </li>
+                                {{ li_field(form, 'captcha') }}
                                 <li id="field_accept_terms" class="field{{ ' error' if form.accept_terms.errors }}">
                                     <p>{{ form.accept_terms|safe }} 
                                         <label for="id_accept_terms">{% trans %}

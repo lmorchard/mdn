@@ -36,6 +36,7 @@
         </div>
 
         <div class="info launch">
+
             {% if request.user.is_authenticated() %}
                 <a class="launch_button" href="{{ url('demos_edit', slug=submission.slug) }}">{{_('Edit demo details')}}</a>
             {% endif %}
@@ -43,6 +44,28 @@
                 <a class="launch_button" target="_new" href="{{ url('demos_launch', slug=submission.slug) }}">Launch demo</a>
                 <a class="launch_button download_button" href="{{ url('demos_download', slug=submission.slug) }}">Download source</a>
             {% endif %}
+
+            {% if submission.allows_deletion_by(request.user) %}
+                <form action="{{ url('demos_delete', slug=submission.slug) }}" method="POST">
+                    {{ csrf() }} 
+                    <input type="submit" value="{{_("delete demo")}}" />
+                </form>
+            {% endif %}
+
+            {% if submission.allows_hiding_by(request.user) %}
+                {% if submission.hidden %}
+                    <form action="{{ url('demos_show', slug=submission.slug) }}" method="POST">
+                        {{ csrf() }} 
+                        <input type="submit" value="{{_("show demo")}}" />
+                    </form>
+                {% else %}
+                    <form action="{{ url('demos_hide', slug=submission.slug) }}" method="POST">
+                        {{ csrf() }} 
+                        <input type="submit" value="{{_("hide demo")}}" />
+                    </form>
+                {% endif %}
+            {% endif %}
+
         </div>
 
         <div class="info description">
@@ -72,6 +95,7 @@
                         {% if False %}disabled="disabled"{% endif %} />
                 </form>
             {% endif %}
+
         </div>
 
         <div class="info tags">

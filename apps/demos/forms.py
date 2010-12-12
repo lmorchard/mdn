@@ -22,6 +22,8 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 from . import scale_image
 from .models import Submission, get_licenses
 
+from captcha.fields import ReCaptchaField
+
 import django.forms.fields
 from django.forms.widgets import CheckboxSelectMultiple
 
@@ -144,8 +146,9 @@ class SubmissionEditForm(MyModelForm):
 class SubmissionNewForm(SubmissionEditForm):
 
     class Meta(SubmissionEditForm.Meta):
-        fields = SubmissionEditForm.Meta.fields + ( 'accept_terms', )
+        fields = SubmissionEditForm.Meta.fields + ( 'captcha', 'accept_terms', )
 
+    captcha = ReCaptchaField(label=_('Are you human?')) 
     accept_terms = forms.BooleanField(initial=False, required=True)
 
 

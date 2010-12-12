@@ -144,15 +144,22 @@ class OverwritingImageField(models.ImageField):
     attr_class = OverwritingImageFieldFile
 
 
+def get_root_for_submission(instance):
+    c_name = ( instance.creator and 
+            instance.creator.username or '_anon_' )
+    return 'uploads/demos/%(h1)s/%(h2)s/%(username)s/%(slug)s' % dict(
+         h1=c_name[0],
+         h2=c_name[1],
+         username=c_name,
+         slug=instance.slug,
+    )
+
 def mk_upload_to(field_fn):
      def upload_to(instance, filename):
          c_name = ( instance.creator and 
                  instance.creator.username or '_anon_' )
-         return 'uploads/demos/%(h1)s/%(h2)s/%(username)s/%(slug)s/%(field_fn)s' % dict( 
-             h1=c_name[0],
-             h2=c_name[1],
-             username=c_name,
-             slug=instance.slug,
+         return '%(base)s/%(field_fn)s' % dict( 
+             base=get_root_for_submission(instance),
              field_fn=field_fn)
      return upload_to
 
@@ -173,6 +180,7 @@ class Submission(models.Model):
             blank=True)
 
     featured = models.BooleanField()
+    hidden = models.BooleanField()
 
     tags = ConstrainedTagField(
             _('select up to 5 tags that describe your demo'),
@@ -265,9 +273,48 @@ class Submission(models.Model):
         super(Submission,self).save()
         self.update_thumbnails()
 
+    def delete(self,using=None):
+        root = '%s/%s' % (settings.MEDIA_ROOT, get_root_for_submission(self))
+        if isdir(root): rmtree(root)
+        super(Submission,self).delete(using)
+
     def clean(self):
         if self.demo_package:
             Submission.validate_demo_zipfile(self.demo_package)
+
+    @classmethod
+    def allows_listing_hidden_by(cls, user):
+        if user.is_staff or user.is_superuser:
+            return True
+        return False
+
+    def allows_hiding_by(self, user):
+        if user.is_staff or user.is_superuser:
+            return True
+        return False
+
+    def allows_viewing_by(self, user):
+        if user.is_staff or user.is_superuser:
+            return True
+        if user == self.creator:
+            return True
+        if not self.hidden:
+            return True
+        return False
+
+    def allows_editing_by(self, user):
+        if user.is_staff or user.is_superuser:
+            return True
+        if user == self.creator:
+            return True
+        return False
+
+    def allows_deletion_by(self, user):
+        if user.is_staff or user.is_superuser:
+            return True
+        if user == self.creator:
+            return True
+        return False
 
     def get_demo_package_root(self, zf):
         root_dir = None

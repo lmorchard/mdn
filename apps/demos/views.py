@@ -2,14 +2,15 @@ import jingo
 
 from django.conf import settings
 
-from django.http import HttpResponseRedirect, HttpResponse
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
 
 from django.shortcuts import get_object_or_404, render_to_response
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 
 from django.contrib.auth.views import AuthenticationForm 
+
+from django.utils.translation import ugettext_lazy as _
 
 from devmo import (SECTION_USAGE, SECTION_ADDONS, SECTION_APPS, SECTION_MOBILE,
                    SECTION_WEB)
@@ -30,16 +31,24 @@ from demos.actioncounters.models import Action
 
 def home(request):
     """Home page."""
-    featured_submissions = Submission.objects.order_by('-modified').all().filter(featured=True)[:15]
-    submissions = Submission.objects.order_by('-modified').all()[:15]
+
+    featured_submissions = Submission.objects.order_by('-modified').filter(featured=True)
+    if not Submission.allows_listing_hidden_by(request.user):
+        featured_submissions = featured_submissions.exclude(hidden=True)
+
+    submissions = Submission.objects.order_by('-modified')
+    if not Submission.allows_listing_hidden_by(request.user):
+        submissions = submissions.exclude(hidden=True)
 
     return jingo.render(request, 'demos/home.html', {
-        'featured_submission_list': featured_submissions,
-        'submission_list': submissions })
+        'featured_submission_list': featured_submissions.all()[:15],
+        'submission_list': submissions.all()[:15] })
 
 def detail(request, slug):
     """Detail page for a submission"""
     submission = get_object_or_404(Submission, slug=slug)
+    if not submission.allows_viewing_by(request.user):
+        return HttpResponseForbidden(_('access denied'))
     
     return jingo.render(request, 'demos/detail.html', {
         'submission': submission })
@@ -66,7 +75,6 @@ def launch(request, slug):
 
 def submit(request):
     """Accept submission of a demo"""
-
     if request.method != "POST":
         form = SubmissionNewForm()
     else:
@@ -89,6 +97,8 @@ def submit(request):
 
 def edit(request, slug):
     submission = get_object_or_404(Submission, slug=slug)
+    if not submission.allows_editing_by(request.user):
+        return HttpResponseForbidden(_('access denied'))
 
     if request.method != "POST":
         form = SubmissionEditForm(instance=submission)
@@ -107,6 +117,28 @@ def edit(request, slug):
 
     return jingo.render(request, 'demos/submit.html', { 
         'form': form, 'submission': submission, 'edit': True })
+
+def delete(request, slug):
+    submission = get_object_or_404(Submission, slug=slug)
+    if not submission.allows_deletion_by(request.user):
+        return HttpResponseForbidden(_('access denied'))
+
+    if request.method == "POST":
+        submission.delete()
+
+    return HttpResponseRedirect(reverse('demos.views.home'))
+
+def hideshow(request, slug, hide=True):
+    submission = get_object_or_404(Submission, slug=slug)
+    if not submission.allows_hiding_by(request.user):
+        return HttpResponseForbidden(_('access denied'))
+
+    if request.method == "POST":
+        submission.hidden = hide
+        submission.save()
+
+    return HttpResponseRedirect(reverse(
+            'demos.views.detail', args=(submission.slug,)))
 
 def profile_detail(request, username):
     user = get_object_or_404(User, username=username)

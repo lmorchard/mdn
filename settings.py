@@ -228,8 +228,8 @@ INSTALLED_APPS = (
     'feeder',
     'landing',
 
+    "captcha",
     "tagging",
-    
     'demos.actioncounters',
     'demos',
 
@@ -271,3 +271,7 @@ UPLOADED_MEDIA_ROOT = 'uploads'
 
 # URL location for uploaded media files
 UPLOADED_MEDIA_URL = '%s/uploads/' % MEDIA_URL
+
+RECAPTCHA_USE_SSL = False
+RECAPTCHA_PRIVATE_KEY = 'SET ME IN SETTINGS_LOCAL'
+RECAPTCHA_PUBLIC_KEY = 'SET ME IN SETTINGS_LOCAL'
