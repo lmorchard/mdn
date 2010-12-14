@@ -26,7 +26,7 @@ from voting.models import Vote
 from demos.models import Submission
 from demos.forms import SubmissionNewForm, SubmissionEditForm
 
-from demos.actioncounters.models import Action
+from actioncounters.models import Action
 
 
 def home(request):

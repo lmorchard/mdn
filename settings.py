@@ -230,7 +230,7 @@ INSTALLED_APPS = (
 
     "captcha",
     "tagging",
-    'demos.actioncounters',
+    'actioncounters',
     'demos',
 
     'cronjobs',
