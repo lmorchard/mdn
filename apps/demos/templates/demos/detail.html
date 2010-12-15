@@ -43,12 +43,13 @@
             {% if submission.demo_package %}
                 <a class="launch_button" target="_new" href="{{ url('demos_launch', slug=submission.slug) }}">Launch demo</a>
                 <a class="launch_button download_button" href="{{ url('demos_download', slug=submission.slug) }}">Download source</a>
+                <a class="launch_button flag_button" href="{{ url('demos_flag', slug=submission.slug) }}">Flag demo</a>
             {% endif %}
 
             {% if submission.allows_deletion_by(request.user) %}
                 <form action="{{ url('demos_delete', slug=submission.slug) }}" method="POST">
                     {{ csrf() }} 
-                    <input type="submit" value="{{_("delete demo")}}" />
+                    <input class="launch_button" type="submit" value="{{_("Delete demo")}}" />
                 </form>
             {% endif %}
 
@@ -56,12 +57,12 @@
                 {% if submission.hidden %}
                     <form action="{{ url('demos_show', slug=submission.slug) }}" method="POST">
                         {{ csrf() }} 
-                        <input type="submit" value="{{_("show demo")}}" />
+                        <input class="launch_button" type="submit" value="{{_("Show demo")}}" />
                     </form>
                 {% else %}
                     <form action="{{ url('demos_hide', slug=submission.slug) }}" method="POST">
                         {{ csrf() }} 
-                        <input type="submit" value="{{_("hide demo")}}" />
+                        <input class="launch_button" type="submit" value="{{_("Hide demo")}}" />
                     </form>
                 {% endif %}
             {% endif %}

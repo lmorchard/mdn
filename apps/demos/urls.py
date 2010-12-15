@@ -24,6 +24,9 @@ urlpatterns = patterns('demos.views',
     url(r'^detail/(?P<slug>[^/]+)/like$', 'like',
         name='demos_like'),
 
+    url(r'^detail/(?P<slug>[^/]+)/flag$', 'flag',
+        name='demos_flag'),
+
     url(r'^detail/(?P<slug>[^/]+)/download$', 'download',
         name='demos_download'),
 

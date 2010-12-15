@@ -49,23 +49,22 @@ THUMBNAIL_MAXH = getattr(settings, 'DEMO_THUMBNAIL_MAX_HEIGHT', 100)
 RESIZE_METHOD = getattr(settings, 'RESIZE_METHOD', Image.ANTIALIAS)
 
 
-def get_licenses():
-    return {
-        "cc-by-sa": _("CC-BY-SA Creative Commons Attribution-ShareAlike 3.0 [DEFAULT]"),
-        "cc-by": _("CC-BY Creative Commons Attribution 3.0"),
-        "cc-by-no": _("CC-BY-NO Creative Commons Attribution-NonCommercial 3.0"),
-        "cc-by-no-sa": _("CC-BY-NO-SA Createive Commons Attribution-NonCommercial-ShareAlike 3.0"),
-        "mpl": _("MPL/GPL/LGPL"),
-        "gpl": _("GPL"),
-        "lgpl": _("LGPL"),
-        "bsd": _("BSD"),
-        "apache": _("Apache"),
-        "agpl": _("AGPL"),
-        "cc-by-nd": _("CC-BY-ND Creative Commons Attribution-NonCommercial-NoDervis"),
-        "cc-by-no-nd": _("CC-BY-NO-ND Creative Commons Attribution-NoDervis"),
-        "publicdomain": _("Public Domain"),
-        "other": _("Other (N/A)"),
-    }
+DEMO_LICENSES = getattr(settings, "DEMO_LICENSES", (
+    ("cc-by-sa", _("CC-BY-SA Creative Commons Attribution-ShareAlike 3.0 [DEFAULT]")),
+    ("cc-by", _("CC-BY Creative Commons Attribution 3.0")),
+    ("cc-by-no", _("CC-BY-NO Creative Commons Attribution-NonCommercial 3.0")),
+    ("cc-by-no-sa", _("CC-BY-NO-SA Createive Commons Attribution-NonCommercial-ShareAlike 3.0")),
+    ("mpl", _("MPL/GPL/LGPL")),
+    ("gpl", _("GPL")),
+    ("lgpl", _("LGPL")),
+    ("bsd", _("BSD")),
+    ("apache", _("Apache")),
+    ("agpl", _("AGPL")),
+    ("cc-by-nd", _("CC-BY-ND Creative Commons Attribution-NonCommercial-NoDervis")),
+    ("cc-by-no-nd", _("CC-BY-NO-ND Creative Commons Attribution-NoDervis")),
+    ("publicdomain", _("Public Domain")),
+    ("other", _("Other (N/A)")),
+))
 
 
 class TagDescription(models.Model):
@@ -215,7 +214,7 @@ class Submission(models.Model):
             verify_exists=False, blank=True, null=True)
     license_name = models.CharField(
             _("select a license for your source code"),
-            max_length=64, blank=False, choices=get_licenses().items())
+            max_length=64, blank=False, choices=DEMO_LICENSES)
 
     creator = models.ForeignKey(User, blank=False)
     
@@ -238,8 +237,8 @@ class Submission(models.Model):
             auto_now=True, blank=False)
 
     def __unicode__(self):
-        return "<Submission %(title)s %(fn)s>" % dict(
-            title=self.title, fn=self.demo_package )
+        return 'Submission "%(title)s"' % dict(
+            title=self.title )
 
     @classmethod
     def validate_demo_zipfile(cls, file):

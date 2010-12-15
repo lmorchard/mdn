@@ -4,6 +4,7 @@ import os
 import logging
 
 from django.utils.functional import lazy
+from django.utils.translation import ugettext_lazy as _
 
 
 # Make file paths relative to settings.
@@ -228,8 +229,9 @@ INSTALLED_APPS = (
     'feeder',
     'landing',
 
-    "captcha",
-    "tagging",
+    'captcha',
+    'tagging',
+    'contentflagging',
     'actioncounters',
     'demos',
 
@@ -275,3 +277,27 @@ UPLOADED_MEDIA_URL = '%s/uploads/' % MEDIA_URL
 RECAPTCHA_USE_SSL = False
 RECAPTCHA_PRIVATE_KEY = 'SET ME IN SETTINGS_LOCAL'
 RECAPTCHA_PUBLIC_KEY = 'SET ME IN SETTINGS_LOCAL'
+
+FLAG_REASONS = (
+    ('notworking', _('This demo is not working for me')),
+    ('inappropriate', _('This demo contains inappropriate content')),
+    ('plagarised', _('This demo was not created by the author')),
+    ('fakeauthor', _('The author of this demo is fake')),
+)
+
+DEMO_LICENSES = (
+    ("cc-by-sa", _("CC-BY-SA Creative Commons Attribution-ShareAlike 3.0 [DEFAULT]")),
+    ("cc-by", _("CC-BY Creative Commons Attribution 3.0")),
+    ("cc-by-no", _("CC-BY-NO Creative Commons Attribution-NonCommercial 3.0")),
+    ("cc-by-no-sa", _("CC-BY-NO-SA Createive Commons Attribution-NonCommercial-ShareAlike 3.0")),
+    ("mpl", _("MPL/GPL/LGPL")),
+    ("gpl", _("GPL")),
+    ("lgpl", _("LGPL")),
+    ("bsd", _("BSD")),
+    ("apache", _("Apache")),
+    ("agpl", _("AGPL")),
+    ("cc-by-nd", _("CC-BY-ND Creative Commons Attribution-NonCommercial-NoDervis")),
+    ("cc-by-no-nd", _("CC-BY-NO-ND Creative Commons Attribution-NoDervis")),
+    ("publicdomain", _("Public Domain")),
+    ("other", _("Other (N/A)")),
+)

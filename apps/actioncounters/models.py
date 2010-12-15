@@ -84,8 +84,9 @@ class ActionCounter(models.Model):
             ContentType,
             verbose_name="content cype",
             related_name="content_type_set_for_%(class)s",)
-    object_pk = models.TextField(
-            _('object ID'))
+    object_pk = models.CharField(
+            _('object ID'),
+            max_length=32)
     content_object = generic.GenericForeignKey(
             'content_type', 'object_pk')
     modified = models.DateTimeField( 
@@ -135,6 +136,11 @@ class ActionHit(models.Model):
     """Record of an action having been taken on an object"""
     objects = ActionHitManager()
 
+    class Meta:
+        ordering = ( '-created', )
+        get_latest_by = 'created'
+        unique_together = ( ('ip','session_key','user_agent','user'), )
+
     counter = models.ForeignKey(ActionCounter, editable=False)
     total = models.IntegerField()
 
@@ -142,11 +148,8 @@ class ActionHit(models.Model):
     session_key = models.CharField(max_length=40, editable=False, blank=True, null=True)
     user_agent = models.CharField(max_length=255, editable=False, blank=True, null=True)
     user = models.ForeignKey(User, editable=False, blank=True, null=True)
-    created = models.DateTimeField(auto_now_add=True, blank=False, editable=False)
 
-    class Meta:
-        ordering = ( '-created', )
-        get_latest_by = 'created'
+    created = models.DateTimeField(auto_now_add=True, blank=False, editable=False)
 
     def __unicode__(self):
         return u'Hit: %s' % self.pk

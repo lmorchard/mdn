@@ -26,6 +26,8 @@ from voting.models import Vote
 from demos.models import Submission
 from demos.forms import SubmissionNewForm, SubmissionEditForm
 
+from contentflagging.models import ContentFlag
+from contentflagging.forms import ContentFlagForm
 from actioncounters.models import Action
 
 
@@ -59,6 +61,23 @@ def like(request, slug):
         Action.objects['like'].increment(request=request, object=submission)
     return HttpResponseRedirect(reverse(
         'demos.views.detail', args=(submission.slug,)))
+
+def flag(request, slug):
+    submission = get_object_or_404(Submission, slug=slug)
+
+    if request.method != "POST":
+        form = ContentFlagForm()
+    else:
+        form = ContentFlagForm(request.POST, request.FILES)
+        if form.is_valid():
+            flag, created = ContentFlag.objects.flag(request=request, object=submission,
+                    flag_type=form.cleaned_data['flag_type'],
+                    explanation=form.cleaned_data['explanation'])
+            return HttpResponseRedirect(reverse(
+                'demos.views.detail', args=(submission.slug,)))
+
+    return jingo.render(request, 'demos/flag.html', {
+        'form': form, 'submission': submission })
 
 def download(request, slug):
     """Demo download with action counting"""

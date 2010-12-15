@@ -29,6 +29,7 @@
                     <input type="submit" value="logout" />
                 </form>
                 {% else %}
+                <p>Try admin/admin, foo/foo, bar/bar, or baz/baz</p>
                 <form method="post" action="{{ url('demos_login') }}">
                     {{ csrf() }}
                     <input type="hidden" name="next" value="{{ url('demos') }}" />

@@ -20,7 +20,7 @@ from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from . import scale_image
-from .models import Submission, get_licenses
+from .models import Submission, DEMO_LICENSES
 
 from captcha.fields import ReCaptchaField
 
