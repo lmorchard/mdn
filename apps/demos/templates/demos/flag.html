@@ -1,0 +1,53 @@
+{% extends "demos/base.html" %}
+
+{% block pageid %}demos{% endblock %}
+
+{% block bodyclass %}section-demos landing{% endblock %}
+
+{% block title %}{{ page_title(_('Web')) }}{% endblock %}
+
+{% block content %}
+
+<section id="content">
+<div class="wrap sidebar">
+  <section id="content-main" role="main">
+
+    <section class="boxed">
+    
+      <div id="demo-like">
+
+        <header class="head section-moz">
+          <h2>{{ _('Demo: {demo_title}')|f(demo_title=submission.title) }}</h2>
+          <p>
+              Submitted by 
+              {% if submission.submitter_url %}<a href="{{ submission.submitter_url }}">{% endif %}<span class="submitter">{{ submission.creator.username }}</span>{% if submission.submitter_url %}</a>{% endif %},
+              {{ submission.created.date() | date_diff() }}
+          </p>
+        </header>
+
+        <div>
+            <form enctype="multipart/form-data" action="" method="POST">
+                {{ csrf() }}
+                <fieldset><legend>{{_('Flag content')}}</legend>
+                    <ul>
+                        {{ form.as_ul() | safe }}
+                        <li class="submit">
+                            <input type="submit" name="action_create" 
+                                value="{{ _("Flag content") }}" />
+                        </li>
+                    </ul>
+                </fieldset>
+            </form>
+        </div>
+
+    </section>{# /.boxed #}
+
+  </section>{# /#content-main #}
+
+  <aside id="content-sub" role="complementary">
+  </aside>{# /#content-sub #}
+
+</div>
+</section>{# /#content #}
+
+{% endblock %}
