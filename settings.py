@@ -38,6 +38,9 @@ DATABASES = {
     }
 }
 
+# Dekiwiki has a backend API. protocol://hostname:port
+DEKIWIKI_ENDPOINT = 'http://developer-stage9.mozilla.org'
+
 # Cache Settings
 #CACHE_BACKEND = 'caching.backends.memcached://localhost:11211'
 CACHE_PREFIX = 'mdn:'
@@ -77,6 +80,7 @@ class LazyLangs(dict):
         from product_details import product_details
         return dict([(lang.lower(), product_details.languages[lang]['native'])
                      for lang in MDN_LANGUAGES])
+
 LANGUAGES = lazy(LazyLangs, dict)()
 
 # Paths that don't require a locale prefix.
@@ -140,6 +144,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'jingo_minify.helpers.build_ids',
 )
 
+
 def JINJA_CONFIG():
     import jinja2
     from django.conf import settings
@@ -192,14 +197,19 @@ JAVA_BIN = '/usr/bin/java'
 
 MIDDLEWARE_CLASSES = (
     'devmo.middleware.LocaleURLMiddleware',
-
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.csrf.CsrfResponseMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'dekicompat.middleware.DekiUserMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 )
+
+AUTHENTICATION_BACKENDS = (
+    'dekicompat.backends.DekiUserBackend',
+)
+AUTH_PROFILE_MODULE = 'devmo.UserProfile'
 
 ROOT_URLCONF = '%s.urls' % ROOT_PACKAGE
 
@@ -211,6 +221,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.admin',
 
+    'dekicompat',
     'devmo',
     'docs',
     'feeder',

@@ -78,7 +78,6 @@ names, which will be replaced.
                                query_string, fragment)
     return new.geturl()
 
-
 def _urlencode(items):
     """A Unicode-safe URLencoder."""
     try:
@@ -92,6 +91,10 @@ def cleank(txt):
     """Clean and link some user-supplied text."""
     return jinja2.Markup(bleach.linkify(bleach.clean(txt)))
 
+@register.filter
+def urlencode(txt):
+    """Url encode a path."""
+    return urllib.quote_plus(txt)
 
 @register.function
 def devmo_url(path):
