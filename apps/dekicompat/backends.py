@@ -46,7 +46,6 @@ class DekiUserBackend(object):
             user = profile.user
             log.info("MONITOR Dekiwiki Profile Loaded")
             log.debug("User account already exists %d", user.id)
-            return user
         except UserProfile.DoesNotExist:
             log.debug("First time seeing deki user id#%d username=%s, creating account locally", deki_user.id, deki_user.username)
             user, created = User.objects.get_or_create(username=deki_user.username)
@@ -62,7 +61,8 @@ class DekiUserBackend(object):
             profile.save()
             log.info("MONITOR Dekiwiki Profile Saved")
             log.debug("Saved profile %s", str(profile))
-            return user
+        user.deki_user = deki_user
+        return user
 
 class DekiUser(object):
     """
