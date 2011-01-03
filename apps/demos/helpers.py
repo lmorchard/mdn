@@ -13,9 +13,9 @@ from voting.models import Vote
 from .models import TagDescription
 
 
-@register.inclusion_tag('demos/elements/submissions_list.html')
+@register.inclusion_tag('demos/elements/submission_creator.html')
 @jinja2.contextfunction
-def submissions_list(context, submissions):
+def submission_creator(context, submission):
     return new_context(**locals())
 
 @register.inclusion_tag('demos/elements/submission_thumb.html')

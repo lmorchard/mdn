@@ -144,8 +144,10 @@ class OverwritingImageField(models.ImageField):
 
 
 def get_root_for_submission(instance):
-    c_name = ( instance.creator and 
-            instance.creator.username or '_anon_' )
+    try:
+        c_name = ( instance.creator and instance.creator.username or '_anon_' )
+    except:
+        c_name = ( instance.creator_name and instance.creator_name or 'anon' )
     return 'uploads/demos/%(h1)s/%(h2)s/%(username)s/%(slug)s' % dict(
          h1=c_name[0],
          h2=c_name[1],
@@ -155,8 +157,10 @@ def get_root_for_submission(instance):
 
 def mk_upload_to(field_fn):
      def upload_to(instance, filename):
-         c_name = ( instance.creator and 
-                 instance.creator.username or '_anon_' )
+         try:
+             c_name = ( instance.creator and instance.creator.username or '_anon_' )
+         except:
+             c_name = ( instance.creator_name and instance.creator_name or 'anon' )
          return '%(base)s/%(field_fn)s' % dict( 
              base=get_root_for_submission(instance),
              field_fn=field_fn)
@@ -216,7 +220,7 @@ class Submission(models.Model):
             _("select a license for your source code"),
             max_length=64, blank=False, choices=DEMO_LICENSES)
 
-    creator = models.ForeignKey(User, blank=False)
+    creator = models.ForeignKey(User, blank=False, null=True)
     
     creator_name = models.CharField(
             _('what is your name?'),

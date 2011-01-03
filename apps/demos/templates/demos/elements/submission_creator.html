@@ -1,0 +1,5 @@
+{% if submission.creator -%}
+    <a href="{{ url('demos_profile_detail', username=submission.creator.username) }}">{{ submission.creator.username }}</a>
+{% else -%}
+    <span>{{ submission.creator_name }}</span>
+{%- endif %}

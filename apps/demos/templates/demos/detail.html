@@ -19,8 +19,7 @@
         <header class="head section-moz">
           <h2>{{ _('Demo: {demo_title}')|f(demo_title=submission.title) }}</h2>
           <p>
-              Submitted by 
-              {% if submission.submitter_url %}<a href="{{ submission.submitter_url }}">{% endif %}<span class="submitter">{{ submission.creator.username }}</span>{% if submission.submitter_url %}</a>{% endif %},
+              Submitted by {{ submission_creator(submission) }},
               {{ submission.created.date() | date_diff() }}
           </p>
         </header>
@@ -92,8 +91,7 @@
             {% else %}
                 <form action="{{ url('demos_like', slug=submission.slug) }}" method="POST">
                     {{ csrf() }}
-                    <input class="like button" type="submit" value="{{_("like")}}"
-                        {% if False %}disabled="disabled"{% endif %} />
+                    <input class="launch_button like button" type="submit" value="{{_("Like")}}" />
                 </form>
             {% endif %}
 

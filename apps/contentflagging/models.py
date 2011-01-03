@@ -103,15 +103,23 @@ class ContentFlag(models.Model):
         return 'ContentFlag %(flag_type)s -> "%(title)s"' % dict(
                 flag_type=self.flag_type, title=str(self.content_object))
     
-    def content_object_link(self):
+    def content_view_link(self):
+        """HTML link to the absolute URL for the linked content object"""
+        object = self.content_object
+        return ( '<a target="_new" href="%(link)s">View %(title)s</a>' % 
+                dict(link=object.get_absolute_url(), title=object) )
+
+    content_view_link.allow_tags = True
+
+    def content_admin_link(self):
         """HTML link to the admin page for the linked content object"""
         object = self.content_object
         ct = ContentType.objects.get_for_model(object)
         url_name = 'admin:%(app)s_%(model)s_change' % dict(
             app=ct.app_label, model=ct.model) 
         link = urlresolvers.reverse(url_name, args=(object.id,))
-        return ( '<a target="_new" href="%(link)s">%(title)s</a>' % 
+        return ( '<a target="_new" href="%(link)s">Edit %(title)s</a>' % 
                 dict(link=link, title=object) )
 
-    content_object_link.allow_tags = True
+    content_admin_link.allow_tags = True
 

@@ -89,9 +89,9 @@
 #demo-detail .screenshot { float: left; margin: 0em 0em 0em 0em; }
 #demo-detail .meta { clear: both }
 #demo-detail .info { margin: 0 0 1.286em 340px; font-size: 0.857em; }
-#demo-detail .launch .launch_button { display: block;  border: 3px solid #666; color: #333; display: block; font-weight: normal; text-transform: none; font: 12px "Lucida Grande","Lucida Sans Unicode",Lucida,Arial,Helvetica,sans-serif; letter-spacing: inherit; background: #eee; text-align: center; padding: 0.5em; border-radius: 0 0 0 0; }
-#demo-detail .launch .launch_button:hover { border: 3px solid #333; background: #ddd; text-decoration: none; }
 
+body .launch_button { display: block;  border: 3px solid #666; color: #333; display: block; font-weight: normal; text-transform: none; font: 12px "Lucida Grande","Lucida Sans Unicode",Lucida,Arial,Helvetica,sans-serif; letter-spacing: inherit; background: #eee; text-align: center; padding: 0.5em; border-radius: 0 0 0 0; }
+body .launch_button:hover { border: 3px solid #333; background: #ddd; text-decoration: none; }
 
 
 
