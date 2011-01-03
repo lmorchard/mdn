@@ -1,6 +1,6 @@
 [
   {
-    "pk": 1, 
+    "pk": 2, 
     "model": "auth.user", 
     "fields": {
       "username": "hobo", 
@@ -18,13 +18,13 @@
     }
   },
   {
-    "pk": 2, 
+    "pk": 3, 
     "model": "devmo.userprofile", 
     "fields": {
       "deki_user_id": 13, 
       "homepage": "http://www.audienceoftwo.com/mag.php?art_id=104", 
       "location": "Varies Often", 
-      "user": 1
+      "user": 2
     }
   }
 ]

@@ -63,9 +63,9 @@ class DekiCompatTestCase(TestCase):
         if not profile:
             self.fail("Unable to get user's profile")
 
-        # Make sure we got back a new user and not 1 from the app/devmo/fixtures
-        self.assertTrue(user.id > 1)
-        self.assertTrue(profile.id > 2)
+        # Make sure we got back a new user and not 2 from the app/devmo/fixtures
+        self.assertTrue(user.id > 2)
+        self.assertTrue(profile.id > 3)
         self.assertTrue(profile.deki_user_id > 13)
 
     def test_bad_deki_authtoken_request(self):
@@ -108,6 +108,6 @@ class DekiCompatTestCase(TestCase):
 
         user = backend.get_or_create_user(deki_user)
         self.assertEquals(user.username, 'hobo')
-        self.assertEquals(1, user.id)
-        self.assertEquals(2, user.get_profile().id)
+        self.assertEquals(2, user.id)
+        self.assertEquals(3, user.get_profile().id)
         self.assertEquals(13, user.get_profile().deki_user_id)
