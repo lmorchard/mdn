@@ -34,6 +34,8 @@ class DekiUserMiddleware(object):
             log.debug("middleware no authtoken cookie, skipping")
             return
         # TODO(aok) Session or other cache?
+        if not auth_token:
+            return
 
         # We are seeing this user for the first time in this session, attempt
         # to authenticate the user.

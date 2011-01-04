@@ -1,4 +1,4 @@
-from urllib2 import build_opener
+from urllib2 import build_opener, HTTPError
 from xml.dom import minidom
 
 from django.conf import settings
@@ -18,6 +18,7 @@ class DekiUserBackend(object):
     Tips for faking out Django/Dekiwiki https://intranet.mozilla.org/Webdev:MDN:DjangoAuth    
     """
     profile_url = "%s/@api/deki/users/current" % settings.DEKIWIKI_ENDPOINT
+    profile_by_id_url = "%s/@api/deki/users/%s" % ( settings.DEKIWIKI_ENDPOINT, '%s' )
 
     def authenticate(self, authtoken):
         """
@@ -34,6 +35,24 @@ class DekiUserBackend(object):
             return self.get_or_create_user(deki_user)
         else:
             log.info("MONITOR Dekiwiki Failed")
+            return None
+
+    def get_deki_user(self, deki_user_id):
+        """Fetch details for a given Dekiwiki profile by user ID"""
+        opener = build_opener()
+        resp = opener.open(DekiUserBackend.profile_by_id_url % deki_user_id)
+        return DekiUser.parse_user_info(resp.read())
+
+    def get_user(self, user_id):
+        """Get a user for a given ID, used by auth for session-cached login"""
+        try:
+            user = User.objects.get(pk=user_id)
+            profile = UserProfile.objects.get(user=user)
+            user.deki_user = self.get_deki_user(profile.deki_user_id)
+            return user
+        except User.DoesNotExist:
+            return None
+        except HTTPError:
             return None
 
     def get_or_create_user(self, deki_user):
