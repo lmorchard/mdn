@@ -49,6 +49,30 @@ with any web server. If you need a wsgi entry point, you can find one in
 
     python manage.py compress_assets
 
+### Upload directory for demo submissions
+
+The Demo Room application requires a writable directory for media files that
+can be served up to the web.
+
+By default on a development machine, you may not need to make any changes here.
+
+The location of this directory for writing files and building links is based on
+the following two settings variables:
+
+    # Filesystem path
+    MEDIA_ROOT = path('media') 
+
+    # URL base path
+    MEDIA_URL = '/media/'
+
+Under the location specified by `MEDIA_ROOT`, a subdirectory named `uploads` will
+be used for storing user-submitted files (ie. screenshots and demo files). So,
+make sure whatever is configured in settings has a directory `uploads`
+available to which the Django application can write.
+
+The `MEDIA_URL` variable should point to a base URL where the contents of the
+`MEDIA_ROOT` directory can be accessed from the web.
+
 ### Cron jobs
 You want to update your product details periodically:
 

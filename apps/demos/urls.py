@@ -5,7 +5,6 @@ from django.views.generic.list_detail import object_list
 from tagging.views import tagged_object_list
 
 from demos.models import Submission
-from voting.views import vote_on_object
 
 from utils import JingoTemplateLoader
 template_loader = JingoTemplateLoader()
