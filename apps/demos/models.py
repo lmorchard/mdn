@@ -144,26 +144,14 @@ class OverwritingImageField(models.ImageField):
 
 
 def get_root_for_submission(instance):
-    try:
-        c_name = ( instance.creator and instance.creator.username or '_anon_' )
-    except:
-        c_name = ( instance.creator_name and instance.creator_name or 'anon' )
+    c_name = instance.creator.username
     return 'uploads/demos/%(h1)s/%(h2)s/%(username)s/%(slug)s' % dict(
-         h1=c_name[0],
-         h2=c_name[1],
-         username=c_name,
-         slug=instance.slug,
-    )
+         h1=c_name[0], h2=c_name[1], username=c_name, slug=instance.slug,)
 
 def mk_upload_to(field_fn):
      def upload_to(instance, filename):
-         try:
-             c_name = ( instance.creator and instance.creator.username or '_anon_' )
-         except:
-             c_name = ( instance.creator_name and instance.creator_name or 'anon' )
          return '%(base)s/%(field_fn)s' % dict( 
-             base=get_root_for_submission(instance),
-             field_fn=field_fn)
+             base=get_root_for_submission(instance), field_fn=field_fn)
      return upload_to
 
 
@@ -221,19 +209,6 @@ class Submission(models.Model):
             max_length=64, blank=False, choices=DEMO_LICENSES)
 
     creator = models.ForeignKey(User, blank=False, null=True)
-    
-    creator_name = models.CharField(
-            _('what is your name?'),
-            max_length=255, blank=True)
-    creator_email = models.EmailField(
-            _('what is your email address?'),
-            max_length=255, blank=True)
-    creator_location = models.CharField(
-            _('where are you from?'),
-            max_length=255, blank=True)
-    creator_url = models.URLField(
-            _("what is the URL of your home page?"),
-            verify_exists=False, blank=True, null=True)
     
     created = models.DateTimeField( _('date created'), 
             auto_now_add=True, blank=False)

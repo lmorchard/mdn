@@ -65,14 +65,3 @@ urlpatterns = patterns('demos.views',
         name="demos_profile_detail"),
 
 )
-
-urlpatterns += patterns('django.contrib.auth.views',
-
-    url(r'^login$', 'login',
-        dict( template_name="demos/login.html" ),
-        name="demos_login"),
-    
-    url(r'^logout$', 'logout',
-        name="demos_logout"),
-
-)

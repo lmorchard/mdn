@@ -102,30 +102,6 @@
                         </ul>
                     </fieldset>
 
-                    <fieldset><legend>{{_('Tell Us About Yourself')}}</legend>
-                        <p class="intro">{% trans %}
-                            Lorem ipsum dolor sit amet, consectetur
-                            adipiscing elit. Ut elementum erat quis leo
-                                placerat nec porta purus ornare.
-                            {% endtrans %}</p>
-                            {% if not edit %}
-                                {% if request.user.is_authenticated() %}
-                                    <ul>
-                                        <li class="field">Logged in as: {{ request.user }}</li>
-                                    </ul>
-                                {% else %}
-                                {% endif %}
-                                    <ul>
-                                        {{ li_field(form, 'creator_name') }}
-                                        {{ li_field(form, 'creator_email') }}
-                                        {{ li_field(form, 'creator_location') }}
-                                        {{ li_field(form, 'creator_url') }}
-                                    </ul>
-                            {% else %}
-                                <p>[ edit your profile ]</p>
-                            {% endif %}
-                        </fieldset>
-
                         {% if not edit %}
                         <fieldset>
                             <p></p>

@@ -116,7 +116,6 @@ class SubmissionEditForm(MyModelForm):
             'screenshot_4', 'screenshot_5', 
             'video_url', 
             'demo_package', 'source_code_url', 'license_name',
-            'creator_name', 'creator_email', 'creator_location', 'creator_url',
         )
 
     def clean(self):

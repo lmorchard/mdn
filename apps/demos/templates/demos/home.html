@@ -20,29 +20,9 @@
             <h2>{{ _('Demos <span class="moz">Demos</span> Demos')|safe }}</h2>
             </header>
 
-            <div class="auth">
-                <b>Temporary auth</b> &raquo;
-                {% if request.user.is_authenticated() %}
-                <span>Logged in as <em>{{ request.user }}</em></span>
-                <form method="POST" action="{{ url('demos_logout') }}">
-                    <input type="hidden" name="next" value="/demos/" />
-                    <input type="submit" value="logout" />
-                </form>
-                {% else %}
-                <p>Try admin/admin, foo/foo, bar/bar, or baz/baz</p>
-                <form method="post" action="{{ url('demos_login') }}">
-                    {{ csrf() }}
-                    <input type="hidden" name="next" value="{{ url('demos') }}" />
-                    <label for="id_username">Username:</label> 
-                    <input id="id_username" type="text" name="username" maxlength="30" />
-                    <label for="id_password">Password:</label> 
-                    <input type="password" name="password" id="id_password" />
-                    <input type="submit" value="login" />
-                </form>
-                {% endif %}
-            </div>
-
-            <a class="submit_demo" href="{{ url('demos_submit') }}">Submit a new demo</a>
+            {% if request.user.is_authenticated() %}
+                <a class="submit_demo" href="{{ url('demos_submit') }}">Submit a new demo</a>
+            {% endif %}
 
             <div>
                 <h3>{{_('Featured')}}</h3>
