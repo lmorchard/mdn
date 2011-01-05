@@ -73,6 +73,17 @@ available to which the Django application can write.
 The `MEDIA_URL` variable should point to a base URL where the contents of the
 `MEDIA_ROOT` directory can be accessed from the web.
 
+### urls.py
+Be careful with URI design. Do a search to make sure your top level path foo doesn't 
+conflict with any [existing wiki pages][google_site_search]. Dekiwiki captures all traffic not sent 
+explicitly to deki based on 
+
+    configs/htaccess
+
+When adding new urls.py paths, be sure to update this htaccess file.
+
+[google_site_search]: http://www.google.com/search?q=site%3A%2F%2Fdeveloper.mozilla.org&ie=utf-8&oe=utf-8&aq=t&rls=org.mozilla:en-US:official&client=firefox-a#sclient=psy&hl=en&client=firefox-a&hs=lod&rls=org.mozilla:en-US%3Aofficial&q=site:%2F%2Fdeveloper.mozilla.org%2Ffoo
+
 ### Cron jobs
 You want to update your product details periodically:
 
