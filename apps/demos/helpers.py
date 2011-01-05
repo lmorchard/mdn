@@ -8,8 +8,6 @@ from django.core import urlresolvers
 from tagging.models import Tag, TaggedItem
 from tagging.utils import LINEAR, LOGARITHMIC
 
-from voting.models import Vote
-
 from .models import TagDescription
 
 
