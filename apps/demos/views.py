@@ -92,6 +92,9 @@ def launch(request, slug):
 
 def submit(request):
     """Accept submission of a demo"""
+    if not request.user.is_authenticated():
+        return jingo.render(request, 'demos/submit_noauth.html', {})
+
     if request.method != "POST":
         form = SubmissionNewForm()
     else:
@@ -109,8 +112,7 @@ def submit(request):
             return HttpResponseRedirect(reverse(
                     'demos.views.detail', args=(new_sub.slug,)))
 
-    return jingo.render(request, 'demos/submit.html', { 
-            'form': form })
+    return jingo.render(request, 'demos/submit.html', {'form': form})
 
 def edit(request, slug):
     submission = get_object_or_404(Submission, slug=slug)

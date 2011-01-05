@@ -20,9 +20,7 @@
             <h2>{{ _('Demos <span class="moz">Demos</span> Demos')|safe }}</h2>
             </header>
 
-            {% if request.user.is_authenticated() %}
-                <a class="submit_demo" href="{{ url('demos_submit') }}">Submit a new demo</a>
-            {% endif %}
+            <a class="submit_demo" href="{{ url('demos_submit') }}">Submit a new demo</a>
 
             <div>
                 <h3>{{_('Featured')}}</h3>

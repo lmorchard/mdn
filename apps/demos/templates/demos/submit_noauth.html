@@ -1,0 +1,32 @@
+{% extends "demos/base.html" %}
+{% set obj = submission %}
+
+{% block pageid %}demos{% endblock %}
+
+{% block bodyclass %}section-demos landing{% endblock %}
+
+{% block title %}{{ page_title(_('Web')) }}{% endblock %}
+
+{% block content %}
+
+<section id="content">
+    <div class="wrap sidebar">
+        <section id="content-main" role="main">
+            <section class="boxed">
+
+                <header class="head section-moz">
+                    <h2>{{_("Submit a demo")}}</h2>
+                    <p class="intro">{% trans %}
+                        Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit. Ut elementum erat quis leo
+                        placerat nec porta purus ornare.
+                    {% endtrans %}</p>
+                </header>
+
+                <p>Before you begin &amp; preparing your demo sections go here</p>
+
+            </section>
+        </section>
+    </div>
+</section>
+{% endblock %}
