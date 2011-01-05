@@ -21,8 +21,6 @@ from django.contrib.auth.models import User
 from tagging.models import Tag, TaggedItem
 from tagging.utils import LINEAR, LOGARITHMIC
 
-from voting.models import Vote
-
 from demos.models import Submission
 from demos.forms import SubmissionNewForm, SubmissionEditForm
 
