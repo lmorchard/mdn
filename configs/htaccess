@@ -5,7 +5,8 @@
 
 ReWriteEngine On
 
-RewriteRule ^((en-US|de|es|fr|hr|ja|ko|pl|sq|zh-TW|zh-CN)/?)$            /mwsgi/$1 [PT,L]
+RewriteRule ^debug$ /En/HTML [PT,L]
+#RewriteRule ^((en-US|de|es|fr|hr|ja|ko|pl|sq|zh-TW|zh-CN)/?)$            /mwsgi/$1 [PT,L]
 RewriteRule ^(((en-US|de|es|fr|hr|ja|ko|pl|sq|zh-TW|zh-CN)/)?addons/?)$  /mwsgi/$1 [PT,L]
 RewriteRule ^(((en-US|de|es|fr|hr|ja|ko|pl|sq|zh-TW|zh-CN)/)?demos.*)$   /mwsgi/$1 [PT,L]
 RewriteRule ^(((en-US|de|es|fr|hr|ja|ko|pl|sq|zh-TW|zh-CN)/)?docs/?)$    /mwsgi/$1 [PT,L]
