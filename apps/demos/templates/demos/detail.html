@@ -108,6 +108,47 @@
             </ul>
         </div>
 
+        <div class="comments">
+
+            <div>
+                <h3>{{ get_comment_count(submission) }} people have commented</h3>
+                <span>Why not <a href="#comment_form">add your own</a>?</span>
+            </div>
+            {% set tree = get_threaded_comment_tree(submission) %}
+            {% for comment in tree %}
+                <div id="comment-{{ comment.id }}" style="border: 1px #ddd dotted; margin: 1em; padding: 1em; margin-left: {{ comment.depth * 2 }}em;" class="comment comment-level-{{ comment.depth }}">
+                    <a href="#">{{ comment.user.username }}</a> said @ <a href="#comment-{{ comment.id }}">{{ comment.date_submitted }}</a>:<br/>
+                    {# TODO: Uncomment this to allow markup choices #}
+                    {# auto_transform_markup(comment) #}
+                    {{ comment.comment | nl2br }}
+
+                    {% if request.user.is_authenticated() %}
+                        <div class="comment_reply">
+                            <a href="#" class="show_reply">{{_('Reply')}}</a>
+                            <form method="POST" action="{{ get_comment_url(submission, comment) }}">
+                                {{ csrf() }}
+                                <textarea rows="10" cols="40" name="comment"></textarea><br/>
+                                <input type="submit" value="Comment" />
+                            </form>
+                        </div>
+                    {% endif %}
+
+                </div>
+            {% endfor %}
+
+            {% if request.user.is_authenticated() %}
+                <div id="comment_form">
+                    <p>Reply to Original:</p>
+                    <form method="POST" action="{{ get_comment_url(submission) }}">
+                        {{ csrf() }}
+                        <textarea rows="10" cols="40" name="comment"></textarea><br/>
+                        <input type="submit" value="Comment" />
+                    </form>
+                </div>
+            {% endif %}
+
+        </div>
+
       </div>
 
     </section>{# /.boxed #}

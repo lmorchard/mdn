@@ -49,17 +49,6 @@
 
                 </header>
 
-                {% if not edit %}
-                <section class="checklist">
-                    <h3>Demo Checklist</h3>
-                    <ul>
-                        <li>Foo</li>
-                        <li>Bar</li>
-                        <li>Baz</li>
-                    </ul>
-                </section>
-                {% endif %}
-
                 <section class="form">
                 <form enctype="multipart/form-data" action="" method="POST">
                     {{ csrf() }}
@@ -75,6 +64,16 @@
                             {{ li_field(form, 'summary') }}
                             {{ li_field(form, 'description') }}
                             {{ li_field(form, 'tags', classes='clearfix') }}
+                        </ul>
+                    </fieldset>
+
+                    <fieldset><legend>{{_('Show off your demo')}}</legend>
+                        <p class="intro">{% trans %}
+                            Lorem ipsum dolor sit amet, consectetur
+                            adipiscing elit. Ut elementum erat quis leo
+                            placerat nec porta purus ornare.
+                        {% endtrans %}</p>
+                        <ul>
                             <li id="field_screenshots" class="field">
                                 <label>{{_('Provide at least one screenshot of your demo in action')}}</label>
                                 <ul class="screenshots">

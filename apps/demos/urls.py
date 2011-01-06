@@ -64,3 +64,6 @@ urlpatterns = patterns('demos.views',
         name="demos_profile_detail"),
 
 )
+urlpatterns += patterns('',
+    (r'^comments/', include('threadedcomments.urls')),
+)

@@ -233,6 +233,7 @@ INSTALLED_APPS = (
     'tagging',
     'contentflagging',
     'actioncounters',
+    'threadedcomments',
     'demos',
 
     'cronjobs',

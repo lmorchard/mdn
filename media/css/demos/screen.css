@@ -94,4 +94,6 @@ body .launch_button { display: block;  border: 3px solid #666; color: #333; disp
 body .launch_button:hover { border: 3px solid #333; background: #ddd; text-decoration: none; }
 
 
+#demos .comment_reply { }
+#demos.hasJS .comment_reply form { display: none }
 

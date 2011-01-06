@@ -1,6 +1,8 @@
 /* Global initialization script */
 
 $(document).ready(function() {
+    $('body').addClass('hasJS');
+
     // Set up input placeholders.
     $('input[placeholder]').placeholder();
 
