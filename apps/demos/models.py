@@ -219,28 +219,6 @@ class Submission(models.Model):
         return 'Submission "%(title)s"' % dict(
             title=self.title )
 
-    @classmethod
-    def validate_demo_zipfile(cls, file):
-        """Ensure a given file is a valid ZIP file without disallowed file
-        entries and with an HTML index."""
-        try:
-            zf = zipfile.ZipFile(file)
-        except:
-            raise ValidationError(_('Valid ZIP file is required'))
-
-        if zf.testzip():
-            raise ValidationError(_('ZIP file corrupted'))
-        
-        index_found = False
-        for name in zf.namelist():
-            if 'index.html' in name or 'demo.html' in name:
-                index_found = True
-            if name.startswith('/') or '/..' in name:
-                raise ValidationError(_('ZIP file contains invalid entries'))
-        
-        if not index_found:
-            raise ValidationError(_('HTML index not found in ZIP'))
-
     @models.permalink
     def get_absolute_url(self):
         return ('demos_detail', [self.slug]) 
@@ -294,16 +272,6 @@ class Submission(models.Model):
             return True
         return False
 
-    def get_demo_package_root(self, zf):
-        root_dir = None
-        root_re = re.compile(r'(?P<root_dir>[^/]+)/demo.html')
-        for name in zf.namelist():
-            m = root_re.match(name)
-            if m:
-                root_dir = m.group('root_dir')
-                break
-        return root_dir
-
     def update_thumbnails(self):
         """Update thumbnails to accompany full-size screenshots"""
         for idx in range(1, 6):
@@ -324,10 +292,46 @@ class Submission(models.Model):
                 # nonetheless resulted in an updated thumbnail. Investigate further.
                 pass
 
-    def process_demo_package(self):
+    @classmethod
+    def get_valid_demo_zipfile_entries(cls, zf):
+        """Filter a zip file's entries for only accepted entries"""
+        # TODO: Should we restrict to a certain set of {css,js,html,wot} extensions?
+        return [ x for x in zf.infolist() if 
+            not (x.filename.startswith('/') or '/..' in x.filename) and
+            not (basename(x.filename).startswith('.')) and
+            x.file_size > 0 ]
 
-        zf = zipfile.ZipFile(self.demo_package.file)
-        root_dir = self.get_demo_package_root(zf)
+    @classmethod
+    def validate_demo_zipfile(cls, file):
+        """Ensure a given file is a valid ZIP file without disallowed file
+        entries and with an HTML index."""
+        try:
+            zf = zipfile.ZipFile(file)
+        except:
+            raise ValidationError(_('Valid ZIP file is required'))
+
+        if zf.testzip():
+            raise ValidationError(_('ZIP file corrupted'))
+        
+        valid_entries = Submission.get_valid_demo_zipfile_entries(zf) 
+        if len(valid_entries) == 0:
+            raise ValidationError(_('ZIP file contains no acceptable files'))
+
+        index_found = False
+        for zi in valid_entries:
+            name = zi.filename
+            # HACK: We're accepting {index,demo}.html as the root index and
+            # normalizing on unpack
+            if 'index.html' == name or 'demo.html' == name:
+                index_found = True
+        
+        if not index_found:
+            raise ValidationError(_('HTML index not found in ZIP'))
+
+    def process_demo_package(self):
+        """Unpack the demo zipfile into the appropriate directory, filtering
+        out any invalid file entries and normalizing demo.html to index.html if
+        present."""
 
         # Derive a directory name from the zip filename, clean up any existing
         # directory before unpacking.
@@ -335,18 +339,19 @@ class Submission(models.Model):
         if isdir(new_root_dir):
             rmtree(new_root_dir)
 
-        # Only accept non-empty files under the detected root directory that
-        # don't start with "."
-        valid_entries = [ x for x in zf.infolist() if 
-                x.filename.startswith('%s/' % root_dir) and 
-                not basename(x.filename).startswith('.') and
-                x.file_size > 0 ]
+        # Load up the zip file and extract the valid entries
+        zf = zipfile.ZipFile(self.demo_package.file)
+        valid_entries = Submission.get_valid_demo_zipfile_entries(zf) 
 
         for zi in valid_entries:
 
+            # HACK: Normalize demo.html to index.html
+            if zi.filename == 'demo.html':
+                zi.filename = 'index.html'
+
             # Relocate all files from detected root dir to a directory named
             # for the zip file in storage
-            out_fn = zi.filename.replace('%s/'%root_dir, '%s/'%new_root_dir)
+            out_fn = '%s/%s' % ( new_root_dir, zi.filename )
             out_dir = dirname(out_fn)
 
             # Create parent directories where necessary.

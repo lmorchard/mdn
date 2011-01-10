@@ -4,7 +4,8 @@ import urlparse
 import time
 import zipfile
 from os import unlink
-from os.path import basename, dirname, isfile
+from os.path import basename, dirname, isfile, isdir
+from shutil import rmtree
 
 try:
     from cStringIO import StringIO
@@ -35,8 +36,7 @@ class DemoPackageTest(TestCase):
         self.user.delete()
 
     def test_demo_package_validation(self):
-        """Exercise demo zip file validation by throwing through various
-        invalid and valid zip files."""
+        """Exercise zip file validation by throwing through various invalid and valid zip files."""
 
         s = Submission(title='Hello world', slug='hello-world',
             description='This is a hello world demo',
@@ -51,13 +51,13 @@ class DemoPackageTest(TestCase):
             s.clean()
             ok_(False, "There should be a validation exception")
         except ValidationError, e:
-            ok_('Demo package is not a valid zip file' in e.messages)
+            ok_('Valid ZIP file is required' in e.messages)
 
         unlink(s.demo_package.path)
 
         fout = StringIO()
         zf = zipfile.ZipFile(fout, 'w')
-        zf.writestr('play_demo/demo.js', """alert('hi')""")
+        zf.writestr('play/index.html', """<html> </html>""")
         zf.close()
         s.demo_package.save('play_demo.zip', ContentFile(fout.getvalue()))
 
@@ -65,14 +65,28 @@ class DemoPackageTest(TestCase):
             s.clean()
             ok_(False, "There should be a validation exception")
         except ValidationError, e:
-            ok_('Demo package does not contain demo.html' in e.messages)
+            ok_('HTML index not found in ZIP' in e.messages)
 
         unlink(s.demo_package.path)
 
         fout = StringIO()
         zf = zipfile.ZipFile(fout, 'w')
-        zf.writestr('play_demo/demo.html', """alert('hi')""")
+        zf.writestr('js/demo.js', """alert('hi')""")
+        zf.close()
+        s.demo_package.save('play_demo.zip', ContentFile(fout.getvalue()))
+
+        try:
+            s.clean()
+            ok_(False, "There should be a validation exception")
+        except ValidationError, e:
+            ok_('HTML index not found in ZIP' in e.messages)
+
+        unlink(s.demo_package.path)
+
+        fout = StringIO()
+        zf = zipfile.ZipFile(fout, 'w')
         zf.writestr('/etc/passwd', """HAXXORED""")
+        zf.writestr('../../../../etc/passwd', """HAXXORED""")
         zf.close()
         s.demo_package.save('play_demo.zip', ContentFile(fout.getvalue()))
 
@@ -80,29 +94,13 @@ class DemoPackageTest(TestCase):
             s.clean()
             ok_(False, "There should be a validation exception")
         except ValidationError, e:
-            ok_('Demo package contains invalid file entries' in e.messages)
+            ok_('ZIP file contains no acceptable files' in e.messages)
 
         unlink(s.demo_package.path)
 
         fout = StringIO()
         zf = zipfile.ZipFile(fout, 'w')
-        zf.writestr('play_demo/demo.html', """alert('hi')""")
-        zf.writestr('play_demo/../../../../etc/passwd', """HAXXORED""")
-        zf.close()
-        s.demo_package.save('play_demo.zip', ContentFile(fout.getvalue()))
-
-        try:
-            s.clean()
-            ok_(False, "There should be a validation exception")
-        except ValidationError, e:
-            ok_('Demo package contains invalid file entries' in e.messages)
-
-        unlink(s.demo_package.path)
-
-        fout = StringIO()
-        zf = zipfile.ZipFile(fout, 'w')
-        zf.writestr('play_demo/demo.html',
-            """<html> </html>""")
+        zf.writestr('index.html', """<html> </html>""")
         zf.close()
         s.demo_package.save('play_demo.zip', ContentFile(fout.getvalue()))
 
@@ -114,13 +112,27 @@ class DemoPackageTest(TestCase):
 
         unlink(s.demo_package.path)
 
+        fout = StringIO()
+        zf = zipfile.ZipFile(fout, 'w')
+        zf.writestr('demo.html', """<html> </html>""")
+        zf.close()
+        s.demo_package.save('play_demo.zip', ContentFile(fout.getvalue()))
+
+        try:
+            s.clean()
+            ok_(True, "This last one should be okay")
+        except:
+            ok_(False, "The last zip file should have been okay")
+
+        unlink(s.demo_package.path)
 
     def test_process_demo_package(self):
+        """Ensure that process_demo_package() results in a directory of demo files"""
         
         fout = StringIO()
         zf = zipfile.ZipFile(fout, 'w')
 
-        zf.writestr('play_demo/demo.html',
+        zf.writestr('index.html',
             """<html>
                 <head>
                     <link rel="stylesheet" href="css/main.css" type="text/css" />
@@ -131,10 +143,10 @@ class DemoPackageTest(TestCase):
                 </body>
             </html>""")
 
-        zf.writestr('play_demo/css/main.css',
+        zf.writestr('css/main.css',
             'h1 { color: red }')
         
-        zf.writestr('play_demo/js/main.js',
+        zf.writestr('js/main.js',
             'alert("HELLO WORLD");')
         
         zf.close()
@@ -150,5 +162,41 @@ class DemoPackageTest(TestCase):
 
         s.process_demo_package()
 
-        ok_(False)
+        path = s.demo_package.path.replace('.zip', '')
+        
+        ok_(isdir(path))
+        ok_(isfile('%s/index.html' % path))
+        ok_(isfile('%s/css/main.css' % path))
+        ok_(isfile('%s/js/main.js' % path))
+        
+        rmtree(path)
 
+    def test_demo_html_normalized(self):
+        """Ensure a demo.html in zip file is normalized to index.html when unpacked"""
+        
+        fout = StringIO()
+        zf = zipfile.ZipFile(fout, 'w')
+        zf.writestr('demo.html', """<html></html""")
+        zf.writestr('css/main.css', 'h1 { color: red }')
+        zf.writestr('js/main.js', 'alert("HELLO WORLD");')
+        zf.close()
+
+        s = Submission(title='Hello world', slug='hello-world',
+            description='This is a hello world demo',
+            tags='hello,world,demo,play', creator=self.user)
+
+        s.demo_package.save('play_demo.zip', ContentFile(fout.getvalue()))
+        s.demo_package.close()
+        s.clean()
+        s.save()
+
+        s.process_demo_package()
+
+        path = s.demo_package.path.replace('.zip', '')
+        
+        ok_(isdir(path))
+        ok_(isfile('%s/index.html' % path))
+        ok_(isfile('%s/css/main.css' % path))
+        ok_(isfile('%s/js/main.js' % path))
+        
+        rmtree(path)
