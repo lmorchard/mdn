@@ -12,6 +12,8 @@ from django.contrib.auth.views import AuthenticationForm
 
 from django.utils.translation import ugettext_lazy as _
 
+from django.views.generic.list_detail import object_list
+
 from devmo import (SECTION_USAGE, SECTION_ADDONS, SECTION_APPS, SECTION_MOBILE,
                    SECTION_WEB)
 from feeder.models import Bundle, Feed
@@ -27,6 +29,9 @@ from demos.forms import SubmissionNewForm, SubmissionEditForm
 from contentflagging.models import ContentFlag
 from contentflagging.forms import ContentFlagForm
 from actioncounters.models import Action
+
+from utils import JingoTemplateLoader
+template_loader = JingoTemplateLoader()
 
 
 def home(request):
@@ -56,6 +61,15 @@ def detail(request, slug):
     
     return jingo.render(request, 'demos/detail.html', {
         'submission': submission })
+
+def search(request):
+    """Search against submission title, summary, and description"""
+    query_string = request.GET.get('q', '')
+    return object_list(request, Submission.objects.search(query_string),
+        paginate_by=25, allow_empty=True,
+        template_loader=template_loader,
+        template_object_name='submission',
+        template_name='demos/listing.html') 
 
 def like(request, slug):
     submission = get_object_or_404(Submission, slug=slug)
@@ -166,4 +180,3 @@ def hideshow(request, slug, hide=True):
 def profile_detail(request, username):
     user = get_object_or_404(User, username=username)
     return jingo.render(request, 'demos/profile_detail.html', {'user':user})
-

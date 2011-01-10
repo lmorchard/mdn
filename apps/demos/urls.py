@@ -44,6 +44,9 @@ urlpatterns = patterns('demos.views',
     url(r'^detail/(?P<slug>[^/]+)/show$', 'hideshow', dict( hide=False ),
         name='demos_show'),
 
+    url(r'^search/$', 'search',
+        name="demos_search"),
+
     url(r'^all/$', object_list, 
         dict(queryset=Submission.objects.all(), 
             paginate_by=25, allow_empty=True,

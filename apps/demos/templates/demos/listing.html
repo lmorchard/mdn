@@ -37,6 +37,8 @@
           {% if tag %}
               <h2>{{ _('Demos tagged "{tag}"') | f(tag=tag_title(tag)) }}</h2>
               <p>{{ tag_description(tag) }}</p>
+          {% elif request.GET.get('q', None) %}
+              <h2>{{ _('Search demos for "{q}"') | f(q=request.GET.get('q', '')) }}</h2>
           {% else %}
               <h2>{{ _('Browse All Demos') }}</h2>
           {% endif %}
@@ -57,6 +59,8 @@
         <ul class="submissions clearfix">
             {% for submission in submission_list %}
                 <li class="submission">{{ submission_thumb(submission) }}</li>
+            {% else %}
+                <li>No results found.</li>
             {% endfor %}
         </ul>
 
@@ -84,11 +88,11 @@
 
   </section>{# /#content-main #}
 
-  {#
   <aside id="content-sub" role="complementary">
-    {{ twitter(tweets, title=_('Correspondence on Twitter from the Web developer community.')) }}
+    <form id="demo_search" method="GET" action="{{ url('demos_search') }}">
+        <input type="text" name="q" placeholder="Search the Gallery" value="{{ request.GET.get('q', '') }}"/>
+    </form>
   </aside>
-  #}
 
 </div>
 </section>{# /#content #}
