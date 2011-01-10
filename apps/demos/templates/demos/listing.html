@@ -33,16 +33,32 @@
     <section class="boxed">
     
       <div id="popular-docs" class="articles-list">
+
         <header class="head section-moz">
           {% if tag %}
               <h2>{{ _('Demos tagged "{tag}"') | f(tag=tag_title(tag)) }}</h2>
               <p>{{ tag_description(tag) }}</p>
           {% elif request.GET.get('q', None) %}
               <h2>{{ _('Search demos for "{q}"') | f(q=request.GET.get('q', '')) }}</h2>
+          {% elif profile_user %}
+              {% if profile_deki_user and profile_deki_user.fullname %}
+                <h2>{{ _('Profile for {fullname}') | f(fullname=profile_deki_user.fullname) }}
+                    <a href="{{ profile_deki_user.profile_url }}">{{_('Edit profile')}}</a>
+                </h2>
+              {% else %}
+                  <h2>{{ _('Profile for {username}') | f(username=profile_user.username) }}</h2>
+              {% endif %}
           {% else %}
               <h2>{{ _('Browse All Demos') }}</h2>
           {% endif %}
         </header>
+
+        {% if profile_deki_user %}
+          <p>
+            <img src="{{ profile_deki_user.gravitar }}" />
+            @@TODO: Need more profile details here
+          </p>
+        {% endif %}
 
         {% if related_tags %}
             <div class="related_tags">
@@ -92,6 +108,18 @@
     <form id="demo_search" method="GET" action="{{ url('demos_search') }}">
         <input type="text" name="q" placeholder="Search the Gallery" value="{{ request.GET.get('q', '') }}"/>
     </form>
+            
+    <div id="mod-tags" class="module">
+        <h3 class="mod-title">Browse by technology</h3>
+        <ul class="tags">
+        {% for tag in tags_used_for_submissions() %}
+            <li>
+                <a href="{{ url('demos_tag', tag=tag.name) }}">{{ tag_title(tag) }}</a> 
+                <span class="count">{{ tag.count }}</span>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
   </aside>
 
 </div>

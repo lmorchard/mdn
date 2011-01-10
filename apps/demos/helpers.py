@@ -12,7 +12,7 @@ from devmo.urlresolvers import reverse
 from tagging.models import Tag, TaggedItem
 from tagging.utils import LINEAR, LOGARITHMIC
 
-from .models import TAG_DESCRIPTIONS
+from .models import Submission, TAG_DESCRIPTIONS
 
 from threadedcomments.models import ThreadedComment, FreeThreadedComment
 from threadedcomments.forms import ThreadedCommentForm, FreeThreadedCommentForm
@@ -55,6 +55,10 @@ def tag_description(tag):
 def tags_for_object(obj):
     tags = Tag.objects.get_for_object(obj)
     return tags
+
+@register.function
+def tags_used_for_submissions():
+    return Tag.objects.usage_for_model(Submission, counts=True, min_count=1)
 
 @register.filter
 def date_diff(timestamp, to=None):

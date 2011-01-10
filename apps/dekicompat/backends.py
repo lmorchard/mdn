@@ -87,12 +87,13 @@ class DekiUser(object):
     """
     Simple data type for deki user info
     """
-    def __init__(self, id, username, fullname, email, gravitar):
+    def __init__(self, id, username, fullname, email, gravitar, profile_url=None):
         self.id = id
         self.username = username
         self.fullname = fullname
         self.email    = email
         self.gravitar = gravitar
+        self.profile_url = profile_url
 
     @staticmethod
     def parse_user_info(xmlstring):
@@ -138,6 +139,8 @@ class DekiUser(object):
         deki_user.id = int(userEl.getAttribute('id'))
         log.debug("Seeing user id %d", deki_user.id)
 
+        deki_user.xml = xmlstring
+
         for c in userEl.childNodes:
             if 'username' == c.nodeName and c.firstChild:
                 deki_user.username = c.firstChild.nodeValue
@@ -147,6 +150,11 @@ class DekiUser(object):
                 deki_user.email = c.firstChild.nodeValue
             elif 'uri.gravatar' == c.nodeName and c.firstChild:
                 deki_user.gravitar = c.firstChild.nodeValue
+            elif 'page.home' == c.nodeName:
+                for sc in c.childNodes:
+                    if 'uri.ui' == sc.nodeName and sc.firstChild:
+                        deki_user.profile_url = sc.firstChild.nodeValue
+                
 
         if 'Anonymous' == deki_user.username:
             return None

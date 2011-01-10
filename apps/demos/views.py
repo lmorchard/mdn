@@ -19,6 +19,7 @@ from devmo import (SECTION_USAGE, SECTION_ADDONS, SECTION_APPS, SECTION_MOBILE,
 from feeder.models import Bundle, Feed
 
 from django.contrib.auth.models import User
+from devmo.models import UserProfile
 
 from tagging.models import Tag, TaggedItem
 from tagging.utils import LINEAR, LOGARITHMIC
@@ -45,10 +46,7 @@ def home(request):
     if not Submission.allows_listing_hidden_by(request.user):
         submissions = submissions.exclude(hidden=True)
 
-    tags = Tag.objects.usage_for_model(Submission, counts=True, min_count=1)
-
     return jingo.render(request, 'demos/home.html', {
-        'tags': tags,
         'featured_submission_list': featured_submissions.all()[:15],
         'submission_list': submissions.all()[:15] 
     })
@@ -66,6 +64,29 @@ def search(request):
     """Search against submission title, summary, and description"""
     query_string = request.GET.get('q', '')
     return object_list(request, Submission.objects.search(query_string),
+        paginate_by=25, allow_empty=True,
+        template_loader=template_loader,
+        template_object_name='submission',
+        template_name='demos/listing.html') 
+
+def profile_detail(request, username):
+    user = get_object_or_404(User, username=username)
+    profile = UserProfile.objects.get(user=user)
+
+    try:
+        # HACK: This seems like a dirty violation of the DekiWiki auth package
+        from dekicompat.backends import DekiUserBackend
+        backend = DekiUserBackend()
+        deki_user = backend.get_deki_user(profile.deki_user_id)
+    except:
+        deki_user = None
+
+    qs = Submission.objects.filter(creator=user)
+    return object_list(request, qs,
+        extra_context=dict( 
+            profile_user=user, 
+            profile_deki_user=deki_user
+        ),
         paginate_by=25, allow_empty=True,
         template_loader=template_loader,
         template_object_name='submission',
@@ -176,7 +197,3 @@ def hideshow(request, slug, hide=True):
 
     return HttpResponseRedirect(reverse(
             'demos.views.detail', args=(submission.slug,)))
-
-def profile_detail(request, username):
-    user = get_object_or_404(User, username=username)
-    return jingo.render(request, 'demos/profile_detail.html', {'user':user})
