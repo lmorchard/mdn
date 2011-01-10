@@ -48,7 +48,51 @@ THUMBNAIL_MAXH = getattr(settings, 'DEMO_THUMBNAIL_MAX_HEIGHT', 100)
 
 RESIZE_METHOD = getattr(settings, 'RESIZE_METHOD', Image.ANTIALIAS)
 
+# HACK: For easier L10N, define tag descriptions in code instead of as a DB model
+TAG_DESCRIPTIONS = getattr(settings, 'TAG_DESCRIPTIONS', dict( (x['tag_name'], x) for x in (
+    { "tag_name": "audio", "title": _("Audio"), 
+        "description": _("These demos make noise") },
+    { "tag_name": "canvas", "title": _("Canvas"),
+        "description": _("These demos make pretty pictures") },
+    { "tag_name": "css3", "title": _("CSS3"), 
+        "description": _("Fancy styling happens in these demos") },
+    { "tag_name": "device", "title": _("Device"), 
+        "description": _("Demos here use device thingies") },
+    { "tag_name": "file", "title": _("File"), 
+        "description": _("Files are manipulated here") },
+    { "tag_name": "game", "title": _("Game"), 
+        "description": _("Games are demos too!") },
+    { "tag_name": "geolocation", "title": _("Geolocation"), 
+        "description": _("These demos know where you've been") },
+    { "tag_name": "html5", "title": _("HTML5"), 
+        "description": _("HTML5 is the future!") },
+    { "tag_name": "indexeddb", "title": _("IndexedDB"), 
+        "description": _("Data gets indexed happily") },
+    { "tag_name": "mobile", "title": _("Mobile"), 
+        "description": _("Demos on the march!") },
+    { "tag_name": "svg", "title": _("SVG"), 
+        "description": _("Drawrings in demos vectorly") },
+    { "tag_name": "video", "title": _("Video"), 
+        "description": _("Internet killed the video star") },
+    { "tag_name": "webgl", "title": _("WebGL"), 
+        "description": _("The browser is throwing things at your face in 3D") },
+    { "tag_name": "websockets", "title": _("WebSockets"), 
+        "description": _("Stick these in your socket and network it") },
+    { "tag_name": "forms", "title": _("Forms"), 
+        "description": _("Filling out fields just got better") },
+    { "tag_name": "mathml", "title": _("MathML"), 
+        "description": _("Pretty math stuff") },
+    { "tag_name": "smil", "title": _("SMIL"), 
+        "description": _("SMILe, you're on candid web demos") },
+    { "tag_name": "localstorage", "title": _("Local Storage"), 
+        "description": _("Storing things locally") },
+    { "tag_name": "offlinesupport", "title": _("Offline Support"), 
+        "description": _("Going offline for awhile") },
+    { "tag_name": "webworkers", "title": _("Web Workers"), 
+        "description": _("Workers of the web unite!") },
+)))
 
+# HACK: For easier L10N, define license in code instead of as a DB model
 DEMO_LICENSES = getattr(settings, "DEMO_LICENSES", (
     ("cc-by-sa", _("CC-BY-SA Creative Commons Attribution-ShareAlike 3.0 [DEFAULT]")),
     ("cc-by", _("CC-BY Creative Commons Attribution 3.0")),
@@ -98,10 +142,7 @@ class ConstrainedTagField(tagging.fields.TagField):
                     (self.max_tags))
 
         for tag_name in value:
-            try:
-                # TODO: Maybe do just an existence check, rather than a get?
-                desc = TagDescription.objects.get(tag_name=tag_name)
-            except TagDescription.DoesNotExist:
+            if not tag_name in TAG_DESCRIPTIONS:
                 raise ValidationError(
                     _('Tag "%s" is not in the set of described tags') % 
                         (tag_name))

@@ -20,7 +20,7 @@ from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from . import scale_image
-from .models import Submission, DEMO_LICENSES
+from .models import Submission, DEMO_LICENSES, TAG_DESCRIPTIONS
 
 from captcha.fields import ReCaptchaField
 
@@ -76,9 +76,8 @@ class ConstrainedTagWidget(CheckboxSelectMultiple):
         super(ConstrainedTagWidget, self).__init__(attrs)
 
         if not choices:
-            from .models import TagDescription
-            choices = ( (x.tag_name, x.title) 
-                    for x in TagDescription.objects.all() )
+            choices = ( (x['tag_name'], x['title']) 
+                    for x in TAG_DESCRIPTIONS.values() ) 
 
         self.choices = list(choices)
 

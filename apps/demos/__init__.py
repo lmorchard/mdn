@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.files.base import ContentFile
 
 try:
@@ -9,7 +10,6 @@ try:
     from PIL import Image
 except ImportError:
     import Image
-
 
 def scale_image(img_upload, img_max_size):
     """Crop and scale an image in-place in form upload, normalize filename."""
