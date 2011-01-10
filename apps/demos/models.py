@@ -111,16 +111,6 @@ DEMO_LICENSES = getattr(settings, "DEMO_LICENSES", (
 ))
 
 
-class TagDescription(models.Model):
-    """Description of a tag"""
-    tag_name = models.CharField(_('name'), 
-            max_length=50, unique=True, db_index=True, primary_key=True)
-    title = models.CharField(_("title"), 
-            max_length=255, blank=False, unique=True)
-    description = models.TextField(_("description"), 
-            blank=True)
-
-
 class ConstrainedTagField(tagging.fields.TagField):
     """Tag field constrained to described tags"""
 

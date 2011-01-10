@@ -40,9 +40,13 @@ def home(request):
     if not Submission.allows_listing_hidden_by(request.user):
         submissions = submissions.exclude(hidden=True)
 
+    tags = Tag.objects.usage_for_model(Submission, counts=True, min_count=1)
+
     return jingo.render(request, 'demos/home.html', {
+        'tags': tags,
         'featured_submission_list': featured_submissions.all()[:15],
-        'submission_list': submissions.all()[:15] })
+        'submission_list': submissions.all()[:15] 
+    })
 
 def detail(request, slug):
     """Detail page for a submission"""

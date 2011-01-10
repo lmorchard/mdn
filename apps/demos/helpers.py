@@ -12,7 +12,7 @@ from devmo.urlresolvers import reverse
 from tagging.models import Tag, TaggedItem
 from tagging.utils import LINEAR, LOGARITHMIC
 
-from .models import TagDescription
+from .models import TAG_DESCRIPTIONS
 
 from threadedcomments.models import ThreadedComment, FreeThreadedComment
 from threadedcomments.forms import ThreadedCommentForm, FreeThreadedCommentForm
@@ -39,19 +39,17 @@ def submission_thumb(context, submission):
 
 @register.function
 def tag_title(tag):
-    try:
-        desc = TagDescription.objects.get(tag_name=tag.name)
-        return desc.title
-    except TagDescription.DoesNotExist:
+    if tag.name in TAG_DESCRIPTIONS:
+        return TAG_DESCRIPTIONS[tag.name]['title']
+    else:
         return tag.name
 
 @register.function
 def tag_description(tag):
-    try:
-        desc = TagDescription.objects.get(tag_name=tag.name)
-        return desc.description
-    except TagDescription.DoesNotExist:
-        return ''
+    if tag.name in TAG_DESCRIPTIONS:
+        return TAG_DESCRIPTIONS[tag.name]['description']
+    else:
+        return tag.name
 
 @register.function
 def tags_for_object(obj):

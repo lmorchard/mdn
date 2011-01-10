@@ -47,6 +47,23 @@
         </section>{# /#content-main #}
 
         <aside id="content-sub" role="complementary">
+        
+            <form id="demo_search">
+                <input type="text" name="q" placeholder="Search the Gallery" />
+            </form>
+            
+            <div id="mod-tags" class="module">
+                <h3 class="mod-title">Browse by technology</h3>
+                <ul class="tags">
+                {% for tag in tags %}
+                    <li>
+                        <a href="{{ url('demos_tag', tag=tag.name) }}">{{ tag_title(tag) }}</a> 
+                        <span class="count">{{ tag.count }}</span>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+
         </aside>{# /#content-sub #}
 
     </div>

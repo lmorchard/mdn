@@ -70,7 +70,7 @@ class MyForm(forms.Form):
 
 
 class ConstrainedTagWidget(CheckboxSelectMultiple):
-    """Checkbox select widget for set of TagDescription objects"""
+    """Checkbox select widget for tag descriptions"""
 
     def __init__(self, attrs=None, choices=()):
         super(ConstrainedTagWidget, self).__init__(attrs)
@@ -90,13 +90,13 @@ class ConstrainedTagWidget(CheckboxSelectMultiple):
 
 class ConstrainedTagFormField(tagging.forms.TagField):
     """Tag field that constrains its input to the set of available
-    TagDescription objects."""
+    TAG_DESCRIPTION entries"""
 
     widget = ConstrainedTagWidget
 
     def clean(self, value):
         # Concatenate the checkboxes into a string usable by the superclass,
-        # but skip superclass' clean() because we'll assume that TagDescription
+        # but skip superclass' clean() because we'll assume that TAG_DESCRIPTION
         # tag names don't exceed the intended MAX_TAG_LENGTH
         if not isinstance(value, (list, tuple)):
             return value
