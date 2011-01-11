@@ -304,3 +304,6 @@ DEMO_LICENSES = (
     ("publicdomain", _("Public Domain")),
     ("other", _("Other (N/A)")),
 )
+
+BITLY_API_KEY = "SET ME IN SETTINGS_LOCAL"
+BITLY_USERNAME = "SET ME IN SETTINGS_LOCAL"

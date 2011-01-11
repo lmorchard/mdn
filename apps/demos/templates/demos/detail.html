@@ -69,7 +69,7 @@
 
         </div>
 
-        <div class="info description">
+        <div class="info summary">
             <h4>Summary:</h4>
             <p>{{ submission.summary }}</p>
         </div>
@@ -86,6 +86,11 @@
                 <p class="views">{{ action_count_for_object('launch', submission) }}</p>
                 <p class="downloads">{{ action_count_for_object('download', submission) }}</p>
             </div>
+
+        </div>
+
+        <div class="info like">
+            <h4>Like:</h4>
             {% set likes = action_count_for_object_by_request('like', request, submission) %}
             {% if likes > 0 %}
                 <span>Liked!</span>
@@ -95,7 +100,17 @@
                     <input class="launch_button like button" type="submit" value="{{_("Like")}}" />
                 </form>
             {% endif %}
+        </div>
 
+        <div class="info share">
+            {% set full_url = request.build_absolute_uri(submission.get_absolute_url()) %}
+            {% set short_url = full_url | bitly_shorten %}
+            <h4>Share:</h4>
+            <ul>
+                <li><a href="http://twitter.com/share?{{ urlencode({"url":short_url, "text":submission.title, "via":"mozhacks"}) }}">Share on Twitter</a></li>
+                <li><a href="http://www.facebook.com/sharer.php?{{ urlencode({"u":short_url, "t":submission.title}) }}">Share on Facebook</a></li>
+                <li><a href="{{ short_url }}">{{ short_url }}</a></li>
+            </ul>
         </div>
 
         <div class="info tags">

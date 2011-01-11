@@ -14,7 +14,8 @@ from django.conf import settings
 
 from django.utils.encoding import smart_unicode, smart_str
 
-from django.core.urlresolvers import reverse
+from devmo.urlresolvers import reverse
+
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Q
@@ -298,9 +299,8 @@ class Submission(models.Model):
         return 'Submission "%(title)s"' % dict(
             title=self.title )
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('demos_detail', [self.slug]) 
+        return reverse('demos.views.detail', kwargs={'slug':self.slug})
 
     def save(self):
         """Save the submission, updating slug and screenshot thumbnails"""
