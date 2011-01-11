@@ -4,6 +4,13 @@
 
 {% block bodyclass %}section-demos landing{% endblock %}
 
+{% block extrahead %}
+    <link rel="alternate" type="application/atom+xml" title="Recent demos"
+        href="{{ url('demos_feed_recent', format='atom') }}" />
+    <link rel="alternate" type="application/atom+xml" title="Featured demos"
+        href="{{ url('demos_feed_featured', format='atom') }}" />
+{% endblock %}
+
 {% block title %}{{ page_title(_('Web')) }}{% endblock %}
 
 {% block content %}

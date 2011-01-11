@@ -4,6 +4,25 @@
 
 {% block bodyclass %}section-demos landing{% endblock %}
 
+{% block extrahead %}
+      {% if tag %}
+          <link rel="alternate" type="application/atom+xml" 
+              title="{{_('Demos tagged {tag}') | f(tag=tag_title(tag)) }}"
+              href="{{ url('demos_feed_tag', format='atom', tag=tag.name) }}" />
+      {% elif request.GET.get('q', None) %}
+          <link rel="alternate" type="application/atom+xml" 
+              title="{{ _('Demo search for "{q}"') | f(q=request.GET.get('q', '')) }}"
+              href="{{ url('demos_feed_search', format='atom', query_string=request.GET.get('q', '')) }}" />
+      {% elif profile_user %}
+          <link rel="alternate" type="application/atom+xml" 
+              title="{{ _('Demos for {username}') | f(username=profile_user.username) }}"
+              href="{{ url('demos_feed_profile', format='atom', username=profile_user.username) }}" />
+      {% else %}
+          <link rel="alternate" type="application/atom+xml" title="Recent demos"
+              href="{{ url('demos_feed_recent', format='atom') }}" />
+      {% endif %}
+{% endblock %}
+
 {% block title %}{{ page_title(_('Web')) }}{% endblock %}
 
 {% block content %}

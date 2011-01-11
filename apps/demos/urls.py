@@ -6,8 +6,13 @@ from tagging.views import tagged_object_list
 
 from demos.models import Submission
 
+from .feeds import RecentSubmissionsFeed, FeaturedSubmissionsFeed
+from .feeds import TagSubmissionsFeed, ProfileSubmissionsFeed
+from .feeds import SearchSubmissionsFeed
+
 from utils import JingoTemplateLoader
 template_loader = JingoTemplateLoader()
+
 
 urlpatterns = patterns('demos.views',
 
@@ -66,6 +71,17 @@ urlpatterns = patterns('demos.views',
     url(r'^profile/(?P<username>[^/]+)/?$', 'profile_detail',
         name="demos_profile_detail"),
 
+    url(r'feeds/(?P<format>[^/]+)/all/', RecentSubmissionsFeed(), 
+        name="demos_feed_recent"),
+    url(r'feeds/(?P<format>[^/]+)/featured/', FeaturedSubmissionsFeed(), 
+        name="demos_feed_featured"),
+    url(r'feeds/(?P<format>[^/]+)/search/(?P<query_string>[^/]+)/$', SearchSubmissionsFeed(), 
+        name="demos_feed_search"),
+    url(r'feeds/(?P<format>[^/]+)/tag/(?P<tag>[^/]+)/$', TagSubmissionsFeed(), 
+        name="demos_feed_tag"),
+    url(r'feeds/(?P<format>[^/]+)/profile/(?P<username>[^/]+)/?$', ProfileSubmissionsFeed(), 
+        name="demos_feed_profile"),
+    
 )
 urlpatterns += patterns('',
     (r'^comments/', include('threadedcomments.urls')),
