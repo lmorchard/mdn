@@ -36,9 +36,10 @@
 
         <div class="info launch">
 
-            {% if request.user.is_authenticated() %}
+            {% if submission.allows_editing_by(request.user) %}
                 <a class="launch_button" href="{{ url('demos_edit', slug=submission.slug) }}">{{_('Edit demo details')}}</a>
             {% endif %}
+
             {% if submission.demo_package %}
                 <a class="launch_button" href="{{ url('demos_launch', slug=submission.slug) }}">Launch demo</a>
                 <a class="launch_button download_button" href="{{ url('demos_download', slug=submission.slug) }}">Download source</a>
