@@ -6,8 +6,8 @@
 
 {% block extrahead %}
   <link rel="alternate" type="application/atom+xml" 
-      title="{{ _('Demos for {username}') | f(username=profile_user.username) }}"
-      href="{{ url('demos_feed_profile', format='atom', username=profile_user.username) }}" />
+      title="{{ _('Demo search for "{q}"') | f(q=request.GET.get('q', '')) }}"
+      href="{{ url('demos_feed_search', format='atom', query_string=request.GET.get('q', '')) }}" />
 {% endblock %}
 
 {% block title %}{{ page_title(_('Web')) }}{% endblock %}
@@ -23,21 +23,8 @@
       <div id="popular-docs" class="articles-list">
 
         <header class="head section-moz">
-          {% if profile_deki_user and profile_deki_user.fullname %}
-            <h2>{{ _('Profile for {fullname}') | f(fullname=profile_deki_user.fullname) }}
-                <a href="{{ profile_deki_user.profile_url }}">{{_('Edit profile')}}</a>
-            </h2>
-          {% else %}
-              <h2>{{ _('Profile for {username}') | f(username=profile_user.username) }}</h2>
-          {% endif %}
+              <h2>{{ _('Search demos for "{q}"') | f(q=request.GET.get('q', '')) }}</h2>
         </header>
-
-        {% if profile_deki_user %}
-          <p>
-            <img src="{{ profile_deki_user.gravitar }}" />
-            @@TODO: Need more profile details here
-          </p>
-        {% endif %}
 
         {{ submission_listing(submission_list) }}
         

@@ -1,0 +1,3 @@
+<form id="demo_search" method="GET" action="{{ url('demos_search') }}">
+    <input type="text" name="q" placeholder="Search the Gallery" value="{{ request.GET.get('q', '') }}"/>
+</form>

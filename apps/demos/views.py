@@ -67,7 +67,7 @@ def search(request):
         paginate_by=25, allow_empty=True,
         template_loader=template_loader,
         template_object_name='submission',
-        template_name='demos/listing.html') 
+        template_name='demos/listing_search.html') 
 
 def profile_detail(request, username):
     user = get_object_or_404(User, username=username)
@@ -90,7 +90,7 @@ def profile_detail(request, username):
         paginate_by=25, allow_empty=True,
         template_loader=template_loader,
         template_object_name='submission',
-        template_name='demos/listing.html') 
+        template_name='demos/profile_detail.html') 
 
 def like(request, slug):
     submission = get_object_or_404(Submission, slug=slug)

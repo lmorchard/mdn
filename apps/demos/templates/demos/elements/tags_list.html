@@ -1,0 +1,11 @@
+<div id="mod-tags" class="module">
+    <h3 class="mod-title">Browse by technology</h3>
+    <ul class="tags">
+    {% for tag in tags_used_for_submissions() %}
+        <li>
+            <a href="{{ url('demos_tag', tag=tag.name) }}">{{ tag_title(tag) }}</a> 
+            <span class="count">{{ tag.count }}</span>
+        </li>
+    {% endfor %}
+    </ul>
+</div>

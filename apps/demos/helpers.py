@@ -32,9 +32,24 @@ def new_context(context, **kw):
 def submission_creator(context, submission):
     return new_context(**locals())
 
+@register.inclusion_tag('demos/elements/submission_listing.html')
+@jinja2.contextfunction
+def submission_listing(context, submissions):
+    return new_context(**locals())
+
 @register.inclusion_tag('demos/elements/submission_thumb.html')
 @jinja2.contextfunction
 def submission_thumb(context, submission):
+    return new_context(**locals())
+
+@register.inclusion_tag('demos/elements/search_form.html')
+@jinja2.contextfunction
+def search_form(context):
+    return new_context(**locals())
+
+@register.inclusion_tag('demos/elements/tags_list.html')
+@jinja2.contextfunction
+def tags_list(context):
     return new_context(**locals())
 
 @register.function

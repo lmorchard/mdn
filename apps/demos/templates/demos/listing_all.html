@@ -1,0 +1,44 @@
+{% extends "demos/base.html" %}
+
+{% block pageid %}demos{% endblock %}
+
+{% block bodyclass %}section-demos landing{% endblock %}
+
+{% block extrahead %}
+  <link rel="alternate" type="application/atom+xml" title="Recent demos"
+      href="{{ url('demos_feed_recent', format='atom') }}" />
+{% endblock %}
+
+{% block title %}{{ page_title(_('Web')) }}{% endblock %}
+
+{% block content %}
+
+<section id="content">
+<div class="wrap sidebar">
+  <section id="content-main" role="main">
+
+    <section class="boxed">
+    
+      <div id="popular-docs" class="articles-list">
+
+        <header class="head section-moz">
+           <h2>{{ _('Browse All Demos') }}</h2>
+        </header>
+
+        {{ submission_listing(submission_list) }}
+        
+      </div>
+
+    </section>{# /.boxed #}
+
+  </section>{# /#content-main #}
+
+  <aside id="content-sub" role="complementary">
+    {{ search_form() }}
+    {{ tags_list() }}
+  </aside>
+
+</div>
+</section>{# /#content #}
+
+{% endblock %}
