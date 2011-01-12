@@ -24,6 +24,65 @@ from .models import Submission, TAG_DESCRIPTIONS
 MAX_FEED_ITEMS = getattr(settings, 'MAX_FEED_ITEMS', 15)
 
 
+class SubmissionJSONFeedGenerator(SyndicationFeed):
+    """JSON feed generator for Submissions
+    TODO: Someday maybe make this into a JSON Activity Stream?"""
+    mime_type = 'application/json'
+
+    def _encode_complex(self, obj):
+        if isinstance(obj, datetime.datetime):
+            return obj.isoformat()
+
+    def write(self, outfile, encoding):
+        request = self.feed['request']
+
+        # Check for a callback param, validate it before use
+        callback = request.GET.get('callback', None)
+        if callback is not None:
+            if not validate_jsonp.is_valid_jsonp_callback_value(callback):
+                callback = None
+
+        items_out = []
+        for item in self.items:
+
+            # Include some of the simple elements from the preprocessed feed item
+            item_out = dict( (x, item[x]) for x in (
+                'link', 'title', 'pubdate', 'author_name', 'author_link',
+            ))
+
+            # Linkify the tags used in the feed item
+            item_out['categories'] = dict(
+                (x, request.build_absolute_uri(reverse('demos_tag', kwargs={'tag':x})))
+                for x in item['categories']
+            )
+
+            # Include a few more, raw from the submission object itself.
+            item_out.update( (x, str(getattr(item['obj'], x))) for x in (
+                'summary', 'description',
+            ))
+
+            item_out['featured'] = item['obj'].featured
+
+            # Include screenshot as an absolute URL.
+            item_out['screenshot'] = request.build_absolute_uri(
+                item['obj'].screenshot_1.url)
+
+            # HACK: This .replace() should probably be done in the model
+            item_out['thumbnail'] = request.build_absolute_uri(
+                item['obj'].screenshot_1.url).replace('screenshot', 'screenshot_thumb')
+
+            #TODO: What else might be useful in a JSON feed of demo submissions?
+            # Comment, like, view counts may change too much for caching to be useful
+
+            items_out.append(item_out)
+
+        data = items_out
+
+        if callback: outfile.write('%s(' % callback)
+        outfile.write(json.dumps(data, default=self._encode_complex))
+        if callback: outfile.write(')')
+
+
 class SubmissionsFeed(Feed):
     title     = _('MDN demos')
     subtitle  = _('Demos submitted by MDN users')
@@ -34,11 +93,14 @@ class SubmissionsFeed(Feed):
         return super(SubmissionsFeed, self).__call__(request, *args, **kwargs)
 
     def feed_extra_kwargs(self, obj):
-        return { 'request': self.request }
+        return { 'request': self.request, }
+
+    def item_extra_kwargs(self, obj):
+        return { 'obj': obj, }
 
     def get_object(self, request, format):
         if format == 'json':
-            self.feed_type = Atom1Feed
+            self.feed_type = SubmissionJSONFeedGenerator
         elif format == 'rss':
             self.feed_type = Rss201rev2Feed
         else:
