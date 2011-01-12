@@ -51,7 +51,7 @@ class DemoPackageTest(TestCase):
             s.clean()
             ok_(False, "There should be a validation exception")
         except ValidationError, e:
-            ok_('Valid ZIP file is required' in e.messages)
+            ok_('ZIP file contains no acceptable files' in e.messages)
 
         unlink(s.demo_package.path)
 

@@ -387,7 +387,7 @@ class Submission(models.Model):
         try:
             zf = zipfile.ZipFile(file)
         except:
-            raise ValidationError(_('Valid ZIP file is required'))
+            raise ValidationError(_('ZIP file contains no acceptable files'))
 
         if zf.testzip():
             raise ValidationError(_('ZIP file corrupted'))
