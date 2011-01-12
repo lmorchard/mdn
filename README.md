@@ -49,6 +49,41 @@ with any web server. If you need a wsgi entry point, you can find one in
 
     python manage.py compress_assets
 
+### Django app configuration
+
+The MDN Django app contains a file named `settings.py` which contains many
+configuration settings used in the application. However, if you wish to change
+any of thses (and you will), you should create a file named `settings_local.py`
+starting with the following statement:
+
+    from settings import *
+
+Then, you can place any local overrides to the contents of `settings.py` in
+this file, rather than changing the one in revision control.
+
+### Third-party service settings
+
+The Django app relies on a few third-party web services, which require the
+configuration of various API keys.
+
+[Recaptcha][] is used to provide abuse prevention measures on some forms. To
+enable this, you'll need to register with the site and provide values for
+the following settings:
+    
+    RECAPTCHA_USE_SSL = False # Set to true if using SSL
+    RECAPTCHA_PRIVATE_KEY = '(private key from recaptcha)'
+    RECAPTCHA_PUBLIC_KEY = '(public key from recaptcha)'
+
+[recaptcha]: http://www.google.com/recaptcha
+
+[bit.ly][] is used to shorten URLs for sharing. To enable this, you'll need to
+register at [bit.ly][] and get a username and API key for these settings:
+
+    BITLY_USERNAME = 'lmorchard'
+    BITLY_API_KEY = "R_2653e6351e31d02988b3da31dac6e2c0"
+
+[bit.ly]: https://bit.ly/a/your_api_key
+
 ### Upload directory for demo submissions
 
 The Demo Room application requires a writable directory for media files that
