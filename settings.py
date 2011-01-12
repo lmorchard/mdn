@@ -267,7 +267,7 @@ FEEDER_TIMEOUT = 6 # in seconds
 # Cookie prefix from PHPBB settings.
 PHPBB_COOKIE_PREFIX = 'phpbb3_jzxvr'
 
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+TEST_RUNNER = 'test_utils.runner.RadicalTestSuiteRunner'
 
 # Filesystem location for uploaded media files, relative to MEDIA_ROOT
 UPLOADED_MEDIA_ROOT = 'uploads'

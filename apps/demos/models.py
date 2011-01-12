@@ -182,10 +182,10 @@ def get_root_for_submission(instance):
          h1=c_name[0], h2=c_name[1], username=c_name, slug=instance.slug,)
 
 def mk_upload_to(field_fn):
-     def upload_to(instance, filename):
-         return '%(base)s/%(field_fn)s' % dict( 
-             base=get_root_for_submission(instance), field_fn=field_fn)
-     return upload_to
+    def upload_to(instance, filename):
+        return '%(base)s/%(field_fn)s' % dict( 
+            base=get_root_for_submission(instance), field_fn=field_fn)
+    return upload_to
 
 
 class SubmissionManager(models.Manager):
