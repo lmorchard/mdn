@@ -62,18 +62,22 @@ def urlencode(args):
     return urllib.urlencode(args)
 
 bitly_api = None
+def _get_bitly_api():
+    """Get an instance of the bit.ly API class"""
+    global bitly_api
+    if bitly_api is None:
+        import bitly
+        login = getattr(settings, 'BITLY_USERNAME', '')
+        apikey = getattr(settings, 'BITLY_API_KEY', '')
+        bitly_api = bitly.Api(login, apikey)
+    return bitly_api
+
 @register.filter
 def bitly_shorten(url):
     """Attempt to shorten a given URL through bit.ly / mzl.la"""
     try:
-        # Try to only create the bit.ly API instance once.
-        global bitly_api
-        if bitly_api is None:
-            import bitly
-            login = getattr(settings, 'BITLY_USERNAME', '')
-            apikey = getattr(settings, 'BITLY_API_KEY', '')
-            bitly_api = bitly.Api(login, apikey)
-        return bitly_api.shorten(url)
+        # TODO:caching
+        return _get_bitly_api().shorten(url)
     except:
         # Just in case the bit.ly service fails or the API key isn't
         # configured, fall back to using the original URL.
