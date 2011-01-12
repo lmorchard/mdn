@@ -10,3 +10,4 @@ build.py
 *-min.js
 *-all.js
 nosetests.xml
+media/uploads/
