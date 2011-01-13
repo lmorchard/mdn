@@ -37,6 +37,8 @@ echo "Updating vendor..."
 pushd $VENDOR && git pull && git submodule update --init;
 popd
 
+python manage.py update_product_details
+
 cat > settings_local.py <<SETTINGS
 from settings import *
 ROOT_URLCONF = '%s.urls' % ROOT_PACKAGE
