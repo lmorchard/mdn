@@ -120,7 +120,6 @@ def flag(request, slug):
 def download(request, slug):
     """Demo download with action counting"""
     submission = get_object_or_404(Submission, slug=slug)
-    Action.objects['download'].increment(request=request, object=submission)
     return HttpResponseRedirect(submission.demo_package.url)
 
 def launch(request, slug):

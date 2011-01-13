@@ -84,9 +84,8 @@
             <div class="meta">
                 <p class="likes">{{ action_count_for_object('like', submission) }}</p>
                 <p class="views">{{ action_count_for_object('launch', submission) }}</p>
-                <p class="downloads">{{ action_count_for_object('download', submission) }}</p>
+                <p class="comments">{{ get_comment_count(submission) }}</p>
             </div>
-
         </div>
 
         <div class="info like">

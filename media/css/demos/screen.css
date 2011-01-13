@@ -62,8 +62,7 @@
 .meta p { font-size: 90%; margin: 0 0.5em 0 0; padding: 0; display: inline; }
 .meta .likes:before { content: "\263a"; padding-right: 0.5ex; font-size: 150%; }
 .meta .views:before { content: "\2699"; padding-right: 0.5ex; font-size: 150%; }
-.meta .downloads:before { content: "\2965"; padding-right: 0.5ex; font-size: 100%; }
-
+.meta .comments:before { content: "\275E"; padding-right: 0.5ex; font-size: 100%; }
 
 #content-main ul.tags { margin: 0em 0.5em 1em 0.5em; }
 #content-main ul.tags li { float: left; padding: 0 0.75em 0 0; margin: 0; background: transparent; }
