@@ -5,6 +5,13 @@ head(
   $bodyclass = '',
   $headerclass = ''
 ); ?>
+
+<div class="global-notice">
+  <div class="wrap">
+    <p><strong>Notice:</strong> This is an example of a global notice message.</p>
+  </div>
+</div>
+
 <section id="content" class="sidebar">
 <div class="wrap">
 

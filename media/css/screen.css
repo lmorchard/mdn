@@ -44,6 +44,17 @@ Font sizes -
 	font-style: normal;
 }
 
+@font-face {
+  font-family: "Bebas Neue";
+  src: url("fonts/BebasNeue-webfont.eot");
+  src: local("BebasNeueRegular"),
+	     url("fonts/BebasNeue-webfont.woff") format("woff"), 
+	     url("fonts/BebasNeue-webfont.ttf") format("truetype"), 
+	     url("fonts/BebasNeue-webfont.svg") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+
 /* @Reset *********/
 header, hgroup, nav, section, article, aside, footer { display: block; }
 html, body, form, fieldset, legend, 
@@ -101,7 +112,7 @@ input[type=text], input[type=password], input[type=search] { padding: 6px 8px; b
 input[type=text]:hover, input[type=password]:hover, input[type=search]:hover,
 input[type=text]:focus, input[type=password]:focus, input[type=search]:focus { border-color: #b6b2a0; }
 
-button, input[type=submit], input[type=button] { padding: 3px 10px; display: inline-block; background: #7c392b url("../img/button-shade.png") 0 .9em repeat-x; color: #fff; font: 200 1em/1.2 Impact, "League Gothic", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; border: 0; -moz-border-radius: .25em; -webkit-border-radius: .25em; border-radius: .25em; }
+button, input[type=submit], input[type=button] { padding: 3px 10px; display: inline-block; background: #7c392b url("../img/button-shade.png") 0 .9em repeat-x; color: #fff; font: 200 1em/1.2 Impact, Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; border: 0; -moz-border-radius: .25em; -webkit-border-radius: .25em; border-radius: .25em; }
 button:hover, input[type=submit]:hover, input[type=button]:hover, 
 button:focus, input[type=submit]:focus, input[type=button]:focus { background-color: #944130; color: #fff; cursor: pointer; }
 
@@ -131,6 +142,7 @@ a.labs:hover, a.labs:focus, a.labs:active { color: #bcbcbc; }
 
 #content { border-top: 1px solid #000; min-height: 400px; }
 .landing #content { border-top-color: #fff; }
+.section-demos #content { border-top: 0; }
 #content .wrap { padding-bottom: 1em; }
 #content .wrap.sidebar { min-height: 400px; padding-bottom: 3em; background: transparent url("../img/bg-sidebar.png") 695px 0 no-repeat; }
 
@@ -142,6 +154,7 @@ a.labs:hover, a.labs:focus, a.labs:active { color: #bcbcbc; }
 #masthead { background: #000; border-bottom: 4px solid #240304; color: #b0b7bc; }
 #masthead .wrap { padding-top: 10px; background: #000 url("../img/bg-masthead.png") right bottom no-repeat; }
 #masthead.major .wrap { padding-top: 20px; }
+#masthead.compact { min-height: 68px; }
 
 body.section-web #masthead { border-bottom-color: #fb9500; }
 body.section-mobile #masthead { border-bottom-color: #8dc434; }
@@ -151,11 +164,13 @@ body.section-moz #masthead { border-bottom-color: #ed2024; }
 body.section-docs #masthead, 
 body.section-tools #masthead, 
 body.section-community #masthead, 
-body.section-labs #masthead { border-bottom-color: #f8d575; }
+body.section-labs #masthead, 
+body.section-demos #masthead { border-bottom-color: #f8d575; }
 
-.major #branding { padding-left: 130px; width: 530px; }
 #branding { position: relative; float: left; width: 595px; min-height: 70px; padding-left: 75px; }
-#logo { font: normal 46px/40px "League Gothic", Haettenschweiler, Impact, sans-serif; text-transform: uppercase; color: #fff; letter-spacing: 1px; margin: 0; }
+.major #branding { padding-left: 130px; width: 530px; }
+.compact #branding { width: 140px; margin-top: 5px; height: 40px; min-height: 0; padding: 0; }
+#logo { font: normal 46px/38px "Bebas Neue", Haettenschweiler, Impact, "Arial Narrow", sans-serif; text-transform: uppercase; color: #fff; letter-spacing: 1px; margin: 5px 0 0; }
 #logo a { color: #fff; text-decoration: none; }
 .major #logo img { top: -17px; left: -8px; }
 #logo img { position: absolute; left: 0; top: -4px; }
@@ -166,9 +181,10 @@ body.section-labs #masthead { border-bottom-color: #f8d575; }
 /*** @Main @Nav *********/
 #nav { clear: both; padding-left: 75px; }
 .major #nav { padding-left: 130px; }
+.compact #nav { clear: none; padding: 0; }
 #nav:after { content: "."; display: block; clear: both; height: 0; visibility: hidden; }
 
-#nav-main { float: left; margin: 0; font: 200 29px/1 Impact, "League Gothic", Haettenschweiler, "Arial Narrow", Arial, Helvetica, sans-serif; text-transform: uppercase; }
+#nav-main { float: left; margin: 0; font: 200 29px/1 Impact, "Bebas Neue", Haettenschweiler, "Arial Narrow", Arial, Helvetica, sans-serif; text-transform: uppercase; }
 .major #nav-main { margin: 18px 0 0; }
 #nav-main li { display: inline-block; margin-right: 15px; }
 #nav-main a { display: inline-block; height: 30px; padding-bottom: 8px; background: url("../img/nav-arrows.png") 50% 50px no-repeat; }
@@ -187,22 +203,51 @@ body.section-moz #nav-main-moz a, #nav-main .current a.moz { background-position
 #nav-main a.apps:hover, #nav-main a.apps:focus, #nav-main a.apps:active { background-position: 50% -412px; padding-bottom: 7px; border-bottom: 1px solid #000; }
 #nav-main a.moz:hover, #nav-main a.moz:focus, #nav-main a.moz:active { background-position: 50% -412px; padding-bottom: 7px; border-bottom: 1px solid #000; }
 
+/*** @Compact @Nav *********/
+.compact #nav { float: left; position: relative; width: 180px; margin: 14px 0 0 0; }
+.compact #nav ul { list-style: none; margin: 0; padding: 0; float: left; }
+.compact #nav li { float: left; width: 180px; }
+.compact #nav a.toggle { position: absolute; right: 0; top: 0; width: 30px; height: 100%; text-indent: -999em; overflow: hidden; background: url("../img/nav-arrows.png") 50% -521px no-repeat; }
+.compact #nav a.toggle:hover, .compact #nav a.toggle:focus, .compact #nav .hover a.toggle { background-position: 50% -566px; outline: 0; }
+.compact #nav .sub-menu { position: absolute; left: -999em; margin-top: 0; z-index: 9999; width: 180px; background: #000; border: 1px solid #888; font: 200 30px/1.4 "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; -moz-box-shadow: 2px 2px 0 rgba(0,0,0,.2); -webkit-box-shadow: 2px 2px 0 rgba(0,0,0,.2); box-shadow: 2px 2px 0 rgba(0,0,0,.2); }
+.compact #nav.js .sub-menu { left: auto; display: none; }
+.compact #nav .menu:hover .sub-menu, .compact #nav .hover .sub-menu, .compact #nav a:focus + ul { left: auto; }
+.compact #nav .sub-menu a { display: block; padding: 4px 15px 6px; border: 0; }
+.compact #nav a.toggle:hover + ul { left: 0; }
+.compact #nav .hover .sub-menu a:focus { position: static; }
+
+.compact #nav-main a:hover, .compact #nav-main a:active, .compact #nav-main a:focus { color: #000; }
+.compact #nav-main a.web:hover, .compact #nav-main a.web:focus, .compact #nav-main a.web:active  { background: #fb9500; }
+.compact #nav-main a.mobile:hover, .compact #nav-main a.mobile:focus, .compact #nav-main a.mobile:active  { background: #8dc434; }
+.compact #nav-main a.addons:hover, .compact #nav-main a.addons:focus, .compact #nav-main a.addons:active { background: #00b6f0; }
+.compact #nav-main a.moz:hover, .compact #nav-main a.moz:focus, .compact #nav-main a.moz:active { background: #ed2024; }
+.compact #nav-main #nav-extra-docs a:hover, .compact #nav-main #nav-extra-docs a:focus, .compact #nav-main #nav-extra-docs a:active,
+.compact #nav-main #nav-extra-forums a:hover, .compact #nav-main #nav-extra-forums a:focus, .compact #nav-main #nav-extra-forums a:active { background: #f8d575; color: #000; }
+.compact #nav-extra-docs { border-top: 1px solid #888; }
+.compact #nav-extra-forums a { color: #f0f0f0; }
+.compact #nav-extra-forums a:hover, .compact #nav-extra-forums a:focus, .compact #nav-extra-forums a:active { color: #f8d575; text-decoration: none; }
+
+.compact #nav .current { margin: 0; padding: 0 30px 0 15px; font: 200 30px/1 "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; text-shadow: 1px 1px 0 rgba(192,39,0,1); }
+.compact #nav .current a { color: #f8d575; }
+.compact #nav .current a:hover, .compact #nav .current a:focus, .compact #nav .current a:active { color: #fff; text-decoration: none; }
+
 /*** @Secondary @Nav *********/
 #utility { width: 255px; float: right; }
+.compact #utility { margin-top: -4px; }
 
-#nav-extra { width: 235px; float: right; margin: 6px 0 0; font: 200 22px/1 "League Gothic", Haettenschweiler, sans-serif; text-transform: uppercase; }
-.major #nav-extra { margin: 25px 0 0; }
-#nav-extra li { display: inline-block; margin-right: 10px; }
+#nav-extra { width: 235px; float: right; margin: 0; vertical-align:sub; font: 200 20px/15px "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; }
+.major #nav-extra { margin-top: 25px; }
+#nav-extra li { display: inline-block; margin-right: 8px; padding-top: 14px; }
 #nav-extra li:last-child { margin-right: 0; }
 
-#nav-extra a { display: inline-block; color: #f0f0f0; padding: 1px 0 8px; text-shadow: 1px 1px 0 rgba(192,39,0,1); background: url("../img/nav-arrows.png") 50% 0 no-repeat; }
-#nav-extra a:hover, #nav-extra a:focus, #nav-extra a:active { color: #f8d575; text-decoration: none; background-position: 50% -14px; }
+#nav-extra a { display: inline-block; color: #f0f0f0; padding: 0 0 8px; text-shadow: 1px 1px 0 rgba(192,39,0,1); background: url("../img/nav-arrows.png") 50% 0 no-repeat; }
+#nav-extra a:hover, #nav-extra a:focus, #nav-extra a:active { color: #f8d575; text-decoration: none; background-position: 50% -20px; }
 
 body.section-docs #nav-extra-docs a, 
 body.section-tools #nav-extra-tools a, 
 body.section-community #nav-extra-community a, 
 body.section-labs #nav-extra-labs a,
-#nav-extra .current a { border-bottom: 0; padding-bottom: 9px; color: #f8d575; background-position: 50% -13px; }
+#nav-extra .current a { border-bottom: 0; padding-bottom: 9px; color: #f8d575; background-position: 50% -19px; }
 
 body.section-docs #nav-extra-docs a:hover,
 body.section-docs #nav-extra-docs a:focus,
@@ -216,9 +261,9 @@ body.section-community #nav-extra-community a:active,
 body.section-labs #nav-extra-labs a:hover,
 body.section-labs #nav-extra-labs a:focus,
 body.section-labs #nav-extra-labs a:active,
-#nav-extra .current a:hover, #nav-extra .current a:focus, #nav-extra .current a:active { padding-bottom: 8px; border-bottom: 1px solid #000; color: #fff; background-position: 50% -58px; }
+#nav-extra .current a:hover, #nav-extra .current a:focus, #nav-extra .current a:active { padding-bottom: 8px; border-bottom: 1px solid #000; color: #fff; background-position: 50% -64px; }
 
-#nav-extra-docs { font-size: 23px; }
+#nav-extra-docs { font-size: 1.05em; }
 #nav-extra-docs a:link, #nav-extra-docs a:visited { padding-top: 0; color: #fff; }
 #nav-extra-docs a:hover, #nav-extra-docs a:focus, #nav-extra-docs a:active { color: #f8d575; }
 
@@ -229,19 +274,41 @@ body.section-labs #nav-extra-labs a:active,
 #site-search #q:hover, #site-search #q:focus { border-color: #9c0d10; background: #7d0d0f; color: #fff; }
 #site-search button { float: right; padding: 0; height: 22px; width: 25px; background: #630a0c url(../img/search-arrow.png) 50% 0 no-repeat; color: #ccc; text-indent: -999em; overflow: hidden; border: 0; -moz-border-radius: .25em; -webkit-border-radius: .25em; -border-radius: .25em; }
 #site-search button:hover, #site-search button:focus { background-color: #7d0d0f; background-position: 50% -40px; color: #fff; cursor: pointer; }
-#site-search-gg { font-size: .642em; float: right; margin-top: 3px; opacity: .75; }
+#site-search-gg { font-size: .642em; opacity: .85; float: right; margin-top: 2px; margin-right: 35px; }
 #site-search-gg * { margin: 0; padding: 0; }
-#site-search-gg img { height: 14px; }
+#site-search-gg img { height: 12px; }
 #site-search-gg .gsc-branding-text { color: #666; vertical-align: top; margin-right: .5em; }
 
 /*** @User status *********/
 .user-state { width: 235px; float: right; text-align: right; color: #630a0c; margin: 0 0 1em; }
+.compact .user-state { margin-bottom: 6px; }
 .user-state a:link, .user-state a:visited { color: #fff; font-style: italic; }
 .user-state a:hover, .user-state a:focus, .user-state a:active { color: #fff; }
 #masthead .user-state { font-size: .785em; }
 
 /*** @Language Picker *********/
 footer .languages { float: right; text-align: right; margin: 0 0 1em; }
+
+/*** @Toolbar *********/
+#nav-toolbar { font-size: .785em; text-shadow: 1px 1px 0 rgba(255,255,255,.25); padding: 0; border-top: 1px solid #cbc8b9; border-bottom: 1px solid #f8f8f6; background: #e4e4d9; background: rgba(198,198,175,.35); }
+#nav-toolbar a:link, #nav-toolbar a:visited { color: #6d6d67; }
+#nav-toolbar a:hover, #nav-toolbar a:focus, #nav-toolbar a:active { color: #25a; }
+
+/*** @Breadcrumbs *********/
+#nav-toolbar .crumbs { float: left; }
+#nav-toolbar .crumbs ol { margin: 0; padding: .6em 0 .7em; list-style: none; }
+#nav-toolbar .crumbs li { display: inline; padding-left: 13px; margin-left: 6px; background: url("../img/nav-arrows.png") -15px -618px no-repeat; }
+#nav-toolbar .crumbs li:first-child { padding-left: 0; margin-left: 0; background: none; }
+
+/*** @Paging (Next and Prev) *********/
+#nav-toolbar .paging { float: right; width: 235px; text-align: right; font-weight: bold; text-transform: uppercase; }
+#nav-toolbar .paging ul { margin: 0; padding: .6em 0 .7em; list-style: none; }
+#nav-toolbar .paging li { display: inline; }
+.paging li.prev { border-right: 1px solid #6d6d67; padding-right: 13px; margin-right: 10px; }
+.paging li.prev a { padding-left: 13px; background: url("../img/nav-arrows.png") 0 -708px no-repeat; }
+.paging li.prev a:hover, .paging li.prev a:focus, .paging li.prev a:active { background-position: 0 -754px; }
+.paging li.next a { padding-right: 13px; background: url("../img/nav-arrows.png") 100% -618px no-repeat; }
+.paging li.next a:hover, .paging li.next a:focus, .paging li.next a:active { background-position: 100% -664px; }
 
 /*** @Section @Nav *********/
 #nav-section { position: relative; z-index: 99; display: block; clear: both; background: #f8d575; margin-bottom: -1px; font-size: .857em; text-transform: uppercase }
@@ -306,7 +373,7 @@ footer .languages { float: right; text-align: right; margin: 0 0 1em; }
 #slideshow.js .slide-desc a { color: #9cf; }
 
 #slideshow .slide-desc .more { clear: both; }
-#slideshow .slide-desc .more a { background: #fff; padding: 3px 14px 3px 18px; color: #f33; font: 1.454em Impact, "League Gothic", Haettenschweiler, "Arial Narrow", Arial, Helvetica, sans-serif; text-transform: uppercase; text-shadow: none; 
+#slideshow .slide-desc .more a { background: #fff; padding: 3px 14px 3px 18px; color: #f33; font: 1.454em Impact, "Bebas Neue", Haettenschweiler, "Arial Narrow", Arial, Helvetica, sans-serif; text-transform: uppercase; text-shadow: none; 
   -moz-border-radius: .25em; -webkit-border-radius: .25em; border-radius: .25em; 
   -moz-box-shadow: 1px 1px 1px rgba(0,0,0,.5); -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,.5); box-shadow: 1px 1px 1px rgba(0,0,0,.5);
 }
@@ -321,7 +388,7 @@ footer .languages { float: right; text-align: right; margin: 0 0 1em; }
 #slideshow.js #slide-control li.on a { background: #fff; }
 
 /*** @Highlights *********/
-#home-highlights h2 { color: #770e0f; padding-left: 60px; background: url("../img/icons-headbar.png") 0 -200px no-repeat; font: 200 1.714em/1.6 "League Gothic", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
+#home-highlights h2 { color: #770e0f; padding-left: 60px; background: url("../img/icons-headbar.png") 0 -200px no-repeat; font: 200 1.714em/1.7 "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
 #home-highlights .intro { font: italic .857em Georgia, Times, "Times New Roman", serif; }
 #home-highlights .folder.visible { background: #fbfbfa url("../img/bg-emboss-robodino.png") 50% 20px no-repeat; }
 
@@ -332,7 +399,7 @@ footer .languages { float: right; text-align: right; margin: 0 0 1em; }
 
 #home-highlights #glossary { background: transparent; }
 #home-highlights #glossary li { background-image: none; padding: 0; }
-#home-highlights h4.gloss-title { padding: 8px 18px 8px 60px; min-height: 30px; background: transparent url("../img/icons-sections.png") 0 -100px no-repeat; font: 200 1.571em/1.2 "League Gothic", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
+#home-highlights h4.gloss-title { padding: 8px 18px 8px 60px; min-height: 30px; background: transparent url("../img/icons-sections.png") 0 -100px no-repeat; font: 200 1.571em/1.4 "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
 #home-highlights #glossary ul li { width: 90%; display: inline-table; margin: 0 10px .5em 0; background: transparent url("../img/bullet-tiny.png") 0 .5em no-repeat; padding: 0 0 0 12px; border: 0; }
 #home-highlights #other-sections { margin-top: 2em; }
 #home-highlights #other-sections .section { padding-bottom: 0; }
@@ -340,7 +407,7 @@ footer .languages { float: right; text-align: right; margin: 0 0 1em; }
 /*** @Elsewhere *********/
 #content-elsewhere { margin: 0 0 3em; }
 #content-elsewhere header { margin-bottom: 1em; background: #2f2f2f url("../img/bg-headings.png") 35% -500px no-repeat; overflow: hidden; }
-#content-elsewhere header h2 { margin: 0; color: #fff; width: 450px; float: left; padding: .5em 18px; font: 200 1.571em/1.2 "League Gothic", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
+#content-elsewhere header h2 { margin: 0; color: #fff; width: 450px; float: left; padding: .5em 18px; font: 200 1.571em/1.2 "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
 #content-elsewhere #type-legend { margin: 0; color: #efe9e5; width: 412px; padding: 18px 18px 15px; float: right; background: #191919 url("../img/bg-headings.png") -40px -110px no-repeat; font: bold .786em Verdana, Arial, Helvetica, sans-serif; }
 #content-elsewhere #type-legend strong { text-transform: uppercase; font-style: italic; margin-right: 10px; }
 #content-elsewhere #type-legend .type { margin-right: 12px; }
@@ -361,7 +428,7 @@ footer .languages { float: right; text-align: right; margin: 0 0 1em; }
 #sections .mdn-section { width: 16.5%; padding: 0 2%; float: left; border-right: 1px solid #dbd8cd; }
 #sections .mdn-section:first-child { padding-left: 0; }
 #sections .mdn-section:last-child { padding-right: 0; border: 0; }
-.mdn-section h3 { font: 200 22px/1 Impact, "League Gothic", Haettenschweiler, "Arial Narrow", Arial, Helvetica, sans-serif; text-transform: uppercase; }
+.mdn-section h3 { font: 200 22px/1 Impact, "Bebas Neue", Haettenschweiler, "Arial Narrow", Arial, Helvetica, sans-serif; text-transform: uppercase; }
 .mdn-section h4 { font-size: .785em; }
 .mdn-section h5 { margin: 0 0 .15em; }
 
@@ -369,7 +436,7 @@ footer .languages { float: right; text-align: right; margin: 0 0 1em; }
 .tabbed-on { border: 1px solid #aba9a5; padding-top: 3.1em; position: relative; }
 .tabbed-on ul.index { position: absolute; top: 0; left: 0; border-bottom: 1px solid #aba9a5; background: rgba(0,0,0,.04) url("../img/light-shade.png") 0 1.5em repeat-x; }
 ul.index { width: 100%; height: 3em; list-style: none; margin: 0; }
-#content-main ul.index li { border: 1px solid #aba9a5; border-bottom: 0; cursor: pointer; float: left; margin-right: -1px; text-align: center; color: #4e4f52; background: #eee url("../img/light-shade.png") 0 1.25em repeat-x; padding: 15px 20px 10px; min-width: 80px; font: 200 1.2em/1 "League Gothic", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
+#content-main ul.index li { border: 1px solid #aba9a5; border-bottom: 0; cursor: pointer; float: left; margin-right: -1px; text-align: center; color: #4e4f52; background: #eee url("../img/light-shade.png") 0 1.25em repeat-x; padding: 15px 20px 10px; min-width: 80px; font: 200 1.2em/1 "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
 #content-main ul.index li:hover { background: #fff none; }
 #content-main ul.index li.active { background: #fbfbfa none; color: #333; border-bottom: 1px solid #fff; padding-bottom: 11px; }
 #content-main .tabbed-on ul.index li { border-width: 0 1px 0 0; margin-right: 0; }
@@ -380,9 +447,10 @@ ul.index a { color: #2f2f2f; text-decoration: none; }
 ul.index a:hover, ul.index a:focus, ul.index a:active { color: #2f2f2f; text-decoration: none; }
 
 /* @Sidebar *********/
-#content-sub .module { background: #fff; border-bottom: 3px solid #cecabc; padding: 18px; margin: 0 0 22px; }
+#content-sub .module, #demo-sub .module { background: #fff; border-bottom: 3px solid #cecabc; padding: 18px; margin: 0 0 22px; }
 #content-sub .module.hot { border-bottom: 2px solid #e9c5bb; background: #fff url("../img/bg-module-hot.png") 80% 100% no-repeat; }
-.module .mod-title { margin: -18px -18px 18px; padding: 15px 18px; background: #2f2f2f url("../img/bg-headings.png") 0 0 no-repeat; color: #fff; font: 200 1.285em/1.1 "League Gothic", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
+.module .mod-title { margin: -18px -18px 18px; padding: 15px 18px 10px; background: #2f2f2f url("../img/bg-headings.png") 0 0 no-repeat; color: #fff; font: 200 1.285em/1.2 "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
+.module .mod-title a { color: #a8d4ff; }
 .module ul, .module ol { margin: 0; }
 .mod-intro { font: italic .785em Georgia, Times, "Times New Roman", serif; }
 
@@ -453,7 +521,7 @@ ul.index a:hover, ul.index a:focus, ul.index a:active { color: #2f2f2f; text-dec
    font-size: 1.5em; font-weight: 200;
 }
 #mdn-firefox4-webdev h3, #mdn-firefox4-webdev h4 {
-    font-family: "League Gothic", Haettenschweiler, sans-serif;
+    font-family: "Bebas Neue", Haettenschweiler, sans-serif;
     text-transform: uppercase;
 }
 #mdn-firefox4-webdev p { margin-bottom: 0px; }
@@ -467,7 +535,7 @@ ul.index a:hover, ul.index a:focus, ul.index a:active { color: #2f2f2f; text-dec
 #mdn-twitter .entry-title { font-weight: normal; margin: 0 0 .75em; }
 #mdn-twitter .entry-meta { margin-top: .75em; }
 #mdn-twitter #follow { margin: 0 -18px -18px; }
-#mdn-twitter #follow a { display: block; padding: 12px 18px 12px 45px; background: #c1cbd3 url("../img/icons-headbar.png") 16px -438px no-repeat; color: #fff; font: 200 1.286em "League Gothic", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
+#mdn-twitter #follow a { display: block; padding: 10px 18px 10px 45px; background: #c1cbd3 url("../img/icons-headbar.png") 16px -438px no-repeat; color: #fff; font: 200 1.286em/1.6 "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
 #mdn-twitter #follow a b { color: #245375; font-weight: normal; }
 #mdn-twitter #follow a:hover, #mdn-twitter #follow a:focus, #mdn-twitter #follow a:active { text-decoration: none; background-color: #aebfc9; }
 
@@ -481,9 +549,9 @@ ul.index a:hover, ul.index a:focus, ul.index a:active { color: #2f2f2f; text-dec
   -webkit-box-shadow: 0 3px 0 #bf8c4f, inset 0 2px 2px rgba(0,0,0,.2); 
   box-shadow: 0 3px 0 #bf8c4f, inset 0 2px 2px rgba(0,0,0,.2);  
 }
-#content-sub #help h3 { margin: 0 0 5px; color: #fff; font: 200 44px/1 "League Gothic", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; text-shadow: 0 5px 0 #924b09; }
+#content-sub #help h3 { margin: 0 0 5px; color: #fff; font: 200 44px/1 "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; text-shadow: 0 5px 0 #924b09; }
 #content-sub #help p { margin: 0 0 5px; color: #630; font: bold italic .857em Georgia, Times, "Times New Roman", serif; }
-#content-sub #help .go { display: block; padding: 8px 16px; width: 60%; margin: 10px auto 0; border: 1px solid #e19e20; font: 200 1.285em/1.2 Impact, "League Gothic", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; color: #82460b;
+#content-sub #help .go { display: block; padding: 8px 16px; width: 60%; margin: 10px auto 0; border: 1px solid #e19e20; font: 200 1.285em/1.2 Impact, "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; color: #82460b;
   text-shadow: -1px -1px 1px #fff; 
   background: #f4cb6c;
   background: -moz-linear-gradient(top, #f9e5ac 0, #f2c051 100%); 
@@ -505,7 +573,7 @@ ul.index a:hover, ul.index a:focus, ul.index a:active { color: #2f2f2f; text-dec
 #content-sub #contact { background: #cdc9bb; border-bottom-color: #afa894; }
 #content-sub #contact .mod-title { background: transparent none; color: inherit; padding: 0; margin: 0 0 .5em; }
 #contact li { margin-bottom: 1em; }
-#contact label { display: block; margin: 0 0 .25em; font: 200 1.142em/1.2 "League Gothic", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
+#contact label { display: block; margin: 0 0 .25em; font: 200 1.142em/1.2 "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
 #contact input, #contact textarea { border: 1px solid #bfbbad; background: #fff; padding: 4px 8px; margin-left: -1px; width: 182px; font-size: .857em; }
 #contact input:hover, #contact input:focus, #contact textarea:hover, #contact textarea:focus { border-color: #8d846f; }
 #contact .fm-submit { text-align: right; }
@@ -539,11 +607,11 @@ section.boxed:after, div.boxed:after { content: "."; display: block; clear: both
 .boxed .head.section-addons { background-position: 0 -400px; }
 .boxed .head.section-apps, .boxed .head.section-moz { background-position: 0 -600px; }
 
-.boxed .head h2, .boxed .head h3 { margin-bottom: 0; color: #000; font: 200 1.857em/1.2 "League Gothic", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
-.boxed .head p { margin: 0; font: bold italic .857em/1.1 Georgia, Times, "Times New Roman", serif; }
+.boxed .head h2, .boxed .head h3 { margin-bottom: 0; color: #000; font: 200 1.857em/1.2 "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
+.boxed .head p { margin: -2px 0 0; font: bold italic .857em/1.1 Georgia, Times, "Times New Roman", serif; }
 
 .boxed .subhead { margin: 0 0 1.4em; }
-.boxed .subhead h2, .boxed .subhead h3 { margin-bottom: 0; color: #000; font: 200 1.714em/1.2 "League Gothic", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
+.boxed .subhead h2, .boxed .subhead h3 { margin-bottom: 0; color: #000; font: 200 1.714em/1.2 "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
 .boxed .subhead p { font: italic .857em/1.1 Georgia, Times, "Times New Roman", serif; }
 
 /* @Docs @Landing *********/
@@ -582,7 +650,7 @@ section.boxed:after, div.boxed:after { content: "."; display: block; clear: both
 #other-sections .section:first-child { border-left: 0; }
 #other-sections .section:last-child { border-right: 0; }
 
-.section h4 a { display: block; padding: 8px 18px 8px 60px; min-height: 30px; margin: -18px -18px 1em; background: transparent url("../img/icons-sections.png") no-repeat; font: 200 2em/1.2 "League Gothic", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
+.section h4 a { display: block; padding: 8px 18px 8px 60px; min-height: 30px; margin: -18px -18px 1em; background: transparent url("../img/icons-sections.png") no-repeat; font: 200 2em/1.4 "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
 .section h4 a.web { background-position: 0 -100px; }
 .section h4 a.mobile { background-position: 0 -300px; }
 .section h4 a.addons { background-position: 0 -500px; }
@@ -597,7 +665,7 @@ section.boxed:after, div.boxed:after { content: "."; display: block; clear: both
 #latest-forums { width: 410px; float: left; }
 #latest-comments { width: 410px; float: right; }
 
-#content-latest h3 { padding: .5em 18px; margin: -18px -18px 18px; background: #2f2f2f url("../img/bg-headings.png") 90% -400px no-repeat; font: 200 1.571em/1.2 "League Gothic", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; color: #fff; }
+#content-latest h3 { padding: .5em 18px .25em; margin: -18px -18px 18px; background: #2f2f2f url("../img/bg-headings.png") 90% -400px no-repeat; font: 200 1.571em/1.2 "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; color: #fff; }
 #content-latest header p { font: italic .857em Georgia, Times, "Times New Roman", serif; }
 #content-latest .hfeed { margin-bottom: 0; }
 #content-latest .hentry { position: relative; padding: 0 0 18px 55px; min-height: 38px; margin: 0 0 18px; font-size: .785em; border-bottom: 1px dotted #d8d4ca; }
@@ -631,9 +699,10 @@ section.boxed:after, div.boxed:after { content: "."; display: block; clear: both
 #videos .hfeed { overflow: hidden; }
 #videos .hfeed .hentry { float: left; width: 270px; font-size: .857em; position: relative; padding: 165px 20px 0; background: transparent none; }
 #videos .hentry h3 { color: #fff; height: 150px; font-size: 1.2em; position: absolute; top: 3px; left: 20px; }
-#videos .hentry h3 span { position: absolute; bottom: 0; left: 0; display: block; width: 250px; padding: 4px 10px; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,.75); background: rgba(0,0,0,.4); }
+#videos .hentry h3 span { position: absolute; bottom: 0; left: 0; display: block; width: 250px; padding: 4px 10px; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,.75); background: #000; background: rgba(0,0,0,.4); }
 #videos .hentry h3 img { border: 3px solid #ccc; margin: -3px 0 0 -3px; }
-#videos .hentry h3 a:hover img { border-color: inherit; }
+#videos .hentry h3 a:hover, #videos .hentry h3 a:focus, #videos .hentry h3 a:active { text-decoration: none; }
+#videos .hentry h3 a:hover img, #videos .hentry h3 a:focus img, #videos .hentry h3 a:active img { border-color: inherit; }
 
 /* @Search @Results *********/
 #google-branding { font-size: .785em; float: right; margin-top: -3.75em; opacity: .3; }
@@ -645,3 +714,143 @@ section.boxed:after, div.boxed:after { content: "."; display: block; clear: both
 #search-results .gs-visibleUrl { font-size: .785em; display: inline; margin-right: 10px; color: #aaa; }
 #search-results .gs-visibleUrl-short { font-weight: bold; }
 #search-results div.gs-watermark { display: none; }
+
+/* @Demo @Detail *********/
+#demobox { position: relative; overflow: auto; margin: 0 5px 1em 0; padding: 20px 520px 5em 20px; min-height: 290px; background: #000; color: #c0c0c0; 
+  -moz-box-shadow: 2px 2px 0 rgba(170,160,130,.5), 4px 4px 0 rgba(200,190,165,.5);
+  -webkit-box-shadow: 2px 2px 0 rgba(170,160,130,.5), 4px 4px 0 rgba(200,190,165,.5);
+  box-shadow: 2px 2px 0 rgba(170,160,130,.5), 4px 4px 0 rgba(200,190,165,.5); 
+}
+#demobox a { color: #fff; }
+#demobox .page-title { color: #fff; margin: 0; }
+#demobox .byline { font-size: .857em; }
+#demobox .manage { margin-top: -.5em; }
+#demobox ul li { list-style: none; padding: 0; background: none; }
+
+#demobox .button { padding: .5em .75em .15em; display: inline-block; margin-right: 4px; background: #bd5642 url("../img/button-shade.png") 0 .75em repeat-x; color: #fff; font: 200 1em/1 "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; text-decoration: none; letter-spacing: .5px; -moz-border-radius: .15em; -webkit-border-radius: .15em; border-radius: .15em; }
+#demobox .button:hover, #demobox .button:focus, #demobox .button:active { background-color: #ae4935; }
+#demobox .button strong { font-weight: normal; }
+
+#demobox .button.edit { color: #2f2f2f; background-color: #a5d9f3; }
+#demobox .button.edit:hover, #demobox .button.edit:focus, #demobox .button.edit:active { color: #000; background-color: #80cdf3; }
+#demobox .button.remove { color: #2f2f2f; background-color: #f07b7b; }
+#demobox .button.remove:hover, #demobox .button.remove:focus, #demobox .button.remove:active { color: #000; background-color: #f05b5b; }
+
+#demobox .tools li { display: inline; margin-right: 10px; font-size: 1.143em; background: none; }
+#demobox .tools .launch .button { position: relative; bottom: -.15em; font-size: 1.571em; }
+#demobox .tools .like a { padding-left: 30px; background: url("../img/demobox-icons.png") 0 -300px no-repeat; }
+#demobox .tools .unlike a { padding-left: 30px; background: url("../img/demobox-icons.png") 0 -350px no-repeat; }
+#demobox .tools .share a { padding-left: 25px; background: url("../img/demobox-icons.png") 0 -400px no-repeat; }
+
+#demobox .tools .share { position: relative; }
+
+#share-opts { margin: .75em 0; float: right; width: 210px; }
+#share-opts.js { position: absolute; float: none; top: -11px; left: -11px; z-index: 99; margin: 0; padding: 10px; background: #000; border: 1px solid #808080; -moz-box-shadow: 5px 5px 0 rgba(0,0,0,.5); -webkit-box-shadow: 5px 5px 0 rgba(0,0,0,.5); box-shadow: 5px 5px 0 rgba(0,0,0,.5); }
+#demobox #share-opts li { display: block; font-size: .857em; border-top: 1px dotted #3f3f3f; padding: 7px 0; }
+#demobox #share-opts .sharetitle { font-size: 16px; color: #666; position: static; padding: 0 0 7px 25px; background: url("../img/demobox-icons.png") 0 -450px no-repeat; border: 0; }
+#demobox #share-opts .twitter a { background-position: 0 -500px; color: #ff4675; }
+#demobox #share-opts .facebook a { background-position: 0 -550px; color: #54aaff; }
+#demobox #share-opts .link { padding-left: 25px; background: url("../img/demobox-icons.png") 0 -593px no-repeat; }
+#demobox #shorturl { border: 0; background: #000; color: #ffc145; width: auto; padding: 0; }
+#demobox #shorturl.focus { color: #000; }
+
+#share-opts .link ::-moz-selection { color: #000; background: #ffc145; }
+#share-opts .link ::selection { color: #000; background: #ffc145; }
+
+#demobox .demo-meta { position: absolute; left: 0; bottom: 0; padding-left: 20px; font-size: .857em; }
+
+#demobox .stats { float: left; list-style: none; margin: 0 0 0 -20px; padding: .75em 20px; background: #323232; }
+#demobox .stats li { display: inline; margin-right: 8px; padding-left: 25px; background: url("../img/demobox-icons.png") no-repeat; }
+#demobox .stats .views { background-position: 0 -650px; }
+#demobox .stats .likes { background-position: 0 -700px; }
+#demobox .stats .comments { background-position: 0 -750px; }
+
+.screenshots.js { position: absolute; right: 10px; top: 10px; background: #fff; width: 480px; height: 360px; }
+
+#demobox .slider { margin: 0; padding: 0; list-style: none; }
+
+.nav-screens { height: 0; margin: 0; padding: 0; display: none; }
+.js .nav-screens { display: block; }
+
+.nav-screens a { position: absolute; top: 50%; z-index: 10; display: block; margin-top: -60px; height: 120px; width: 60px;
+    text-indent: -999em;
+    text-decoration: none;
+    overflow: hidden;
+    background: #000 url("../img/demobox-icons.png") no-repeat;
+    background-color: rgba(0,0,0,.75);
+    opacity: 0.75;
+    -moz-transition-property: opacity, background-color;
+    -moz-transition-duration: 0.2s;
+    -moz-transition-timing-function: ease-out;
+    -webkit-transition-property: opacity, background-color;
+    -webkit-transition-duration: 0.2s;
+    -webkit-transition-timing-function: ease-out;
+}
+
+.nav-screens a:hover, 
+.nav-screens a:active {
+    opacity: 1;
+    -moz-transition-property: opacity, background-color;
+    -moz-transition-duration: 0.1s;
+    -moz-transition-timing-function: ease-out;
+    -webkit-transition-property: opacity, background-color;
+    -webkit-transition-duration: 0.1s;
+    -webkit-transition-timing-function: ease-out;
+}
+
+.nav-screens a:focus { outline: 0; }
+
+.nav-prev a { left: -60px; background-position: 5px 45px; -moz-border-radius: 0 60px 60px 0; -webkit-border-radius: 0 60px 60px 0; border-radius: 0 60px 60px 0; }
+[dir="rtl"] .nav-prev a { -moz-border-radius: 60px 0 0 60px; -webkit-border-radius: 60px 0 0 60px; border-radius: 60px 0 0 60px; }
+
+.nav-next a { right: -60px; background-position: 25px -105px; -moz-border-radius: 60px 0 0 60px; -webkit-border-radius: 60px 0 0 60px; border-radius: 60px 0 0 60px; }
+[dir="rtl"] .nav-next a { -moz-border-radius: 0 60px 60px 0; -webkit-border-radius: 0 60px 60px 0; border-radius: 0 60px 60px 0; }
+
+.demo-more { width: 670px; float: left; padding: 20px 0 0; }
+.demo-more .moreabout { padding: 20px; margin: 0 0 40px; font-size: .857em; background: #fff; border: 1px solid #cbc8b9; }
+.moreabout h1 { font: 200 1.571em/1.2 "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
+
+#demo-sub { width: 235px; float: right; padding: 20px 0 0 20px; }
+#demo-sub .module .gallery li { padding: 0; background: none; }
+
+#demo-report { padding: 20px; }
+#demo-report h3 { color: #666; margin: 0 0 .5em; font: 200 1.24em/1.2 "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; letter-spacing: .5px; }
+#demo-report ul li { font-size: .785em; background: none; padding: 0; margin: 0 0 .25em; }
+#demo-report ul li:before { content: "\00BB\00A0"; }
+
+#source .download, #source .browse { border-bottom: 1px dotted #ccc; margin: 0 0 1em; padding: 0 0 1em; }
+#source .download a, #source .browse a { display: block; padding-left: 50px; min-height: 35px; background: url("../img/download-icons.png") no-repeat; }
+#source .download a { background-position: 0 0; }
+#source .download a:hover, #source .download a:focus, #source .download a:active { background-position: 0 -100px; }
+#source .browse a { background-position: 0 -200px; }
+#source .browse a:hover, #source .browse a:focus, #source .browse a:active { background-position: 0 -300px; }
+#source .note { color: #666; font-weight: normal; font-size: .785em; }
+#source a:hover .note, #source a:focus .note, #source a:active .note { color: #25a; }
+#source .license { font-size: .785em; color: #666; padding-left: 50px; margin: 0; background: url("../img/download-icons.png") 0 -400px no-repeat; }
+
+/* @Comments *********/
+#comments { font-size: .857em; background: rgba(198,198,175,.3); margin: 0 0 40px; }
+#comments header { padding: 20px; }
+#comments header h1 { font-size: 1.333em; margin: 0 0 .25em; }
+#comments header p { margin: 0; }
+
+#comments #comments-list { list-style: none; margin: 0; padding: 0; }
+#comments-list .hentry { position: relative; margin: 0; padding: 20px 20px 20px 85px;  }
+#comments-list .hentry:nth-child(odd) { background: #ecece5; }
+#comments-list .hentry:nth-child(odd) .hentry { background: rgba(198,198,175,.25); }
+#comments-list .entry-title { width: 65%; float: left; }
+#comments-list .entry-meta { width: 34%; float: right; text-align: right; color: #666; font-size: .857em; text-transform: uppercase; }
+#comments-list .entry-meta a { color: #666; font-weight: bold; }
+#comments-list .author .photo { position: absolute; left: 20px; }
+#comments-list .entry-content { padding: 0; border: 0; clear: both; }
+
+#comments #comments-list .replies { list-style: none; margin: 20px -20px 0 -60px; padding: 0; }
+
+#comments-list .comment-opts { margin: -.5em 0 0; font-size: .857em; text-transform: uppercase; }
+#comments-list .comment-opts li { display: inline; padding: 0; margin-right: 8px; background: none; }
+#comments-list .comment-opts a { color: #666; }
+#comments-list .comment-opts a:hover, #comments-list .comment-opts a:focus, #comments-list .comment-opts a:active { color: #25a; }
+
+#comment-post { padding: 20px 20px 0; }
+#comment-post legend span { display: block; margin: 0 0 .5em; font-size: 1.333em; }
+#comment-post textarea { width: 100%; margin: 0 0 1em; }

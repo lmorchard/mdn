@@ -7,15 +7,15 @@ head(
 ); ?>
 <header id="welcome-bar">
 <div class="wrap">
-    <p class="intro" id="welcome-devmo"><span class="leadin">Welcome to the Mozilla Deveoper Network, a.k.a.:</span> 
-    <strong class="devmo">DEVMO</strong>
-    <a href="#" class="go">Learn the history behind Project <em>Devmo</em></a></p>
-    
-    <p class="extra" id="welcome-new"><strong>New to MDN?</strong> Want to help make our network even better?<br /> 
-    <a href="#" class="go">Here's how to get started</a></p>
+  <p class="intro" id="welcome-devmo"><span class="leadin">Welcome to the Mozilla Deveoper Network, a.k.a.:</span> 
+  <strong class="devmo">DEVMO</strong>
+  <a href="#" class="go">Learn the history behind Project <em>Devmo</em></a></p>
+  
+  <p class="extra" id="welcome-new"><strong>New to MDN?</strong> Want to help make our network even better?<br /> 
+  <a href="#" class="go">Here's how to get started</a></p>
 
-    <p class="extra" id="welcome-login"><strong>Already a member?</strong> Customize your profile &amp; fine-tune your participation within MDN.<br /> 
-    <a href="#" class="go">Log in</a></p>
+  <p class="extra" id="welcome-login"><strong>Already a member?</strong> Customize your profile &amp; fine-tune your participation within MDN.<br /> 
+  <a href="#" class="go">Log in</a></p>
 </div>
 </header>
 
@@ -24,8 +24,8 @@ head(
   <section id="content-main" role="main">
   
   <!-- These two scripts are only needed on the home page (or any page featuring the slide show widget). -->
-  <script type="text/javascript" src="/js/jquery.cycle.js"></script>
-  <script type="text/javascript" src="/js/slideshow.js"></script>
+  <script type="text/javascript" src="./js/jquery.cycle.js"></script>
+  <script type="text/javascript" src="./js/slideshow.js"></script>
     
   <div id="slideshow">
     <ol id="slide-control">
@@ -36,25 +36,25 @@ head(
     </ol>
     <ol id="slides">
       <li id="slide-one" class="slide">
-        <img src="/img/fpo-slide1.jpg" alt="" width="660">
+        <img src="./img/features/feature-html5.jpg" alt="" width="660">
         <div class="slide-desc">
           <h3>First Feature</h3>
           <h2>A compelling headline to introduce this feature.</h2>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet enim.</p>
+          <p>Lorem ipsum dolor sit amet, <a href="#">consectetuer adipiscing elit</a>. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet enim.</p>
           <p class="more"><a href="#" class="button">More</a></p>
         </div>
       </li>
       <li id="slide-two" class="slide">
-        <img src="/img/fpo-slide2.jpg" alt="" width="660">
+        <img src="./img/features/feature-addonsbuilder.jpg" alt="" width="660">
         <div class="slide-desc">
           <h3>Second Feature</h3>
           <h2>A bird in the hand is worth two in the bush.</h2>
-          <p>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.</p>
+          <p>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. <a href="#">Aenean dignissim</a> pellentesque felis.</p>
           <p class="more"><a href="#" class="button">More</a></p>
         </div>
       </li>
       <li id="slide-three" class="slide">
-        <img src="/img/fpo-slide3.jpg" alt="" width="660">
+        <img src="./img/features/feature-firefox4b.jpg" alt="" width="660">
         <div class="slide-desc">
           <h3>Third Feature</h3>
           <h2>Early to bed and early to rise makes a man healthy, wealthy, and wise.</h2>
@@ -63,7 +63,7 @@ head(
         </div>
       </li>
       <li id="slide-four" class="slide">
-        <img src="/img/fpo-slide4.jpg" alt="" width="660">
+        <img src="./img/features/feature-android.png" alt="" width="660">
         <div class="slide-desc">
           <h3>Fourth Feature</h3>
           <h2>Laughter is the best medicine.</h2>
@@ -86,6 +86,57 @@ head(
       <h2>Highlights From Around the Network</h2>
       
       <div class="tabbed">
+        <h3>Docs</h3>
+        <h4 class="gloss-title">Technology Glossary for <a href="#" class="web">Web</a> Developers</h4>  
+        <ul id="glossary">
+          <li>
+            <ul class="cols-4">
+              <li><a href="https://developer.mozilla.org/en/HTML">HTML</a></li>
+              <li><a href="https://developer.mozilla.org/en/CSS">CSS</a></li>
+              <li><a href="https://developer.mozilla.org/en/JavaScript">JavaScript</a></li>
+              <li><a href="https://developer.mozilla.org/en/HTML/HTML5">HTML5</a></li>
+        
+              <li><a href="https://developer.mozilla.org/en/DOM">DOM</a></li>
+              <li><a href="https://developer.mozilla.org/En/SVG">SVG</a></li>
+              <li><a href="https://developer.mozilla.org/en/HTML/Element/canvas">Canvas</a></li>
+              <li><a href="https://developer.mozilla.org/en/AJAX">AJAX</a></li>
+              <li><a href="https://developer.mozilla.org/En/CSS/Media_queries">Media Queries</a></li>
+              <li><a href="https://developer.mozilla.org/en/WebGL">WebGL</a></li>
+        
+              <li><a href="https://developer.mozilla.org/en/Storage">Web Storage</a></li>
+              <li><a href="https://developer.mozilla.org/En/Using_audio_and_video_in_Firefox">Audio</a></li>
+              <li><a href="https://developer.mozilla.org/En/Using_audio_and_video_in_Firefox">Video</a></li>
+              <li><a href="https://developer.mozilla.org/En/Using_web_workers">Web Workers</a></li>
+              <li><a href="https://developer.mozilla.org/en/Using_files_from_web_applications">Files</a></li>
+              <li><a href="https://developer.mozilla.org/En/DragDrop/Drag_and_Drop">Drag and Drop</a></li>
+        
+              <li><a href="https://developer.mozilla.org/En/CSS/Using_CSS_transforms">CSS Transforms</a></li>
+              <li><a href="https://developer.mozilla.org/en/Using_gradients">CSS Gradients</a></li>
+              <li><a href="https://developer.mozilla.org/en/Security">Security</a></li>
+              <li><a href="https://developer.mozilla.org/en/IndexedDB">IndexedDB</a></li>
+            </ul>
+          </li>
+        </ul>
+        
+        <div id="other-sections">
+          <div class="section">
+            <h4><a href="/en-US/mobile" class="mobile">Mobile</a></h4>
+            <p>Learn more about <a href="https://developer.mozilla.org/en/Mobile">Fennec</a>
+            and mobile-specific technologies like <a href="https://developer.mozilla.org/En/Using_geolocation">geolocation</a>.</p>
+          </div>
+          <div class="section">
+            <h4><a href="/en-US/addons" class="addons">Add-ons</a></h4>
+            <p><a href="https://builder.mozillalabs.com/">Build your own add-ons</a> and discuss them
+            with the <a href="https://addons.mozilla.org/en-US/developers/">add-on developer community</a>.</p>
+          </div>
+          <div class="section">
+            <h4><a href="/en-US/apps" class="apps">Applications</a></h4>
+            <p>See how you can <a href="https://developer.mozilla.org/En/Participating_in_the_Mozilla_project">
+            participate</a> in <a href="https://developer.mozilla.org/en/Localization">localization</a>,
+            <a href="https://developer.mozilla.org/en/QA">quality assurance</a>, and other Mozilla projects.</p>
+          </div>
+        </div>
+
         <h3>News &amp; Updates</h3>
         <p class="intro">Highlighted Mozilla Devloper News &amp; Updates</p>
         <ul class="hfeed">
@@ -120,15 +171,10 @@ head(
             <p class="entry-meta">Created by: <cite class="author vcard"><a href="#" class="url fn">Morgamic</a></cite> and filed under: <a href="#" rel="tag">CSS3</a>, <a href="#" rel="tag">HTML5</a></p>
           </li>
         </ul>
-
         
         <h3>Events</h3>
         <p class="intro">MDN Events</p>
         <p>Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</p>
-        
-        <h3>Docs</h3>
-        <p class="intro">Documentation</p>
-        <p>Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu pulvinar risus, vitae facilisis libero dolor a purus. Sed vel lacus. Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo. Integer leo pede, ornare a, lacinia eu, vulputate vel, nisl.</p>
 
         <h3>Tools</h3>
         <p class="intro">Developer Tools</p>
@@ -136,22 +182,22 @@ head(
       </div>
     </div>
     
-  <script type="text/javascript" src="/js/TabInterface.js"></script>
-  <script type="text/javascript">
-  // <![CDATA[
-    $(document).ready(function(){
-      var cabinets = Array();
-      var collection = document.getElementsByTagName( '*' );
-      var cLen = collection.length;
-      for( var i=0; i<cLen; i++ ){
-        if( collection[i] &&
-            /\s*tabbed\s*/.test( collection[i].className ) ){
-          cabinets.push( new TabInterface( collection[i], i ) );
+    <script type="text/javascript" src="js/TabInterface.js"></script>
+    <script type="text/javascript">
+    // <![CDATA[
+      $(document).ready(function(){
+        var cabinets = Array();
+        var collection = document.getElementsByTagName( '*' );
+        var cLen = collection.length;
+        for( var i=0; i<cLen; i++ ){
+          if( collection[i] &&
+              /\s*tabbed\s*/.test( collection[i].className ) ){
+            cabinets.push( new TabInterface( collection[i], i ) );
+          }
         }
-      }
-    });
-  // ]]>
-  </script>
+      });
+    // ]]>
+    </script>
     
   </section>
   
@@ -229,22 +275,22 @@ head(
     </header>
     <ul class="hfeed">
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> Lando Calrissian</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> Lando Calrissian</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Excepteur sint occaecat cupidatat non proident labore et dolore magna&hellip;</a> 
         in <a href="#" rel="tag" class="category mobile">Mobile</a></p>
       </li>
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> Jay Patel</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> Jay Patel</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque&hellip;</a> 
         in <a href="#" rel="tag" class="category apps">Applications</a></p>
       </li>
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> Han</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> Han</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Eiusmod tempor incididunt ut labore et dolore magna aliqua in voluptate velit esse cillum&hellip;</a> 
         in <a href="#" rel="tag" class="category addons">Add-ons</a></p>
       </li>
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> morgamic</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> morgamic</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Duis aute irure dolor in commodo ipsum reprehenderit in voluptate ipsum dolor sit amet, consectetur adipisicing elit velit esse cillum dolore eu fugiat nulla pariatur&hellip;</a> 
         in <a href="#" rel="tag" class="category web">Web</a></p>
       </li>
@@ -258,22 +304,22 @@ head(
     </header>
     <ul class="hfeed">
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> Jay Patel</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> Jay Patel</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque&hellip;</a> 
         in <a href="#" rel="tag" class="category apps">Applications</a></p>
       </li>
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> morgamic</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> morgamic</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur&hellip;</a> 
         in <a href="#" rel="tag" class="category web">Web</a></p>
       </li>
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> Lando Calrissian</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> Lando Calrissian</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Excepteur sint occaecat cupidatat non proident&hellip;</a> 
         in <a href="#" rel="tag" class="category mobile">Mobile</a></p>
       </li>
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> Han</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> Han</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Eiusmod tempor incididunt ut labore et dolore magna aliqua in voluptate velit esse cillum&hellip;</a> 
         in <a href="#" rel="tag" class="category addons">Add-ons</a></p>
       </li>

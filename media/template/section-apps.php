@@ -1,21 +1,21 @@
 <?php include "./inc/template.php";
 head(
   $title = 'Applications | Mozilla Developer Network',
-  $pageid = 'apps',
-  $bodyclass = 'section-apps landing',
+  $pageid = 'moz',
+  $bodyclass = 'section-moz landing',
   $headerclass = ''
 ); ?>
 <header id="section-head">
 <div class="wrap">
-    <p class="intro">Welcome to the Apps Developer Community:</p> 
-    <h1 id="logo-apps" class="apps">Apps</h1>
+    <p class="intro">Welcome to the Mozilla Developer Community:</p> 
+    <h1 id="logo-moz" class="moz">Mozilla</h1>
     
     <div class="util">
       <p><strong>Are you ready to make browsing better?</strong></p>
       <ul>
         <li class="util-twitter"><a href="#">Twitter</a></li>
         <li class="util-rss"><a href="#">Subscribe</a></li>
-        <li class="util-discuss"><a href="#">Join the Apps discussions!</a></li>
+        <li class="util-discuss"><a href="#">Join the Mozilla discussions!</a></li>
       </ul>
     </div>
 </div>
@@ -26,10 +26,9 @@ head(
   <section id="content-main" role="main">
   
     <section class="boxed">
-      <div id="popular-docs">
-        <header class="head">
-          <img src="/img/icn-apps-med.png" alt="" width="58" height="58" />
-          <h2>Popular <span class="apps">Applications</span> Documentation</h2>
+      <div id="popular-docs" class="articles-list">
+        <header class="head section-moz">
+          <h2>Popular <span class="moz">Mozilla</span> Documentation</h2>
         </header>
         
         <ul class="hfeed">
@@ -64,26 +63,26 @@ head(
 
       <div id="fave-tools">
         <header class="subhead">
-          <h3>Favorite <span class="apps">Applications</span> Tools</h3>
+          <h3>Favorite <span class="moz">Mozilla</span> Tools</h3>
         </header>
         <ul class="tools">
           <li>
-            <h4><a href="#">Weave Browser Sync <img src="/img/fpo55.png" alt="" width="65" /></a></h4>
+            <h4><a href="#">Weave Browser Sync <img src="./img/fpo55.png" alt="" width="65" /></a></h4>
             <p class="desc">Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</p>
             <p class="meta">Filed under: <a href="#" rel="tag">Category</a>, <a href="#" rel="tag">Category</a></p>
           </li>
           <li>
-            <h4><a href="#">Firebug <img src="/img/icn-tool-firebug.png" alt="" width="65" /></a></h4>
+            <h4><a href="#">Firebug <img src="./img/icn-tool-firebug.png" alt="" width="65" /></a></h4>
             <p class="desc">Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euismod vel, velit. Pellentesque egestas sem. Suspendisse commodo ullamcorper magna.</p>
             <p class="meta">Filed under: <a href="#" rel="tag">Category</a>, <a href="#" rel="tag">Category</a>, <a href="#" rel="tag">Category</a></p>
           </li>
           <li>
-            <h4><a href="#">Web Developer Toolbar <img src="/img/icn-tool-devtoolbar.png" alt="" width="65" /></a></h4>
+            <h4><a href="#">Web Developer Toolbar <img src="./img/icn-tool-devtoolbar.png" alt="" width="65" /></a></h4>
             <p class="desc">Fusce lacinia arcu et nulla. Nulla vitae mauris non felis mollis faucibus.</p>
             <p class="meta">Filed under: <a href="#" rel="tag">Category</a></p>
           </li>
           <li>
-            <h4><a href="#">Some Other Useful Tool <img src="/img/fpo55.png" alt="" width="65" /></a></h4>
+            <h4><a href="#">Some Other Useful Tool <img src="./img/fpo55.png" alt="" width="65" /></a></h4>
             <p class="desc">Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.</p>
             <p class="meta">Filed under: <a href="#" rel="tag">Category</a>, <a href="#" rel="tag">Category</a>, <a href="#" rel="tag">Category</a></p>
           </li>
@@ -91,9 +90,9 @@ head(
         </ul>
       </div>
       
-      <div id="recent-news">
+      <div id="recent-news" class="articles-list">
         <header class="subhead">
-          <h3>Recent <span class="apps">Applications</span> News &amp; Updates</h3>
+          <h3>Recent <span class="moz">Mozilla</span> News &amp; Updates</h3>
         </header>
         <ul class="hfeed">
           <li class="hentry">
@@ -131,7 +130,7 @@ head(
   <aside id="content-sub" role="complementary">
   
     <div class="module" id="section-trends">
-      <h3 class="mod-title"><span class="apps">Application</span> Developer Trends</h3>
+      <h3 class="mod-title"><span class="moz">Mozilla</span> Developer Trends</h3>
       <p class="mod-intro">Up to date trends and popular content based on number of tags on a given entry/doc/tool. Alphabetical order.</p>
       <ol class="heat-graph">
         <li><span style="width:50%;"><a href="#">Accessory <b>50</b></a></span></li>
@@ -154,16 +153,16 @@ head(
     </div>
   
     <div class="module" id="active">
-      <h3 class="mod-title">Active <span class="apps">Application</span> Developers</h3>
+      <h3 class="mod-title">Active <span class="moz">Mozilla</span> Developers</h3>
       <ol class="gallery">
-        <li><a href="#" title="Leia Organa"><img src="/img/fpo55.png" alt="Leia Organa" width="32" height="32" /></a></li>
-        <li><a href="#" title="Han Solo"><img src="/img/fpo55.png" alt="Han Solo" width="32" height="32" /></a></li>
-        <li><a href="#" title="Obi-Wan Kenobi"><img src="/img/fpo55.png" alt="Obi-Wan Kenobi" width="32" height="32" /></a></li>
-        <li><a href="#" title="Lando Calrissian"><img src="/img/fpo55.png" alt="Lando Calrissian" width="32" height="32" /></a></li>
-        <li><a href="#" title="Boba Fett"><img src="/img/fpo55.png" alt="Boba Fett" width="32" height="32" /></a></li>
-        <li><a href="#" title="Darth Vader"><img src="/img/fpo55.png" alt="Darth Vader" width="32" height="32" /></a></li>
-        <li><a href="#" title="Luke Skywalker"><img src="/img/fpo55.png" alt="Luke Skywalker" width="32" height="32" /></a></li>
-        <li><a href="#" title="Yoda"><img src="/img/fpo55.png" alt="Yoda" width="32" height="32" /></a></li>
+        <li><a href="#" title="Leia Organa"><img src="img/fpo55.png" alt="Leia Organa" width="32" height="32" /></a></li>
+        <li><a href="#" title="Han Solo"><img src="img/fpo55.png" alt="Han Solo" width="32" height="32" /></a></li>
+        <li><a href="#" title="Obi-Wan Kenobi"><img src="img/fpo55.png" alt="Obi-Wan Kenobi" width="32" height="32" /></a></li>
+        <li><a href="#" title="Lando Calrissian"><img src="img/fpo55.png" alt="Lando Calrissian" width="32" height="32" /></a></li>
+        <li><a href="#" title="Boba Fett"><img src="img/fpo55.png" alt="Boba Fett" width="32" height="32" /></a></li>
+        <li><a href="#" title="Darth Vader"><img src="img/fpo55.png" alt="Darth Vader" width="32" height="32" /></a></li>
+        <li><a href="#" title="Luke Skywalker"><img src="img/fpo55.png" alt="Luke Skywalker" width="32" height="32" /></a></li>
+        <li><a href="#" title="Yoda"><img src="img/fpo55.png" alt="Yoda" width="32" height="32" /></a></li>
       </ol>
     </div>
     
@@ -190,24 +189,24 @@ head(
   
   <div id="latest-forums" class="boxed">
     <header>
-      <h3>Latest <span class="apps">Applications</span> Discussions from Our Forums:</h3>
+      <h3>Latest <span class="moz">Mozilla</span> Discussions from Our Forums:</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
     </header>
     <ul class="hfeed">
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> Lando Calrissian</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> Lando Calrissian</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Excepteur sint occaecat cupidatat non proident labore et dolore magna&hellip;</a></p>
       </li>
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> Jay Patel</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> Jay Patel</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque&hellip;</a></p>
       </li>
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> Han</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> Han</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Eiusmod tempor incididunt ut labore et dolore magna aliqua in voluptate velit esse cillum&hellip;</a></p>
       </li>
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> morgamic</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> morgamic</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Duis aute irure dolor in commodo ipsum reprehenderit in voluptate ipsum dolor sit amet, consectetur adipisicing elit velit esse cillum dolore eu fugiat nulla pariatur&hellip;</a></p>
       </li>
     </ul>
@@ -215,24 +214,24 @@ head(
   
   <div id="latest-comments" class="boxed">
     <header>
-      <h3>Latest <span class="apps">Applications</span> Comments from Our Community:</h3>
+      <h3>Latest <span class="moz">Mozilla</span> Comments from Our Community:</h3>
       <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
     </header>
     <ul class="hfeed">
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> Jay Patel</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> Jay Patel</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque&hellip;</a></p>
       </li>
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> morgamic</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> morgamic</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur&hellip;</a></p>
       </li>
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> Lando Calrissian</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> Lando Calrissian</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Excepteur sint occaecat cupidatat non proident&hellip;</a></p>
       </li>
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> Han</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> Han</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Eiusmod tempor incididunt ut labore et dolore magna aliqua in voluptate velit esse cillum&hellip;</a></p>
       </li>
     </ul>

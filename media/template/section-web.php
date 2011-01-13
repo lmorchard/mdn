@@ -21,14 +21,19 @@ head(
 </div>
 </header>
 
+<div class="global-notice">
+  <div class="wrap">
+    <p><strong>Attention:</strong> This is an example of a global notice. Anything you like can go in this space between the header and the main content.</p>
+  </div>
+</div>
+
 <section id="content">
 <div class="wrap sidebar">
   <section id="content-main" role="main">
   
     <section class="boxed">
-      <div id="popular-docs">
-        <header class="head">
-          <img src="/img/icn-web-med.png" alt="" width="58" height="58" />
+      <div id="popular-docs" class="articles-list">
+        <header class="head section-web">
           <h2>Popular <span class="web">Web</span> Documentation</h2>
         </header>
         
@@ -68,22 +73,22 @@ head(
         </header>
         <ul class="tools">
           <li>
-            <h4><a href="#">Weave Browser Sync <img src="/img/fpo55.png" alt="" width="65" /></a></h4>
+            <h4><a href="#">Weave Browser Sync <img src="./img/fpo55.png" alt="" width="65" /></a></h4>
             <p class="desc">Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</p>
             <p class="meta">Filed under: <a href="#" rel="tag">Category</a>, <a href="#" rel="tag">Category</a></p>
           </li>
           <li>
-            <h4><a href="#">Firebug <img src="/img/icn-tool-firebug.png" alt="" width="65" /></a></h4>
+            <h4><a href="#">Firebug <img src="./img/icn-tool-firebug.png" alt="" width="65" /></a></h4>
             <p class="desc">Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euismod vel, velit. Pellentesque egestas sem. Suspendisse commodo ullamcorper magna.</p>
             <p class="meta">Filed under: <a href="#" rel="tag">Category</a>, <a href="#" rel="tag">Category</a>, <a href="#" rel="tag">Category</a></p>
           </li>
           <li>
-            <h4><a href="#">Web Developer Toolbar <img src="/img/icn-tool-devtoolbar.png" alt="" width="65" /></a></h4>
+            <h4><a href="#">Web Developer Toolbar <img src="./img/icn-tool-devtoolbar.png" alt="" width="65" /></a></h4>
             <p class="desc">Fusce lacinia arcu et nulla. Nulla vitae mauris non felis mollis faucibus.</p>
             <p class="meta">Filed under: <a href="#" rel="tag">Category</a></p>
           </li>
           <li>
-            <h4><a href="#">Some Other Useful Tool <img src="/img/fpo55.png" alt="" width="65" /></a></h4>
+            <h4><a href="#">Some Other Useful Tool <img src="./img/fpo55.png" alt="" width="65" /></a></h4>
             <p class="desc">Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.</p>
             <p class="meta">Filed under: <a href="#" rel="tag">Category</a>, <a href="#" rel="tag">Category</a>, <a href="#" rel="tag">Category</a></p>
           </li>
@@ -91,7 +96,7 @@ head(
         </ul>
       </div>
       
-      <div id="recent-news">
+      <div id="recent-news" class="articles-list">
         <header class="subhead">
           <h3>Recent <span class="web">Web</span> News &amp; Updates</h3>
         </header>
@@ -156,14 +161,14 @@ head(
     <div class="module" id="active">
       <h3 class="mod-title">Active <span class="web">Web</span> Developers</h3>
       <ol class="gallery">
-        <li><a href="#" title="Leia Organa"><img src="/img/fpo55.png" alt="Leia Organa" width="32" height="32" /></a></li>
-        <li><a href="#" title="Han Solo"><img src="/img/fpo55.png" alt="Han Solo" width="32" height="32" /></a></li>
-        <li><a href="#" title="Obi-Wan Kenobi"><img src="/img/fpo55.png" alt="Obi-Wan Kenobi" width="32" height="32" /></a></li>
-        <li><a href="#" title="Lando Calrissian"><img src="/img/fpo55.png" alt="Lando Calrissian" width="32" height="32" /></a></li>
-        <li><a href="#" title="Boba Fett"><img src="/img/fpo55.png" alt="Boba Fett" width="32" height="32" /></a></li>
-        <li><a href="#" title="Darth Vader"><img src="/img/fpo55.png" alt="Darth Vader" width="32" height="32" /></a></li>
-        <li><a href="#" title="Luke Skywalker"><img src="/img/fpo55.png" alt="Luke Skywalker" width="32" height="32" /></a></li>
-        <li><a href="#" title="Yoda"><img src="/img/fpo55.png" alt="Yoda" width="32" height="32" /></a></li>
+        <li><a href="#" title="Leia Organa"><img src="img/fpo55.png" alt="Leia Organa" width="32" height="32" /></a></li>
+        <li><a href="#" title="Han Solo"><img src="img/fpo55.png" alt="Han Solo" width="32" height="32" /></a></li>
+        <li><a href="#" title="Obi-Wan Kenobi"><img src="img/fpo55.png" alt="Obi-Wan Kenobi" width="32" height="32" /></a></li>
+        <li><a href="#" title="Lando Calrissian"><img src="img/fpo55.png" alt="Lando Calrissian" width="32" height="32" /></a></li>
+        <li><a href="#" title="Boba Fett"><img src="img/fpo55.png" alt="Boba Fett" width="32" height="32" /></a></li>
+        <li><a href="#" title="Darth Vader"><img src="img/fpo55.png" alt="Darth Vader" width="32" height="32" /></a></li>
+        <li><a href="#" title="Luke Skywalker"><img src="img/fpo55.png" alt="Luke Skywalker" width="32" height="32" /></a></li>
+        <li><a href="#" title="Yoda"><img src="img/fpo55.png" alt="Yoda" width="32" height="32" /></a></li>
       </ol>
     </div>
     
@@ -195,19 +200,19 @@ head(
     </header>
     <ul class="hfeed">
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> Lando Calrissian</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> Lando Calrissian</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Excepteur sint occaecat cupidatat non proident labore et dolore magna&hellip;</a></p>
       </li>
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> Jay Patel</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> Jay Patel</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque&hellip;</a></p>
       </li>
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> Han</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> Han</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Eiusmod tempor incididunt ut labore et dolore magna aliqua in voluptate velit esse cillum&hellip;</a></p>
       </li>
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> morgamic</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> morgamic</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Duis aute irure dolor in commodo ipsum reprehenderit in voluptate ipsum dolor sit amet, consectetur adipisicing elit velit esse cillum dolore eu fugiat nulla pariatur&hellip;</a></p>
       </li>
     </ul>
@@ -220,19 +225,19 @@ head(
     </header>
     <ul class="hfeed">
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> Jay Patel</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> Jay Patel</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque&hellip;</a></p>
       </li>
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> morgamic</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> morgamic</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur&hellip;</a></p>
       </li>
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> Lando Calrissian</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> Lando Calrissian</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Excepteur sint occaecat cupidatat non proident&hellip;</a></p>
       </li>
       <li class="hentry">
-        <cite class="author vcard"><a href="#" class="url fn"><img src="/img/fpo55.png" alt="" class="photo" width="38" height="38" /> Han</a></cite> 
+        <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> Han</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Eiusmod tempor incididunt ut labore et dolore magna aliqua in voluptate velit esse cillum&hellip;</a></p>
       </li>
     </ul>
