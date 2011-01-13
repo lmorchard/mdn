@@ -1,4 +1,5 @@
 import jingo
+import logging
 
 from django.conf import settings
 

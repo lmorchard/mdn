@@ -25,6 +25,8 @@ from django.template.defaultfilters import slugify
 from django.template.loader import render_to_string
 from django.template.defaultfilters import slugify
 
+import caching.base
+
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
 
@@ -188,8 +190,10 @@ def mk_upload_to(field_fn):
     return upload_to
 
 
-class SubmissionManager(models.Manager):
+class SubmissionManager(caching.base.CachingManager):
     """Manager for Submission objects"""
+
+    # TODO: Make these search functions into a mixin?
 
     # See: http://www.julienphalip.com/blog/2008/08/16/adding-search-django-site-snap/
     def _normalize_query(self, query_string,
@@ -234,7 +238,7 @@ class SubmissionManager(models.Manager):
         return self.filter(query).order_by('-modified')
         
 
-class Submission(models.Model):
+class Submission(caching.base.CachingMixin, models.Model):
     """Representation of a demo submission"""
     objects = SubmissionManager()
 

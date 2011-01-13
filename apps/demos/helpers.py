@@ -1,9 +1,14 @@
 import datetime
 import urllib
+import logging
+import functools
+
+from django.core.cache import cache
 from django.utils.translation import ungettext, ugettext
 
 from django.conf import settings
 
+import jingo
 import jinja2
 from jinja2 import evalcontextfilter, Markup, escape
 from jingo import register, env
@@ -26,35 +31,76 @@ from threadedcomments.templatetags import threadedcommentstags
 from devmo.urlresolvers import reverse
 threadedcommentstags.reverse = reverse
 
+
+TEMPLATE_INCLUDE_CACHE_EXPIRES = getattr(settings, 'TEMPLATE_INCLUDE_CACHE_EXPIRES', 300)
+
+
 def new_context(context, **kw):
     c = dict(context.items())
     c.update(kw)
     return c
 
-@register.inclusion_tag('demos/elements/submission_creator.html')
-@jinja2.contextfunction
-def submission_creator(context, submission):
-    return new_context(**locals())
+# TODO:liberate ?
+def register_cached_inclusion_tag(template, key_fn=None, expires=TEMPLATE_INCLUDE_CACHE_EXPIRES):
+    """Decorator for inclusion tags with output caching. 
+    
+    Accepts a string or function to generate a cache key based on the incoming
+    parameters, along with an expiration time configurable as
+    INCLUDE_CACHE_EXPIRES or an explicit parameter"""
+
+    if key_fn is None:
+        key_fn = template
+
+    def decorator(f):
+        @functools.wraps(f)
+        def wrapper(*args, **kw):
+
+            if type(key_fn) is str:
+                cache_key = key_fn
+            else:
+                cache_key = key_fn(*args, **kw)
+            
+            out = cache.get(cache_key)
+            if out is None:
+                context = f(*args, **kw)
+                t = jingo.env.get_template(template).render(context)
+                out = jinja2.Markup(t)
+                cache.set(cache_key, out, expires)
+            return out
+
+        return register.function(wrapper)
+    return decorator
+   
+def submission_key(prefix):
+    """Produce a cache key function with a prefix, which generates the rest of
+    the key based on a submission ID and last-modified timestamp."""
+    def k(*args, **kw):
+        submission = args[0]
+        return 'submission:%s:%s:%s' % ( prefix, submission.id, submission.modified )
+    return k
+
+# TOOO: All of these inclusion tags could probably be generated & registered
+# from a dict of function names and inclusion tag args, since the method bodies
+# are all identical. Might be astronaut architecture, though.
+
+@register_cached_inclusion_tag('demos/elements/submission_creator.html', submission_key('creator'))
+def submission_creator(submission): return locals()
+
+@register_cached_inclusion_tag('demos/elements/submission_thumb.html', submission_key('thumb'))
+def submission_thumb(submission): return locals()
 
 @register.inclusion_tag('demos/elements/submission_listing.html')
-@jinja2.contextfunction
-def submission_listing(context, submissions):
-    return new_context(**locals())
+def submission_listing(submission_list): return locals()
 
-@register.inclusion_tag('demos/elements/submission_thumb.html')
-@jinja2.contextfunction
-def submission_thumb(context, submission):
-    return new_context(**locals())
+@register_cached_inclusion_tag('demos/elements/tags_list.html', 'demos_tags_list')
+def tags_list(): return locals()
 
+# Not cached, because it's small and changes based on current search query string
 @register.inclusion_tag('demos/elements/search_form.html')
 @jinja2.contextfunction
 def search_form(context):
     return new_context(**locals())
 
-@register.inclusion_tag('demos/elements/tags_list.html')
-@jinja2.contextfunction
-def tags_list(context):
-    return new_context(**locals())
 
 @register.function
 def urlencode(args):

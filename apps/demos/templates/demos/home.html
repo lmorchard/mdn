@@ -31,20 +31,12 @@
 
             <div>
                 <h3>{{_('Featured')}}</h3>
-                <ul class="submissions clearfix">
-                    {% for submission in featured_submission_list %}
-                        <li class="submission">{{ submission_thumb(submission) }}</li>
-                    {% endfor %}
-                </ul>
+                {{ submission_listing(featured_submission_list) }}
             </div>
 
             <div>
                 <h3>{{_('Demos')}}</h3>
-                <ul class="submissions clearfix">
-                    {% for submission in submission_list %}
-                        <li class="submission">{{ submission_thumb(submission) }}</li>
-                    {% endfor %}
-                </ul>
+                {{ submission_listing(submission_list) }}
             </div>
 
         </div>
@@ -54,23 +46,8 @@
         </section>{# /#content-main #}
 
         <aside id="content-sub" role="complementary">
-        
-            <form id="demo_search" method="GET" action="{{ url('demos_search') }}">
-                <input type="text" name="q" placeholder="Search the Gallery" />
-            </form>
-            
-            <div id="mod-tags" class="module">
-                <h3 class="mod-title">Browse by technology</h3>
-                <ul class="tags">
-                {% for tag in tags_used_for_submissions() %}
-                    <li>
-                        <a href="{{ url('demos_tag', tag=tag.name) }}">{{ tag_title(tag) }}</a> 
-                        <span class="count">{{ tag.count }}</span>
-                    </li>
-                {% endfor %}
-                </ul>
-            </div>
-
+            {{ search_form() }}
+            {{ tags_list() }}
         </aside>{# /#content-sub #}
 
     </div>
