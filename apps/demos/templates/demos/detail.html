@@ -84,7 +84,7 @@
             <div class="meta">
                 <p class="likes">{{ submission.likes.total }}</p>
                 <p class="views">{{ submission.launches.total }}</p>
-                <p class="comments">{{ get_comment_count(submission) }}</p>
+                <p class="comments">{{ submission.comments_total }}</p>
             </div>
         </div>
 
@@ -129,7 +129,7 @@
         <div class="comments">
 
             <div>
-                <h3>{{ get_comment_count(submission) }} people have commented</h3>
+                <h3>{{ submission.comments_total }} people have commented</h3>
                 <span>Why not <a href="#comment_form">add your own</a>?</span>
             </div>
             {% set tree = get_threaded_comment_tree(submission) %}

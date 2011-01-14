@@ -96,7 +96,6 @@ def like(request, slug):
     submission = get_object_or_404(Submission, slug=slug)
     if request.method == "POST":
         submission.likes.increment(request)
-        Submission.objects.invalidate(submission)
     return HttpResponseRedirect(reverse(
         'demos.views.detail', args=(submission.slug,)))
 
@@ -104,7 +103,6 @@ def unlike(request, slug):
     submission = get_object_or_404(Submission, slug=slug)
     if request.method == "POST":
         submission.likes.decrement(request)
-        Submission.objects.invalidate(submission)
     return HttpResponseRedirect(reverse(
         'demos.views.detail', args=(submission.slug,)))
 

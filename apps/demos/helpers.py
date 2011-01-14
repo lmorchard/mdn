@@ -86,7 +86,7 @@ def submission_key(prefix):
 @register_cached_inclusion_tag('demos/elements/submission_creator.html', submission_key('creator'))
 def submission_creator(submission): return locals()
 
-@register_cached_inclusion_tag('demos/elements/submission_thumb.html', submission_key('thumb'))
+@register.inclusion_tag('demos/elements/submission_thumb.html')
 def submission_thumb(submission): return locals()
 
 @register.inclusion_tag('demos/elements/submission_listing.html')
@@ -191,10 +191,6 @@ def get_threaded_comment_tree(content_object, tree_root=0):
 @register.function
 def get_comment_url(content_object, parent=None):
     return threadedcommentstags.get_comment_url(content_object, parent)
-
-@register.function
-def get_comment_count(content_object):
-    return ThreadedComment.public.all_for_object(content_object).count() 
 
 @register.function
 def get_threaded_comment_form():

@@ -22,7 +22,7 @@ from .models import TestModel
 from .fields import ActionCounterField
 
 
-class DemoPackageTest(TestCase):
+class ActionCountersTest(TestCase):
 
     def setUp(self):
         settings.DEBUG = True

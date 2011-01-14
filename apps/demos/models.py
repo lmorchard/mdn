@@ -38,6 +38,8 @@ from tagging.utils import parse_tag_input
 from tagging.fields import TagField
 from tagging.models import Tag
 
+from threadedcomments.models import ThreadedComment, FreeThreadedComment
+
 from actioncounters.fields import ActionCounterField
 
 from . import scale_image
@@ -259,6 +261,8 @@ class Submission(caching.base.CachingMixin, models.Model):
     featured = models.BooleanField()
     hidden = models.BooleanField()
 
+    comments_total = models.PositiveIntegerField(default=0)
+
     launches = ActionCounterField()
     likes = ActionCounterField()
 
@@ -449,3 +453,13 @@ class Submission(caching.base.CachingMixin, models.Model):
             # Extract the file from the zip into the desired location.
             open(out_fn, 'w').write(zf.read(zi))
 
+def update_submission_comment_count(sender, instance, **kwargs):
+    """Update the denormalized count of comments for a submission on comment save/delete"""
+    obj = instance.content_object
+    if isinstance(obj, Submission):
+        new_total = ThreadedComment.public.all_for_object(obj).count()  
+        Submission.objects.filter(pk=obj.pk).update(comments_total=new_total)
+        Submission.objects.invalidate(obj)
+
+models.signals.post_save.connect(update_submission_comment_count, sender=ThreadedComment)
+models.signals.post_delete.connect(update_submission_comment_count, sender=ThreadedComment)
