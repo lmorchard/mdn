@@ -38,6 +38,8 @@ from tagging.utils import parse_tag_input
 from tagging.fields import TagField
 from tagging.models import Tag
 
+from actioncounters.fields import ActionCounterField
+
 from . import scale_image
 
 
@@ -256,6 +258,9 @@ class Submission(caching.base.CachingMixin, models.Model):
 
     featured = models.BooleanField()
     hidden = models.BooleanField()
+
+    launches = ActionCounterField()
+    likes = ActionCounterField()
 
     tags = ConstrainedTagField(
             _('select up to 5 tags that describe your demo'),

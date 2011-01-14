@@ -6,8 +6,5 @@ Examples of actions include things such as "view", "download", and "like".
 An attempt is made to constrain each counted action to a limit per unique user.
 
 Inspired in part by:
-<https://github.com/thornomad/django-hitcount>
-
-TODO
-----
-* Spin off from demo gallery into its own app package
+* <https://github.com/thornomad/django-hitcount>
+* <https://github.com/dcramer/django-ratings>

@@ -28,6 +28,9 @@ urlpatterns = patterns('demos.views',
     url(r'^detail/(?P<slug>[^/]+)/like$', 'like',
         name='demos_like'),
 
+    url(r'^detail/(?P<slug>[^/]+)/unlike$', 'unlike',
+        name='demos_unlike'),
+
     url(r'^detail/(?P<slug>[^/]+)/flag$', 'flag',
         name='demos_flag'),
 

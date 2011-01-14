@@ -30,7 +30,6 @@ from demos.forms import SubmissionNewForm, SubmissionEditForm
 
 from contentflagging.models import ContentFlag
 from contentflagging.forms import ContentFlagForm
-from actioncounters.models import Action
 
 from utils import JingoTemplateLoader
 template_loader = JingoTemplateLoader()
@@ -96,7 +95,16 @@ def profile_detail(request, username):
 def like(request, slug):
     submission = get_object_or_404(Submission, slug=slug)
     if request.method == "POST":
-        Action.objects['like'].increment(request=request, object=submission)
+        submission.likes.increment(request)
+        Submission.objects.invalidate(submission)
+    return HttpResponseRedirect(reverse(
+        'demos.views.detail', args=(submission.slug,)))
+
+def unlike(request, slug):
+    submission = get_object_or_404(Submission, slug=slug)
+    if request.method == "POST":
+        submission.likes.decrement(request)
+        Submission.objects.invalidate(submission)
     return HttpResponseRedirect(reverse(
         'demos.views.detail', args=(submission.slug,)))
 
@@ -125,7 +133,7 @@ def download(request, slug):
 def launch(request, slug):
     """Demo launch view with action counting"""
     submission = get_object_or_404(Submission, slug=slug)
-    Action.objects['launch'].increment(request=request, object=submission)
+    submission.launches.increment(request)
     return jingo.render(request, 'demos/launch.html', {
         'submission': submission })
 
