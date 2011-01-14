@@ -108,6 +108,7 @@ em, i, dt { font-family: Georgia, Times, "Times New Roman", serif; }
 .cols-5 { -moz-column-count: 5; -moz-column-gap: 10px; -webkit-column-count: 5; -webkit-column-gap: 10px; column-count: 5; column-gap: 10px; }
 
 /*** @Forms *********/
+form.inline { display: inline; }
 input[type=text], input[type=password], input[type=search] { padding: 6px 8px; background: #fff; border: 1px solid #cbc8b9; }
 input[type=text]:hover, input[type=password]:hover, input[type=search]:hover,
 input[type=text]:focus, input[type=password]:focus, input[type=search]:focus { border-color: #b6b2a0; }
@@ -223,9 +224,12 @@ body.section-moz #nav-main-moz a, #nav-main .current a.moz { background-position
 .compact #nav-main a.moz:hover, .compact #nav-main a.moz:focus, .compact #nav-main a.moz:active { background: #ed2024; }
 .compact #nav-main #nav-extra-docs a:hover, .compact #nav-main #nav-extra-docs a:focus, .compact #nav-main #nav-extra-docs a:active,
 .compact #nav-main #nav-extra-forums a:hover, .compact #nav-main #nav-extra-forums a:focus, .compact #nav-main #nav-extra-forums a:active { background: #f8d575; color: #000; }
+.compact #nav-main #nav-extra-demos a:hover, .compact #nav-main #nav-extra-demos a:focus, .compact #nav-main #nav-extra-demos a:active { background: #f8d575; color: #000; }
 .compact #nav-extra-docs { border-top: 1px solid #888; }
 .compact #nav-extra-forums a { color: #f0f0f0; }
 .compact #nav-extra-forums a:hover, .compact #nav-extra-forums a:focus, .compact #nav-extra-forums a:active { color: #f8d575; text-decoration: none; }
+.compact #nav-extra-demos a { color: #f0f0f0; }
+.compact #nav-extra-demos a:hover, .compact #nav-extra-demos a:focus, .compact #nav-extra-demos a:active { color: #f8d575; text-decoration: none; }
 
 .compact #nav .current { margin: 0; padding: 0 30px 0 15px; font: 200 30px/1 "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; text-shadow: 1px 1px 0 rgba(192,39,0,1); }
 .compact #nav .current a { color: #f8d575; }
@@ -734,6 +738,7 @@ section.boxed:after, div.boxed:after { content: "."; display: block; clear: both
 #demobox .button.edit { color: #2f2f2f; background-color: #a5d9f3; }
 #demobox .button.edit:hover, #demobox .button.edit:focus, #demobox .button.edit:active { color: #000; background-color: #80cdf3; }
 #demobox .button.remove { color: #2f2f2f; background-color: #f07b7b; }
+#demobox input.button.remove { }
 #demobox .button.remove:hover, #demobox .button.remove:focus, #demobox .button.remove:active { color: #000; background-color: #f05b5b; }
 
 #demobox .tools li { display: inline; margin-right: 10px; font-size: 1.143em; background: none; }

@@ -56,9 +56,14 @@ def detail(request, slug):
     submission = get_object_or_404(Submission, slug=slug)
     if not submission.allows_viewing_by(request.user):
         return HttpResponseForbidden(_('access denied'))
+
+    more_by = Submission.objects.filter(creator=submission.creator)\
+            .order_by('-modified').all()[:5]
     
     return jingo.render(request, 'demos/detail.html', {
-        'submission': submission })
+        'submission': submission,
+        'more_by': more_by 
+    })
 
 def search(request):
     """Search against submission title, summary, and description"""

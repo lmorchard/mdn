@@ -33,13 +33,20 @@
 </head>
 
 <body id="{% block pageid %}{% endblock %}" class="html-{{ DIR }} {% block bodyclass %}{% endblock %}" role="document">
+<!--[if lte IE 8]>
+<noscript><div class="global-notice">
+<p><strong>Warning:</strong> The Mozilla Developer Network website employs emerging web standards that may not be fully supported in some versions of MicroSoft Internet Explorer. You can improve your experience of this website by enabling JavaScript.</p>
+</div></noscript>
+<![endif]-->
   <header id="masthead" class="{% block headerclass %}minor{% endblock %}">
     <div class="wrap">
       <div id="branding">
         {% block headerlogo %}
         <h4 id="logo"><a href="{{ url('home') }}"><img src="{{ MEDIA_URL }}img/mdn-logo-sm.png" alt="" width="62" height="71"> Mozilla Developer Network</a></h4>
         {% endblock %}
+        {% block headertagline %}
         <p id="tagline">{{ _('A comprehensive, usable, and accurate resource for everyone developing for the Open Web.') }}</p>
+        {% endblock %}
       </div>
 
       <div id="utility">
@@ -56,6 +63,7 @@
         <div id="site-search-gg"></div>
       </div>
 
+      {% block headernav %}
       <nav id="nav">
         <ul id="nav-main" role="navigation">
           <li id="nav-main-web"><a href="{{ url('web') }}" class="web">{{ _('Web') }}</a></li>
@@ -66,10 +74,12 @@
 
         <ul id="nav-extra" role="navigation">
           <li id="nav-extra-docs"><a href="{{ url('docs') }}">{{ _('Doc Center') }}</a></li>
+          <li id="nav-extra-demos"><a href="{{ url('demos') }}" class="apps">{{ _('Demo Studio') }}</a></li>
           <li id="nav-extra-community"><a href="/forums">{{ _('Forums') }}</a></li>
-          <li id="nav-extra-demos"><a href="{{ url('demos') }}" class="apps">{{ _('Demos') }}</a></li>
         </ul>
       </nav>
+      {% endblock %}
+
     </div>
   </header>
 {# end head #}
@@ -108,6 +118,54 @@
 {% block site_js %}
 <script src="//www.google.com/jsapi" type="text/javascript"></script>
   {{ js('common') }}
+<script type="text/javascript">
+$(document).ready(function() {
+  // Set up input placeholders.
+  $('input[placeholder]').placeholder();
+}); 
+
+/* Fake the placeholder attribute since Firefox doesn't support it. */
+jQuery.fn.placeholder = function(new_value) {
+  if (new_value) {
+    this.attr('placeholder', new_value);
+  }
+
+  /* Bail early if we have built-in placeholder support. */
+  if ('placeholder' in document.createElement('input')) {
+    return this;
+  }
+
+  if (new_value && this.hasClass('placeholder')) {
+    this.val('').blur();
+  }
+
+  return this.focus(function() {
+    var $this = $(this),
+    text = $this.attr('placeholder');
+
+    if ($this.val() == text) {
+      $this.val('').removeClass('placeholder');
+    }
+  }).blur(function() {
+    var $this = $(this),
+    text = $this.attr('placeholder');
+
+    if ($this.val() == '') {
+      $this.val(text).addClass('placeholder');
+    }
+  }).each(function(){
+    /* Remove the placeholder text before submitting the form. */
+    var self = $(this);
+    self.closest('form').submit(function() {
+      if (self.hasClass('placeholder')) {
+        self.val('');
+      }
+    });
+  }).blur();
+};
+
+</script>
+  
 {% endblock %}
 {% block js %}{% endblock %}
 {# end js #}

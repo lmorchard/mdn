@@ -41,8 +41,8 @@ except ImportError:
     import Image
 
 
-SCREENSHOT_MAXW  = getattr(settings, 'DEMO_SCREENSHOT_MAX_WIDTH', 320)
-SCREENSHOT_MAXH = getattr(settings, 'DEMO_SCREENSHOT_MAX_HEIGHT', 240)
+SCREENSHOT_MAXW  = getattr(settings, 'DEMO_SCREENSHOT_MAX_WIDTH', 480)
+SCREENSHOT_MAXH = getattr(settings, 'DEMO_SCREENSHOT_MAX_HEIGHT', 360)
 
 RESIZE_METHOD = getattr(settings, 'RESIZE_METHOD', Image.ANTIALIAS)
 

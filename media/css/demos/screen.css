@@ -1,5 +1,8 @@
 /** Styles for demos section */
 
+#demos_detail .comment_reply { }
+#demos_detail.hasJS .comment_reply form { display: none }
+
 #demos .checklist { border: 1px solid #ccc; padding: 0.25em 1em; }
 
 #demos form { }
@@ -92,7 +95,4 @@
 body .launch_button { display: block;  border: 3px solid #666; color: #333; display: block; font-weight: normal; text-transform: none; font: 12px "Lucida Grande","Lucida Sans Unicode",Lucida,Arial,Helvetica,sans-serif; letter-spacing: inherit; background: #eee; text-align: center; padding: 0.5em; border-radius: 0 0 0 0; }
 body .launch_button:hover { border: 3px solid #333; background: #ddd; text-decoration: none; }
 
-
-#demos .comment_reply { }
-#demos.hasJS .comment_reply form { display: none }
 
