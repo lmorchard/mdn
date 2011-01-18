@@ -108,7 +108,6 @@ em, i, dt { font-family: Georgia, Times, "Times New Roman", serif; }
 .cols-5 { -moz-column-count: 5; -moz-column-gap: 10px; -webkit-column-count: 5; -webkit-column-gap: 10px; column-count: 5; column-gap: 10px; }
 
 /*** @Forms *********/
-form.inline { display: inline; }
 input[type=text], input[type=password], input[type=search] { padding: 6px 8px; background: #fff; border: 1px solid #cbc8b9; }
 input[type=text]:hover, input[type=password]:hover, input[type=search]:hover,
 input[type=text]:focus, input[type=password]:focus, input[type=search]:focus { border-color: #b6b2a0; }
@@ -224,12 +223,9 @@ body.section-moz #nav-main-moz a, #nav-main .current a.moz { background-position
 .compact #nav-main a.moz:hover, .compact #nav-main a.moz:focus, .compact #nav-main a.moz:active { background: #ed2024; }
 .compact #nav-main #nav-extra-docs a:hover, .compact #nav-main #nav-extra-docs a:focus, .compact #nav-main #nav-extra-docs a:active,
 .compact #nav-main #nav-extra-forums a:hover, .compact #nav-main #nav-extra-forums a:focus, .compact #nav-main #nav-extra-forums a:active { background: #f8d575; color: #000; }
-.compact #nav-main #nav-extra-demos a:hover, .compact #nav-main #nav-extra-demos a:focus, .compact #nav-main #nav-extra-demos a:active { background: #f8d575; color: #000; }
 .compact #nav-extra-docs { border-top: 1px solid #888; }
 .compact #nav-extra-forums a { color: #f0f0f0; }
 .compact #nav-extra-forums a:hover, .compact #nav-extra-forums a:focus, .compact #nav-extra-forums a:active { color: #f8d575; text-decoration: none; }
-.compact #nav-extra-demos a { color: #f0f0f0; }
-.compact #nav-extra-demos a:hover, .compact #nav-extra-demos a:focus, .compact #nav-extra-demos a:active { color: #f8d575; text-decoration: none; }
 
 .compact #nav .current { margin: 0; padding: 0 30px 0 15px; font: 200 30px/1 "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; text-shadow: 1px 1px 0 rgba(192,39,0,1); }
 .compact #nav .current a { color: #f8d575; }
@@ -728,25 +724,29 @@ section.boxed:after, div.boxed:after { content: "."; display: block; clear: both
 #demobox a { color: #fff; }
 #demobox .page-title { color: #fff; margin: 0; }
 #demobox .byline { font-size: .857em; }
-#demobox .manage { margin-top: -.5em; }
 #demobox ul li { list-style: none; padding: 0; background: none; }
 
-#demobox .button { padding: .5em .75em .15em; display: inline-block; margin-right: 4px; background: #bd5642 url("../img/button-shade.png") 0 .75em repeat-x; color: #fff; font: 200 1em/1 "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; text-decoration: none; letter-spacing: .5px; -moz-border-radius: .15em; -webkit-border-radius: .15em; border-radius: .15em; }
+#demobox .manage { margin: -.5em 0 1em; }
+#demobox .manage li { display: inline; }
+#demobox form { display: inline; }
+
+#demobox .button, #demobox button span { padding: .35em .75em 0; margin-right: 4px; background: #bd5642 url("../img/button-shade.png") 0 .75em repeat-x; color: #fff; font: normal 200 1em/1 "Bebas Neue", Haettenschweiler, sans-serif; text-transform: uppercase; text-decoration: none; letter-spacing: .5px; -moz-border-radius: .15em; -webkit-border-radius: .15em; border-radius: .15em; }
 #demobox .button:hover, #demobox .button:focus, #demobox .button:active { background-color: #ae4935; }
 #demobox .button strong { font-weight: normal; }
 
 #demobox .button.edit { color: #2f2f2f; background-color: #a5d9f3; }
 #demobox .button.edit:hover, #demobox .button.edit:focus, #demobox .button.edit:active { color: #000; background-color: #80cdf3; }
-#demobox .button.remove { color: #2f2f2f; background-color: #f07b7b; }
-#demobox input.button.remove { }
-#demobox .button.remove:hover, #demobox .button.remove:focus, #demobox .button.remove:active { color: #000; background-color: #f05b5b; }
+
+#demobox button.remove { padding: 0; background: transparent none; }
+#demobox button.remove span { color: #2f2f2f; background-color: #f07b7b; margin: 0; }
+#demobox button.remove:hover span, #demobox button.remove:focus span { color: #000; background-color: #f05b5b; }
 
 #demobox .tools li { display: inline; margin-right: 10px; font-size: 1.143em; background: none; }
-#demobox .tools .launch .button { position: relative; bottom: -.15em; font-size: 1.571em; }
-#demobox .tools .like a { padding-left: 30px; background: url("../img/demobox-icons.png") 0 -300px no-repeat; }
-#demobox .tools .unlike a { padding-left: 30px; background: url("../img/demobox-icons.png") 0 -350px no-repeat; }
+#demobox .tools .launch { position: relative; bottom: -.15em; font-size: 1.571em; }
+#demobox .tools .like { padding-left: 26px; background: url("../img/demobox-icons.png") 0 -297px no-repeat; font-family: inherit; text-transform: none; letter-spacing: normal; }
+#demobox .tools .unlike { padding-left: 26px; background: url("../img/demobox-icons.png") 0 -347px no-repeat; font-family: inherit; text-transform: none; letter-spacing: normal; }
+#demobox .tools .like:hover, #demobox .tools .like:focus, #demobox .tools .unlike:hover, #demobox .tools .unlike:focus { text-decoration: underline; }
 #demobox .tools .share a { padding-left: 25px; background: url("../img/demobox-icons.png") 0 -400px no-repeat; }
-
 #demobox .tools .share { position: relative; }
 
 #share-opts { margin: .75em 0; float: right; width: 210px; }
@@ -855,7 +855,15 @@ section.boxed:after, div.boxed:after { content: "."; display: block; clear: both
 #comments-list .comment-opts li { display: inline; padding: 0; margin-right: 8px; background: none; }
 #comments-list .comment-opts a { color: #666; }
 #comments-list .comment-opts a:hover, #comments-list .comment-opts a:focus, #comments-list .comment-opts a:active { color: #25a; }
+#comments-list .comment-opts form { display: inline; }
+#comments-list .comment-opts button { color: #666; font-family: inherit; font-weight: normal; letter-spacing: normal; background: transparent none; display: inline; padding: 0;  }
+#comments-list .comment-opts button:hover span, #comments-list .comment-opts button:focus span { color: #25a; text-decoration: underline; }
 
 #comment-post { padding: 20px 20px 0; }
 #comment-post legend span { display: block; margin: 0 0 .5em; font-size: 1.333em; }
 #comment-post textarea { width: 100%; margin: 0 0 1em; }
+
+/* @Gallery *********/
+#gallery-head { padding-left: 100px; }
+#gallery-head .page-title { margin: 0 0 .25em; }
+#gallery-head .page-title img { float: left; margin-left: -100px; }

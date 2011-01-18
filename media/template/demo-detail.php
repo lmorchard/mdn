@@ -31,24 +31,28 @@ head(
   
     <section id="demobox">
       <h1 class="page-title">The Incredible Machine</h1>
-      <p class="byline">by <a href="#">Neil Gauldin</a> on <time datetime="">December 31, 2010</time></p>
+      <p class="byline">by <a href="#">Neil Gauldin</a> on <time datetime="2010-12-31T18:48:02-08:00">December 31, 2010</time></p>
 
       <!-- only shown to admins and the demo owner -->
-      <p class="manage">
-        <a href="#" class="button edit">Edit Demo</a> 
-        <a href="#" class="button remove">Remove Demo</a>
-      </p>
+      <ul class="manage">
+        <li><a href="#" class="button edit">Edit Demo</a></li>
+        <li><form id="demo-remove" method="post" action="/path/to/handler"><button type="submit" class="remove"><span>Remove Demo</span></button></form></li>
+      </ul>
 
       <div class="demo-desc">
         <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
       </div>
 
       <ul class="tools">
-        <li class="launch"><a href="#" class="button"><strong>Launch Demo</strong></a></li>
-        <li class="like"><a href="#" title="Do you like this demo?">Like It</a></li>
-        <!-- if they liked it already:
-        <li class="unlike"><a href="#" title="You like this demo. Undo?">You Like</a></li>
-        -->
+        <li><a href="#" class="button launch"><strong>Launch Demo</strong></a></li>
+        <li>
+          <form id="demo-like" method="post" action="/path/to/handler">
+            <button type="submit" class="like" title="Do you like this demo?">Like It</button>
+          <!-- if they liked it already:
+            <button type="submit" class="unlike" title="You like this demo. Undo?">You Like</button>
+          -->
+          </form>
+        </li>
         <li class="share"><a href="#share-opts" id="sharetoggle" title="Share this demo with your social network">Share It</a>
           <ul id="share-opts">
             <li class="sharetitle">Share It</li>
@@ -172,10 +176,10 @@ head(
         		</blockquote>
         		
         		<ul class="comment-opts"><!-- only for logged-in users -->
-        		  <li class="opt-reply"><a href="#comment-post" title="Reply to this comment by Naomi Bellering">Reply</a></li>
-        		  <li class="opt-report"><a href="/report/confirm" title="Report this comment">Report</a></li><!-- Do you have to be logged in to report a comment? -->
-        		  <li class="opt-delete"><a href="#" title="Edit this comment">Edit</a></li><!-- shown only to demo owner and admins... can users edit their own comments? -->
-        		  <li class="opt-delete"><a href="/delete/confirm" title="Delete this comment">Delete</a></li><!-- shown only to demo owner and admins... can users delete their own comments? -->
+        		  <li><a href="#comment-post" title="Reply to this comment by Naomi Bellering">Reply</a></li>
+        		  <li><a href="/report/confirm" title="Report this comment">Report</a></li><!-- Do you have to be logged in to report a comment? -->
+        		  <li><a href="#" title="Edit this comment">Edit</a></li><!-- shown only to demo owner and admins... can users edit their own comments? -->
+        		  <li><form id="del-123" method="post" action="/path/to/handler"><button type="submit" title="Delete this comment"><span>Delete</span></button></form></li><!-- shown only to demo owner and admins... can users delete their own comments? -->
         		</ul>
         	</li>
           
@@ -187,10 +191,10 @@ head(
               <p>Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</p>
         		</blockquote>
         		<ul class="comment-opts"><!-- only for logged-in users -->
-        		  <li class="opt-reply"><a href="#comment-post" title="Reply to this comment by Naomi Bellering">Reply</a></li>
-        		  <li class="opt-report"><a href="/report/confirm" title="Report this comment">Report</a></li>
-        		  <li class="opt-delete"><a href="#" title="Edit this comment">Edit</a></li>
-        		  <li class="opt-delete"><a href="/delete/confirm" title="Delete this comment">Delete</a></li>
+        		  <li><a href="#comment-post" title="Reply to this comment by Naomi Bellering">Reply</a></li>
+        		  <li><a href="/report/confirm" title="Report this comment">Report</a></li>
+        		  <li><a href="#" title="Edit this comment">Edit</a></li>
+        		  <li><form id="del-456" method="post" action="/path/to/handler"><button type="submit" title="Delete this comment"><span>Delete</span></button></form></li>
         		</ul>
 
         		<ol class="replies">
@@ -202,10 +206,10 @@ head(
             			<p>Suspendisse mauris. Fusce accumsan mollis eros. Pellentesque a diam sit amet mi ullamcorper vehicula. Integer adipiscing risus a sem. Nullam quis massa sit amet nibh viverra malesuada. Nunc sem lacus, accumsan quis, faucibus non, congue vel, arcu. Ut scelerisque hendrerit tellus. Integer sagittis. Vivamus a mauris eget arcu gravida tristique. Nunc iaculis mi in ante. Vivamus imperdiet nibh feugiat est.</p>
             		</blockquote>
             		<ul class="comment-opts">
-            		  <li class="opt-reply"><a href="#comment-post" title="Reply to this comment by Naomi Bellering">Reply</a></li>
-            		  <li class="opt-report"><a href="/report/confirm" title="Report this comment">Report</a></li>
-            		  <li class="opt-delete"><a href="#" title="Edit this comment">Edit</a></li>
-            		  <li class="opt-delete"><a href="/delete/confirm" title="Delete this comment">Delete</a></li>
+            		  <li><a href="#comment-post" title="Reply to this comment by Naomi Bellering">Reply</a></li>
+            		  <li><a href="/report/confirm" title="Report this comment">Report</a></li>
+            		  <li><a href="#" title="Edit this comment">Edit</a></li>
+            		  <li><form id="del-342" method="post" action="/path/to/handler"><button type="submit" title="Delete this comment"><span>Delete</span></button></form></li>
             		</ul>
 
                 <ol class="replies">
@@ -217,9 +221,9 @@ head(
                 		</blockquote>
                 		<ul class="comment-opts">
                 		  <!-- No Reply option on deep-neested comments, depending on how many levels of replies we want to allow. -->
-                		  <li class="opt-report"><a href="/report/confirm" title="Report this comment">Report</a></li>
-                		  <li class="opt-delete"><a href="#" title="Edit this comment">Edit</a></li>
-                		  <li class="opt-delete"><a href="/delete/confirm" title="Delete this comment">Delete</a></li>
+                		  <li><a href="/report/confirm" title="Report this comment">Report</a></li>
+                		  <li><a href="#" title="Edit this comment">Edit</a></li>
+                		  <li><form id="del-985" method="post" action="/path/to/handler"><button type="submit" title="Delete this comment"><span>Delete</span></button></form></li>
                 		</ul>
                 	</li>
             		</ol>
