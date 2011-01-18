@@ -2,6 +2,10 @@
 
 {% block pageid %}addons{% endblock %}
 
+{% block extrahead %}
+<link rel="alternate" type="application/rss+xml" title="Mozilla Add-ons Blog &raquo; Feed" href="http://blog.mozilla.com/addons/feed/" />
+{% endblock %}
+
 {% block bodyclass %}section-addons landing{% endblock %}
 
 {% block title %}{{ page_title(_('Add-ons')) }}{% endblock %}
