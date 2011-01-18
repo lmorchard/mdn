@@ -2,6 +2,10 @@
 
 {% block pageid %}web{% endblock %}
 
+{% block extrahead %}
+  <link rel="alternate" type="application/rss+xml" title="Mozilla Hacks &#8211; the Web developer blog RSS Feed" href="https://hacks.mozilla.org/feed/" />
+{% endblock %}
+
 {% block bodyclass %}section-web landing{% endblock %}
 
 {% block title %}{{ page_title(_('Web')) }}{% endblock %}
