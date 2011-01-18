@@ -64,7 +64,7 @@ head(
       </ul>
       
       <script type="text/javascript">
-      $(document).ready(function(){
+      $("#share-opts").ready(function(){
       	$("#share-opts").addClass("js").hide();
       	
       	$("#sharetoggle").click(function() {
@@ -111,9 +111,9 @@ head(
         <p class="tags">Built using <a href="#" rel="tag" title="See more demos made with lorem">lorem</a>, <a href="#" rel="tag" title="See more demos made with ipsum">ipsum</a>, <a href="#" rel="tag" title="See more demos made with dolor">dolor</a>, <a href="#" rel="tag" title="See more demos made with sit amet">sit amet</a></p>
 
         <ul class="stats">
-          <li class="views">20,000 views</li>
-          <li class="likes">3,000 likes</li>
-          <li class="comments">100 comments</li>
+          <li class="views" title="This demo has been viewed 20,000 times">20,000 views</li>
+          <li class="likes" title="3,000 people liked this demo">3,000 likes</li>
+          <li class="comments" title="There are 100 comments for this demo">100 comments</li>
         </ul>
       </div>
       
@@ -136,7 +136,30 @@ head(
         </ul>
   		</div><!-- /.screenshots -->
 
-      <script type="text/javascript" src="./js/carousel.js"></script>
+<script type="text/javascript" src="./js/carousel.js"></script>
+<script type="text/javascript">
+$(".screenshots").ready(function(){
+  // Set up the carousel
+  $(".screenshots").addClass("js").jCarouselLite({
+      btnNext: ".nav-next a",
+      btnPrev: ".nav-prev a", 
+      visible: 1
+  });
+  
+  $(".screenshots").hover(
+    function() {
+      $(".nav-next a").animate({ right: "0" },{ queue:false });
+      $(".nav-prev a").animate({ left: "0" },{ queue:false });
+    },
+    function() {
+      $(".nav-next a").animate({ right: "-60px" },{ queue:false });
+      $(".nav-prev a").animate({ left: "-60px" },{ queue:false });    
+    }
+  );
+  
+});
+</script>
+
       
     </section><!-- /#demobox -->
     

@@ -152,26 +152,3 @@ function height(el) {
 };
 
 })(jQuery);
-
-
-
-$(document).ready(function(){
-  // Set up the carousel
-  $(".screenshots").addClass("js").jCarouselLite({
-      btnNext: ".nav-next a",
-      btnPrev: ".nav-prev a", 
-      visible: 1
-  });
-  
-  $(".screenshots").hover(
-    function() {
-      $(".nav-next a").animate({ right: "0" });
-      $(".nav-prev a").animate({ left: "0" });
-    },
-    function() {
-      $(".nav-next a").animate({ right: "-60px" });
-      $(".nav-prev a").animate({ left: "-60px" });    
-    }
-  );
-  
-});
