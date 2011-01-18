@@ -2,6 +2,10 @@
 
 {% block pageid %}mobile{% endblock %}
 
+{% block extrahead %}
+<link rel="alternate" type="application/rss+xml" title="Planet Firefox Mobile" href="http://planet.firefox.com/mobile/rss20.xml" />
+{% endblock %}
+
 {% block bodyclass %}section-mobile landing{% endblock %}
 
 {% block title %}{{ page_title(_('Mobile')) }}{% endblock %}
