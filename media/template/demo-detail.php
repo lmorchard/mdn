@@ -47,9 +47,9 @@ head(
         <li><a href="#" class="button launch"><strong>Launch Demo</strong></a></li>
         <li>
           <form id="demo-like" method="post" action="/path/to/handler">
-            <button type="submit" class="like" title="Do you like this demo?">Like It</button>
+            <button type="submit" class="like" title="Do you like this demo?"><span>Like It</span></button>
           <!-- if they liked it already:
-            <button type="submit" class="unlike" title="You like this demo. Undo?">You Like</button>
+            <button type="submit" class="unlike" title="You like this demo. Undo?"><span>You Like</span></button>
           -->
           </form>
         </li>
@@ -279,7 +279,7 @@ $(".screenshots").ready(function(){
       </div>
       
       <div class="module" id="moreby">
-        <h3 class="mod-title">More by <a href="#">Neil Gaudlin</a></h3>
+        <h3 class="mod-title">More by <a href="demo-gallery-author.php">Neil Gaudlin</a></h3>
         <ul class="gallery">
           <li><a href="#"><img src="./img/fpo55.png" alt="" title="Demo Title" width="90" height="68"></a></li>
           <li><a href="#"><img src="./img/fpo55.png" alt="" title="Demo Title" width="90" height="68"></a></li>
