@@ -1,44 +1,50 @@
 {% extends "demos/base.html" %}
 
 {% block pageid %}demos{% endblock %}
-
-{% block bodyclass %}section-demos landing{% endblock %}
-
+{% block bodyclass %}section-demos{% endblock %}
+{% block title %}{{ page_title(_('{subtitle} | Demo Studio') | f(subtitle=_('Browse all demos'))) }}{% endblock %}
 {% block extrahead %}
   <link rel="alternate" type="application/atom+xml" title="Recent demos"
       href="{{ url('demos_feed_recent', format='atom') }}" />
 {% endblock %}
 
-{% block title %}{{ page_title(_('Web')) }}{% endblock %}
-
 {% block content %}
 
+<section id="nav-toolbar">
+<div class="wrap">
+  <nav class="crumbs">
+    <ol role="navigation">
+      <li><a href="{{ url('home') }}">MDN</a></li>
+      <li><a href="{{ url('demos') }}">Demo Studio</a></li>
+      <li><a href="">{{_('Browse all demos')}}</a></li>
+    </ol>
+  </nav>
+  <p class="demo-submit"><a href="{{ url('demos_submit') }}" class="button">Submit a Demo</a></p>
+</div>
+</section>
+
 <section id="content">
-<div class="wrap sidebar">
+<div class="wrap">
+
+  <header id="gallery-head">
+    <div class="intro">
+        <h1 class="page-title">{{_('Browse all demos')}}</h1>
+    </div>
+  </header>
+
   <section id="content-main" role="main">
-
-    <section class="boxed">
-    
-      <div id="popular-docs" class="articles-list">
-
-        <header class="head section-moz">
-           <h2>{{ _('Browse All Demos') }}</h2>
-        </header>
-
-        {{ submission_listing(submission_list) }}
-        
-      </div>
-
-    </section>{# /.boxed #}
-
-  </section>{# /#content-main #}
-
+    {{ submission_listing(
+        submission_list, is_paginated, paginator, page_obj,
+        _('Subscribe to a feed of all demos'),
+        url('demos_feed_recent', format='atom') 
+    ) }}
+  </section><!-- /#content-main -->
+  
   <aside id="content-sub" role="complementary">
     {{ search_form() }}
     {{ tags_list() }}
-  </aside>
+  </aside><!-- /#content-sub -->
 
 </div>
-</section>{# /#content #}
-
+</section>
 {% endblock %}

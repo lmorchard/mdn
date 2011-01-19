@@ -1,3 +1,8 @@
-<form id="demo_search" method="GET" action="{{ url('demos_search') }}">
-    <input type="text" name="q" placeholder="Search the Gallery" value="{{ request.GET.get('q', '') }}"/>
-</form>
+    <form class="demo-search" method="GET" action="{{ url('demos_search') }}">
+      <p>
+      <input type="search" id="search-demos" name="q" 
+            placeholder="{{_('Search the Demo Studio')}}" 
+            value="{{ request.GET.get('q', '') }}" />
+            <noscript><button type="submit">{{_('Search')}}</button></noscript>
+      </p>
+    </form>

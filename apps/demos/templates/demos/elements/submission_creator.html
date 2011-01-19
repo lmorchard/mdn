@@ -1,1 +1,2 @@
-<a href="{{ url('demos_profile_detail', username=submission.creator.username) }}">{{ submission.creator.username }}</a>
+{% set full_name = submission.creator.first_name %}
+<a href="{{ url('demos_profile_detail', username=submission.creator.username) }}" class="url fn" title="{{_('See {full_name}\'s profile') | f(full_name=full_name)}}">{{ full_name }}</a>

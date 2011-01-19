@@ -1,51 +1,55 @@
 {% extends "demos/base.html" %}
 
-{% block pageid %}demos{% endblock %}
+{% set display_name = profile_user.first_name %}
+{% set username  = profile_user.username %}
 
-{% block bodyclass %}section-demos landing{% endblock %}
+{% block pageid %}demos{% endblock %}
+{% block bodyclass %}section-demos{% endblock %}
+{% block title %}{{ page_title(_('{subtitle} | Demo Studio') | f(subtitle=_('{display_name}') | f(display_name=display_name))) }}{% endblock %}
 
 {% block extrahead %}
   <link rel="alternate" type="application/atom+xml" 
-      title="{{ _('Demos for {username}') | f(username=profile_user.username) }}"
-      href="{{ url('demos_feed_profile', format='atom', username=profile_user.username) }}" />
+      title="{{ _('Demos for {display_name}') | f(display_name=display_name) }}"
+      href="{{ url('demos_feed_profile', format='atom', username=username) }}" />
 {% endblock %}
-
-{% block title %}{{ page_title(_('Web')) }}{% endblock %}
 
 {% block content %}
 
+<section id="nav-toolbar">
+<div class="wrap">
+  <nav class="crumbs">
+    <ol role="navigation">
+      <li><a href="{{ url('home') }}">MDN</a></li>
+      <li><a href="{{ url('demos') }}">Demo Studio</a></li>
+      <li><a href="">{{ display_name }}</a></li>
+    </ol>
+  </nav>
+  <p class="demo-submit"><a href="{{ url('demos_submit') }}" class="button">Submit a Demo</a></p>
+</div>
+</section>
+
 <section id="content">
-<div class="wrap sidebar">
+<div class="wrap">
+
+  <header id="gallery-head">
+    <div class="author">
+      <h1 class="page-title">
+          <img src="./img/blank.gif" alt="" width="72" height="72" class="avatar"> {{ display_name }}
+        <!-- Only shown for the user and admins -->
+        <a href="#" class="button edit">Edit Profile</a>
+      </h1>
+      <p class="loc">San Francisco, CA</p>
+      <p class="web"><a href="#" rel="me external" class="url">http://www.itsneil.com</a></p>
+    </div>
+  </header>
+
   <section id="content-main" role="main">
-
-    <section class="boxed">
-    
-      <div id="popular-docs" class="articles-list">
-
-        <header class="head section-moz">
-          {% if profile_deki_user and profile_deki_user.fullname %}
-            <h2>{{ _('Profile for {fullname}') | f(fullname=profile_deki_user.fullname) }}
-                <a href="{{ profile_deki_user.profile_url }}">{{_('Edit profile')}}</a>
-            </h2>
-          {% else %}
-              <h2>{{ _('Profile for {username}') | f(username=profile_user.username) }}</h2>
-          {% endif %}
-        </header>
-
-        {% if profile_deki_user %}
-          <p>
-            <img src="{{ profile_deki_user.gravitar }}" />
-            @@TODO: Need more profile details here
-          </p>
-        {% endif %}
-
-        {{ submission_listing(submission_list) }}
-        
-      </div>
-
-    </section>{# /.boxed #}
-
-  </section>{# /#content-main #}
+    {{ submission_listing(
+        submission_list, is_paginated, paginator, page_obj,
+        _("Subscribe to a feed of {display_name}'s demos") | f(display_name=display_name),
+        url('demos_feed_profile', format='atom', username=username) 
+    ) }}
+  </section><!-- /#content-main -->
 
   <aside id="content-sub" role="complementary">
     {{ search_form() }}

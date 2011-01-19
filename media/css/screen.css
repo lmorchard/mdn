@@ -230,7 +230,7 @@ body.section-moz #nav-main-moz a, #nav-main .current a.moz { background-position
 .compact #nav-extra-forums a { color: #f0f0f0; }
 .compact #nav-extra-forums a:hover, .compact #nav-extra-forums a:focus, .compact #nav-extra-forums a:active { color: #f8d575; text-decoration: none; }
 
-.compact #nav .current { margin: 0; padding: 0 30px 0 15px; font: 200 30px/1 "Bebas Neue", "League Gothic", Haettenschweiler, "Arial Narrow", sans-serif; text-transform: uppercase; text-shadow: 1px 1px 0 rgba(192,39,0,1); }
+.compact #nav .current { margin: 0; padding: 0 30px 0 15px; font: 200 30px/1 "Bebas Neue", "League Gothic", Haettenschweiler, "Arial Narrow", sans-serif; text-transform: uppercase; text-shadow: 1px 1px 0 rgba(192,39,0,1); white-space: nowrap; }
 .compact #nav .current a { color: #f8d575; }
 .compact #nav .current a:hover, .compact #nav .current a:focus, .compact #nav .current a:active { color: #fff; text-decoration: none; }
 
@@ -950,9 +950,9 @@ section.boxed:after, div.boxed:after { content: "."; display: block; clear: both
 
 #content .gallery .stats { float: left; clear: both; width: 100%; margin: 0 0 .75em; list-style: none; font-size: .785em; color: #999; }
 #content .gallery .stats li { display: inline; margin-right: 8px; padding-left: 22px; background: url("../img/demobox-icons.png") no-repeat; }
-#content .gallery .stats .views { padding-left: 25px; background-position: 0 -800px; }
-#content .gallery .stats .likes { background-position: 0 -850px; }
-#content .gallery .stats .comments { background-position: 0 -900px; }
+#content .gallery .stats .views { padding-left: 25px; background-position: 0 -650px; }
+#content .gallery .stats .likes { background-position: 0 -700px; }
+#content .gallery .stats .comments { background-position: 0 -750px; }
 
 .gallery .desc { font-size: .785em; margin: 0 0 .75em; }
 .gallery .launch { position: absolute; top: 125px; right: 12px; font-size: 1.2em; -moz-box-shadow: 1px 1px 0 rgba(0,0,0,.15); -webkit-box-shadow: 1px 1px 0 rgba(0,0,0,.15); box-shadow: 1px 1px 0 rgba(0,0,0,.15); }

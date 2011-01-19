@@ -51,52 +51,159 @@ except ImportError:
     import Image
 
 
-THUMBNAIL_MAXW = getattr(settings, 'DEMO_THUMBNAIL_MAX_WIDTH', 133)
-THUMBNAIL_MAXH = getattr(settings, 'DEMO_THUMBNAIL_MAX_HEIGHT', 100)
+THUMBNAIL_MAXW = getattr(settings, 'DEMO_THUMBNAIL_MAX_WIDTH', 200)
+THUMBNAIL_MAXH = getattr(settings, 'DEMO_THUMBNAIL_MAX_HEIGHT', 150)
 
 RESIZE_METHOD = getattr(settings, 'RESIZE_METHOD', Image.ANTIALIAS)
 
 # HACK: For easier L10N, define tag descriptions in code instead of as a DB model
 TAG_DESCRIPTIONS = getattr(settings, 'TAG_DESCRIPTIONS', dict( (x['tag_name'], x) for x in (
     { "tag_name": "audio", "title": _("Audio"), 
+        "learn_more": (
+            (_('MDN Documentation'), _('https://developer.mozilla.org/en-US/docs')),
+            (_('Wikipedia Article'), _('http://en.wikipedia.org/wiki/Larch')),
+            (_('W3C Spec'), _('http://dev.w3.org/html5/spec/Overview.html')),
+        ),
         "description": _("These demos make noise") },
     { "tag_name": "canvas", "title": _("Canvas"),
+        "learn_more": (
+            (_('MDN Documentation'), 'https://developer.mozilla.org/en-US/docs'),
+            (_('Wikipedia Article'), 'http://en.wikipedia.org/wiki/Larch'),
+            (_('W3C Spec'), 'http://dev.w3.org/html5/spec/Overview.html'),
+        ),
         "description": _("These demos make pretty pictures") },
     { "tag_name": "css3", "title": _("CSS3"), 
+        "learn_more": (
+            (_('MDN Documentation'), 'https://developer.mozilla.org/en-US/docs'),
+            (_('Wikipedia Article'), 'http://en.wikipedia.org/wiki/Larch'),
+            (_('W3C Spec'), 'http://dev.w3.org/html5/spec/Overview.html'),
+        ),
         "description": _("Fancy styling happens in these demos") },
     { "tag_name": "device", "title": _("Device"), 
+        "learn_more": (
+            (_('MDN Documentation'), 'https://developer.mozilla.org/en-US/docs'),
+            (_('Wikipedia Article'), 'http://en.wikipedia.org/wiki/Larch'),
+            (_('W3C Spec'), 'http://dev.w3.org/html5/spec/Overview.html'),
+        ),
         "description": _("Demos here use device thingies") },
+    { "tag_name": "fonts", "title": _("Fonts"), 
+        "learn_more": (
+            (_('MDN Documentation'), 'https://developer.mozilla.org/en-US/docs'),
+            (_('Wikipedia Article'), 'http://en.wikipedia.org/wiki/Larch'),
+            (_('W3C Spec'), 'http://dev.w3.org/html5/spec/Overview.html'),
+        ),
+        "description": _("Making type pretty") },
     { "tag_name": "file", "title": _("File"), 
+        "learn_more": (
+            (_('MDN Documentation'), 'https://developer.mozilla.org/en-US/docs'),
+            (_('Wikipedia Article'), 'http://en.wikipedia.org/wiki/Larch'),
+            (_('W3C Spec'), 'http://dev.w3.org/html5/spec/Overview.html'),
+        ),
         "description": _("Files are manipulated here") },
     { "tag_name": "game", "title": _("Game"), 
+        "learn_more": (
+            (_('MDN Documentation'), 'https://developer.mozilla.org/en-US/docs'),
+            (_('Wikipedia Article'), 'http://en.wikipedia.org/wiki/Larch'),
+            (_('W3C Spec'), 'http://dev.w3.org/html5/spec/Overview.html'),
+        ),
         "description": _("Games are demos too!") },
     { "tag_name": "geolocation", "title": _("Geolocation"), 
+        "learn_more": (
+            (_('MDN Documentation'), 'https://developer.mozilla.org/en-US/docs'),
+            (_('Wikipedia Article'), 'http://en.wikipedia.org/wiki/Larch'),
+            (_('W3C Spec'), 'http://dev.w3.org/html5/spec/Overview.html'),
+        ),
         "description": _("These demos know where you've been") },
     { "tag_name": "html5", "title": _("HTML5"), 
+        "learn_more": (
+            (_('MDN Documentation'), 'https://developer.mozilla.org/en-US/docs'),
+            (_('Wikipedia Article'), 'http://en.wikipedia.org/wiki/Larch'),
+            (_('W3C Spec'), 'http://dev.w3.org/html5/spec/Overview.html'),
+        ),
         "description": _("HTML5 is the future!") },
     { "tag_name": "indexeddb", "title": _("IndexedDB"), 
+        "learn_more": (
+            (_('MDN Documentation'), 'https://developer.mozilla.org/en-US/docs'),
+            (_('Wikipedia Article'), 'http://en.wikipedia.org/wiki/Larch'),
+            (_('W3C Spec'), 'http://dev.w3.org/html5/spec/Overview.html'),
+        ),
         "description": _("Data gets indexed happily") },
     { "tag_name": "mobile", "title": _("Mobile"), 
+        "learn_more": (
+            (_('MDN Documentation'), 'https://developer.mozilla.org/en-US/docs'),
+            (_('Wikipedia Article'), 'http://en.wikipedia.org/wiki/Larch'),
+            (_('W3C Spec'), 'http://dev.w3.org/html5/spec/Overview.html'),
+        ),
         "description": _("Demos on the march!") },
     { "tag_name": "svg", "title": _("SVG"), 
+        "learn_more": (
+            (_('MDN Documentation'), 'https://developer.mozilla.org/en-US/docs'),
+            (_('Wikipedia Article'), 'http://en.wikipedia.org/wiki/Larch'),
+            (_('W3C Spec'), 'http://dev.w3.org/html5/spec/Overview.html'),
+        ),
         "description": _("Drawrings in demos vectorly") },
     { "tag_name": "video", "title": _("Video"), 
+        "learn_more": (
+            (_('MDN Documentation'), 'https://developer.mozilla.org/en-US/docs'),
+            (_('Wikipedia Article'), 'http://en.wikipedia.org/wiki/Larch'),
+            (_('W3C Spec'), 'http://dev.w3.org/html5/spec/Overview.html'),
+        ),
         "description": _("Internet killed the video star") },
     { "tag_name": "webgl", "title": _("WebGL"), 
+        "learn_more": (
+            (_('MDN Documentation'), 'https://developer.mozilla.org/en-US/docs'),
+            (_('Wikipedia Article'), 'http://en.wikipedia.org/wiki/Larch'),
+            (_('W3C Spec'), 'http://dev.w3.org/html5/spec/Overview.html'),
+        ),
         "description": _("The browser is throwing things at your face in 3D") },
     { "tag_name": "websockets", "title": _("WebSockets"), 
+        "learn_more": (
+            (_('MDN Documentation'), 'https://developer.mozilla.org/en-US/docs'),
+            (_('Wikipedia Article'), 'http://en.wikipedia.org/wiki/Larch'),
+            (_('W3C Spec'), 'http://dev.w3.org/html5/spec/Overview.html'),
+        ),
         "description": _("Stick these in your socket and network it") },
     { "tag_name": "forms", "title": _("Forms"), 
+        "learn_more": (
+            (_('MDN Documentation'), 'https://developer.mozilla.org/en-US/docs'),
+            (_('Wikipedia Article'), 'http://en.wikipedia.org/wiki/Larch'),
+            (_('W3C Spec'), 'http://dev.w3.org/html5/spec/Overview.html'),
+        ),
         "description": _("Filling out fields just got better") },
     { "tag_name": "mathml", "title": _("MathML"), 
+        "learn_more": (
+            (_('MDN Documentation'), 'https://developer.mozilla.org/en-US/docs'),
+            (_('Wikipedia Article'), 'http://en.wikipedia.org/wiki/Larch'),
+            (_('W3C Spec'), 'http://dev.w3.org/html5/spec/Overview.html'),
+        ),
         "description": _("Pretty math stuff") },
     { "tag_name": "smil", "title": _("SMIL"), 
+        #"learn_more": (
+        #    (_('MDN Documentation'), 'https://developer.mozilla.org/en-US/docs'),
+        #    (_('Wikipedia Article'), 'http://en.wikipedia.org/wiki/Larch'),
+        #    (_('W3C Spec'), 'http://dev.w3.org/html5/spec/Overview.html'),
+        #),
         "description": _("SMILe, you're on candid web demos") },
     { "tag_name": "localstorage", "title": _("Local Storage"), 
+        "learn_more": (
+            (_('MDN Documentation'), 'https://developer.mozilla.org/en-US/docs'),
+            (_('Wikipedia Article'), 'http://en.wikipedia.org/wiki/Larch'),
+            (_('W3C Spec'), 'http://dev.w3.org/html5/spec/Overview.html'),
+        ),
         "description": _("Storing things locally") },
     { "tag_name": "offlinesupport", "title": _("Offline Support"), 
+        "learn_more": (
+            (_('MDN Documentation'), 'https://developer.mozilla.org/en-US/docs'),
+            (_('Wikipedia Article'), 'http://en.wikipedia.org/wiki/Larch'),
+            (_('W3C Spec'), 'http://dev.w3.org/html5/spec/Overview.html'),
+        ),
         "description": _("Going offline for awhile") },
     { "tag_name": "webworkers", "title": _("Web Workers"), 
+        "learn_more": (
+            (_('MDN Documentation'), 'https://developer.mozilla.org/en-US/docs'),
+            (_('Wikipedia Article'), 'http://en.wikipedia.org/wiki/Larch'),
+            (_('W3C Spec'), 'http://dev.w3.org/html5/spec/Overview.html'),
+        ),
         "description": _("Workers of the web unite!") },
 )))
 
@@ -238,8 +345,12 @@ class SubmissionManager(caching.base.CachingManager):
     def search(self, query_string):
         """Quick and dirty keyword search on submissions"""
         # TODO: Someday, replace this with something like Sphinx or another real search engine
-        query = self._get_query(query_string.strip(), ['title', 'summary', 'description',])
-        return self.filter(query).order_by('-modified')
+        strip_qs = query_string.strip()
+        if not strip_qs:
+            return self.all().order_by('-modified')
+        else:
+            query = self._get_query(strip_qs, ['title', 'summary', 'description',])
+            return self.filter(query).order_by('-modified')
         
 
 class Submission(caching.base.CachingMixin, models.Model):

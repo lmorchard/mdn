@@ -1,37 +1,49 @@
 {% extends "demos/base.html" %}
 
-{% block pageid %}demos{% endblock %}
+{% set query = request.GET.get('q','') %}
+{% if not query %}
+    {% set query = ' ' %}
+{% endif %}
 
-{% block bodyclass %}section-demos landing{% endblock %}
+{% block pageid %}demos{% endblock %}
+{% block bodyclass %}section-demos{% endblock %}
+{% block title %}{{ page_title(_('{subtitle} | Demo Studio') | f(subtitle=_('Search for "{q}"') | f(q=query))) }}{% endblock %}
 
 {% block extrahead %}
   <link rel="alternate" type="application/atom+xml" 
-      title="{{ _('Demo search for "{q}"') | f(q=request.GET.get('q', '')) }}"
-      href="{{ url('demos_feed_search', format='atom', query_string=request.GET.get('q', '')) }}" />
+      title="{{ _('Search results for "{q}"') | f(q=query) }}"
+      href="{{ url('demos_feed_search', format='atom', query_string=query) }}" />
 {% endblock %}
 
-{% block title %}{{ page_title(_('Web')) }}{% endblock %}
-
 {% block content %}
+<section id="nav-toolbar">
+<div class="wrap">
+  <nav class="crumbs">
+    <ol role="navigation">
+      <li><a href="{{ url('home') }}">MDN</a></li>
+      <li><a href="{{ url('demos') }}">Demo Studio</a></li>
+      <li><a href="">{{ _('Search demos for "{q}"') | f(q=query) }}</a></li>
+    </ol>
+  </nav>
+  <p class="demo-submit"><a href="{{ url('demos_submit') }}" class="button">Submit a Demo</a></p>
+</div>
+</section>
 
 <section id="content">
-<div class="wrap sidebar">
+<div class="wrap">
+
+  <header id="gallery-head">
+    <div class="intro">
+        <h1 class="page-title">{{ _('Search demos for "{q}"') | f(q=query) }}</h1>
+    </div>
+  </header>
+
   <section id="content-main" role="main">
-
-    <section class="boxed">
-    
-      <div id="popular-docs" class="articles-list">
-
-        <header class="head section-moz">
-              <h2>{{ _('Search demos for "{q}"') | f(q=request.GET.get('q', '')) }}</h2>
-        </header>
-
-        {{ submission_listing(submission_list) }}
-        
-      </div>
-
-    </section>{# /.boxed #}
-
+    {{ submission_listing(
+        submission_list, is_paginated, paginator, page_obj,
+        _('Subscribe to a feed of search results for "{q}"') | f(q=query),
+        url('demos_feed_search', format='atom', query_string=query) 
+    ) }}
   </section>{# /#content-main #}
 
   <aside id="content-sub" role="complementary">

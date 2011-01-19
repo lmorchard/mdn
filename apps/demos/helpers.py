@@ -87,10 +87,10 @@ def submission_key(prefix):
 def submission_creator(submission): return locals()
 
 @register.inclusion_tag('demos/elements/submission_thumb.html')
-def submission_thumb(submission): return locals()
+def submission_thumb(submission,extra_class=None): return locals()
 
 @register.inclusion_tag('demos/elements/submission_listing.html')
-def submission_listing(submission_list): return locals()
+def submission_listing(submission_list,is_paginated,paginator,page_obj,feed_title,feed_url): return locals()
 
 @register_cached_inclusion_tag('demos/elements/tags_list.html', 'demos_tags_list')
 def tags_list(): return locals()
@@ -142,6 +142,13 @@ def tag_description(tag):
         return TAG_DESCRIPTIONS[tag.name]['description']
     else:
         return tag.name
+
+@register.function
+def tag_learn_more(tag):
+    if tag.name in TAG_DESCRIPTIONS and 'learn_more' in TAG_DESCRIPTIONS[tag.name]:
+        return TAG_DESCRIPTIONS[tag.name]['learn_more']
+    else:
+        return []
 
 @register.function
 def tags_for_object(obj):

@@ -69,7 +69,7 @@ def search(request):
     """Search against submission title, summary, and description"""
     query_string = request.GET.get('q', '')
     return object_list(request, Submission.objects.search(query_string),
-        paginate_by=25, allow_empty=True,
+        paginate_by=24, allow_empty=True,
         template_loader=template_loader,
         template_object_name='submission',
         template_name='demos/listing_search.html') 

@@ -1,8 +1,8 @@
 {% extends "demos/base.html" %}
 
-{% block pageid %}demos_detail{% endblock %}
+{% block pageid %}{% endblock %}
 {% block bodyclass %}section-demos{% endblock %}
-{% block title %}{{submission.title}}{% endblock %}
+{% block title %}{{ page_title(_('{subtitle} | Demo Studio') | f(subtitle=submission.title)) }}{% endblock %}
 
 {% block content %}
 <section id="nav-toolbar">
@@ -15,12 +15,17 @@
     </ol>
   </nav>
   
+  {% if False %}{# Enable when we have lateral navigation #}
   <nav class="paging">
     <ul role="navigation">
       <li class="prev"><a href="#" title="Go to the previous demo, &ldquo;Demo Title&rdquo;">Prev</a></li>
       <li class="next"><a href="#" title="Go to the next demo, &ldquo;Demo Title&rdquo;">Next</a></li>
     </ul>
   </nav>
+  {% else %}
+  <p class="demo-submit"><a href="{{ url('demos_submit') }}" class="button">Submit a Demo</a></p>
+  {% endif %}
+
 </div>
 </section>
 
@@ -35,61 +40,48 @@
         on <time datetime="">{{ submission.created }}</time></p>
 
       <!-- only shown to admins and the demo owner -->
-      <div class="manage">
+      <ul class="manage">
+
         {% if submission.allows_editing_by(request.user) %}
-            <form class="inline" action="{{ url('demos_edit', slug=submission.slug) }}" method="GET">
-                <input class="button edit" type="submit" value="{{_("Edit demo")}}" />
-            </form>
-            {% if False %}
-            <a href="{{ url('demos_edit', slug=submission.slug) }}" class="button edit">{{_('Edit Demo')}}</a> 
-            {% endif %}
+            <li><a href="{{ url('demos_edit', slug=submission.slug) }}" 
+                class="button edit">{{_('Edit Demo')}}</a></li>
         {% endif %}
+
         {% if submission.allows_deletion_by(request.user) %}
-            <form class="inline" action="{{ url('demos_delete', slug=submission.slug) }}" method="POST">
-                {{ csrf() }} 
-                <input class="button remove" type="submit" value="{{_("Remove demo")}}" />
-            </form>
+            <li><form id="demo-remove" method="post" action="{{ url('demos_delete', slug=submission.slug) }}">{{ csrf() }}<button type="submit" class="remove"><span>{{_("Remove demo")}}</span></button></form></li>
         {% endif %}
         {% if submission.allows_hiding_by(request.user) %}
             {% if submission.hidden %}
-                <form class="inline" action="{{ url('demos_show', slug=submission.slug) }}" method="POST">
-                    {{ csrf() }} 
-                    <input class="button show" type="submit" value="{{_("Show demo")}}" />
-                </form>
+                <li><form id="demo-remove" method="post" action="{{ url('demos_show', slug=submission.slug) }}">{{ csrf() }}<button type="submit" class="remove"><span>{{_("Show demo")}}</span></button></form></li>
             {% else %}
-                <form class="inline" action="{{ url('demos_hide', slug=submission.slug) }}" method="POST">
-                    {{ csrf() }} 
-                    <input class="button hide" type="submit" value="{{_("Hide demo")}}" />
-                </form>
+                <li><form id="demo-remove" method="post" action="{{ url('demos_hide', slug=submission.slug) }}">{{ csrf() }}<button type="submit" class="remove"><span>{{_("Hide demo")}}</span></button></form></li>
             {% endif %}
         {% endif %}
-      </div>
+
+      </ul>
 
       <div class="demo-desc">
         <p>{{ submission.summary }}</p>
       </div>
 
       <ul class="tools">
-        <li class="launch"><a href="{{ url('demos_launch', slug=submission.slug) }}" class="button"><strong>Launch Demo</strong></a></li>
+
+        <li><a href="{{ url('demos_launch', slug=submission.slug) }}" class="button launch"><strong>Launch Demo</strong></a></li>
+
+        <li>
             {% set likes = submission.likes.get_total_for_request(request) %}
             {% if likes > 0 %}
-                <li class="like"><form class="inline" action="{{ url('demos_unlike', slug=submission.slug) }}" method="POST">
-                    {{ csrf() }}
-                    <input class="launch_button like button" type="submit" value="{{_("You Like")}}" />
-                </form></li>
+              <form id="demo-like" method="post" action="{{ url('demos_unlike', slug=submission.slug) }}">
+                {{ csrf() }}
+                <button type="submit" class="unlike" title="You like this demo. Undo?"><span>{{_('You Like')}}</button>
+              </form>
             {% else %}
-                <li class="unlike"><form class="inline" action="{{ url('demos_like', slug=submission.slug) }}" method="POST">
-                    {{ csrf() }}
-                    <input class="launch_button like button" type="submit" value="{{_("Like It")}}" />
-                </form></li>
+              <form id="demo-like" method="post" action="{{ url('demos_like', slug=submission.slug) }}">
+                {{ csrf() }}
+                <button type="submit" class="like" title="Do you like this demo?"><span>{{_('Like It')}}</button>
+              </form>
             {% endif %}
-            
-        {% if False %}
-        <li class="like"><a href="#" title="{{_('Do you like this demo?')}}">Like It</a></li>
-        <!-- if they liked it already:
-        <li class="unlike"><a href="#" title="You like this demo. Undo?">You Like</a></li>
-        -->
-        {% endif %}
+        </li>
 
         <li class="share"><a href="#share-opts" id="sharetoggle" title="Share this demo with your social network">Share It</a>
           <ul id="share-opts">
@@ -100,6 +92,11 @@
             <li class="facebook"><a href="http://www.facebook.com/sharer.php?{{ urlencode({"u":short_url, "t":submission.title}) }}">Share on Facebook</a></li>
             <li class="link"><input id="shorturl" type="text" readonly="readonly" value="{{ short_url }}"></li>
           </ul>
+          <script type="text/javascript">
+              var so = document.getElementById('share-opts');
+              so.className = 'js';
+              so.style.display = 'none';
+            </script>
         </li>
       </ul>
 
@@ -111,9 +108,9 @@
         </p>
 
         <ul class="stats">
-          <li class="views">{{ submission.launches.total }} views</li>
-          <li class="likes">{{ submission.likes.total }} likes</li>
-          <li class="comments">{{ submission.comments_total }} comments</li>
+            <li class="views" title="{{ _('This demo has been viewed {view_count} times') | f(view_count=submission.launches.total) }}">{{_('{view_count} views') | f(view_count=submission.launches.total) }}</li>
+            <li class="likes" title="{{ _('{likes_count} people liked this demo') | f(likes_count=submission.likes.total) }}">{{_('{likes_count} likes') | f(likes_count=submission.likes.total) }}</li>
+            <li class="comments" title="{{ _('There are {comment_count} comments for this demo') | f(comment_count=submission.comments_total) }}">{{ _('{comment_count} comments') | f(comment_count=submission.comments_total) }}</li>
         </ul>
       </div>
       
@@ -134,9 +131,16 @@
             </ul>
 
   		</div><!-- /.screenshots -->
+        <script type="text/javascript">
+            var els = document.getElementsByTagName('div');
+            for (var i=0,el; el=els[i]; i++) {
+                if (el.className == 'screenshots') { 
+                    el.className += ' js'; 
+                    el.parentNode.style.overflow = 'hidden';
+                }
+            }
+        </script>
 
-      <script type="text/javascript" src="./js/carousel.js"></script>
-      
     </section><!-- /#demobox -->
     
     <section class="demo-more">
@@ -187,7 +191,7 @@
         {% if False %}
         <ol id="comments-list" class="hfeed">
         	<li class="hentry" id="comment-123"><!-- every comment should have a unique ID for permalinking, however that ID is assigned (just sequential numbering I presume?) Remember that values of ID attributes in HTML cannot begin with a numeral -->
-        	  <p class="entry-title vcard"><cite class="author fn"><a href="#" class="url" title="See Naomi Bellering's profile"><img class="photo" src="./img/blank.gif" alt="" width="48" height="48"> Naomi Bellering</a></cite> said,</p><!-- Avatar has empty alt -->
+            <p class="entry-title vcard"><cite class="author fn"><a href="#" class="url" title="See Naomi Bellering's profile"><img class="photo" src="{{MEDIA_URL}}img/blank.gif" alt="" width="48" height="48"> Naomi Bellering</a></cite> said,</p><!-- Avatar has empty alt -->
         		<p class="entry-meta">Posted <a href="#comment-123" rel="bookmark" title="Permanent link to this comment by Naomi Bellering"><time class="published" pubdate="pubdate" datetime="2010-12-31T18:48:02-08:00" title="2010-12-31">Dec 31, 2010</time></a></p>
         		<!-- NOTES: 
         		     See http://microformats.org/wiki/hatom for more on the hatom microformat. 
@@ -318,7 +322,7 @@
 {% block js %}
     {{ super() }}
       <script type="text/javascript">
-      $(document).ready(function(){
+      $("#share-opts").ready(function(){
       	$("#share-opts").addClass("js").hide();
       	
       	$("#sharetoggle").click(function() {
@@ -361,4 +365,27 @@
       });
       </script>
        <script type="text/javascript" src="{{MEDIA_URL}}js/carousel.js"></script>
+
+        <script type="text/javascript">
+        $(".screenshots").ready(function(){
+          // Set up the carousel
+          $(".screenshots").show().addClass("js").jCarouselLite({
+              btnNext: ".nav-next a",
+              btnPrev: ".nav-prev a", 
+              visible: 1
+          });
+          
+          $(".screenshots").hover(
+            function() {
+              $(".nav-next a").animate({ right: "0" },{ queue:false });
+              $(".nav-prev a").animate({ left: "0" },{ queue:false });
+            },
+            function() {
+              $(".nav-next a").animate({ right: "-60px" },{ queue:false });
+              $(".nav-prev a").animate({ left: "-60px" },{ queue:false });    
+            }
+          );
+          
+        });
+        </script>
 {% endblock %}

@@ -15,38 +15,44 @@
 
 {% block content %}
 
+<section id="nav-toolbar">
+<div class="wrap">
+  <nav class="crumbs">
+    <ol role="navigation">
+      <li><a href="{{ url('home') }}">MDN</a></li>
+      <li><a href="{{ url('demos') }}">Demo Studio</a></li>
+    </ol>
+  </nav>
+  <p class="demo-submit"><a href="{{ url('demos_submit') }}" class="button">Submit a Demo</a></p>
+</div>
+</section>
+
 <section id="content">
-    <div class="wrap sidebar">
-        <section id="content-main" role="main">
+<div class="wrap">
 
-        <section class="boxed">
-
-        <div id="popular-docs" class="articles-list">
-
-            <a class="submit_demo" href="{{ url('demos_submit') }}">Submit a new demo</a>
-
-            <div>
-                <h3>{{_('Featured')}}</h3>
-                {{ submission_listing(featured_submission_list) }}
-            </div>
-
-            <div>
-                <h3>{{_('Demos')}}</h3>
-                {{ submission_listing(submission_list) }}
-            </div>
-
+    <section id="content-main" role="main">
+        <div>
+            <h3>{{_('Featured')}}</h3>
+            {{ submission_listing(featured_submission_list, False, None, None,
+                _('Subscribe to a feed of {tag_title} demos') | f(tag_title=_('featured')),
+                url('demos_feed_featured', format='rss') ) }}
         </div>
 
-        </section>{# /.boxed #}
+        <div>
+            <h3>{{_('Recent')}}</h3>
+            {{ submission_listing(submission_list, False, None, None,
+                _('Subscribe to a feed of {tag_title} demos') | f(tag_title=_('recent')),
+                url('demos_feed_recent', format='rss') ) }}
+        </div>
+    </section><!-- /#content-main -->
 
-        </section>{# /#content-main #}
 
-        <aside id="content-sub" role="complementary">
-            {{ search_form() }}
-            {{ tags_list() }}
-        </aside>{# /#content-sub #}
+    <aside id="content-sub" role="complementary">
+        {{ search_form() }}
+        {{ tags_list() }}
+    </aside>{# /#content-sub #}
 
-    </div>
+</div>
 </section>{# /#content #}
 
 {% endblock %}
