@@ -1,7 +1,8 @@
 {% cache submission_list %}
 
     <div id="gallery-sort">
-      <p class="count">{{_('{count} Demos') | f(count=submission_list|length)}}</p>
+      {% set count = submission_list|length %}
+      <p class="count">{{ ngettext('{count} Demo', '{count} Demos', count) | f(count=count) }}</p>
       <ul class="sort">
         <li><strong title="You are viewing up and coming demos">Up and Coming</strong></li>
         <li><a href="#" title="Sort demos by most views">Most Viewed</a></li>
