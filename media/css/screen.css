@@ -115,7 +115,7 @@ a.mobile:hover, a.mobile:focus, a.mobile:active { color: #a7df38; }
 .addons, a.addons:link, a.addons:visited { color: #00b6f0; }
 a.addons:hover, a.addons:focus, a.addons:active { color: #0cf; }
 
-.apps, a.apps:link, a.apps:visited, 
+.mozilla, a.mozilla:link, a.mozilla:visited, 
 .moz, a.moz:link, a.moz:visited { color: #ed2024; }
 a.apps:hover, a.apps:focus, a.apps:active, 
 a.moz:hover, a.moz:focus, a.moz:active { color: #f33; }
