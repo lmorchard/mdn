@@ -2,6 +2,7 @@ import datetime
 import urllib
 import logging
 import functools
+import hashlib
 
 from django.core.cache import cache
 from django.utils.translation import ungettext, ugettext
@@ -101,6 +102,19 @@ def tags_list(): return locals()
 def search_form(context):
     return new_context(**locals())
 
+# TODO:liberate
+@register.inclusion_tag('demos/elements/gravatar.html')
+def gravatar(email, size=72, default=None):
+    ns = {
+        's': str(size),
+    }
+    if default: 
+        ns['default'] = default
+    url = "http://www.gravatar.com/avatar/%s.jpg?%s" % (
+        hashlib.md5(email).hexdigest(),
+        urllib.urlencode(ns)
+    )
+    return {'gravatar': {'url': url, 'size': size}}
 
 @register.function
 def urlencode(args):

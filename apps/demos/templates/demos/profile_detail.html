@@ -1,6 +1,6 @@
 {% extends "demos/base.html" %}
 
-{% set display_name = profile_user.first_name %}
+{% set display_name = profile_user.first_name | default(profile_user.username, true) %}
 {% set username  = profile_user.username %}
 
 {% block pageid %}demos{% endblock %}
@@ -34,12 +34,18 @@
   <header id="gallery-head">
     <div class="author">
       <h1 class="page-title">
-          <img src="./img/blank.gif" alt="" width="72" height="72" class="avatar"> {{ display_name }}
-        <!-- Only shown for the user and admins -->
-        <a href="#" class="button edit">Edit Profile</a>
+          {{ gravatar(profile_user.email) }} {{ display_name }}
+          {% if false %}
+            <!-- Only shown for the user and admins -->
+            <a href="#" class="button edit">Edit Profile</a>
+          {% endif %}
       </h1>
-      <p class="loc">San Francisco, CA</p>
-      <p class="web"><a href="#" rel="me external" class="url">http://www.itsneil.com</a></p>
+      {% if profile_deki_user.location %}
+          <p class="loc">{{profile_deki_user.location}}</p>
+      {% endif %}
+      {% if profile_deki_user.profile_url %}
+          <p class="web"><a href="{{profile_deki_user.profile_url}}" rel="me external" class="url">{{profile_deki_user.profile_url}}</a></p>
+      {% endif %}
     </div>
   </header>
 
