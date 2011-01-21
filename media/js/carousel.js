@@ -50,14 +50,14 @@ $.fn.jCarouselLite = function(o) {
         div.css("visibility", "visible");
 
         li.css({overflow: "hidden", float: o.vertical ? "none" : "left"});
-        ul.css({margin: "0", padding: "0", position: "relative", "list-style-type": "none", "z-index": "1"});
-        div.css({overflow: "hidden", position: "absolute", "z-index": "2", right: "10px"});
+        ul.css({position: "relative", "list-style-type": "none", "z-index": "1"});
+        div.css({overflow: "hidden", "z-index": "2"});
 
         var liSize = o.vertical ? height(li) : width(li);   // Full li size(incl margin)-Used for animation
         var ulSize = liSize * itemLength;                   // size of full ul(total length, not just for the visible items)
         var divSize = liSize * v;                           // size of entire div(total length for just the visible items)
 
-        li.css({width: li.width(), height: li.height()});
+        li.css({width: li.width()/* , height: li.height() */}); // We don't need height
         ul.css(sizeCss, ulSize+"px").css(animCss, -(curr*liSize));
 
         div.css(sizeCss, divSize+"px");                     // Width of the DIV. length of visible images

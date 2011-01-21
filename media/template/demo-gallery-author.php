@@ -21,8 +21,8 @@ head(
 <section id="content">
 <div class="wrap">
 
-  <header id="gallery-head">
-    <div class="author">
+  <header id="page-head" class="gallery">
+    <div class="main author">
       <h1 class="page-title">
         <img src="./img/blank.gif" alt="" width="72" height="72" class="avatar"> Neil Gauldin 
         <!-- Only shown for the user and admins -->
@@ -49,20 +49,23 @@ head(
 // <![CDATA[
 	$(".gallery").ready(function(){
 		$(".gallery").addClass("js");
-		
+
     $(".gallery .demo").hoverIntent({
       interval: 250,
       over: function() {
-        var content = $(this).html();
-        $(this).prepend('<div class="demohover">'+content+'<\/div>');
-        $(this).find("div.demohover").fadeIn(200);
-      }, 
-      out: function() {
-        $(this).find("div.demohover").fadeOut(200, function(){
-          $(this).remove();
+        var content = $(this).html(),
+            demo = $(this), 
+            offs = $(this).offset();
+        $("#content").prepend('<div class="demo demohover"><div class="in">'+content+'<\/div><\/div>');
+        $("div.demohover").css({ left: offs.left, top: offs.top }).fadeIn(200).mouseleave(function() {
+          $(this).fadeOut(200, function(){ 
+            $(this).remove(); 
+          });
         });
-      }
+      }, 
+      out: function() { /* do nothing */ },
     });
+
 	});
 // ]]>
 </script>
@@ -78,29 +81,30 @@ head(
             <img src="./img/fpo55.png" alt="" width="200" height="150"> The Incredible Machine
           </a>
         </h2>
-        <p class="byline vcard"><a href="#" class="url fn" title="See Neil Gauldin's profile">Neil Gauldin</a></p>
+        <p class="byline vcard"><a href="demo-gallery-author.php" class="url fn" title="See more demos by Neil Gauldin">Neil Gauldin</a></p>
         <div class="extra">
           <ul class="stats">
             <li class="views" title="This demo has been viewed 20,000 times">20,000</li>
             <li class="likes" title="3,000 people liked this demo">3,000</li>
-            <li class="comments" title="There are 100 comments for this demo">100</li>
+            <li class="comments"><a href="demo-detail.php#comments" title="There are 100 comments for this demo">100</a></li>
           </ul>
           <p class="desc">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
           <p class="launch"><a href="#" class="button" title="Launch &ldquo;The Incredible Machine&rdquo;">Launch</a></p>
         </div>
       </li>
-      <li class="demo">
+      <li class="demo featured">
         <h2 class="demo-title">
           <a href="demo-detail.php" title="See more about &ldquo;Fantastic Voyage&rdquo; by Neil Gauldin">
             <img src="./img/fpo55.png" alt="" width="200" height="150"> Fantastic Voyage
           </a>
+          <strong class="flag">Featured</strong>
         </h2>
-        <p class="byline vcard"><a href="#" class="url fn" title="See Neil Gauldin's profile">Neil Gauldin</a></p>
+        <p class="byline vcard"><a href="demo-gallery-author.php" class="url fn" title="See more demos by Neil Gauldin">Neil Gauldin</a></p>
         <div class="extra">
           <ul class="stats">
             <li class="views" title="This demo has been viewed 1,234 times">1,234</li>
             <li class="likes" title="151 people liked this demo">151</li>
-            <li class="comments" title="There are 3 comments for this demo">3</li>
+            <li class="comments"><a href="demo-detail.php#comments" title="There are 3 comments for this demo">3</a></li>
           </ul>
           <p class="desc">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           <p class="launch"><a href="#" class="button" title="Launch &ldquo;Fantastic Voyage&rdquo;">Launch</a></p>
@@ -112,30 +116,31 @@ head(
             <img src="./img/fpo55.png" alt="" width="200" height="150"> It&#8217;s a Mad Mad Mad Mad Mad Mad World
           </a>
         </h2>
-        <p class="byline vcard"><a href="#" class="url fn" title="See Neil Gauldin's profile">Neil Gauldin</a></p>
+        <p class="byline vcard"><a href="demo-gallery-author.php" class="url fn" title="See more demos by Neil Gauldin">Neil Gauldin</a></p>
         <div class="extra">
           <ul class="stats">
             <li class="views" title="This demo hasn't been viewed by anyone yet">0</li>
             <li class="likes" title="Nobody has liked this demo yet">0</li>
-            <li class="comments" title="There are no comments yet for this demo">0</li>
+            <li class="comments"><a href="demo-detail.php#comments" title="There are no comments yet for this demo">0</a></li>
           </ul>
           <p class="desc">Morbi in sem quis dui placerat ornare.</p>
           <p class="launch"><a href="#" class="button" title="Launch &ldquo;It's a Mad Mad Mad Mad Mad Mad World&rdquo;">Launch</a></p>
         </div>
       </li>
 
-      <li class="demo row-first">
+      <li class="demo featured row-first">
         <h2 class="demo-title">
           <a href="demo-detail.php" title="See more about &ldquo;Twenty Years to Midnight&rdquo; by Neil Gauldin">
             <img src="./img/fpo55.png" alt="" width="200" height="150"> Twenty Years to Midnight
           </a>
+          <strong class="flag">Featured</strong>
         </h2>
-        <p class="byline vcard"><a href="#" class="url fn" title="See Neil Gauldin's profile">Neil Gauldin</a></p>
+        <p class="byline vcard"><a href="demo-gallery-author.php" class="url fn" title="See more demos by Neil Gauldin">Neil Gauldin</a></p>
         <div class="extra">
           <ul class="stats">
             <li class="views" title="This demo has been viewed 1,234 times">1,234</li>
             <li class="likes" title="151 people liked this demo">151</li>
-            <li class="comments" title="There are 3 comments for this demo">3</li>
+            <li class="comments"><a href="demo-detail.php#comments" title="There are 3 comments for this demo">3</a></li>
           </ul>
           <p class="desc">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
           <p class="launch"><a href="#" class="button" title="Launch &ldquo;Twenty Years to Midnight&rdquo;">Launch</a></p>
@@ -147,12 +152,12 @@ head(
             <img src="./img/fpo55.png" alt="" width="200" height="150"> Bloodeye
           </a>
         </h2>
-        <p class="byline vcard"><a href="#" class="url fn" title="See Neil Gauldin's profile">Neil Gauldin</a></p>
+        <p class="byline vcard"><a href="demo-gallery-author.php" class="url fn" title="See more demos by Neil Gauldin">Neil Gauldin</a></p>
         <div class="extra">
           <ul class="stats">
             <li class="views" title="This demo has been viewed 55 times">55</li>
             <li class="likes" title="7 people liked this demo">7</li>
-            <li class="comments" title="There are no comments for this demo">0</li>
+            <li class="comments"><a href="demo-detail.php#comments" title="There are no comments yet for this demo">0</a></li>
           </ul>
           <p class="desc">Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</p>
           <p class="launch"><a href="#" class="button" title="Launch &ldquo;Bloodeye&rdquo;">Launch</a></p>
@@ -164,12 +169,12 @@ head(
             <img src="./img/fpo55.png" alt="" width="200" height="150"> Modern Alchemy
           </a>
         </h2>
-        <p class="byline vcard"><a href="#" class="url fn" title="See Neil Gauldin's profile">Neil Gauldin</a></p>
+        <p class="byline vcard"><a href="demo-gallery-author.php" class="url fn" title="See more demos by Neil Gauldin">Neil Gauldin</a></p>
         <div class="extra">
           <ul class="stats">
             <li class="views" title="This demo has been viewed 55 times">55</li>
             <li class="likes" title="7 people liked this demo">7</li>
-            <li class="comments" title="There are no comments for this demo">0</li>
+            <li class="comments"><a href="demo-detail.php#comments" title="There are no comments yet for this demo">0</a></li>
           </ul>
           <p class="desc">Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</p>
           <p class="launch"><a href="#" class="button" title="Launch &ldquo;Modern Alchemy&rdquo;">Launch</a></p>
@@ -182,12 +187,12 @@ head(
             <img src="./img/fpo55.png" alt="" width="200" height="150"> Return to the House of Mummies, Part Two
           </a>
         </h2>
-        <p class="byline vcard"><a href="#" class="url fn" title="See Neil Gauldin's profile">Neil Gauldin</a></p>
+        <p class="byline vcard"><a href="demo-gallery-author.php" class="url fn" title="See more demos by Neil Gauldin">Neil Gauldin</a></p>
         <div class="extra">
           <ul class="stats">
             <li class="views" title="This demo has been viewed 1,234 times">1,234</li>
             <li class="likes" title="151 people liked this demo">151</li>
-            <li class="comments" title="There are no comments for this demo">3</li>
+            <li class="comments"><a href="demo-detail.php#comments" title="There are 3 comments for this demo">3</a></li>
           </ul>
           <p class="desc">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           <p class="launch"><a href="#" class="button" title="Launch &ldquo;Return to the House of Mummies, Part Two&rdquo;">Launch</a></p>

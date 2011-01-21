@@ -118,7 +118,7 @@ head(
       </div>
       
   		<div class="screenshots">
-    		<ul class="nav-screens">
+    		<ul class="nav-slide">
           <li class="nav-prev"><a href="#" class="prev" title="See the previous image">Previous</a></li>
       		<li class="nav-next"><a href="#" class="next" title="See the next image">Next</a></li>
         </ul>

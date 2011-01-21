@@ -26,7 +26,7 @@
           interval: 100,
           over: function() {
             var content = $(this).html();
-            $(this).prepend('<div class="demohover">'+content+'<\/div>');
+            $(this).prepend('<div class="demohover"><div class="in">'+content+'<\/div><\/div>');
             $(this).find("div.demohover").fadeIn(200);
           }, 
           out: function() {
