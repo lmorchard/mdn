@@ -115,10 +115,8 @@ a.mobile:hover, a.mobile:focus, a.mobile:active { color: #a7df38; }
 .addons, a.addons:link, a.addons:visited { color: #00b6f0; }
 a.addons:hover, a.addons:focus, a.addons:active { color: #0cf; }
 
-.mozilla, a.mozilla:link, a.mozilla:visited, 
-.moz, a.moz:link, a.moz:visited { color: #ed2024; }
-a.apps:hover, a.apps:focus, a.apps:active, 
-a.moz:hover, a.moz:focus, a.moz:active { color: #f33; }
+.mozilla, a.mozilla:link, a.mozilla:visited { color: #ed2024; } 
+a.mozilla:hover, a.mozilla:focus, a.mozilla:active { color: #f33; }
 
 .labs, a.labs:link, a.labs:visited { color: #aaa8a5; }
 a.labs:hover, a.labs:focus, a.labs:active { color: #bcbcbc; }
@@ -184,8 +182,7 @@ body.section-moz #nav-main-moz a, #nav-main .current a.moz { background-position
 #nav-main a.web:hover, #nav-main a.web:focus, #nav-main a.web:active { background-position: 50% -142px; padding-bottom: 7px; border-bottom: 1px solid #000; }
 #nav-main a.mobile:hover, #nav-main a.mobile:focus, #nav-main a.mobile:active { background-position: 50% -232px; padding-bottom: 7px; border-bottom: 1px solid #000; }
 #nav-main a.addons:hover, #nav-main a.addons:focus, #nav-main a.addons:active { background-position: 50% -322px; padding-bottom: 7px; border-bottom: 1px solid #000; }
-#nav-main a.apps:hover, #nav-main a.apps:focus, #nav-main a.apps:active { background-position: 50% -412px; padding-bottom: 7px; border-bottom: 1px solid #000; }
-#nav-main a.moz:hover, #nav-main a.moz:focus, #nav-main a.moz:active { background-position: 50% -412px; padding-bottom: 7px; border-bottom: 1px solid #000; }
+#nav-main a.mozilla:hover, #nav-main a.mozilla:focus, #nav-main a.mozilla:active { background-position: 50% -412px; padding-bottom: 7px; border-bottom: 1px solid #000; }
 
 /*** @Secondary @Nav *********/
 #utility { width: 255px; float: right; }
