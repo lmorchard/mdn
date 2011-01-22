@@ -117,23 +117,23 @@
         </ul>
       </div>
       
-  		<div class="screenshots">
-    		<ul class="nav-screens">
-              <li class="nav-prev"><a href="#" class="prev" title="See the previous image">Previous</a></li>
-      		  <li class="nav-next"><a href="#" class="next" title="See the next image">Next</a></li>
-            </ul>
-  		  
-    		<ul class="slider">
-              {% for idx in range(1, 6) %}
-                  {% if submission['screenshot_'~idx] %}
-                    <li class="panel">
-                      <img src="{{ submission['screenshot_'~idx].url }}" alt="" width="480" height="360">
-                    </li>
-                  {% endif %}
-              {% endfor %}
-            </ul>
+    <div class="screenshots">
+      <ul class="nav-slide">
+        <li class="nav-prev"><a href="#" class="prev" title="See the previous image">Previous</a></li>
+        <li class="nav-next"><a href="#" class="next" title="See the next image">Next</a></li>
+      </ul>
 
-  		</div><!-- /.screenshots -->
+      <ul class="slider">
+        {% for idx in range(1, 6) %}
+          {% if submission['screenshot_'~idx] %}
+            <li class="panel">
+              <img src="{{ submission['screenshot_'~idx].url }}" alt="" width="480" height="360">
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+
+    </div><!-- /.screenshots -->
         <script type="text/javascript">
             var els = document.getElementsByTagName('div');
             for (var i=0,el; el=els[i]; i++) {
