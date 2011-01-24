@@ -3,36 +3,6 @@
 --
 
 --
--- Table structure for table `actioncounters_action`
---
-
-DROP TABLE IF EXISTS `actioncounters_action`;
-CREATE TABLE `actioncounters_action` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(64) NOT NULL,
-  `max_per_unique` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `actioncounters_action_52094d6e` (`name`)
-);
-
---
--- Table structure for table `actioncounters_actioncounter`
---
-
-DROP TABLE IF EXISTS `actioncounters_actioncounter`;
-CREATE TABLE `actioncounters_actioncounter` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `action_id` int(11) NOT NULL,
-  `total` int(10) unsigned NOT NULL,
-  `content_type_id` int(11) NOT NULL,
-  `object_pk` varchar(32) NOT NULL,
-  `modified` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `actioncounters_actioncounter_df94c0f0` (`action_id`),
-  KEY `actioncounters_actioncounter_e4470c6e` (`content_type_id`)
-);
-
---
 -- Table structure for table `actioncounters_actionhit`
 --
 
@@ -147,18 +117,6 @@ INSERT INTO `demos_tagdescription` VALUES
 ('localstorage','Local Storage','Storing things locally'),
 ('offlinesupport','Offline Support','Going offline for awhile'),
 ('webworkers','Web Workers','Workers of the web unite!');
-
---
--- Table structure for table `tagging_tag`
---
-
-DROP TABLE IF EXISTS `tagging_tag`;
-CREATE TABLE `tagging_tag` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-);
 
 --
 -- Table structure for table `tagging_taggeditem`
