@@ -167,108 +167,16 @@
           {% endif %}
         </header>
 
-        <div class="comments">
-            {% set tree = get_threaded_comment_tree(submission) %}
-            {% for comment in tree %}
-                <div id="comment-{{ comment.id }}" style="border: 1px #ddd dotted; margin: 1em; padding: 1em; margin-left: {{ comment.depth * 2 }}em;" class="comment comment-level-{{ comment.depth }}">
-                    <a href="#">{{ comment.user.username }}</a> said @ <a href="#comment-{{ comment.id }}">{{ comment.date_submitted }}</a>:<br/>
-                    {# TODO: Uncomment this to allow markup choices #}
-                    {# auto_transform_markup(comment) #}
-                    {{ comment.comment | nl2br }}
-
-                    {% if request.user.is_authenticated() %}
-                        <div class="comment_reply">
-                            <a href="#" class="show_reply">{{_('Reply')}}</a>
-                            <form method="POST" action="{{ get_comment_url(submission, comment) }}">
-                                {{ csrf() }}
-                                <textarea rows="10" cols="40" name="comment"></textarea><br/>
-                                <input type="submit" value="Comment" />
-                            </form>
-                        </div>
-                    {% endif %}
-
-                </div>
-            {% endfor %}
-        </div>
-        
-        {% if False %}
         <ol id="comments-list" class="hfeed">
-        	<li class="hentry" id="comment-123"><!-- every comment should have a unique ID for permalinking, however that ID is assigned (just sequential numbering I presume?) Remember that values of ID attributes in HTML cannot begin with a numeral -->
-            <p class="entry-title vcard"><cite class="author fn"><a href="#" class="url" title="See Naomi Bellering's profile"><img class="photo" src="{{MEDIA_URL}}img/blank.gif" alt="" width="48" height="48"> Naomi Bellering</a></cite> said,</p><!-- Avatar has empty alt -->
-        		<p class="entry-meta">Posted <a href="#comment-123" rel="bookmark" title="Permanent link to this comment by Naomi Bellering"><time class="published" pubdate="pubdate" datetime="2010-12-31T18:48:02-08:00" title="2010-12-31">Dec 31, 2010</time></a></p>
-        		<!-- NOTES: 
-        		     See http://microformats.org/wiki/hatom for more on the hatom microformat. 
-                 Published dates should be in the Y-m-d format in the title, following the microformat date pattern (less verbose than the datetime pattern but lesser impact on accessibility).
-                 The datetime value can be the same as the title, or more verbose if we want to get really OCD about it: 'Y-m-d\TH:i:sP'
-            -->
-        		<blockquote class="entry-content">
-        			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros.</p>
-        			<p>Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.</p>
-        		</blockquote>
-        		
-        		<ul class="comment-opts"><!-- only for logged-in users -->
-        		  <li class="opt-reply"><a href="#comment-post" title="Reply to this comment by Naomi Bellering">Reply</a></li>
-        		  <li class="opt-report"><a href="/report/confirm" title="Report this comment">Report</a></li><!-- Do you have to be logged in to report a comment? -->
-        		  <li class="opt-delete"><a href="#" title="Edit this comment">Edit</a></li><!-- shown only to demo owner and admins... can users edit their own comments? -->
-        		  <li class="opt-delete"><a href="/delete/confirm" title="Delete this comment">Delete</a></li><!-- shown only to demo owner and admins... can users delete their own comments? -->
-        		</ul>
-        	</li>
-          
-          <li class="hentry alt" id="comment-456">
-        	  <p class="entry-title vcard"><cite class="author fn"><a href="#" class="url" title="See Byron Orpheus' profile"><img class="photo" src="./img/blank.gif" alt="" width="48" height="48"> Byron Orpheus</a></cite> said,</p>
-        		<p class="entry-meta">Posted <a href="#comment-456" rel="bookmark" title="Permanent link to this comment by Byron Orpheus"><time class="published" datetime="" title="2011-01-05">5 days ago</time></a></p>
-        		<blockquote class="entry-content">
-        			<p>Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.</p>
-              <p>Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</p>
-        		</blockquote>
-        		<ul class="comment-opts"><!-- only for logged-in users -->
-        		  <li class="opt-reply"><a href="#comment-post" title="Reply to this comment by Naomi Bellering">Reply</a></li>
-        		  <li class="opt-report"><a href="/report/confirm" title="Report this comment">Report</a></li>
-        		  <li class="opt-delete"><a href="#" title="Edit this comment">Edit</a></li>
-        		  <li class="opt-delete"><a href="/delete/confirm" title="Delete this comment">Delete</a></li>
-        		</ul>
-
-        		<ol class="replies">
-              <li class="hentry" id="comment-342">
-                <!-- If the commenter's account has been deleted, the name shouldn't be linked (no profile to link to) and the avatar is replaced with the generic. The comment remains for posterity. -->
-            	  <p class="entry-title vcard"><cite class="author fn"><img class="photo" src="./img/blank.gif" alt="" width="48" height="48"> Deleted Member</cite> said,</p>
-            		<p class="entry-meta">Posted <a href="#comment-342" rel="bookmark" title="Permanent link to this comment"><time class="published" datetime="" title="2011-01-10">8 hours ago</time></a></p>
-            		<blockquote class="entry-content">
-            			<p>Suspendisse mauris. Fusce accumsan mollis eros. Pellentesque a diam sit amet mi ullamcorper vehicula. Integer adipiscing risus a sem. Nullam quis massa sit amet nibh viverra malesuada. Nunc sem lacus, accumsan quis, faucibus non, congue vel, arcu. Ut scelerisque hendrerit tellus. Integer sagittis. Vivamus a mauris eget arcu gravida tristique. Nunc iaculis mi in ante. Vivamus imperdiet nibh feugiat est.</p>
-            		</blockquote>
-            		<ul class="comment-opts">
-            		  <li class="opt-reply"><a href="#comment-post" title="Reply to this comment by Naomi Bellering">Reply</a></li>
-            		  <li class="opt-report"><a href="/report/confirm" title="Report this comment">Report</a></li>
-            		  <li class="opt-delete"><a href="#" title="Edit this comment">Edit</a></li>
-            		  <li class="opt-delete"><a href="/delete/confirm" title="Delete this comment">Delete</a></li>
-            		</ul>
-
-                <ol class="replies">
-                  <li class="hentry alt" id="comment-985">
-                	  <p class="entry-title vcard"><cite class="author fn"><a href="#" class="url" title="See Byron Orpheus' profile"><img class="photo" src="./img/blank.gif" alt="" width="48" height="48"> Byron Orpheus</a></cite> said,</p><!-- avatar has empty alt -->
-                		<p class="entry-meta">Posted <a href="#comment-985" rel="bookmark" title="Permanent link to this comment by Byron Orpheus"><time class="published" datetime="" title="2011-01-10">25 minutes ago</time></a></p>
-                		<blockquote class="entry-content">
-                			<p>Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euismod vel, velit. Pellentesque egestas sem. Suspendisse commodo ullamcorper magna.</p>
-                		</blockquote>
-                		<ul class="comment-opts">
-                		  <!-- No Reply option on deep-neested comments, depending on how many levels of replies we want to allow. -->
-                		  <li class="opt-report"><a href="/report/confirm" title="Report this comment">Report</a></li>
-                		  <li class="opt-delete"><a href="#" title="Edit this comment">Edit</a></li>
-                		  <li class="opt-delete"><a href="/delete/confirm" title="Delete this comment">Delete</a></li>
-                		</ul>
-                	</li>
-            		</ol>
-
-            	</li>
-        		</ol>
-
-        	</li>
-        </ol><!-- /#comment-list -->
-        {% endif %}
+            {{ comments_tree(request, submission, get_threaded_comment_tree(submission)) }}
+        </ol>
+        <script type="text/javascript">
+            document.getElementById('comments-list').className += ' js';
+        </script>
         
         {% if request.user.is_authenticated() %}
             <!-- form only shown for logged-in users -->
-            <form id="comment-post" method="POST" action="{{ get_comment_url(submission) }}">
+            <form id="comment-post" class="comment_form" method="POST" action="{{ get_comment_url(submission) }}">
               {{ csrf() }}
               <fieldset>
                 <legend><span>Add your comment</span></legend>
@@ -324,6 +232,26 @@
 
 {% block js %}
     {{ super() }}
+
+    <script type="text/javascript">
+
+        // Reveal in-line comment form in threads on click for "reply"
+        $('#comments-list .hentry .opt-reply').click(function () {
+            var reply_form = $(this).parent().next('div.comment-reply');
+            reply_form.slideToggle(250);
+            return false;
+        });
+
+        // Prevent submission of an empty comment. There is server-side
+        // validation, but it's ugly.
+        $('form.comment_form').submit(function () {
+            var c_form = $(this);
+            if (c_form.find('textarea').val() == '') { return false; }
+            return true;
+        });
+
+    </script>
+
       <script type="text/javascript">
       $("#share-opts").ready(function(){
       	$("#share-opts").addClass("js").hide();

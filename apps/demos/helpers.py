@@ -87,6 +87,9 @@ def submission_key(prefix):
 @register_cached_inclusion_tag('demos/elements/submission_creator.html', submission_key('creator'))
 def submission_creator(submission): return locals()
 
+@register.inclusion_tag('demos/elements/profile_link.html')
+def profile_link(user, show_gravatar=False, gravatar_size=48): return locals()
+
 @register.inclusion_tag('demos/elements/submission_thumb.html')
 def submission_thumb(submission,extra_class=None): return locals()
 
@@ -206,8 +209,29 @@ def date_diff(timestamp, to=None):
 # directly, rather than building adapter functions?
 
 @register.function
-def get_threaded_comment_tree(content_object, tree_root=0):
+def get_threaded_comment_flat(content_object, tree_root=0):
     return ThreadedComment.public.get_tree(content_object, root=tree_root)
+
+@register.function
+def get_threaded_comment_tree(content_object, tree_root=0):
+    """Convert the flat list with depth indices into a true tree structure for
+    recursive template display"""
+    root = dict( children=[] )
+    parent_stack = [ root, ]
+    
+    flat = ThreadedComment.public.get_tree(content_object, root=tree_root)
+    for comment in flat:
+        c = dict(comment=comment, children=[])
+        if comment.depth > len(parent_stack) - 1 and len(parent_stack[-1]['children']):
+            parent_stack.append(parent_stack[-1]['children'][-1])
+        while comment.depth < len(parent_stack) - 1:
+            parent_stack.pop(-1)
+        parent_stack[-1]['children'].append(c)
+
+    return root
+
+@register.inclusion_tag('demos/elements/comments_tree.html')
+def comments_tree(request, object, root): return locals()
 
 @register.function
 def get_comment_url(content_object, parent=None):

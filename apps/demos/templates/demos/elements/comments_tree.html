@@ -1,0 +1,59 @@
+{% for c in root['children'] %}
+    {% set comment = c['comment'] %}
+    {% set children = c['children'] %}
+
+    <li class="hentry" id="comment-{{ comment.id }}">
+
+        <p class="entry-title vcard"><cite class="author fn">{{ profile_link(comment.user, True) }}</cite> said,</p>
+    
+        <p class="entry-meta">Posted <a href="#comment-{{ comment.id }}" rel="bookmark" title="{{_('Permanent link to this comment by {full_name}') | f(full_name=comment.user.username) }}"><time class="published" pubdate="pubdate" datetime="{{ comment.date_submitted }}" title="{{ comment.date_submitted }}">{{ comment.date_submitted }}</time></a></p>
+
+        {# NOTES: 
+        		     See http://microformats.org/wiki/hatom for more on the hatom microformat. 
+                 Published dates should be in the Y-m-d format in the title, following the microformat date pattern (less verbose than the datetime pattern but lesser impact on accessibility).
+                 The datetime value can be the same as the title, or more verbose if we want to get really OCD about it: 'Y-m-d\TH:i:sP'
+                 #}
+        <blockquote class="entry-content">
+            {{ comment.comment | nl2br }}
+        </blockquote>
+        
+        {% if request.user.is_authenticated() %}
+        <ul class="comment-opts"><!-- only for logged-in users -->
+          {% if comment.depth < 4 %}
+          <li class="opt-reply"><a href="#comment-post" title="Reply to this comment by Naomi Bellering">Reply</a></li>
+          {% endif %}
+          {% if false %}{# TODO: Implement flagging comments #}
+              <li class="opt-report"><a href="/report/confirm" title="Report this comment">Report</a></li><!-- Do you have to be logged in to report a comment? -->
+          {% endif %}
+          {% if false %}{# TODO: Implement editing comments #}
+              <li class="opt-delete"><a href="#" title="Edit this comment">Edit</a></li><!-- shown only to demo owner and admins... can users edit their own comments? -->
+          {% endif %}
+          {% if false %}{# TODO: Implement deleting comments #}
+              <li class="opt-delete"><a href="/delete/confirm" title="Delete this comment">Delete</a></li><!-- shown only to demo owner and admins... can users delete their own comments? -->
+          {% endif %}
+        </ul>
+
+            {% if comment.depth < 4 %}
+            <div class="comment-reply">
+                <form method="POST" class="comment_form" action="{{ get_comment_url(object, comment) }}">
+                    {{ csrf() }}
+                    <fieldset>
+                        <div><textarea name="comment" rows="6" cols="60"></textarea></div>
+                        <p><button type="submit">Comment</button></p>
+                    </fieldset>
+                </form>
+            </div>
+            {% endif %}
+        {% endif %}
+
+        {% if children | length %}
+            <ol class="replies">
+                {{ comments_tree(request, object, c) }}
+            </ol>
+        {% endif %}
+
+    </li>
+
+{% endfor %}
+
+
