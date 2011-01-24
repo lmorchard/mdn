@@ -5,54 +5,121 @@
 {% block bodyclass %}section-demos landing{% endblock %}
 
 {% block extrahead %}
-    <link rel="alternate" type="application/atom+xml" title="Recent demos"
+<link rel="alternate" type="application/atom+xml" title="{{_('Recent demos')}}"
         href="{{ url('demos_feed_recent', format='atom') }}" />
-    <link rel="alternate" type="application/atom+xml" title="Featured demos"
+        <link rel="alternate" type="application/atom+xml" title="{{_('Featured demos')}}"
         href="{{ url('demos_feed_featured', format='atom') }}" />
 {% endblock %}
 
-{% block title %}{{ page_title(_('Web')) }}{% endblock %}
+{% block title %}{{ page_title(_('Demo Studio')) }}{% endblock %}
 
 {% block content %}
-
-<section id="nav-toolbar">
-<div class="wrap">
-  <nav class="crumbs">
-    <ol role="navigation">
-      <li><a href="{{ url('home') }}">MDN</a></li>
-      <li><a href="{{ url('demos') }}">Demo Studio</a></li>
-    </ol>
-  </nav>
-  <p class="demo-submit"><a href="{{ url('demos_submit') }}" class="button">Submit a Demo</a></p>
-</div>
-</section>
-
 <section id="content">
 <div class="wrap">
 
-    <section id="content-main" role="main">
-        <div>
-            <h3>{{_('Featured')}}</h3>
-            {{ submission_listing(featured_submission_list, False, None, None,
-                _('Subscribe to a feed of {tag_title} demos') | f(tag_title=_('featured')),
-                url('demos_feed_featured', format='rss') ) }}
-        </div>
+  <header id="page-head" class="landing">
+    <div class="main">
+      <h1 class="page-title">{{_('Mozilla Demo Studio')}}</h1>
+      {% trans %}
+      <p>Welcome to Mozilla Demo Studio, where developers like you can develop, share, demonstrate, and learn all about Web technologies. See what’s possible by exploring Demo Studio:</p>
+      <ul>
+        <li>View <strong>demos</strong> that showcase what HTML, CSS, and JavaScript can do.</li>
+        <li>Inspect the <strong>source code</strong> for those demos so you can see how they work.</li>
+        <li>Read <strong>documentation</strong> to learn about the open standards and technologies that power the Web.</li>
+      </ul>
+      {% endtrans %}
+    </div>
+    
+    <p class="aside demo-submit"><a href="{{ url('demos_submit') }}" class="button">{{_('Submit a Demo')}}</a></p>    
+  </header>
+  
+  {% if featured_submission_list | length %}
+  <section id="featured-demos" class="boxed">
+    <header>
+        <h2>{{_('Featured Demos')}}</h2>
+    </header>
 
-        <div>
-            <h3>{{_('Recent')}}</h3>
-            {{ submission_listing(submission_list, False, None, None,
-                _('Subscribe to a feed of {tag_title} demos') | f(tag_title=_('recent')),
-                url('demos_feed_recent', format='rss') ) }}
-        </div>
-    </section><!-- /#content-main -->
+    <ul class="nav-slide">
+        <li class="nav-prev"><a href="#" class="prev" title="{{_('See the previous three demos')}}">{{_('Previous')}}</a></li>
+        <li class="nav-next"><a href="#" class="next" title="{{_('See the next three demos')}}">{{_('Next')}}</a></li>
+    </ul>
+  
+    <div class="frame">
+        {% set cols_per_row = 3 %}
+        <ul class="slider gallery">
+            {% for submission in featured_submission_list %}
+                {% set extra_class = loop.cycle(' row-first panel', ' panel', ' panel')%}
+                {{ submission_thumb(submission, extra_class) }}</li>
+            {% else %}
+                {# TODO: Something goes here when there are no featured demos? #}
+            {% endfor %}
+        </ul>
+    </div>
+  </section>
+    <script type="text/javascript">
+        document.getElementById('featured-demos').className += ' js';
+    </script>
+    {% endif %}
 
 
-    <aside id="content-sub" role="complementary">
-        {{ search_form() }}
-        {{ tags_list() }}
-    </aside>{# /#content-sub #}
+  <section id="content-main" role="main">
+    {{ submission_listing(submission_list, False, None, None,
+        _('Subscribe to a feed of {tag_title} demos') | f(tag_title=_('recent')),
+        url('demos_feed_recent', format='rss') ) }}
+  </section><!-- /#content-main -->
+  
+  <aside id="content-sub" role="complementary">
+    {{ search_form() }}
+    {{ tags_list() }}
+  </aside><!-- /#content-sub -->
 
 </div>
-</section>{# /#content #}
+</section>
+{% endblock %}
+
+{% block js %}
+    {{ super() }}
+
+<script type="text/javascript" src="{{MEDIA_URL}}js/carousel.js"></script>
+<script type="text/javascript">
+$("#featured-demos").ready(function(){
+  // Set up the carousel
+  $("#featured-demos .frame").addClass("js").jCarouselLite({
+      btnNext: ".nav-next a",
+      btnPrev: ".nav-prev a", 
+      visible: 3,
+      scroll:  3
+  });  
+});
+</script>
+
+<script type="text/javascript" src="{{MEDIA_URL}}js/jquery.hoverIntent.minified.js"></script>
+<script type="text/javascript">
+// <![CDATA[
+	$(".gallery").ready(function(){
+		$(".gallery").addClass("js");
+
+    $(".gallery .demo").hoverIntent({
+      interval: 250,
+      over: function() {
+        var content = $(this).html(),
+            demo = $(this), 
+            offs = $(this).offset();
+        $("#content").prepend('<div class="demo demohover"><div class="in">'+content+'<\/div><\/div>');
+        if (demo.parents("#featured-demos").length) {
+          $("#content").find("div.demohover").addClass("featured");
+        };
+        $("div.demohover").css({ left: offs.left, top: offs.top }).fadeIn(200).mouseleave(function() {
+          $(this).fadeOut(200, function(){ 
+            $(this).remove(); 
+          });
+        });
+      }, 
+      out: function() { /* do nothing */ },
+    });
+
+	});	
+// ]]>
+</script>
 
 {% endblock %}

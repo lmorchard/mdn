@@ -15,7 +15,7 @@
     <ul class="gallery">
         {% for submission in submission_list %}
             {% set extra_class = loop.cycle(' row-first', '', '')%}
-            {{ submission_thumb(submission, extra_class) }}</li>
+            {{ submission_thumb(submission, extra_class) }}
         {% else %}
         {% endfor %}
     </ul>
