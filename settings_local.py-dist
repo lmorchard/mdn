@@ -1,0 +1,29 @@
+from settings import *
+
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'mdn-dev',                      # Or path to database file if using sqlite3.
+        'USER': 'db-user',                      # Not used with sqlite3.
+        'PASSWORD': 'db-pass',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'OPTIONS': {'init_command': 'SET storage_engine=InnoDB',
+                    'charset' : 'utf8',
+                    'use_unicode' : True,
+                   },
+    }
+}
+
+# Dekiwiki has a backend API. protocol://hostname:port
+# DEKIWIKI_ENDPOINT = 'http://dekiwiki.localhost'
+
+LOG_LEVEL = logging.DEBUG
+
+# Skip creating test db
+TEST_RUNNER = 'test.utils.runner.RadicalTestSuiteRunner'
+
+SERVE_MEDIA = True
