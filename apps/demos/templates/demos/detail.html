@@ -37,7 +37,7 @@
     <section id="demobox">
       <h1 class="page-title">{{submission.title}}</h1>
       <p class="byline">by {{ submission_creator(submission) }} 
-        on <time datetime="">{{ submission.created }}</time></p>
+        on {{ datetimeformat(submission.created, 'date') }}</p>
 
       <!-- only shown to admins and the demo owner -->
       <ul class="manage">
@@ -149,7 +149,7 @@
     <section class="demo-more">
 
       <section class="moreabout">
-        <h1>{{_('More About This Demo')}}</h1>
+        <h1>{{_('More About This Demo From The Author')}}</h1>
         <p>{{ submission.description | nl2br }}</p>
       </section>   
       

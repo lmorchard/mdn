@@ -6,13 +6,10 @@
 
         <p class="entry-title vcard"><cite class="author fn">{{ profile_link(comment.user, True) }}</cite> said,</p>
     
-        <p class="entry-meta">Posted <a href="#comment-{{ comment.id }}" rel="bookmark" title="{{_('Permanent link to this comment by {full_name}') | f(full_name=comment.user.username) }}"><time class="published" pubdate="pubdate" datetime="{{ comment.date_submitted }}" title="{{ comment.date_submitted }}">{{ comment.date_submitted }}</time></a></p>
+        <p class="entry-meta">Posted <a href="#comment-{{ comment.id }}" rel="bookmark" title="{{_('Permanent link to this comment by {full_name}') | f(full_name=comment.user.username) }}">
+            <time class="published" pubdate="pubdate" datetime="{{ comment.date_submitted | isotime }}" title="{{ comment.date_submitted | isotime }}">{{ comment.date_submitted | timesince }}</time>
+        </a></p>
 
-        {# NOTES: 
-        		     See http://microformats.org/wiki/hatom for more on the hatom microformat. 
-                 Published dates should be in the Y-m-d format in the title, following the microformat date pattern (less verbose than the datetime pattern but lesser impact on accessibility).
-                 The datetime value can be the same as the title, or more verbose if we want to get really OCD about it: 'Y-m-d\TH:i:sP'
-                 #}
         <blockquote class="entry-content">
             {{ comment.comment | nl2br }}
         </blockquote>
