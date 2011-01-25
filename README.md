@@ -34,8 +34,9 @@ to install the required Python libraries.
 ### Django
 To initialize the database, run:
 
-    ./manage.py syncdb
     schematic migrations/  # run schema migrations and add initial data
+
+Note: Do not run syncdb... schematic will manage the schema.
 
 and to fetch the initial product details data, run:
 
