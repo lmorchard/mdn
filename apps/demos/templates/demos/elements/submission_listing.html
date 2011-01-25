@@ -23,7 +23,7 @@
             <li>{% if order[0] == current_sort %}
                 <strong title="{{ order[2] }}">{{ order[3] }}</strong>
             {% else %}
-                <a href="{{ sort_url }}#gallery-sort" title="{{ order[1] }}">{{ order[3] }}</a>
+                <a href="{{ sort_url }}" title="{{ order[1] }}">{{ order[3] }}</a>
             {% endif %}</li>
         {% endfor %}
       </ul>
