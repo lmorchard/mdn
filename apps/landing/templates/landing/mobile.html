@@ -2,6 +2,10 @@
 
 {% block pageid %}mobile{% endblock %}
 
+{% block extrahead %}
+<link rel="alternate" type="application/rss+xml" title="Planet Firefox Mobile" href="http://planet.firefox.com/mobile/rss20.xml" />
+{% endblock %}
+
 {% block bodyclass %}section-mobile landing{% endblock %}
 
 {% block title %}{{ page_title(_('Mobile')) }}{% endblock %}
@@ -185,12 +189,7 @@
 
   </section>{# /#content-main #}
 
-  <aside id="content-sub" role="complementary">
-  
-    <p><a href="http://extendfirefox.com/mobile-cup/enter.php" rel="external">
-      <img src="{{ MEDIA_URL }}img/sidebar/mobile-addons-cup.png" alt="Mobile Add-ons Cup: Build a Firefox add-on for your chance to win cash and prizes. Enter now!">
-    </a></p>
-  
+  <aside id="content-sub" role="complementary">  
     {{ twitter(tweets, title=_('Correspondence on Twitter from the Mobile developer community.')) }}
   </aside>{# /#content-sub #}
 

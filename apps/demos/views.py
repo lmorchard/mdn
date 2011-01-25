@@ -14,6 +14,7 @@ from django.contrib.auth.views import AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
 
 from django.views.generic.list_detail import object_list
+from tagging.views import tagged_object_list
 
 from devmo import (SECTION_USAGE, SECTION_ADDONS, SECTION_APPS, SECTION_MOBILE,
                    SECTION_WEB)
@@ -42,7 +43,7 @@ def home(request):
     if not Submission.allows_listing_hidden_by(request.user):
         featured_submissions = featured_submissions.exclude(hidden=True)
 
-    submissions = Submission.objects.order_by('-modified')
+    submissions = Submission.objects.all_sorted(request.GET.get('sort', 'created'))
     if not Submission.allows_listing_hidden_by(request.user):
         submissions = submissions.exclude(hidden=True)
 
@@ -58,6 +59,7 @@ def detail(request, slug):
         return HttpResponseForbidden(_('access denied'))
 
     more_by = Submission.objects.filter(creator=submission.creator)\
+            .exclude(hidden=True)\
             .order_by('-modified').all()[:5]
     
     return jingo.render(request, 'demos/detail.html', {
@@ -65,10 +67,36 @@ def detail(request, slug):
         'more_by': more_by 
     })
 
+def all(request):
+    """Browse all demo submissions"""
+    sort_order = request.GET.get('sort', 'created')
+    queryset = Submission.objects.all_sorted(sort_order)\
+            .exclude(hidden=True)
+    return object_list(request, queryset,
+        paginate_by=24, allow_empty=True,
+        template_loader=template_loader,
+        template_object_name='submission',
+        template_name='demos/listing_all.html') 
+
+def tag(request, tag):
+    sort_order = request.GET.get('sort', 'created')
+    queryset = Submission.objects.all_sorted(sort_order)\
+            .exclude(hidden=True)
+
+    return tagged_object_list(request,
+        queryset_or_model=queryset, tag=tag,
+        paginate_by=24, allow_empty=True, 
+        template_loader=template_loader,
+        template_object_name='submission',
+        template_name='demos/listing_tag.html')
+
 def search(request):
     """Search against submission title, summary, and description"""
     query_string = request.GET.get('q', '')
-    return object_list(request, Submission.objects.search(query_string),
+    sort_order = request.GET.get('sort', 'created')
+    queryset = Submission.objects.search(query_string, sort_order)\
+            .exclude(hidden=True)
+    return object_list(request, queryset,
         paginate_by=24, allow_empty=True,
         template_loader=template_loader,
         template_object_name='submission',
@@ -86,8 +114,11 @@ def profile_detail(request, username):
     except:
         deki_user = None
 
-    qs = Submission.objects.filter(creator=user)
-    return object_list(request, qs,
+    sort_order = request.GET.get('sort', 'created')
+    queryset = Submission.objects.all_sorted(sort_order)\
+            .exclude(hidden=True)\
+            .filter(creator=user)
+    return object_list(request, queryset,
         extra_context=dict( 
             profile_user=user, 
             profile_deki_user=deki_user

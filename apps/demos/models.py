@@ -363,15 +363,27 @@ class SubmissionManager(caching.base.CachingManager):
                 query = query & or_query
         return query
 
-    def search(self, query_string):
+    def search(self, query_string, sort):
         """Quick and dirty keyword search on submissions"""
         # TODO: Someday, replace this with something like Sphinx or another real search engine
         strip_qs = query_string.strip()
         if not strip_qs:
-            return self.all().order_by('-modified')
+            return self.all_sorted(sort).order_by('-modified')
         else:
             query = self._get_query(strip_qs, ['title', 'summary', 'description',])
-            return self.filter(query).order_by('-modified')
+            return self.all_sorted(sort).filter(query).order_by('-modified')
+
+    def all_sorted(self, sort=None):
+        """Apply to .all() one of the sort orders supported for views"""
+        queryset = self.all()
+        if sort == 'launches':
+            return queryset.order_by('-launches_total')
+        elif sort == 'likes':
+            return queryset.order_by('-likes_total')
+        elif sort == 'upandcoming':
+            return queryset.order_by('-launches_recent','-likes_recent')
+        else:
+            return queryset.order_by('-created')
         
 
 class Submission(caching.base.CachingMixin, models.Model):

@@ -129,10 +129,8 @@ a.mobile:hover, a.mobile:focus, a.mobile:active { color: #a7df38; }
 .addons, a.addons:link, a.addons:visited { color: #00b6f0; }
 a.addons:hover, a.addons:focus, a.addons:active { color: #0cf; }
 
-.apps, a.apps:link, a.apps:visited, 
-.moz, a.moz:link, a.moz:visited { color: #ed2024; }
-a.apps:hover, a.apps:focus, a.apps:active, 
-a.moz:hover, a.moz:focus, a.moz:active { color: #f33; }
+.mozilla, a.mozilla:link, a.mozilla:visited { color: #ed2024; } 
+a.mozilla:hover, a.mozilla:focus, a.mozilla:active { color: #f33; }
 
 .labs, a.labs:link, a.labs:visited { color: #aaa8a5; }
 a.labs:hover, a.labs:focus, a.labs:active { color: #bcbcbc; }
@@ -201,14 +199,12 @@ body.section-demos #masthead { border-bottom-color: #f8d575; }
 body.section-web #nav-main-web a, #nav-main .current a.web { background-position: 50% -119px; border-bottom: 0; padding-bottom: 8px; }
 body.section-mobile #nav-main-mobile a, #nav-main .current a.mobile { background-position: 50% -219px; border-bottom: 0; padding-bottom: 8px; }
 body.section-addons #nav-main-addons a, #nav-main .current a.addons { background-position: 50% -319px; border-bottom: 0; padding-bottom: 8px; }
-body.section-apps #nav-main-apps a, #nav-main .current a.apps,
 body.section-moz #nav-main-moz a, #nav-main .current a.moz { background-position: 50% -419px; border-bottom: 0; padding-bottom: 8px; }
 
 #nav-main a.web:hover, #nav-main a.web:focus, #nav-main a.web:active { background-position: 50% -169px; padding-bottom: 7px; border-bottom: 1px solid #000; }
 #nav-main a.mobile:hover, #nav-main a.mobile:focus, #nav-main a.mobile:active { background-position: 50% -269px; padding-bottom: 7px; border-bottom: 1px solid #000; }
 #nav-main a.addons:hover, #nav-main a.addons:focus, #nav-main a.addons:active { background-position: 50% -369px; padding-bottom: 7px; border-bottom: 1px solid #000; }
-#nav-main a.apps:hover, #nav-main a.apps:focus, #nav-main a.apps:active { background-position: 50% -469px; padding-bottom: 7px; border-bottom: 1px solid #000; }
-#nav-main a.moz:hover, #nav-main a.moz:focus, #nav-main a.moz:active { background-position: 50% -469px; padding-bottom: 7px; border-bottom: 1px solid #000; }
+#nav-main a.mozilla:hover, #nav-main a.mozilla:focus, #nav-main a.mozilla:active { background-position: 50% -469px; padding-bottom: 7px; border-bottom: 1px solid #000; }
 
 /*** @Compact @Nav *********/
 .compact #nav { float: left; position: relative; width: 180px; margin: 14px 0 0 0; }
@@ -271,7 +267,6 @@ body.section-labs #nav-extra-labs a:focus,
 body.section-labs #nav-extra-labs a:active,
 #nav-extra .current a:hover, #nav-extra .current a:focus, #nav-extra .current a:active { padding-bottom: 8px; border-bottom: 1px solid #000; color: #fff; background-position: 50% -82px; }
 
-#nav-extra-docs { font-size: 1.05em; }
 #nav-extra-docs a:link, #nav-extra-docs a:visited { padding-top: 0; color: #fff; }
 #nav-extra-docs a:hover, #nav-extra-docs a:focus, #nav-extra-docs a:active { color: #f8d575; }
 

@@ -2,6 +2,10 @@
 
 {% block pageid %}mozilla{% endblock %}
 
+{% block extrahead %}
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://blog.mozilla.com/about_mozilla/feed/" />
+{% endblock %}
+
 {% block bodyclass %}section-moz landing{% endblock %}
 
 {% block title %}{{ page_title(_('Mozilla')) }}{% endblock %}
