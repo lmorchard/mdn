@@ -17,7 +17,7 @@ CREATE TABLE `actioncounters_actionhit` (
   `user_id` int(11) DEFAULT NULL,
   `created` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `ip` (`ip`,`session_key`,`user_agent`,`user_id`),
+-- TODO re-enable  UNIQUE KEY `ip` (`ip`,`session_key`,`user_agent`,`user_id`),
   KEY `actioncounters_actionhit_7952d08b` (`counter_id`),
   KEY `actioncounters_actionhit_fbfc09f1` (`user_id`)
 );
@@ -41,7 +41,7 @@ CREATE TABLE `contentflagging_contentflag` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `content_type_id` (`content_type_id`,`object_pk`,`ip`,`session_key`,`user_agent`,`user_id`),
+-- TODO re-enable  UNIQUE KEY `content_type_id` (`content_type_id`,`object_pk`,`ip`,`session_key`,`user_agent`,`user_id`),
   KEY `contentflagging_contentflag_68c2f437` (`flag_type`),
   KEY `contentflagging_contentflag_e4470c6e` (`content_type_id`),
   KEY `contentflagging_contentflag_fbfc09f1` (`user_id`)
