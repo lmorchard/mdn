@@ -1,13 +1,31 @@
 {% cache submission_list %}
 
+    {% set current_sort = request.GET.get('sort', 'created') %} 
+    {% set query = request.GET.get('q','') %}
+
     <div id="gallery-sort">
       {% set count = submission_list|length %}
       <p class="count">{{ ngettext('{count} Demo', '{count} Demos', count) | f(count=count) }}</p>
       <ul class="sort">
-        <li><strong title="You are viewing up and coming demos">Up and Coming</strong></li>
-        <li><a href="#" title="Sort demos by most views">Most Viewed</a></li>
-        <li><a href="#" title="Sort demos by most likes">Most Liked</a></li>
-        <li><a href="#" title="Sort demos by most recently submitted">Most Recent</a></li>
+        {% if false %}{# TODO: Implement up and coming sort index #}
+            <li><strong title="You are viewing up and coming demos">Up and Coming</strong></li>
+        {% endif %}
+        {% set sort_orders = (
+            ( 'launches', _('Sort demos by most views'), _('You are viewing demos by most views'), _('Most Viewed') ),
+            ( 'likes', _('Sort demos by most likes'), _('You are viewing demos by most likes'), _('Most Liked') ),
+            ( 'created', _('Sort demos by most recently submitted'), _('You are viewing demos by most recently submitted'), _('Most Recent') ),
+        ) %}
+        {% for order in sort_orders %}
+            {% set sort_url = '?sort=' ~ order[0] %}
+            {% if query %}
+                {% set sort_url = sort_url ~ '&q=' ~ query %}
+            {% endif %}
+            <li>{% if order[0] == current_sort %}
+                <strong title="{{ order[2] }}">{{ order[3] }}</strong>
+            {% else %}
+                <a href="{{ sort_url }}#gallery-sort" title="{{ order[1] }}">{{ order[3] }}</a>
+            {% endif %}</li>
+        {% endfor %}
       </ul>
     </div>
 

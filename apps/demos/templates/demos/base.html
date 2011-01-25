@@ -16,26 +16,33 @@
 
 {% block js %}
     {{ super() }}
-    <script type="text/javascript" src="{{MEDIA_URL}}js/jquery.hoverIntent.minified.js"></script>
-    <script type="text/javascript">
-    // <![CDATA[
-        $(".gallery").ready(function(){
-            $(".gallery").addClass("js");
-            
-        $(".gallery .demo").hoverIntent({
-          interval: 100,
-          over: function() {
-            var content = $(this).html();
-            $(this).prepend('<div class="demohover"><div class="in">'+content+'<\/div><\/div>');
-            $(this).find("div.demohover").fadeIn(200);
-          }, 
-          out: function() {
-            $(this).find("div.demohover").fadeOut(200, function(){
-              $(this).remove();
-            });
-          }
+
+<script type="text/javascript" src="{{MEDIA_URL}}js/jquery.hoverIntent.minified.js"></script>
+<script type="text/javascript">
+// <![CDATA[
+	$(".gallery").ready(function(){
+		$(".gallery").addClass("js");
+
+    $(".gallery .demo").hoverIntent({
+      interval: 250,
+      over: function() {
+        var content = $(this).html(),
+            demo = $(this), 
+            offs = $(this).offset();
+        $("#content").prepend('<div class="demo demohover"><div class="in">'+content+'<\/div><\/div>');
+        if (demo.parents("#featured-demos").length) {
+          $("#content").find("div.demohover").addClass("featured");
+        };
+        $("div.demohover").css({ left: offs.left, top: offs.top }).fadeIn(200).mouseleave(function() {
+          $(this).fadeOut(200, function(){ 
+            $(this).remove(); 
+          });
         });
-        });
-    // ]]>
-    </script>
+      }, 
+      out: function() { /* do nothing */ },
+    });
+
+	});	
+// ]]>
+</script>
 {% endblock %}

@@ -40,7 +40,7 @@
 
   <section id="content-main" role="main">
     {{ submission_listing(
-        submission_list, is_paginated, paginator, page_obj,
+        request, submission_list, is_paginated, paginator, page_obj,
         _('Subscribe to a feed of search results for "{q}"') | f(q=query),
         url('demos_feed_search', format='atom', query_string=query) 
     ) }}

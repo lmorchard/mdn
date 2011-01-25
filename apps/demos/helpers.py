@@ -94,7 +94,8 @@ def profile_link(user, show_gravatar=False, gravatar_size=48): return locals()
 def submission_thumb(submission,extra_class=None): return locals()
 
 @register.inclusion_tag('demos/elements/submission_listing.html')
-def submission_listing(submission_list,is_paginated,paginator,page_obj,feed_title,feed_url): return locals()
+def submission_listing(request, submission_list, is_paginated, paginator, page_obj, feed_title, feed_url): 
+    return locals()
 
 @register_cached_inclusion_tag('demos/elements/tags_list.html', 'demos_tags_list')
 def tags_list(): return locals()

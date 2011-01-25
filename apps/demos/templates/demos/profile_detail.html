@@ -51,7 +51,7 @@
 
   <section id="content-main" role="main">
     {{ submission_listing(
-        submission_list, is_paginated, paginator, page_obj,
+        request, submission_list, is_paginated, paginator, page_obj,
         _("Subscribe to a feed of {display_name}'s demos") | f(display_name=display_name),
         url('demos_feed_profile', format='atom', username=username) 
     ) }}
