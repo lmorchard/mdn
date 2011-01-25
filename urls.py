@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     # Home / landing pages:
     ('', include('landing.urls')),
     ('', include('docs.urls')),
+    (r'^logout/$', 'dekicompat.views.logout'),
     (r'^demos/', include('demos.urls')),
 
     # Django admin:
