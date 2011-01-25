@@ -25,8 +25,7 @@ class SECTION_WEB:
     twitter = 'twitter-web'
     updates = 'updates-web'
 
-SECTION_USAGE = _sections = (SECTION_ADDONS, SECTION_APPS, SECTION_MOBILE,
-                             SECTION_WEB)
+SECTION_USAGE = _sections = (SECTION_WEB, SECTION_MOBILE, SECTION_ADDONS, SECTION_APPS)
 SECTIONS = dict((section.short, section) for section in _sections)
 SECTIONS_TWITTER = dict((section.twitter, section) for section in _sections)
 SECTIONS_UPDATES = dict((section.updates, section) for section in _sections)

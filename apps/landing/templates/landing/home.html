@@ -42,28 +42,12 @@ try {
 
   <div id="slideshow">
     <ol id="slide-control">
-      <li id="slide1" class="on"><a href="#slide-one">{{ _('Mobile Add-ons Cup') }}</a></li>
       <li id="slide2"><a href="#slide-two">{{ _('School of Webcraft') }}</a></li>
       <li id="slide3"><a href="#slide-three">{{ _('HTML5') }}</a></li>
       <li id="slide4"><a href="#slide-four">{{ _('Firefox 4 Beta') }}</a></li>
       <li id="slide5"><a href="#slide-five">{{ _('Addons Builder Preview') }}</a></li>
     </ol>
     <ol id="slides">
-      <li id="slide-one" class="slide">
-        <img src="{{ MEDIA_URL }}img/features/feature-mobilecup.png" alt="" width="660">
-        <div class="slide-desc">
-          <h2>{{ _('Could you be the big winner?') }}</h2>
-          <p>
-          {% trans cup_enter='http://extendfirefox.com/mobile-cup/enter.php' %}
-          Develop an awesome add-on for Firefox mobile for your chance to win a trip to 
-          Barcelona, cash, prizes and tons of priceless exposure! 
-          <a href="{{ cup_enter }}">Enter now</a> 
-          until <strong>January 7, 2011</strong>. Good luck!
-          {% endtrans %}
-          </p>
-          <p class="more"><a href="http://extendfirefox.com/mobile-cup/enter.php" class="button">{{ _('More') }}</a></p>
-        </div>
-      </li>
       <li id="slide-two" class="slide">
         <img src="{{ MEDIA_URL }}img/features/feature-p2pu.jpg" alt="" width="660">
         <div class="slide-desc">
