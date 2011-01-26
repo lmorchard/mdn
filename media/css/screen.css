@@ -856,7 +856,7 @@ section.boxed:after, div.boxed:after { content: "."; display: block; clear: both
 #source .browse a:hover, #source .browse a:focus, #source .browse a:active { background-position: 0 -300px; }
 #source .note { color: #666; font-weight: normal; font-size: .785em; }
 #source a:hover .note, #source a:focus .note, #source a:active .note { color: #25a; }
-#source .license { font-size: .785em; color: #666; padding-left: 50px; margin: 0; background: url("../img/download-icons.png") 0 -400px no-repeat; }
+#source .license { font-size: .785em; color: #666; padding-left: 50px; min-height: 35px; margin: 0; background: url("../img/download-icons.png") 0 -400px no-repeat; }
 
 /* @Comments *********/
 #comments { font-size: .857em; background: rgba(198,198,175,.3); margin: 0 0 40px; }

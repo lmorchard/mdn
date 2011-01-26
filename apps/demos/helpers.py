@@ -29,7 +29,7 @@ from devmo.urlresolvers import reverse
 from tagging.models import Tag, TaggedItem
 from tagging.utils import LINEAR, LOGARITHMIC
 
-from .models import Submission, TAG_DESCRIPTIONS
+from .models import Submission, TAG_DESCRIPTIONS, DEMO_LICENSES
 
 from threadedcomments.models import ThreadedComment, FreeThreadedComment
 from threadedcomments.forms import ThreadedCommentForm, FreeThreadedCommentForm
@@ -153,6 +153,13 @@ def bitly_shorten(url):
         # Just in case the bit.ly service fails or the API key isn't
         # configured, fall back to using the original URL.
         return url
+
+@register.function
+def license_title(license_name):
+    if license_name in DEMO_LICENSES:
+        return DEMO_LICENSES[license_name]['title']
+    else:
+        return license_name
 
 @register.function
 def tag_title(tag):

@@ -57,7 +57,7 @@ THUMBNAIL_MAXH = getattr(settings, 'DEMO_THUMBNAIL_MAX_HEIGHT', 150)
 RESIZE_METHOD = getattr(settings, 'RESIZE_METHOD', Image.ANTIALIAS)
 
 # HACK: For easier L10N, define tag descriptions in code instead of as a DB model
-TAG_DESCRIPTIONS = getattr(settings, 'TAG_DESCRIPTIONS', dict( (x['tag_name'], x) for x in (
+TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESCRIPTIONS', (
     { 
         "tag_name": "audio", 
         "title": _("Audio"), 
@@ -229,22 +229,36 @@ TAG_DESCRIPTIONS = getattr(settings, 'TAG_DESCRIPTIONS', dict( (x['tag_name'], x
 )))
 
 # HACK: For easier L10N, define license in code instead of as a DB model
-DEMO_LICENSES = getattr(settings, "DEMO_LICENSES", (
-    ("cc-by-sa", _("CC-BY-SA Creative Commons Attribution-ShareAlike 3.0 [DEFAULT]")),
-    ("cc-by", _("CC-BY Creative Commons Attribution 3.0")),
-    ("cc-by-no", _("CC-BY-NO Creative Commons Attribution-NonCommercial 3.0")),
-    ("cc-by-no-sa", _("CC-BY-NO-SA Createive Commons Attribution-NonCommercial-ShareAlike 3.0")),
-    ("mpl", _("MPL/GPL/LGPL")),
-    ("gpl", _("GPL")),
-    ("lgpl", _("LGPL")),
-    ("bsd", _("BSD")),
-    ("apache", _("Apache")),
-    ("agpl", _("AGPL")),
-    ("cc-by-nd", _("CC-BY-ND Creative Commons Attribution-NonCommercial-NoDervis")),
-    ("cc-by-no-nd", _("CC-BY-NO-ND Creative Commons Attribution-NoDervis")),
-    ("publicdomain", _("Public Domain")),
-    ("other", _("Other (N/A)")),
-))
+DEMO_LICENSES = dict( (x['name'], x) for x in getattr(settings, 'DEMO_LICENSES', (
+    { 'name': "cc-by-sa", 
+        'title': _("CC-BY-SA Creative Commons Attribution-ShareAlike 3.0 [DEFAULT]") },
+    { 'name': "cc-by", 
+        'title': _("CC-BY Creative Commons Attribution 3.0") },
+    { 'name': "cc-by-no", 
+        'title': _("CC-BY-NO Creative Commons Attribution-NonCommercial 3.0") },
+    { 'name': "cc-by-no-sa", 
+        'title': _("CC-BY-NO-SA Createive Commons Attribution-NonCommercial-ShareAlike 3.0") },
+    { 'name': "mpl", 
+        'title': _("MPL/GPL/LGPL") },
+    { 'name': "gpl", 
+        'title': _("GPL") },
+    { 'name': "lgpl", 
+        'title': _("LGPL") },
+    { 'name': "bsd", 
+        'title': _("BSD") },
+    { 'name': "apache", 
+        'title': _("Apache") },
+    { 'name': "agpl", 
+        'title': _("AGPL") },
+    { 'name': "cc-by-nd", 
+        'title': _("CC-BY-ND Creative Commons Attribution-NonCommercial-NoDervis") },
+    { 'name': "cc-by-no-nd", 
+        'title': _("CC-BY-NO-ND Creative Commons Attribution-NoDervis") },
+    { 'name': "publicdomain", 
+        'title': _("Public Domain") },
+    { 'name': "other", 
+        'title': _("Other (N/A)") },
+)))
 
 
 class ConstrainedTagField(tagging.fields.TagField):
@@ -443,7 +457,8 @@ class Submission(caching.base.CachingMixin, models.Model):
             verify_exists=False, blank=True, null=True)
     license_name = models.CharField(
             _("select a license for your source code"),
-            max_length=64, blank=False, choices=DEMO_LICENSES)
+            max_length=64, blank=False, 
+            choices=( (x['name'], x['title']) for x in DEMO_LICENSES.values() ))
 
     creator = models.ForeignKey(User, blank=False, null=True)
     

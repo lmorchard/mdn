@@ -197,7 +197,8 @@
         {% if submission.source_code_url %}
         <p class="browse"><a href="{{ submission.source_code_url }}">Browse the Source {% if 'github' in submission.source_code_url %}<span class="note">Hosted on GitHub</span>{% endif %}</a></p>
         {% endif %}
-        <p class="license">This demo is released under the <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" rel="license">{{ submission.license_name }}</a>.</p>
+        {# TODO: Need to link to the license at some point #}
+        <p class="license">This demo is released under the {{ license_title(submission.license_name) }} license.</p>
       </div>
       
       <div class="module" id="moreby">

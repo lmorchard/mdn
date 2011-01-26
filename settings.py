@@ -288,22 +288,5 @@ FLAG_REASONS = (
     ('fakeauthor', _('The author of this demo is fake')),
 )
 
-DEMO_LICENSES = (
-    ("cc-by-sa", _("CC-BY-SA Creative Commons Attribution-ShareAlike 3.0 [DEFAULT]")),
-    ("cc-by", _("CC-BY Creative Commons Attribution 3.0")),
-    ("cc-by-no", _("CC-BY-NO Creative Commons Attribution-NonCommercial 3.0")),
-    ("cc-by-no-sa", _("CC-BY-NO-SA Createive Commons Attribution-NonCommercial-ShareAlike 3.0")),
-    ("mpl", _("MPL/GPL/LGPL")),
-    ("gpl", _("GPL")),
-    ("lgpl", _("LGPL")),
-    ("bsd", _("BSD")),
-    ("apache", _("Apache")),
-    ("agpl", _("AGPL")),
-    ("cc-by-nd", _("CC-BY-ND Creative Commons Attribution-NonCommercial-NoDervis")),
-    ("cc-by-no-nd", _("CC-BY-NO-ND Creative Commons Attribution-NoDervis")),
-    ("publicdomain", _("Public Domain")),
-    ("other", _("Other (N/A)")),
-)
-
 BITLY_API_KEY = "SET ME IN SETTINGS_LOCAL"
 BITLY_USERNAME = "SET ME IN SETTINGS_LOCAL"
