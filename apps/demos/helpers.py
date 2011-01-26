@@ -14,7 +14,8 @@ import jingo
 import jinja2
 from jinja2 import evalcontextfilter, Markup, escape
 from jingo import register, env
-#from tower import ugettext as _
+from tower import ugettext as _
+from tower import ugettext, ungettext
 from django.core import urlresolvers
 
 from babel import localedata
@@ -22,6 +23,7 @@ from babel.dates import format_date, format_time, format_datetime
 from babel.numbers import format_decimal
 
 from pytz import timezone
+from django.utils.tzinfo import LocalTimezone
 
 from django.core.urlresolvers import reverse as django_reverse
 from devmo.urlresolvers import reverse
