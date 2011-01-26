@@ -59,6 +59,9 @@ class DekiUserBackend(object):
         """
         Grab the User via their UserProfile and deki_user_id. 
         If non exists, create both.
+
+        NOTE: Changes to this method may require changes to
+              parse_user_info
         """
         try:
             profile = UserProfile.objects.get(deki_user_id=deki_user.id)
@@ -81,6 +84,11 @@ class DekiUserBackend(object):
             log.info("MONITOR Dekiwiki Profile Saved")
             log.debug("Saved profile %s", str(profile))
         user.deki_user = deki_user
+
+        # Items we don't store in our DB (API read keeps it fresh)
+        user.is_superuser = deki_user.is_superuser
+        user.is_staff = deki_user.is_staff
+        user.is_active = deki_user.is_active
         return user
 
 class DekiUser(object):
@@ -102,6 +110,10 @@ class DekiUser(object):
         If the user is Anonymous returns None.
         if the user is logged in, returns the DekiUser
         instace.
+
+        NOTE: Updating this method may require changes to
+              get_or_create_user
+
         TODO: Flesh out with more properties as needed.
         In the future we can support is_active, groups, etc.
 
@@ -127,6 +139,9 @@ class DekiUser(object):
         """
         xmldoc = minidom.parseString(xmlstring)
         deki_user = DekiUser(-1, 'Anonymous', '', '', 'http://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e.png')
+        deki_user.is_active = False
+        deki_user.is_staff = False
+        deki_user.is_superuser = False
 
         userEl = None
 
@@ -154,7 +169,15 @@ class DekiUser(object):
                 for sc in c.childNodes:
                     if 'uri.ui' == sc.nodeName and sc.firstChild:
                         deki_user.profile_url = sc.firstChild.nodeValue
-                
+            elif 'status' == c.nodeName:
+                if 'active' == c.firstChild.nodeValue:
+                    deki_user.is_active = True
+            elif 'permissions.user' == c.nodeName:
+                for sc in c.childNodes:
+                    if 'role' == sc.nodeName:
+                        if 'Admin' == sc.firstChild.nodeValue:
+                            deki_user.is_staff = True
+                            deki_user.is_superuser = True
 
         if 'Anonymous' == deki_user.username:
             return None
