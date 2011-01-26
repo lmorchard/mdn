@@ -756,6 +756,9 @@ section.boxed:after, div.boxed:after { content: "."; display: block; clear: both
 #demobox .button.edit { color: #2f2f2f; background-color: #a5d9f3; }
 #demobox .button.edit:hover, #demobox .button.edit:focus, #demobox .button.edit:active { color: #000; background-color: #80cdf3; }
 
+#demobox a.button.remove { color: #2f2f2f; background-color: #f07b7b; }
+#demobox a.button.remove:hover, #demobox a.button.remove:focus, #demobox a.button.remove:active { color: #000; background-color: #f05b5b; }
+
 #demobox button.remove { padding: 0; background: transparent none; }
 #demobox button.remove span { color: #2f2f2f; background-color: #f07b7b; margin: 0; }
 #demobox button.remove:hover span, #demobox button.remove:focus span { color: #000; background-color: #f05b5b; }

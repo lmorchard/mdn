@@ -48,13 +48,14 @@
         {% endif %}
 
         {% if submission.allows_deletion_by(request.user) %}
-            <li><form id="demo-remove" method="post" action="{{ url('demos_delete', slug=submission.slug) }}">{{ csrf() }}<button type="submit" class="remove"><span>{{_("Remove demo")}}</span></button></form></li>
+            <li><a href="{{ url('demos_delete', slug=submission.slug) }}" 
+                class="button remove"><span>{{_("Remove demo")}}</span></a></li>
         {% endif %}
         {% if submission.allows_hiding_by(request.user) %}
             {% if submission.hidden %}
-                <li><form id="demo-remove" method="post" action="{{ url('demos_show', slug=submission.slug) }}">{{ csrf() }}<button type="submit" class="remove"><span>{{_("Show demo")}}</span></button></form></li>
+                <li><form id="demo-show" method="post" action="{{ url('demos_show', slug=submission.slug) }}">{{ csrf() }}<button type="submit" class="button remove"><span>{{_("Show demo")}}</span></button></form></li>
             {% else %}
-                <li><form id="demo-remove" method="post" action="{{ url('demos_hide', slug=submission.slug) }}">{{ csrf() }}<button type="submit" class="remove"><span>{{_("Hide demo")}}</span></button></form></li>
+                <li><form id="demo-hide" method="post" action="{{ url('demos_hide', slug=submission.slug) }}">{{ csrf() }}<button type="submit" class="button remove"><span>{{_("Hide demo")}}</span></button></form></li>
             {% endif %}
         {% endif %}
 
@@ -216,9 +217,9 @@
       <div id="demo-report">
         <h3>Report a Problem</h3>
         <ul>
-          <li><a href="#">Demo is not working</a></li>
-          <li><a href="#">Demo is inappropriate</a></li>
-          <li><a href="#">Demo is not by this author</a></li>
+            <li><a href="{{ url('demos_flag', slug=submission.slug) }}?flag_type=notworking">Demo is not working</a></li>
+            <li><a href="{{ url('demos_flag', slug=submission.slug) }}?flag_type=inappropriate">Demo is inappropriate</a></li>
+            <li><a href="{{ url('demos_flag', slug=submission.slug) }}?flag_type=plagarised">Demo is not by this author</a></li>
         </ul>
       </div>
       
@@ -240,6 +241,7 @@
         $('#comments-list .hentry .opt-reply').click(function () {
             var reply_form = $(this).parent().next('div.comment-reply');
             reply_form.slideToggle(250);
+            reply_form.find('textarea').focus();
             return false;
         });
 

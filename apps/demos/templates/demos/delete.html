@@ -33,21 +33,20 @@
 
   <section id="content-main" role="main" class="full">
   
-    <section id="flag-confirm">
-
-        <h2>{{_('Flag this demo?')}}</h2>
+    <section id="delete-confirm">
     
-        <form enctype="multipart/form-data" action="" method="POST">
+        <h2>{{_('Remove this demo?')}}</h2>
+
+        {% trans demo_title=submission.title %}
+            <p>You are about to remove <strong>{{ demo_title }}</strong> from the Demo Studio.</p>
+            <p>The Demo's listing, source code, and statistics will be <strong>deleted</strong>.</p>
+            <p>This action <strong>cannot be undone</strong>.
+        {% endtrans %}
+
+        <form id="demo-remove" method="post" action="{{ url('demos_delete', slug=submission.slug) }}">
             {{ csrf() }}
-            <fieldset><legend>{{_('Flag content')}}</legend>
-                <ul>
-                    {{ form.as_ul() | safe }}
-                    <li class="submit">
-                        <input type="submit" name="action_create" 
-                            value="{{ _("Flag content") }}" />
-                    </li>
-                </ul>
-            </fieldset>
+            <button type="submit" class="remove"><span>{{_("Remove demo")}}</span></button>
+            or <a href="{{ submission.get_absolute_url() }}">{{_('Cancel')}}</a>
         </form>
 
     </section>

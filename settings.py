@@ -285,7 +285,6 @@ FLAG_REASONS = (
     ('notworking', _('This demo is not working for me')),
     ('inappropriate', _('This demo contains inappropriate content')),
     ('plagarised', _('This demo was not created by the author')),
-    ('fakeauthor', _('The author of this demo is fake')),
 )
 
 BITLY_API_KEY = "SET ME IN SETTINGS_LOCAL"

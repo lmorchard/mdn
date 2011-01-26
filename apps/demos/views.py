@@ -146,7 +146,7 @@ def flag(request, slug):
     submission = get_object_or_404(Submission, slug=slug)
 
     if request.method != "POST":
-        form = ContentFlagForm()
+        form = ContentFlagForm(request.GET)
     else:
         form = ContentFlagForm(request.POST, request.FILES)
         if form.is_valid():
@@ -219,14 +219,17 @@ def edit(request, slug):
         'form': form, 'submission': submission, 'edit': True })
 
 def delete(request, slug):
+    """Delete a submission"""
     submission = get_object_or_404(Submission, slug=slug)
     if not submission.allows_deletion_by(request.user):
         return HttpResponseForbidden(_('access denied'))
 
     if request.method == "POST":
         submission.delete()
+        return HttpResponseRedirect(reverse('demos.views.home'))
 
-    return HttpResponseRedirect(reverse('demos.views.home'))
+    return jingo.render(request, 'demos/delete.html', { 
+        'submission': submission })
 
 def hideshow(request, slug, hide=True):
     submission = get_object_or_404(Submission, slug=slug)
