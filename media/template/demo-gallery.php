@@ -14,7 +14,7 @@ head(
       <li><a href="demo-gallery.php">Geolocation</a></li>
     </ol>
   </nav>
-  <p class="demo-submit"><a href="#" class="button">Submit a Demo</a></p>
+  <p class="demo-submit"><a href="demo-submit.php" class="button">Submit a Demo</a></p>
 </div>
 </section>
 

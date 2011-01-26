@@ -20,7 +20,7 @@ head(
       </ul>
     </div>
     
-    <p class="aside demo-submit"><a href="#" class="button">Submit a Demo</a></p>    
+    <p class="aside demo-submit"><a href="demo-submit.php" class="button">Submit a Demo</a></p>    
   </header>
   
   <section id="featured-demos" class="boxed">
