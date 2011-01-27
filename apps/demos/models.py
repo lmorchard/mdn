@@ -64,6 +64,8 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
         "description": _("Mozilla's Audio Data API extends the current HTML5 API and allows web developers to read and write raw audio data."),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/en/Introducing_the_Audio_API_Extension')),
+            (_('Wikipedia Article'), _('http://en.wikipedia.org/wiki/HTML5_audio')),
+            (_('W3C Spec'),          _('http://www.w3.org/TR/html5/video.html#audio')),
         ),
     },
     { 
@@ -72,6 +74,8 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
         "description": _("The HTML5 canvas element allows to display scriptable renderings of 2D shapes and bitmap images."),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/en/HTML/Canvas')),
+            (_('Wikipedia Article'), _('http://en.wikipedia.org/wiki/Canvas_element')),
+            (_('W3C Spec'),          _('http://www.w3.org/TR/html5/the-canvas-element.html')),
         ),
     },
     { 
@@ -80,6 +84,8 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
         "description": _("Cascading Style Sheets level 3 (CSS3) provide serveral new features and properties to enhance the formatting and look of documents written in different kinds of markup languages like HTML or XML."),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/en/CSS')),
+            (_('Wikipedia Article'), _('http://en.wikipedia.org/wiki/Cascading_Style_Sheets')),
+            (_('W3C Spec'),          _('http://www.w3.org/TR/css3-roadmap/')),
         ),
     },
     { 
@@ -88,6 +94,7 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
         "description": _("Media queries and orientation events let authors adjust their layout on hand-held devices such as mobile phones."),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/en/Detecting_device_orientation')),
+            (_('W3C Spec'),          _('http://www.w3.org/TR/css3-mediaqueries/')),
         ),
     },
     { 
@@ -96,6 +103,7 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
         "description": _("The File API allows web developers to use file objects in web applications, as well as selecting and accessing their data."),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/en/using_files_from_web_applications')),
+            (_('W3C Spec'),          _('http://www.w3.org/TR/FileAPI/')),
         ),
     },
     { 
@@ -104,6 +112,8 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
         "description": _("The CSS3-Font specification contains enhanced features for fonts and typography like  embedding own fonts via @font-face or controlling OpenType font features directly via CSS."),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/en/css/@font-face')),
+            (_('Wikipedia Article'), _('http://en.wikipedia.org/wiki/Web_typography')),
+            (_('W3C Spec'),          _('http://www.w3.org/TR/css3-fonts/')),
         ),
     },
     { 
@@ -112,6 +122,8 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
         "description": _("Form elements and attributes in HTML5 provide a greater degree of semantic mark-up than HTML4 and remove a great deal of the need for tedious scripting and styling that was required in HTML4."),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/en/HTML/HTML5/Forms_in_HTML5')),
+            (_('Wikipedia Article'), _('http://en.wikipedia.org/wiki/HTML_forms')),
+            (_('W3C Spec'),          _('http://www.w3.org/TR/html5/forms.html')),
         ),
     },
     { 
@@ -120,6 +132,8 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
         "description": _("The Geolocation API allows web applications to access the user's geographical location."),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/En/Using_geolocation')),
+            (_('Wikipedia Article'), _('http://en.wikipedia.org/wiki/W3C_Geolocation_API')),
+            (_('W3C Spec'),          _('http://dev.w3.org/geo/api/spec-source.html')),
         ),
     },
     { 
@@ -128,6 +142,8 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
         "description": _("JavaScript is a lightweight, object-oriented programming language, commonly used for scripting interactive behavior on web pages and in web applications."),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/en/javascript')),
+            (_('Wikipedia Article'), _('http://en.wikipedia.org/wiki/JavaScript')),
+            (_('ECMA Spec'),         _('http://www.ecma-international.org/publications/standards/Ecma-262.htm')),
         ),
     },
     { 
@@ -136,6 +152,8 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
         "description": _("HTML5 is the newest version of the HTML standard, currently under development."),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/en/HTML/HTML5')),
+            (_('Wikipedia Article'), _('http://en.wikipedia.org/wiki/Html5')),
+            (_('W3C Spec'),          _('http://dev.w3.org/html5/spec/Overview.html')),
         ),
     },
     { 
@@ -144,6 +162,8 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
         "description": _("IndexedDB is an API for client-side storage of significant amounts of structured data and for high performance searches on this data using indexes. "),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/en/IndexedDB')),
+            (_('Wikipedia Article'), _('http://en.wikipedia.org/wiki/IndexedDB')),
+            (_('W3C Spec'),          _('http://www.w3.org/TR/IndexedDB/')),
         ),
     },
     { 
@@ -152,6 +172,8 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
         "description": _("Drag and Drop features allow the user to move elements on the screen using the mouse pointer."),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/en/DragDrop/Drag_and_Drop')),
+            (_('Wikipedia Article'), _('http://en.wikipedia.org/wiki/Drag-and-drop')),
+            (_('W3C Spec'),          _('http://www.w3.org/TR/html5/dnd.html')),
         ),
     },
     { 
@@ -160,6 +182,8 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
         "description": _("Firefox Mobile brings the true Web experience to mobile phones and other non-PC devices."),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/En/Mobile')),
+            (_('Wikipedia Article'), _('http://en.wikipedia.org/wiki/Mobile_web')),
+            (_('W3C Spec'),          _('http://www.w3.org/Mobile/')),
         ),
     },
     { 
@@ -167,7 +191,9 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
         "title": _("Offline Support"), 
         "description": _("Offline caching of web applications' resources using the application cache and local storage."),
         "learn_more": (
-            (_('MDN Documentation'), _('https://developer.mozilla.org/en/Offline_resources_in_Firefox')),
+            (_('MDN Documentation'), _('https://developer.mozilla.org/en/dom/storage#localStorage')),
+            (_('Wikipedia Article'), _('http://en.wikipedia.org/wiki/Web_Storage')),
+            (_('W3C Spec'),          _('http://dev.w3.org/html5/webstorage/')),
         ),
     },
     { 
@@ -176,6 +202,8 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
         "description": _("Scalable Vector Graphics (SVG) is an XML based language for describing two-dimensional vector graphics."),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/en/SVG')),
+            (_('Wikipedia Article'), _('http://en.wikipedia.org/wiki/Scalable_Vector_Graphics')),
+            (_('W3C Spec'),          _('http://www.w3.org/TR/SVG11/')),
         ),
     },
     { 
@@ -184,6 +212,8 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
         "description": _("The HTML5 video element provides integrated support for playing video media without requiring plug-ins."),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/En/Using_audio_and_video_in_Firefox')),
+            (_('Wikipedia Article'), _('http://en.wikipedia.org/wiki/HTML5_video')),
+            (_('W3C Spec'),          _('http://www.w3.org/TR/html5/video.html')),
         ),
     },
     { 
@@ -192,6 +222,8 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
         "description": _("In the context of the HTML canvas element WebGL provides an API for 3D graphics in the browser."),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/en/WebGL')),
+            (_('Wikipedia Article'), _('http://en.wikipedia.org/wiki/WebGL')),
+            (_('Khronos Spec'),      _('http://www.khronos.org/webgl/')),
         ),
     },
     { 
@@ -200,6 +232,8 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
         "description": _("WebSockets is a technology that makes it possible to open an interactive  communication session between the user's browser and a server."),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/en/WebSockets')),
+            (_('Wikipedia Article'), _('http://en.wikipedia.org/wiki/Web_Sockets')),
+            (_('W3C Spec'),          _('http://dev.w3.org/html5/websockets/')),
         ),
     },
     { 
@@ -208,6 +242,8 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
         "description": _("Web Workers provide a simple means for web content to run scripts in background threads."),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/En/Using_web_workers')),
+            (_('Wikipedia Article'), _('http://en.wikipedia.org/wiki/Web_Workers')),
+            (_('W3C Spec'),          _('http://www.w3.org/TR/workers/')),
         ),
     },
     { 
@@ -216,6 +252,8 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
         "description": _("XMLHttpRequest (XHR) is used to send HTTP requests directly to a webserver and load the response data directly back into the script."),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/En/XMLHttpRequest/Using_XMLHttpRequest')),
+            (_('Wikipedia Article'), _('http://en.wikipedia.org/wiki/XMLHttpRequest')),
+            (_('W3C Spec'),          _('http://www.w3.org/TR/XMLHttpRequest/')),
         ),
     },
     { 
@@ -224,6 +262,8 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
         "description": _("Track the movement of the user's finger on a touch screen, monitoring the raw touch events generated by the system."),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/en/DOM/Touch_events')),
+            (_('Wikipedia Article'), _('http://en.wikipedia.org/wiki/Multi-touch')),
+            (_('W3C Spec'),          _('http://www.w3.org/2010/webevents/charter/')),
         ),
     },
 )))
