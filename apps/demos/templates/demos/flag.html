@@ -37,7 +37,7 @@
 
         <h2>{{_('Flag this demo?')}}</h2>
     
-        <form enctype="multipart/form-data" action="" method="POST">
+        <form enctype="multipart/form-data" action="" method="POST" target="_top">
             {{ csrf() }}
             <fieldset><legend>{{_('Flag content')}}</legend>
                 <ul>
@@ -45,6 +45,7 @@
                     <li class="submit">
                         <input type="submit" name="action_create" 
                             value="{{ _("Flag content") }}" />
+                        or <a class="closeModal" href="{{ submission.get_absolute_url() }}">{{_('Cancel')}}</a>
                     </li>
                 </ul>
             </fieldset>

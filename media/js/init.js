@@ -8,7 +8,7 @@ $(document).ready(function() {
 
     // replace no-JS search with our built-in one
     var search = $('#site-search,#doc-search');
-    search.attr('action', search.attr('data-url'))
+    if (search.length) search.attr('action', search.attr('data-url'))
           .removeAttr('data-url')
           .children('input[name=sitesearch]').remove();
 

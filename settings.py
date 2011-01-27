@@ -192,6 +192,8 @@ MINIFY_BUNDLES = {
 
             # Used only on pages with video popups
             'js/video-player.js',
+
+            'js/jquery.simplemodal.1.4.1.min.js',
         ),
     },
 }

@@ -1060,3 +1060,16 @@ ul.sortable .remove { float: right; color: #369; font-size: .857em; font-family:
 ul.sortable .remove:hover, ul.sortable .remove:focus { color: #900; text-decoration: underline; }
 
 
+#simplemodal-overlay {
+    background: #222;
+}
+#simplemodal-container {
+    background: #222;
+    padding: 6px;
+    overflow: hidden;
+}
+#simplemodal-wrap {
+    overflow: hidden;
+}
+
+

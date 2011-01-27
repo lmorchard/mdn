@@ -43,10 +43,10 @@
             <p>This action <strong>cannot be undone</strong>.
         {% endtrans %}
 
-        <form id="demo-remove" method="post" action="{{ url('demos_delete', slug=submission.slug) }}">
+        <form id="demo-remove" method="post" target="_top" action="{{ url('demos_delete', slug=submission.slug) }}">
             {{ csrf() }}
             <button type="submit" class="remove"><span>{{_("Remove demo")}}</span></button>
-            or <a href="{{ submission.get_absolute_url() }}">{{_('Cancel')}}</a>
+            or <a class="closeModal" href="{{ submission.get_absolute_url() }}">{{_('Cancel')}}</a>
         </form>
 
     </section>

@@ -5,6 +5,7 @@
 {% block title %}{{ page_title(_('{subtitle} | Demo Studio') | f(subtitle=submission.title)) }}{% endblock %}
 
 {% block content %}
+
 <section id="nav-toolbar">
 <div class="wrap">
   <nav class="crumbs">
@@ -49,7 +50,7 @@
 
         {% if submission.allows_deletion_by(request.user) %}
             <li><a href="{{ url('demos_delete', slug=submission.slug) }}" 
-                class="button remove"><span>{{_("Remove demo")}}</span></a></li>
+                class="button remove modal"><span>{{_("Remove demo")}}</span></a></li>
         {% endif %}
         {% if submission.allows_hiding_by(request.user) %}
             {% if submission.hidden %}
@@ -176,7 +177,6 @@
         </script>
         
         {% if request.user.is_authenticated() %}
-            <!-- form only shown for logged-in users -->
             <form id="comment-post" class="comment_form" method="POST" action="{{ get_comment_url(submission) }}">
               {{ csrf() }}
               <fieldset>
@@ -196,7 +196,9 @@
         <h3 class="mod-title">Get the Source Code</h3>
         <p class="download"><a href="{{ url('demos_download', slug=submission.slug) }}">Download the Source <span class="note">{{ ( submission.demo_package.size / 1024 ) | round(2,'ceil') }} KB &middot; ZIP File</span></a></p>
         {% if submission.source_code_url %}
-        <p class="browse"><a href="{{ submission.source_code_url }}">Browse the Source {% if 'github' in submission.source_code_url %}<span class="note">Hosted on GitHub</span>{% endif %}</a></p>
+        <p class="browse"><a href="{{ submission.source_code_url }}">Browse the Source
+            {# TODO: Show "hosted by {{domain}}?" #}
+            {% if false %}<span class="note">Hosted on GitHub</span>{% endif %}</a></p>
         {% endif %}
         {# TODO: Need to link to the license at some point #}
         <p class="license">This demo is released under the {{ license_title(submission.license_name) }} license.</p>
@@ -217,9 +219,9 @@
       <div id="demo-report">
         <h3>Report a Problem</h3>
         <ul>
-            <li><a href="{{ url('demos_flag', slug=submission.slug) }}?flag_type=notworking">Demo is not working</a></li>
-            <li><a href="{{ url('demos_flag', slug=submission.slug) }}?flag_type=inappropriate">Demo is inappropriate</a></li>
-            <li><a href="{{ url('demos_flag', slug=submission.slug) }}?flag_type=plagarised">Demo is not by this author</a></li>
+            <li><a class="modal" href="{{ url('demos_flag', slug=submission.slug) }}?flag_type=notworking">Demo is not working</a></li>
+            <li><a class="modal" href="{{ url('demos_flag', slug=submission.slug) }}?flag_type=inappropriate">Demo is inappropriate</a></li>
+            <li><a class="modal" href="{{ url('demos_flag', slug=submission.slug) }}?flag_type=plagarised">Demo is not by this author</a></li>
         </ul>
       </div>
       
@@ -322,4 +324,34 @@
           
         });
         </script>
+
+    <script type="text/javascript">
+        $('.modal').click(function (ev) {
+                
+            var link = $(this),
+                width  = 600,
+                height = 400,
+                href   = link.attr('href');
+
+            href += ((href.indexOf('?') == -1) ? '?' : '&') + 'popup=1';
+            $.modal(
+                '<iframe style="border:0" scrolling="no" src="'+href+'"' +
+                    ' height="'+height+'" width="'+width+'">', 
+                {
+                    overlayClose:true,
+                    containerCss: { width: width, height: height },
+                    dataCss: { overflow: 'hidden' },
+                    onOpen: function (dialog) {
+                        dialog.wrap.css({ overflow: 'hidden' });
+                        dialog.overlay.show();
+                        dialog.container.show();
+                        dialog.data.show();
+                    }
+                }
+            );
+
+            return false;
+        });
+    </script>
+
 {% endblock %}

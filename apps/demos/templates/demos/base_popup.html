@@ -12,4 +12,14 @@
 
 {% block js %}
     {{ super() }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.closeModal').click(function () {
+                if (top.$ && top.$.modal) {
+                    top.$.modal.close();
+                }
+                return false;
+            });
+        });
+    </script>
 {% endblock %}
