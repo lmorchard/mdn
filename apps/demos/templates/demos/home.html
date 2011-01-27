@@ -50,8 +50,6 @@
             {% for submission in featured_submission_list %}
                 {% set extra_class = loop.cycle(' row-first panel', ' panel', ' panel')%}
                 {{ submission_thumb(submission, extra_class) }}</li>
-            {% else %}
-                {# TODO: Something goes here when there are no featured demos? #}
             {% endfor %}
         </ul>
     </div>
@@ -83,13 +81,32 @@
 <script type="text/javascript" src="{{MEDIA_URL}}js/carousel.js"></script>
 <script type="text/javascript">
 $("#featured-demos").ready(function(){
-  // Set up the carousel
-  $("#featured-demos .frame").addClass("js").jCarouselLite({
-      btnNext: ".nav-next a",
-      btnPrev: ".nav-prev a", 
-      visible: 3,
-      scroll:  3
-  });  
+
+  var page_len = 3;
+  var demos_len = $('#featured-demos .slider .demo').length;
+
+  // Set up the carousel, if we have enough for multiple pages
+  if (demos_len > page_len) {
+
+      // HACK: Bugfix where carousel goes wonky without a multiple of page_len
+      var page_mod = demos_len % page_len;
+      if (page_mod > 0) {
+        for (var i=0; i<(page_len-page_mod); i++) {
+            $('#featured-demos .slider').append('<li class="demo panel dummy"></li>');
+        }
+      }
+
+      $('.nav-next a').show();
+      $('.nav-prev a').show();
+
+      $("#featured-demos .frame").addClass("js").jCarouselLite({
+          btnNext: ".nav-next a",
+          btnPrev: ".nav-prev a", 
+          visible: page_len,
+          scroll:  page_len
+      });
+  }
+
 });
 </script>
 
@@ -99,7 +116,7 @@ $("#featured-demos").ready(function(){
 	$(".gallery").ready(function(){
 		$(".gallery").addClass("js");
 
-    $(".gallery .demo").hoverIntent({
+    $(".gallery .demo:not(.dummy)").hoverIntent({
       interval: 250,
       over: function() {
         var content = $(this).html(),
