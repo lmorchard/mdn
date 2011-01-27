@@ -835,12 +835,12 @@ section.boxed:after, div.boxed:after { content: "."; display: block; clear: both
 #featured-demos .nav-slide a { background-color: #333; background-color: rgba(80,80,80,.6); }
 
 .nav-prev a { background-position: 5px 45px; -moz-border-radius: 0 60px 60px 0; -webkit-border-radius: 0 60px 60px 0; border-radius: 0 60px 60px 0; }
-.screenshots .nav-prev a { left: -60px; }
+.screenshots .nav-prev a { left: -60px; display: none; }
 #featured-demos .nav-prev a { left: 0; display: none; }
 [dir="rtl"] .nav-prev a { -moz-border-radius: 60px 0 0 60px; -webkit-border-radius: 60px 0 0 60px; border-radius: 60px 0 0 60px; }
 
 .nav-next a { background-position: 25px -105px; -moz-border-radius: 60px 0 0 60px; -webkit-border-radius: 60px 0 0 60px; border-radius: 60px 0 0 60px; }
-.screenshots .nav-next a { right: -60px; }
+.screenshots .nav-next a { right: -60px; display: none; }
 #featured-demos .nav-next a { right: 0; display: none; }
 [dir="rtl"] .nav-next a { -moz-border-radius: 0 60px 60px 0; -webkit-border-radius: 0 60px 60px 0; border-radius: 0 60px 60px 0; }
 

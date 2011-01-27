@@ -304,24 +304,28 @@
 
         <script type="text/javascript">
         $(".screenshots").ready(function(){
-          // Set up the carousel
-          $(".screenshots").show().addClass("js").jCarouselLite({
-              btnNext: ".nav-next a",
-              btnPrev: ".nav-prev a", 
-              visible: 1
-          });
-          
-          $(".screenshots").hover(
-            function() {
-              $(".nav-next a").animate({ right: "0" },{ queue:false });
-              $(".nav-prev a").animate({ left: "0" },{ queue:false });
-            },
-            function() {
-              $(".nav-next a").animate({ right: "-60px" },{ queue:false });
-              $(".nav-prev a").animate({ left: "-60px" },{ queue:false });    
+            if ($('.screenshots .panel').length > 1) {
+                  // Set up the carousel
+                  $(".screenshots").show().addClass("js").jCarouselLite({
+                      btnNext: ".nav-next a",
+                      btnPrev: ".nav-prev a", 
+                      visible: 1
+                  });
+
+                  $(".nav-next a").show();
+                  $(".nav-prev a").show();
+                  
+                  $(".screenshots").hover(
+                    function() {
+                      $(".nav-next a").animate({ right: "0" },{ queue:false });
+                      $(".nav-prev a").animate({ left: "0" },{ queue:false });
+                    },
+                    function() {
+                      $(".nav-next a").animate({ right: "-60px" },{ queue:false });
+                      $(".nav-prev a").animate({ left: "-60px" },{ queue:false });    
+                    }
+                  );
             }
-          );
-          
         });
         </script>
 
