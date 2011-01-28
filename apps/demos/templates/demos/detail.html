@@ -201,7 +201,7 @@
             {% if false %}<span class="note">Hosted on GitHub</span>{% endif %}</a></p>
         {% endif %}
         {# TODO: Need to link to the license at some point #}
-        <p class="license">This demo is released under the {{ license_title(submission.license_name) }} license.</p>
+        <p class="license">This demo is released under the <a href="{{ license_link(submission.license_name) }}">{{ license_title(submission.license_name) }}</a> license.</p>
       </div>
       
       <div class="module" id="moreby">

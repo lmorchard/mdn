@@ -157,6 +157,13 @@ def bitly_shorten(url):
         return url
 
 @register.function
+def license_link(license_name):
+    if license_name in DEMO_LICENSES:
+        return DEMO_LICENSES[license_name]['link']
+    else:
+        return license_name
+
+@register.function
 def license_title(license_name):
     if license_name in DEMO_LICENSES:
         return DEMO_LICENSES[license_name]['title']

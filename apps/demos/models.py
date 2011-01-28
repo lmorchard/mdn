@@ -270,34 +270,30 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
 
 # HACK: For easier L10N, define license in code instead of as a DB model
 DEMO_LICENSES = dict( (x['name'], x) for x in getattr(settings, 'DEMO_LICENSES', (
-    { 'name': "cc-by-sa", 
-        'title': _("CC-BY-SA Creative Commons Attribution-ShareAlike 3.0 [DEFAULT]") },
-    { 'name': "cc-by", 
-        'title': _("CC-BY Creative Commons Attribution 3.0") },
-    { 'name': "cc-by-no", 
-        'title': _("CC-BY-NO Creative Commons Attribution-NonCommercial 3.0") },
-    { 'name': "cc-by-no-sa", 
-        'title': _("CC-BY-NO-SA Createive Commons Attribution-NonCommercial-ShareAlike 3.0") },
-    { 'name': "mpl", 
-        'title': _("MPL/GPL/LGPL") },
-    { 'name': "gpl", 
-        'title': _("GPL") },
-    { 'name': "lgpl", 
-        'title': _("LGPL") },
-    { 'name': "bsd", 
-        'title': _("BSD") },
-    { 'name': "apache", 
-        'title': _("Apache") },
-    { 'name': "agpl", 
-        'title': _("AGPL") },
-    { 'name': "cc-by-nd", 
-        'title': _("CC-BY-ND Creative Commons Attribution-NonCommercial-NoDervis") },
-    { 'name': "cc-by-no-nd", 
-        'title': _("CC-BY-NO-ND Creative Commons Attribution-NoDervis") },
-    { 'name': "publicdomain", 
-        'title': _("Public Domain") },
-    { 'name': "other", 
-        'title': _("Other (N/A)") },
+    { 
+        'name': "mpl", 
+        'title': _("MPL/GPL/LGPL"),
+        'link': _('http://www.mozilla.org/MPL/'),
+        'icon': '',
+    },
+    { 
+        'name': "gpl", 
+        'title': _("GPL"),
+        'link': _('http://www.gnu.org/licenses/gpl.html'),
+        'icon': '',
+    },
+    { 
+        'name': "bsd", 
+        'title': _("BSD"),
+        'link': _('http://www.opensource.org/licenses/bsd-license.php'),
+        'icon': '',
+    },
+    { 
+        'name': "apache", 
+        'title': _("Apache"),
+        'link': _('http://www.apache.org/licenses/LICENSE-2.0.html'),
+        'icon': '',
+    },
 )))
 
 
