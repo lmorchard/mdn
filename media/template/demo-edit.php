@@ -1,6 +1,6 @@
 <?php include "./inc/template.php"; 
 head(
-  $title = 'Submit a New Demo | Mozilla Developer Network',
+  $title = 'Editing Demo: The Incredible Machine | Mozilla Developer Network',
   $pageid = '', 
   $bodyclass = 'section-demos',
   $headerclass = 'compact'
@@ -11,7 +11,8 @@ head(
     <ol role="navigation">
       <li><a href="home.php">MDN</a></li>
       <li><a href="demos-landing.php">Demo Studio</a></li>
-      <li><a href="demo-submit.php">Submit a New Demo</a></li>
+      <li><a href="demo-detail.php">The Incredible Machine</a></li>
+      <li>Edit</li>
     </ol>
   </nav>
 </div>
@@ -21,57 +22,59 @@ head(
 <div class="wrap">
 
   <section id="content-main" role="main">
-    <h1 class="page-title">Submit a New Demo</h1>
-    <p>Whether you are creating an amazing new way to experience the Web or just 
-    experimenting with the latest technologies, we invite you to submit your own 
-    demos to share with (or show off to) other web developers.</p>
-    <p>Please complete the form below to ensure your demo is submitted to the 
-    Demo Studio successfully.</p>
+    <h1 class="page-title">Editing Demo: The Incredible Machine</h1>
 
     <form id="demo-submit" class="submission" enctype="multipart/form-data" method="post" action="path/to/handler">
       <fieldset class="section">
         <legend><b>Describe Your Demo</b></legend>
-        <p>Tell us more about your demo, including the name, description and the 
-        technologies used. Please list the browsers you have tested it with.</p>
-        
         <ul>
           <li>
-            <label for="title">What is your demo's name?</label>
-            <input type="text" id="title" name="title" />
+            <label for="title">Demo Name</label>
+            <input type="text" id="title" name="title" value="The Incredible Machine">
           </li>
           <li>
-            <label for="summary">Describe your demo in no more than two lines</label>
-            <textarea id="summary" name="summary" rows="2" cols="60"></textarea>
+            <label for="summary">Summary description (no more than two lines)</label>
+            <textarea id="summary" name="summary" rows="2" cols="60">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.</textarea>
           </li>
           <li>
-            <label for="description">Describe your demo in more detail <em class="note">(optional)</em></label>
-            <textarea id="description" name="description" rows="8" cols="60"></textarea>
+            <label for="description">Detailed description <em class="note">(optional)</em></label>
+            <textarea id="description" name="description" rows="8" cols="60">
+Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.
+
+Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.
+
+Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.
+
+Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.
+
+Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.
+            </textarea>
           </li>
           <li>
             <fieldset class="inline">
               <legend><b>Select up to five technologies used in your demo.</b></legend>
               <ul id="tech-tags" class="cols-4">
-                <li><label><input type="checkbox" name="audio"> Audio</label></li>
-                <li><label><input type="checkbox" name="canvas"> Canvas</label></li>
-                <li><label><input type="checkbox" name="css3"> CSS3</label></li>
-                <li><label><input type="checkbox" name="device"> Device</label></li>
-                <li><label><input type="checkbox" name="files"> Files</label></li>
-                <li><label><input type="checkbox" name="fonts"> Fonts</label></li>
-                <li><label><input type="checkbox" name="forms"> Forms</label></li>
-                <li><label><input type="checkbox" name="geolocation"> Geolocation</label></li>
-                <li><label><input type="checkbox" name="javascript"> JavaScript</label></li>
-                <li><label><input type="checkbox" name="html5"> HTML5</label></li>
-                <li><label><input type="checkbox" name="indexeddb"> IndexedDB</label></li>
-                <li><label><input type="checkbox" name="dragndrop"> Drag and Drop</label></li>
-                <li><label><input type="checkbox" name="mobile"> Mobile</label></li>
-                <li><label><input type="checkbox" name="multitouch"> Multi-touch</label></li>
-                <li><label><input type="checkbox" name="offline"> Offline Storage</label></li>
-                <li><label><input type="checkbox" name="svg"> SVG</label></li>
-                <li><label><input type="checkbox" name="video"> Video</label></li>
-                <li><label><input type="checkbox" name="webgl"> WebGL</label></li>
-                <li><label><input type="checkbox" name="websockets"> WebSockets</label></li>
-                <li><label><input type="checkbox" name="webworkers"> Web Workers</label></li>
-                <li><label><input type="checkbox" name="xhr"> XMLHttpRequest</label></li>
+                <li><label class="disabled"><input type="checkbox" name="audio" disabled="disabled"> Audio</label></li>
+                <li><label><input type="checkbox" name="canvas" checked="checked"> Canvas</label></li>
+                <li><label><input type="checkbox" name="css3" checked="checked"> CSS3</label></li>
+                <li><label class="disabled"><input type="checkbox" name="device" disabled="disabled"> Device</label></li>
+                <li><label class="disabled"><input type="checkbox" name="files" disabled="disabled"> Files</label></li>
+                <li><label class="disabled"><input type="checkbox" name="fonts" disabled="disabled"> Fonts</label></li>
+                <li><label class="disabled"><input type="checkbox" name="forms" disabled="disabled"> Forms</label></li>
+                <li><label class="disabled"><input type="checkbox" name="geolocation" disabled="disabled"> Geolocation</label></li>
+                <li><label><input type="checkbox" name="javascript" checked="checked"> JavaScript</label></li>
+                <li><label><input type="checkbox" name="html5" checked="checked"> HTML5</label></li>
+                <li><label class="disabled"><input type="checkbox" name="indexeddb" disabled="disabled"> IndexedDB</label></li>
+                <li><label class="disabled"><input type="checkbox" name="dragndrop" disabled="disabled"> Drag and Drop</label></li>
+                <li><label class="disabled"><input type="checkbox" name="mobile" disabled="disabled"> Mobile</label></li>
+                <li><label class="disabled"><input type="checkbox" name="multitouch" disabled="disabled"> Multi-touch</label></li>
+                <li><label class="disabled"><input type="checkbox" name="offline" disabled="disabled"> Offline Storage</label></li>
+                <li><label><input type="checkbox" name="svg" checked="checked"> SVG</label></li>
+                <li><label class="disabled"><input type="checkbox" name="video" disabled="disabled"> Video</label></li>
+                <li><label class="disabled"><input type="checkbox" name="webgl" disabled="disabled"> WebGL</label></li>
+                <li><label class="disabled"><input type="checkbox" name="websockets" disabled="disabled"> WebSockets</label></li>
+                <li><label class="disabled"><input type="checkbox" name="webworkers" disabled="disabled"> Web Workers</label></li>
+                <li><label class="disabled"><input type="checkbox" name="xhr" disabled="disabled"> XMLHttpRequest</label></li>
               </ul>
             </fieldset>
           </li>
@@ -117,7 +120,7 @@ head(
           </li>
           <li>
             <label for="video">Provide a link to a video of your demo in action, for viewers who can’t or don’t want to run it. <em class="note">(optional)</em></label>
-            <input type="text" id="video" name="video">
+            <input type="text" id="video" name="video" value="http://www.youtube.com/watch?v=rYntjR4-pY4">
             <p class="note">We support YouTube, Vimeo, and DailyMotion.</p>
           </li>
         </ul>
@@ -136,17 +139,18 @@ head(
       
       <fieldset class="section">
         <legend><b>Provide the Source Code</b></legend>
-        <p>Upload a Zip file of your source code, in which the main page of your 
-        demo is named <code>index.html</code> in the root directory.</p>
-        
         <ul>
           <li>
-            <label for="demo_package">Source code Zip file</label> 
-            <input type="file" id="demo_package" name="demo_package" class="filebutton" title="Upload demo file&hellip;">
+            <b class="label">Source code Zip file</b>
+            <input type="text" readonly="readonly" value="incred_machine_v01.zip">
+          </li>
+          <li>
+            <label for="demo_package">Update source code</label>
+            <input type="file" id="demo_package" name="demo_package" class="filebutton" title="Replace demo file&hellip;">
           </li>
           <li>
             <label for="source_code_url">Is your source code also available somewhere else on the web (e.g., github)? Please share the link.</label>
-            <input type="text" id="source_code_url" name="source_code_url">
+            <input type="text" id="source_code_url" name="source_code_url" value="https://github.com/myhandle/myproject">
           </li>
           <li>
             <label for="license">Select the license that applies to your source code.</label>
@@ -198,21 +202,8 @@ head(
 	
 // ]]>
 </script>
-
-      <fieldset class="section notitle">
-        <ul>
-          <li>
-            <strong class="label">Show us you're human</strong>
-            (recaptcha goes here)
-          </li>
-          <li class="check">
-            <strong class="label"><label><input type="checkbox" name="agreement"> I accept</label> 
-            the <a href="#">MDN Terms of Use</a> and <a href="#">Demo Studio Agreement</a></strong>
-          </li>
-        </ul>
-      </fieldset>
-      
-      <p class="fm-submit"><button type="submit">Submit Demo</button></p>
+     
+      <p class="fm-submit"><button type="submit">Save Changes</button></p>
       
     </form>
 

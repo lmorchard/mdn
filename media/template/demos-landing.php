@@ -40,7 +40,7 @@ head(
       <li class="demo row-first panel">
         <h2 class="demo-title">
           <a href="demo-detail.php" title="See more about &ldquo;The Incredible Machine&rdquo; by Neil Gauldin">
-            <img src="./img/fpo55.png" alt="" width="200" height="150"> The Incredible Machine
+            <img src="./img/fpo55.png" alt="" width="200" height="150"> (1) The Incredible Machine
           </a>
         </h2>
         <p class="byline vcard"><a href="demo-gallery-author.php" class="url fn" title="See more demos by Neil Gauldin">Neil Gauldin</a></p>
@@ -57,7 +57,7 @@ head(
       <li class="demo panel">
         <h2 class="demo-title">
           <a href="demo-detail.php" title="See more about &ldquo;Fantastic Voyage&rdquo; by Alejandra Divens">
-            <img src="./img/fpo55.png" alt="" width="200" height="150"> Fantastic Voyage
+            <img src="./img/fpo55.png" alt="" width="200" height="150"> (2) Fantastic Voyage
           </a>
         </h2>
         <p class="byline vcard"><a href="demo-gallery-author.php" class="url fn" title="See more demos by Alejandra Divens">Alejandra Divens</a></p>
@@ -74,7 +74,7 @@ head(
       <li class="demo panel">
         <h2 class="demo-title">
           <a href="demo-detail.php" title="See more about &ldquo;It's a Mad Mad Mad Mad Mad Mad World&rdquo; by Darryl McConnaughy">
-            <img src="./img/fpo55.png" alt="" width="200" height="150"> It&#8217;s a Mad Mad Mad Mad Mad Mad World
+            <img src="./img/fpo55.png" alt="" width="200" height="150"> (3) It&#8217;s a Mad Mad Mad Mad Mad Mad World
           </a>
         </h2>
         <p class="byline vcard"><a href="demo-gallery-author.php" class="url fn" title="See more demos by Darryl McConnaughy">Darryl McConnaughy</a></p>
@@ -92,7 +92,7 @@ head(
       <li class="panel row-first demo">
         <h2 class="demo-title">
           <a href="demo-detail.php" title="See more about &ldquo;Bloodeye&rdquo; by Jefferson Twilight">
-            <img src="./img/fpo55.png" alt="" width="200" height="150"> Bloodeye
+            <img src="./img/fpo55.png" alt="" width="200" height="150"> (4) Bloodeye
           </a>
         </h2>
         <p class="byline vcard"><a href="#" class="url fn" title="See Jefferson Twilight's profile">Jefferson Twilight</a></p>
@@ -106,23 +106,7 @@ head(
           <p class="launch"><a href="#" class="button" title="Launch &ldquo;Bloodeye&rdquo;">Launch</a></p>
         </div>
       </li>
-      <li class="panel demo">
-        <h2 class="demo-title">
-          <a href="demo-detail.php" title="See more about &ldquo;&rdquo; by Amanda Parth">
-            <img src="./img/fpo55.png" alt="" width="200" height="150"> Modern Alchemy
-          </a>
-        </h2>
-        <p class="byline vcard"><a href="demo-gallery-author.php" class="url fn" title="See more demos by Amanda Parth">Amanda Parth</a></p>
-        <div class="extra">
-          <ul class="stats">
-            <li class="views" title="This demo has been viewed 55 times">55</li>
-            <li class="likes" title="7 people liked this demo">7</li>
-            <li class="comments"><a href="demo-detail.php#comments" title="There are no comments yet for this demo">0</a></li>
-          </ul>
-          <p class="desc">Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc deserunt pellentesque fermentum. Dolor mollit anim id est laborum.</p>
-          <p class="launch"><a href="#" class="button" title="Launch &ldquo;Bloodeye&rdquo;">Launch</a></p>
-        </div>
-      </li>
+
     </ul>
   </div>
   </section>
@@ -130,15 +114,24 @@ head(
 <script type="text/javascript" src="./js/carousel.js"></script>
 <script type="text/javascript">
 document.getElementById('featured-demos').className += ' js';
-
 $("#featured-demos").ready(function(){
-  // Set up the carousel
-  $("#featured-demos .frame").addClass("js").jCarouselLite({
-      btnNext: ".nav-next a",
-      btnPrev: ".nav-prev a", 
-      visible: 3,
-      scroll:  3
-  });  
+
+  var page_len = 3;
+  var demos_len = $('#featured-demos .slider .demo').length;
+  
+  // Set up the carousel, if we have enough for multiple pages
+  if (demos_len > page_len) {
+      $('.nav-next a').show();
+      $('.nav-prev a').show();
+
+      $("#featured-demos .frame").addClass("js").jCarouselLite({
+          btnNext: ".nav-next a",
+          btnPrev: ".nav-prev a", 
+          visible: page_len,
+          scroll:  page_len
+      });
+  }
+
 });
 </script>
 

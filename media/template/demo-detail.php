@@ -35,8 +35,8 @@ head(
 
       <!-- only shown to admins and the demo owner -->
       <ul class="manage">
-        <li><a href="#" class="button edit">Edit Demo</a></li>
-        <li><form id="demo-remove" method="post" action="/path/to/handler"><button type="submit" class="remove"><span>Remove Demo</span></button></form></li>
+        <li><a href="demo-edit.php" class="button edit">Edit Demo</a></li>
+        <li><a href="#" class="button remove">Remove Demo</a></li>
       </ul>
 
       <div class="demo-desc">
