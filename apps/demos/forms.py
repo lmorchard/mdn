@@ -146,7 +146,7 @@ class SubmissionNewForm(SubmissionEditForm):
     class Meta(SubmissionEditForm.Meta):
         fields = SubmissionEditForm.Meta.fields + ( 'captcha', 'accept_terms', )
 
-    captcha = ReCaptchaField(label=_('Are you human?')) 
+    captcha = ReCaptchaField(label=_("Show us you're human")) 
     accept_terms = forms.BooleanField(initial=False, required=True)
 
 

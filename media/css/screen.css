@@ -1061,3 +1061,7 @@ ul.sortable .remove:hover, ul.sortable .remove:focus { color: #900; text-decorat
 #simplemodal-overlay { background: #222; }
 #simplemodal-container { background: #222; padding: 6px; overflow: hidden; }
 #simplemodal-wrap { overflow: hidden; }
+
+.errorlist { color: #7D0D0F; }
+.errorlist li { font-style: italic; }
+

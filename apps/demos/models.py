@@ -279,7 +279,7 @@ DEMO_LICENSES = dict( (x['name'], x) for x in getattr(settings, 'DEMO_LICENSES',
     { 
         'name': "gpl", 
         'title': _("GPL"),
-        'link': _('http://www.gnu.org/licenses/gpl.html'),
+        'link': _('http://www.opensource.org/licenses/gpl-license.php'),
         'icon': '',
     },
     { 
@@ -291,7 +291,13 @@ DEMO_LICENSES = dict( (x['name'], x) for x in getattr(settings, 'DEMO_LICENSES',
     { 
         'name': "apache", 
         'title': _("Apache"),
-        'link': _('http://www.apache.org/licenses/LICENSE-2.0.html'),
+        'link': _('http://www.apache.org/licenses/'),
+        'icon': '',
+    },
+    { 
+        'name': "publicdomain", 
+        'title': _("Public Domain (where applicable by law)"),
+        'link': _('http://creativecommons.org/publicdomain/zero/1.0/'),
         'icon': '',
     },
 )))
@@ -489,10 +495,10 @@ class Submission(caching.base.CachingMixin, models.Model):
             upload_to=mk_upload_to('demo_package.zip'),
             blank=False)
     source_code_url = models.URLField(
-            _("is your source code hosted online? (optional)"),
+            _("Is your source code also available somewhere else on the web (e.g., github)? Please share the link."),
             verify_exists=False, blank=True, null=True)
     license_name = models.CharField(
-            _("select a license for your source code"),
+            _("Select the license that applies to your source code."),
             max_length=64, blank=False, 
             choices=( (x['name'], x['title']) for x in DEMO_LICENSES.values() ))
 

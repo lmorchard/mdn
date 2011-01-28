@@ -1,0 +1,49 @@
+{% set is_popup = request.GET.get('popup', false) %}
+{% if not is_popup %}
+    {% extends "demos/base.html" %}
+{% else %}
+    {% extends "demos/base_popup.html" %}
+{% endif %}
+
+{% block pageid %}{% endblock %}
+{% block bodyclass %}section-demos{% endblock %}
+{% block title %}{{ page_title(_('{subtitle} | Demo Studio') | f(subtitle=_('Terms of Use and License'))) }}{% endblock %}
+
+{% block content %}
+
+<section id="nav-toolbar">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <ol role="navigation">
+      <li><a href="{{ url('home') }}">MDN</a></li>
+      <li><a href="{{ url('demos') }}">Demo Studio</a></li>
+      <li><a href="">Terms of Use and License</a></li>
+    </ol>
+  </nav>
+  
+  <p class="demo-submit"><a href="{{ url('demos_submit') }}" class="button">Submit a Demo</a></p>
+</div>
+</section>
+
+<section id="content">
+<div class="wrap">
+
+  <section id="content-main" role="main" class="full">
+  
+    <section id="tos">
+        <h2>Terms of Use</h2>
+        <p>@@TODO: Terms of use go here</p>
+    </section>
+
+    <section id="license">
+        <h2>License</h2>
+        <p>@@TODO: License goes here</p>
+    </section>
+
+  </section>
+
+</div>
+</section>
+
+{% endblock %}
