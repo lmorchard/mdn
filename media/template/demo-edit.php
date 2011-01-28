@@ -159,6 +159,7 @@ Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut
               <option value="bsd">BSD</option>
               <option value="gpl" selected="selected">GPL</option>
               <option value="mpl">MPL</option>
+              <option value="pd">Public Domain</option>
             </select>
           </li>
         </ul>

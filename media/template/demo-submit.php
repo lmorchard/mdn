@@ -151,10 +151,12 @@ head(
           <li>
             <label for="license">Select the license that applies to your source code.</label>
             <select id="license" name="license">
+              <option value="" disabled="disabled" selected="selected">Choose&hellip;</option>
               <option value="apache">Apache</option>
               <option value="bsd">BSD</option>
-              <option value="gpl" selected="selected">GPL</option>
+              <option value="gpl">GPL</option>
               <option value="mpl">MPL</option>
+              <option value="pd">Public Domain</option>
             </select>
           </li>
         </ul>
