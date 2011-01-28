@@ -64,8 +64,9 @@ RewriteRule ^(((en-US|de|es|fr|hr|ja|ko|pl|sq|zh-TW|zh-CN)/)?search/?)$  /mwsgi/
 
     RewriteRule ^/En/Core_JavaScript_1\.5_Reference/Objects/(.*) /en/JavaScript/Reference/Global_Objects/$1 [R=301,L,NC]
     RewriteRule ^/En/Core_JavaScript_1\.5_Reference/(.*) /en/JavaScript/Reference/$1 [R=301,L,NC]
+    RewriteCond %{REQUEST_URI} ^/contests/$
 	RewriteRule ^/contests/$ http://labs.mozilla.com/contests/extendfirefox/ [R=302]
-	RewriteRule ^/contests/extendfirefox(/.*)? http://labs.mozilla.com/contests/extendfirefox$1 [R=302]
+	RewriteRule ^contests/extendfirefox(/.*)? http://labs.mozilla.com/contests/extendfirefox$1 [R=302]
 	RewriteRule ^/es4(/.*)?$ http://wiki.ecmascript.org/ [R]
 
 
