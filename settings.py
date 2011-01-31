@@ -71,7 +71,7 @@ TIME_ZONE = 'America/Los_Angeles'
 LANGUAGE_CODE = 'en-US'
 
 # Accepted locales
-MDN_LANGUAGES = ('en-US', 'de', 'fr', 'es', 'hr', 'ko', 'ja', 'pl', 'sq',
+MDN_LANGUAGES = ('en-US', 'de', 'fr', 'es', 'hr', 'ko', 'ja', 'pl', 'sl', 'sq',
                  'zh-CN', 'zh-TW')
 RTL_LANGUAGES = None # ('ar', 'fa', 'fa-IR', 'he')
 LANGUAGE_URL_MAP = dict([(i.lower(), i) for i in MDN_LANGUAGES])
