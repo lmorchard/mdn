@@ -54,9 +54,9 @@
         {% endif %}
         {% if submission.allows_hiding_by(request.user) %}
             {% if submission.hidden %}
-                <li><form id="demo-show" method="post" action="{{ url('demos_show', slug=submission.slug) }}">{{ csrf() }}<button type="submit" class="button remove"><span>{{_("Show demo")}}</span></button></form></li>
+                <li><form id="demo-show" method="post" action="{{ url('demos_show', slug=submission.slug) }}">{{ csrf() }}<button type="submit" class="button remove">{{_("Show demo")}}</button></form></li>
             {% else %}
-                <li><form id="demo-hide" method="post" action="{{ url('demos_hide', slug=submission.slug) }}">{{ csrf() }}<button type="submit" class="button remove"><span>{{_("Hide demo")}}</span></button></form></li>
+                <li><form id="demo-hide" method="post" action="{{ url('demos_hide', slug=submission.slug) }}">{{ csrf() }}<button type="submit" class="button remove">{{_("Hide demo")}}</button></form></li>
             {% endif %}
         {% endif %}
 
@@ -200,8 +200,12 @@
             {# TODO: Show "hosted by {{domain}}?" #}
             {% if false %}<span class="note">Hosted on GitHub</span>{% endif %}</a></p>
         {% endif %}
-        {# TODO: Need to link to the license at some point #}
-        <p class="license">This demo is released under the <a href="{{ license_link(submission.license_name) }}">{{ license_title(submission.license_name) }}</a> license.</p>
+        {% if submission.license_name == 'publicdomain' %}
+            {% set license_class = 'public' %}
+        {% else %}
+            {% set license_class = 'copyleft' %}
+        {% endif %}
+        <p class="license {{ license_class }}">This demo is released under the <a href="{{ license_link(submission.license_name) }}">{{ license_title(submission.license_name) }}</a> license.</p>
       </div>
       
       <div class="module" id="moreby">
