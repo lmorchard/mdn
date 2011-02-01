@@ -120,6 +120,12 @@ class VideoEmbedURLField(models.URLField):
         if not build_video_embed(value):
             raise ValidationError(_('Not an URL from a supported video service'))
 
+    def get_prep_value(self, field_value):
+        "Returns field's value prepared for saving into a database."
+        if field_value is None or field_value.value is None: 
+            return ''
+        return unicode(field_value)
+
     def contribute_to_class(self, cls, name):
         super(VideoEmbedURLField, self).contribute_to_class(cls, name)
         setattr(cls, self.name, self.descriptor_class(self))

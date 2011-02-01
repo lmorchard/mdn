@@ -40,6 +40,7 @@ class DemoPackageTest(TestCase):
 
         s = Submission(title='Hello world', slug='hello-world',
             description='This is a hello world demo',
+            video_url='http://www.youtube.com/watch?v=dQw4w9WgXcQ',
             tags='hello,world,demo,play', creator=self.user)
 
         fout = StringIO()
