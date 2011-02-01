@@ -17,16 +17,16 @@
         {% if show_label %}
             <label for="id_{{field_name}}">{{field.label}}</label>
         {% endif %}
+        {{ field|safe }}
         {% if edit %}
             {% if 'file' == field.field.widget.input_type and obj[field_name] %}
                 {% if image %}
-                    <img class="current_file" src="{{obj[field_name].url}}" />
+                    <p><img width="360" class="current_file" src="{{obj[field_name].url}}" /></p>
                 {% else %}
                     {# <span class="current_file">{{ obj[field_name] }}</span> #}
                 {% endif %}
             {% endif %}
         {% endif %}
-        {{ field|safe }}
         {% if note %}
             <p class="note">{{ note }}</p>
         {% endif %}
