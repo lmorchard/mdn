@@ -126,6 +126,9 @@
       </ul>
 
       <ul class="slider">
+        {% if submission.video_url %}
+            <li class="panel">{{ submission.video_url.embed_html }}</li>
+        {% endif %}
         {% for idx in range(1, 6) %}
           {% if submission['screenshot_'~idx] %}
             <li class="panel">
