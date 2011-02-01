@@ -101,7 +101,10 @@ class DekiUser(object):
         self.fullname = fullname
         self.email    = email
         self.gravitar = gravitar
-        self.profile_url = profile_url
+        self.profile_url  = profile_url
+        self.is_active    = False
+        self.is_staff     = False
+        self.is_superuser = False
 
     @staticmethod
     def parse_user_info(xmlstring):
@@ -138,10 +141,7 @@ class DekiUser(object):
 </user>
         """
         xmldoc = minidom.parseString(xmlstring)
-        deki_user = DekiUser(-1, 'Anonymous', '', '', 'http://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e.png')
-        deki_user.is_active = False
-        deki_user.is_staff = False
-        deki_user.is_superuser = False
+        deki_user = DekiUser(-1, 'Anonymous', '', '', 'http://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e.png')        
 
         userEl = None
 
