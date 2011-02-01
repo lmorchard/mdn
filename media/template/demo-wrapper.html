@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr" id="developer-mozilla-org">
+<head>
+  <title>The Incredible Machine</title>
+  
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  
+  <link rel="stylesheet" type="text/css" media="all" href="./css/demowrap.css">
+  <script src="./js/jquery-1.4.2.min.js"></script>
+  
+  <!--[if IE]>
+  <meta http-equiv="imagetoolbar" content="no">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+</head>
+<body>
+  <header id="demobar">
+    <h4 id="logo"><a href="demos-landing.php"><img src="./img/mdn-logo-micro.png" alt="Mozilla Developer Network" width="54" height="16"></a></h4>
+    
+    <div class="title">
+      <h1 class="demo-title"><a href="demo-detail.php">The Incredible Machine</a></h1>
+      <p class="byline vcard">by <a href="demo-gallery-author.php" class="url fn">Neil Gauldin</a></p>
+    </div>
+    
+    <ul class="tools">
+      <li>
+        <form id="demo-like" method="post" action="/path/to/handler">
+          <button type="submit" class="like" title="Do you like this demo?"><span>Like It</span></button>
+        <!-- if they liked it already:
+          <button type="submit" class="unlike" title="You like this demo. Undo?"><span>You Like</span></button>
+        -->
+        </form>
+      </li>
+      <li class="share"><a href="#share-opts" id="sharetoggle" title="Share this demo with your social network">Share It</a>
+        <ul id="share-opts">
+          <li class="twitter"><a href="#">Share on Twitter</a></li>
+          <li class="facebook"><a href="#">Share on Facebook</a></li>
+          <li class="link"><input id="shorturl" type="text" readonly="readonly" value="http://mzl.la/d44l20"></li>
+        </ul>
+      </li>
+    </ul>
+
+    <nav class="paging">
+      <ul role="navigation">
+        <li class="prev"><a href="#" title="Go to the previous demo, &ldquo;Demo Title&rdquo;">Prev</a></li>
+        <li class="next"><a href="#" title="Go to the next demo, &ldquo;Demo Title&rdquo;">Next</a></li>
+      </ul>
+    </nav>
+    
+    <p id="close"><a href="#" title="Remove this toolbar">Remove toolbar</a></p>
+    
+    <script type="text/javascript">
+    $("#share-opts").ready(function(){
+    	$("#share-opts").addClass("js").hide();
+    	
+    	$("#sharetoggle").click(function() {
+        $("#share-opts").fadeIn(100);
+        return false;
+    	});
+    	
+      $("#share-opts").hover(
+        function() {
+          $(this).show();
+        },
+        function() {
+          $(this).fadeOut(100);
+          $("#sharetoggle").blur();
+        }
+      );
+    	
+      $(document).bind('click', function(e) {
+        var $clicked = $(e.target);
+        if (! $clicked.parents().hasClass("share"))
+          $("#share-opts").hide();
+      });
+      
+      $("a, input, textarea, button").bind('focus', function(e) {
+        var $focused = $(e.target);
+        if (! $focused.parents().hasClass("share"))
+          $("#share-opts").hide();
+      });
+      
+      $("#shorturl").focus(function() {
+        $(this).select().addClass("focus");
+      });
+      $("#shorturl").click(function() {
+        $(this).select().addClass("focus");
+      });
+      $("#shorturl").blur(function() {
+        $(this).removeClass("focus");
+      });
+    
+    });
+    </script>
+    
+  </header>
+  
+  <iframe id="demoframe" src="http://mozilla.com/en-US/firefox/" seamless="seamless"></iframe>
+
+</body>
+</html>

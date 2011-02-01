@@ -275,7 +275,7 @@ $(".screenshots").ready(function(){
         <h3 class="mod-title">Get the Source Code</h3>
         <p class="download"><a href="#">Download the Source <span class="note">320 KB &middot; ZIP File</span></a></p>
         <p class="browse"><a href="#">Browse the Source <span class="note">Hosted on GitHub</span></a></p>
-        <p class="license">This demo is released under the <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" rel="license">Creative Commons 3.0 By-NC-ND license</a>.</p>
+        <p class="license copyleft">This demo is released under <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" rel="license">GPL</a>.</p>
       </div>
       
       <div class="module" id="moreby">
