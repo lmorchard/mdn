@@ -105,7 +105,10 @@ class VideoEmbedURLDescriptor(object):
             veurl.instance = instance
             veurl.field = self.field
 
-        return instance.__dict__[self.field.name]
+        out = instance.__dict__[self.field.name]
+        if not out or not out.value:
+            return None
+        return out
 
 
 class VideoEmbedURLField(models.URLField):
