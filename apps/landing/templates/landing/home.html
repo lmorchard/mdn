@@ -69,13 +69,13 @@ try {
         <div class="slide-desc">
           <h2>{{ _('HTML5') }}</h2>
           <p>
-          {% trans devmo_html5=devmo_url('/en/HTML/HTML5'), devmo_fx4dev=devmo_url('/en/Firefox_4_for_developers') %}
+          {% trans devmo_html5=devmo_url(_('/en/HTML/HTML5')), devmo_fx4dev=devmo_url(_('/en/Firefox_4_for_developers')) %}
           Mozilla continues to lead the charge in the adoption of HTML5 and other evolving open Web technologies.
           Find out more about the <a href="{{ devmo_html5 }}">HTML5 spec</a> and the latest enhancements in HTML5, CSS3
           and other <a href="{{ devmo_fx4dev }}">developer features for Firefox 4</a>.
           {% endtrans %}
           </p>
-          <p class="more"><a href="{{ devmo_url('/en/HTML/HTML5') }}" class="button">{{ _('More') }}</a></p>
+          <p class="more"><a href="{{ devmo_url(_('/en/HTML/HTML5')) }}" class="button">{{ _('More') }}</a></p>
         </div>
       </li>
       <li id="slide-four" class="slide">
@@ -129,7 +129,7 @@ try {
           <div class="section">
             <h4><a href="{{ url('mobile') }}" class="mobile">{{ _('Mobile') }}</a></h4>
             <p>
-            {% trans devmo_mobile=devmo_url('/en/Mobile'), devmo_geo=devmo_url('/En/Using_geolocation') %}
+            {% trans devmo_mobile=devmo_url(_('/en/Mobile')), devmo_geo=devmo_url(_('/en/Using_geolocation')) %}
             Learn more about <a href="{{ devmo_mobile }}">Fennec</a> and mobile-specific technologies
             like <a href="{{ devmo_geo }}">geolocation</a>.</p>
             {% endtrans %}
@@ -146,8 +146,8 @@ try {
           <div class="section">
             <h4><a href="{{ url('mozilla') }}" class="apps">{{ _('Mozilla') }}</a></h4>
             <p>
-            {% trans devmo_participate=devmo_url('/En/Participating_in_the_Mozilla_project'),
-                     devmo_l10n=devmo_url('/en/Localization'), devmo_qa=devmo_url('/en/QA') %}
+            {% trans devmo_participate=devmo_url(_('/en/Participating_in_the_Mozilla_project')),
+                     devmo_l10n=devmo_url(_('/en/Localization')), devmo_qa=devmo_url(_('/en/QA')) %}
               See how you can <a href="{{ devmo_participate }}">participate</a> in
               <a href="{{ devmo_l10n }}">localization</a>, <a href="{{ devmo_qa }}">quality
                 assurance</a>, and other Mozilla projects.
@@ -163,7 +163,7 @@ try {
   </section>
 
   <aside id="content-sub" role="complementary">
-    <a href="{{ devmo_url('/En/Firefox_4_for_developers') }}">
+    <a href="{{ devmo_url(_('/en/Firefox_4_for_developers')) }}">
       <div class="module" id="mdn-firefox4-webdev">
         <h3>Firefox 4</h3>
         <h4>for Developers</h4>
@@ -174,19 +174,19 @@ try {
       <h3 class="mod-title">{{ _('Popular Docs') }}</h3>
       <ul class="hfeed">
         <li class="hentry">
-          <h4 class="entry-title"><a href="{{ devmo_url('/En/HTML') }}">{{ _('HTML') }}</a></h4>
+          <h4 class="entry-title"><a href="{{ devmo_url(_('/en/HTML')) }}">{{ _('HTML') }}</a></h4>
           <p class="entry-content">{{ _('Hypertext Markup Language, the core technology of the web.') }}</p>
         </li>
         <li class="hentry">
-          <h4 class="entry-title"><a href="{{ devmo_url('/En/CSS') }}">{{ _('CSS Reference') }}</a></h4>
+          <h4 class="entry-title"><a href="{{ devmo_url(_('/en/CSS')) }}">{{ _('CSS Reference') }}</a></h4>
           <p class="entry-content">{{ _('Cascading Style Sheets.') }}</p>
         </li>
         <li class="hentry">
-          <h4 class="entry-title"><a href="{{ devmo_url('/En/JavaScript') }}">{{ _('JavaScript') }}</a></h4>
+          <h4 class="entry-title"><a href="{{ devmo_url(_('/en/JavaScript')) }}">{{ _('JavaScript') }}</a></h4>
           <p class="entry-content">{{ _('The scripting language that powers modern web applications.') }}</p>
         </li>
         <li class="hentry">
-          <h4 class="entry-title"><a href="{{ devmo_url('/En/DOM') }}">{{ _('DOM') }}</a></h4>
+          <h4 class="entry-title"><a href="{{ devmo_url(_('/en/DOM')) }}">{{ _('DOM') }}</a></h4>
           <p class="entry-content">{% trans %}
             The Document Object Model describes the layout and content of web pages.
           {% endtrans %}</p>
@@ -198,13 +198,13 @@ try {
           {% endtrans %}</p>
         </li>
         <li class="hentry">
-          <h4 class="entry-title"><a href="{{ devmo_url('/En/mobile') }}">{{ _('Developing for Mobile') }}</a></h4>
+          <h4 class="entry-title"><a href="{{ devmo_url(_('/en/mobile')) }}">{{ _('Developing for Mobile') }}</a></h4>
           <p class="entry-content">{% trans %}
             Developing add-ons and content for Firefox mobile.
           {% endtrans %}</p>
         </li>
         <li class="hentry">
-          <h4 class="entry-title"><a href="{{ devmo_url('/En/Participating_in_the_Mozilla_project') }}">{{ _('Participating in the Mozilla Project') }}</a></h4>
+          <h4 class="entry-title"><a href="{{ devmo_url(_('/en/Participating_in_the_Mozilla_project')) }}">{{ _('Participating in the Mozilla Project') }}</a></h4>
           <p class="entry-content">{% trans %}
             Everything from filing bugs to fixing them.
           {% endtrans %}</p>
