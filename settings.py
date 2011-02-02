@@ -44,6 +44,7 @@ DEKIWIKI_ENDPOINT = 'http://developer-stage9.mozilla.org'
 
 # Cache Settings
 #CACHE_BACKEND = 'caching.backends.memcached://localhost:11211'
+CACHE_BACKEND = 'locmem://?timeout=86400'
 CACHE_PREFIX = 'mdn:'
 CACHE_COUNT_TIMEOUT = 60  # seconds
 
@@ -75,6 +76,12 @@ MDN_LANGUAGES = ('en-US', 'de', 'fr', 'es', 'hr', 'ko', 'ja', 'pl', 'sl', 'sq',
                  'zh-CN', 'zh-TW')
 RTL_LANGUAGES = None # ('ar', 'fa', 'fa-IR', 'he')
 LANGUAGE_URL_MAP = dict([(i.lower(), i) for i in MDN_LANGUAGES])
+
+# DEKI uses different locale keys
+LANGUAGE_DEKI_MAP = dict([(i, i) for i in MDN_LANGUAGES])
+LANGUAGE_DEKI_MAP['en-US'] = 'en'
+LANGUAGE_DEKI_MAP['zh-CN'] = 'cn'
+LANGUAGE_DEKI_MAP['zh-TW'] = 'zh_tw'
 
 # Override Django's built-in with our native names
 class LazyLangs(dict):

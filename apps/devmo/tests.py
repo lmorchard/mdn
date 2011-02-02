@@ -4,6 +4,8 @@ import test_utils
 import shlex
 import urllib2
 
+from devmo.helpers import devmo_url
+
 def parse_robots(base_url):
     """ Given a base url, retrieves the robot.txt file and
         returns a list of rules. A rule is a tuple. 
@@ -61,3 +63,17 @@ class TestDevMoRobots(test_utils.TestCase):
 
         eq_(parse_robots('https://developer-stage9.mozilla.org'), rules) 
         eq_(parse_robots('http://developer-stage9.mozilla.org'),  rules) 
+
+class TestDevMoHelpers(test_utils.TestCase):
+    def test_devmo_url(self):
+        en_only_page = '/en/HTML/HTML5'
+        localized_page = '/en/HTML'
+        req = test_utils.RequestFactory().get('/')
+        context = {'request':req}
+
+        req.locale = 'en-US'
+        eq_(devmo_url(context, en_only_page), en_only_page)
+        req.locale = 'de'
+        eq_(devmo_url(context, localized_page), '/de/HTML')
+        req.locale = 'zh-TW'
+        eq_(devmo_url(context, localized_page), '/zh_tw/HTML')

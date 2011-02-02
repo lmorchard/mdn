@@ -1,9 +1,10 @@
 import cgi
 import datetime
-import urllib
-import urlparse
+import re
+import httplib, urllib, urlparse
 
 from django.conf import settings
+from django.core.cache import cache
 from django.template import defaultfilters
 from django.utils.html import strip_tags
 
@@ -97,9 +98,30 @@ def urlencode(txt):
     return urllib.quote_plus(txt)
 
 @register.function
-def devmo_url(path):
+@jinja2.contextfunction
+def devmo_url(context, path):
     """ Create a URL pointing to devmo.
-        Currently a no-op from when staging was on several servers. 
-        Might be a useful shim in the future.
+        Look for a wiki page in the current locale first,
+        then default to given path
     """
+    current_locale = context['request'].locale
+    locale_regexp = "/(?P<locale>\w+)/(?P<path>.*)"
+    m = re.match(locale_regexp, path, re.IGNORECASE)
+    if not m:
+        return path
+    devmo_url_dict = m.groupdict()
+    devmo_locale, devmo_path = devmo_url_dict['locale'], devmo_url_dict['path']
+    if current_locale != devmo_locale:
+        devmo_local_path = '/' + settings.LANGUAGE_DEKI_MAP[current_locale] + '/' + devmo_path
+        http_status_code = cache.get('devmo_local_path:%s' % devmo_local_path)
+        if http_status_code is None:
+            deki_tuple = urlparse.urlparse(settings.DEKIWIKI_ENDPOINT)
+            conn = httplib.HTTPSConnection(deki_tuple.netloc)
+            conn.request("GET", devmo_local_path)
+            resp = conn.getresponse()
+            http_status_code = resp.status
+            cache.set('devmo_local_path:%s' % devmo_local_path, http_status_code)
+            conn.close()
+        if http_status_code == 200:
+            path = devmo_local_path
     return path
