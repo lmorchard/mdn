@@ -4,6 +4,7 @@
 # Make sure AllowOverride has FileInfo
 
 ReWriteEngine On
+RewriteBase /
 
 RewriteRule ^(((en-US|de|es|fr|hr|ja|ko|pl|sl|sq|zh-TW|zh-CN)/)?)$            /mwsgi/$1 [PT,L]
 RewriteRule ^(((en-US|de|es|fr|hr|ja|ko|pl|sl|sq|zh-TW|zh-CN)/)?addons/?)$  /mwsgi/$1 [PT,L]
@@ -43,49 +44,41 @@ RewriteRule ^(((en-US|de|es|fr|hr|ja|ko|pl|sl|sq|zh-TW|zh-CN)/)?search/?)$  /mws
    RewriteRule (.*) https://developer.mozilla.org/deki/feeds_disabled.php? [L,R]
    # END FEEDS DISABLED
 
-	RewriteRule ^patches(.*) /data/www/patches$1 [L]
-	RewriteRule ^presentations(.*) /data/www/presentations$1 [L]
-	RewriteRule ^samples(.*) /data/www/samples$1 [L]
-	RewriteRule ^diagrams(.*) /data/www/diagrams$1 [L]
-	#<Directory /data/www/presentations>
-	#	Options Indexes MultiViews FollowSymLinks
-	#</Directory>
-	RewriteRule ^devnews(.*) /data/www/devnews$1 [L]
-	RewriteRule ^web-tech(.*) /data/www/web-tech$1 [L]
-	#<DirectoryMatch "/data/www/(devnews|web-tech)">
-	#	AllowOverride All
-	#	Order allow,deny
-	#	Allow from all
-	#</DirectoryMatch>
-	RewriteRule ^css(.*) /data/www/css$1 [L]
+	RewriteRule ^patches(.*) data/www/patches$1 [L]
+	RewriteRule ^presentations(.*) data/www/presentations$1 [L]
+	RewriteRule ^samples(.*) data/www/samples$1 [L]
+	RewriteRule ^diagrams(.*) data/www/diagrams$1 [L]
+	RewriteRule ^devnews(.*) data/www/devnews$1 [L]
+	RewriteRule ^web-tech(.*) data/www/web-tech$1 [L]
+	RewriteRule ^css(.*) data/www/css$1 [L]
 
-    RewriteRule ^En/JavaScript/Reference/Objects/Array$ /en/JavaScript/Reference/Global_Objects/Array [R=301,L,NC]
-    RewriteRule ^En/JavaScript/Reference/Objects$ /en/JavaScript/Reference/Global_Objects/Object [R=301,L,NC]
+    RewriteRule ^En/JavaScript/Reference/Objects/Array$ en/JavaScript/Reference/Global_Objects/Array [R=301,L,NC]
+    RewriteRule ^En/JavaScript/Reference/Objects$ en/JavaScript/Reference/Global_Objects/Object [R=301,L,NC]
 
-    RewriteRule ^En/Core_JavaScript_1\.5_Reference/Objects/(.*) /en/JavaScript/Reference/Global_Objects/$1 [R=301,L,NC]
-    RewriteRule ^En/Core_JavaScript_1\.5_Reference/(.*) /en/JavaScript/Reference/$1 [R=301,L,NC]
+    RewriteRule ^En/Core_JavaScript_1\.5_Reference/Objects/(.*) en/JavaScript/Reference/Global_Objects/$1 [R=301,L,NC]
+    RewriteRule ^En/Core_JavaScript_1\.5_Reference/(.*) en/JavaScript/Reference/$1 [R=301,L,NC]
 	RewriteRule ^contests/$ http://labs.mozilla.com/contests/extendfirefox/ [R=302]
 	RewriteRule ^contests/extendfirefox(/.*)? http://labs.mozilla.com/contests/extendfirefox$1 [R=302]
 	RewriteRule ^es4(/.*)?$ http://wiki.ecmascript.org/ [R]
 
        RewriteCond %{REQUEST_URI} ^/$
-       RewriteRule ^$ /En [L,NE,R]
+       RewriteRule ^$ En [L,NE,R]
 
 	RewriteCond %{REQUEST_URI} ^/@gui/[^.]+$
-	RewriteRule ^@gui/(.*)$ http://google.com [L,QSA,NE]
+	RewriteRule ^@gui/(.*)$ proxy.php?path=$1 [L,QSA,NE]
 
 	### Begin MDC rewrite rules ###
 	RewriteCond %{REQUEST_URI} ^/(.*)$
-	RewriteRule ^([a-z]{2}|[a-z_]{5})/docs/(.*):(.*)$ /$2:$3/$1 [L,QSA,NE,NC,R]
+	RewriteRule ^([a-z]{2}|[a-z_]{5})/docs/(.*):(.*)$ $2:$3/$1 [L,QSA,NE,NC,R]
 
 	RewriteCond %{REQUEST_URI} ^/(.*)$
-	RewriteRule ^([a-z]{2}|[a-z_]{5})/docs/(.*)$ /$1/$2 [L,QSA,NE,NC,R]
+	RewriteRule ^([a-z]{2}|[a-z_]{5})/docs/(.*)$ $1/$2 [L,QSA,NE,NC,R]
 
 	RewriteCond %{REQUEST_URI} ^/(.*)$
-	RewriteRule ^docs/(.*):(.*)$ /$1:$2/En [L,QSA,NE,NC,R]
+	RewriteRule ^docs/(.*):(.*)$ $1:$2/En [L,QSA,NE,NC,R]
 
 	RewriteCond %{REQUEST_URI} ^/(.*)$
-	RewriteRule ^docs/(.*)$ /En/$1 [L,QSA,NE,NC,R]
+	RewriteRule ^docs/(.*)$ En/$1 [L,QSA,NE,NC,R]
 	### End MDC rewrite rules ###
 
 	RewriteCond %{REQUEST_URI} !/(@api|editor|skins|config|deki|media|admin-media)/
@@ -97,4 +90,4 @@ RewriteRule ^(((en-US|de|es|fr|hr|ja|ko|pl|sl|sq|zh-TW|zh-CN)/)?search/?)$  /mws
 	RewriteCond %{REQUEST_URI} !/block_862be.html
 	RewriteCond %{REQUEST_URI} !/block_f90c2.html
 	RewriteCond %{QUERY_STRING} ^$ [OR] %{REQUEST_URI} ^/Special:Search
-	RewriteRule ^(.*)$ /index.php?title=$1 [L,QSA,NE]
+	RewriteRule ^(.*)$ index.php?title=$1 [L,QSA,NE]
