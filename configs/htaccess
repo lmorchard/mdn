@@ -68,25 +68,24 @@ RewriteRule ^(((en-US|de|es|fr|hr|ja|ko|pl|sl|sq|zh-TW|zh-CN)/)?search/?)$  /mws
 	RewriteRule ^contests/extendfirefox(/.*)? http://labs.mozilla.com/contests/extendfirefox$1 [R=302]
 	RewriteRule ^es4(/.*)?$ http://wiki.ecmascript.org/ [R]
 
-
-	RewriteCond %{REQUEST_URI} ^/$
-	RewriteRule ^/$ /En [L,NE,R]
+       RewriteCond %{REQUEST_URI} ^/$
+       RewriteRule ^$ /En [L,NE,R]
 
 	RewriteCond %{REQUEST_URI} ^/@gui/[^.]+$
-	RewriteRule ^/@gui/(.*)$ /proxy.php?path=$1 [L,QSA,NE]
+	RewriteRule ^@gui/(.*)$ http://google.com [L,QSA,NE]
 
 	### Begin MDC rewrite rules ###
 	RewriteCond %{REQUEST_URI} ^/(.*)$
-	RewriteRule ^/([a-z]{2}|[a-z_]{5})/docs/(.*):(.*)$ /$2:$3/$1 [L,QSA,NE,NC,R]
+	RewriteRule ^([a-z]{2}|[a-z_]{5})/docs/(.*):(.*)$ /$2:$3/$1 [L,QSA,NE,NC,R]
 
 	RewriteCond %{REQUEST_URI} ^/(.*)$
-	RewriteRule ^/([a-z]{2}|[a-z_]{5})/docs/(.*)$ /$1/$2 [L,QSA,NE,NC,R]
+	RewriteRule ^([a-z]{2}|[a-z_]{5})/docs/(.*)$ /$1/$2 [L,QSA,NE,NC,R]
 
 	RewriteCond %{REQUEST_URI} ^/(.*)$
-	RewriteRule ^/docs/(.*):(.*)$ /$1:$2/En [L,QSA,NE,NC,R]
+	RewriteRule ^docs/(.*):(.*)$ /$1:$2/En [L,QSA,NE,NC,R]
 
 	RewriteCond %{REQUEST_URI} ^/(.*)$
-	RewriteRule ^/docs/(.*)$ /En/$1 [L,QSA,NE,NC,R]
+	RewriteRule ^docs/(.*)$ /En/$1 [L,QSA,NE,NC,R]
 	### End MDC rewrite rules ###
 
 	RewriteCond %{REQUEST_URI} !/(@api|editor|skins|config|deki|media|admin-media)/
@@ -98,4 +97,4 @@ RewriteRule ^(((en-US|de|es|fr|hr|ja|ko|pl|sl|sq|zh-TW|zh-CN)/)?search/?)$  /mws
 	RewriteCond %{REQUEST_URI} !/block_862be.html
 	RewriteCond %{REQUEST_URI} !/block_f90c2.html
 	RewriteCond %{QUERY_STRING} ^$ [OR] %{REQUEST_URI} ^/Special:Search
-	RewriteRule ^/(.*)$ /index.php?title=$1 [L,QSA,NE]
+	RewriteRule ^(.*)$ /index.php?title=$1 [L,QSA,NE]
