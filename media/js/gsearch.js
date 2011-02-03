@@ -22,6 +22,7 @@ $(document).ready(function() {
     var siteSearch = new google.search.WebSearch();
     siteSearch.setUserDefinedLabel('');
     siteSearch.setSiteRestriction('developer.mozilla.org');
+    siteSearch.setLinkTarget(google.search.Search.LINK_TARGET_SELF);
     siteSearch.clearResults();
 
     var done = function() {
