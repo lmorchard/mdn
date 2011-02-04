@@ -3,7 +3,8 @@
 #
 
 # Configure ETags for optimal caching
-FileETag MTime Size
+Header unset ETag
+FileETag None
 
 # Make sure AllowOverride has FileInfo
 ReWriteEngine On
