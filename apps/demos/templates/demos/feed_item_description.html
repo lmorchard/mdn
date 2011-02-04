@@ -4,12 +4,12 @@
     </div>
     <p class="summary">{{ submission.summary }}</p>
     <dl>
-        <dt>Submitted by:</dt>
+        <dt>{{_('Submitted by:')}}</dt>
             <dd>{{ submission_creator(submission) }}</dd>
-        <dt>Tagged as:</dt>
+        <dt>{{_('Tagged as:')}}</dt>
             <dd>
                 {% for tag in tags_for_object(submission) %}
-                <a href="{{ request.build_absolute_uri(url('demos_tag', tag=tag.name)) }}">{{ tag_title(tag) }}</a>{% if not loop.last %}, {% endif %}
+                    <a href="{{ request.build_absolute_uri(url('demos_tag', tag=tag.name)) }}">{{ tag_title(tag) }}</a>{% if not loop.last %}, {% endif %}
                 {% endfor %}
             </dd>
         </dt>

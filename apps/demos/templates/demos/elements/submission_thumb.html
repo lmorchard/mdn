@@ -1,18 +1,10 @@
-{% if submission.screenshot_1 %}
-    {# HACK: This .replace() should probably be done in the model #}
-    {% set thumbnail_url = submission.screenshot_1.url.replace('screenshot','screenshot_thumb') %}
-{% else %}
-    {% set thumbnail_url = MEDIA_URL + "img/mdn-logo.png" %}
-{% endif %}
  <li class="demo{{extra_class}}">
     <h2 class="demo-title">
         {# TODO: Title seems to interfere with hoverIntent #}
         {% if False %}
-        <a href="{{ submission.get_absolute_url() }}" title="{{ _('See more about {title} by {author}') | f(title=submission.title, author=submission.creator.first_name) }}"></a>
+            <a href="{{ submission.get_absolute_url() }}" title="{{ _('See more about {title} by {author}') | f(title=submission.title, author=submission.creator.first_name) }}"></a>
         {% endif %}
-        <a href="{{ submission.get_absolute_url() }}">
-            <img src="{{thumbnail_url}}" alt="" width="200" height="150"> {{ submission.title }}
-      </a>
+        <a href="{{ submission.get_absolute_url() }}"><img src="{{ submission.thumbnail_url(1) }}" alt="" width="200" height="150">{{ submission.title }}</a>
     </h2>
     <p class="byline vcard">{{ submission_creator(submission) }}</p>
     <div class="extra">
@@ -27,4 +19,4 @@
       <p class="desc">{{ submission.summary }}</p>
       <p class="launch"><a href="{{ url('demos_launch', slug=submission.slug) }}" class="button" title="{{ _('Launch {title}') | f(title=submission.title) }}">Launch</a></p>
     </div>
-  </li>
+</li>

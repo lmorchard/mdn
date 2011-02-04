@@ -243,5 +243,5 @@ def hideshow(request, slug, hide=True):
     return HttpResponseRedirect(reverse(
             'demos.views.detail', args=(submission.slug,)))
 
-def termsofuse(request):
-    return jingo.render(request, 'demos/termsofuse.html', {})
+def terms(request):
+    return jingo.render(request, 'demos/terms.html', {})

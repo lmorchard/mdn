@@ -20,12 +20,12 @@
 <div class="wrap">
   <nav class="crumbs">
     <ol role="navigation">
-      <li><a href="{{ url('home') }}">MDN</a></li>
-      <li><a href="{{ url('demos') }}">Demo Studio</a></li>
+        <li><a href="{{ url('home') }}">{{_('MDN')}}</a></li>
+        <li><a href="{{ url('demos') }}">{{_('Demo Studio')}}</a></li>
       <li><a href="">{{ _('Search demos for "{q}"') | f(q=query) }}</a></li>
     </ol>
   </nav>
-  <p class="demo-submit"><a href="{{ url('demos_submit') }}" class="button">Submit a Demo</a></p>
+  <p class="demo-submit"><a href="{{ url('demos_submit') }}" class="button">{{_('Submit a Demo')}}</a></p>
 </div>
 </section>
 

@@ -215,7 +215,7 @@ class SearchSubmissionsFeed(SubmissionsFeed):
         return query_string
 
     def items(self, query_string):
-        submissions = Submission.objects.search(query_string)\
+        submissions = Submission.objects.search(query_string, 'created')\
             .exclude(hidden=True)\
             .order_by('-modified').all()[:MAX_FEED_ITEMS]
         return submissions

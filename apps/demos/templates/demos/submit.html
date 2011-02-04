@@ -142,8 +142,8 @@
         <ul>
           {% if false %}{# @@TODO #}
           <li>
-            <label for="demo_package">Source code Zip file</label> 
-            <input type="file" id="demo_package" name="demo_package" class="filebutton" title="Upload demo file&hellip;">
+              <label for="demo_package">{{_('Source code Zip file')}}</label> 
+              <input type="file" id="demo_package" name="demo_package" class="filebutton" title="{{_('Upload demo file&hellip;')|safe}}">
           </li>
           {% endif %}
           {{ li_field(form, 'demo_package') }}
@@ -161,10 +161,10 @@
           <strong class="label">
             <label>
                 {{ form.accept_terms|safe }} 
-                {% trans tos_url=url('demos_termsofuse') %}
+                {% trans terms_url=url('demos_terms') %}
                     I accept the Mozilla Demo Studio 
-                    <a href="{{ tos_url }}#tos">Terms of Use</a> and 
-                    <a href="{{ tos_url }}#rrd">Rights Representation Details</a>
+                    <a href="{{ terms_url }}#tfc">Terms for Contributors</a> and 
+                    <a href="{{ terms_url }}#rrd">Rights Representation Details</a>
                 {% endtrans %}
             </label> 
            </strong>

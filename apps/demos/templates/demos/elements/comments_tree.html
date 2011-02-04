@@ -4,31 +4,42 @@
 
     <li class="hentry" id="comment-{{ comment.id }}">
 
-        <p class="entry-title vcard"><cite class="author fn">{{ profile_link(comment.user, True) }}</cite> said,</p>
+        <p class="entry-title vcard">
+            {% set comment_profile_link =  profile_link(comment.user, True) %}
+            {% trans %}
+                <cite class="author fn">{{comment_profile_link}}</cite> said,
+            {% endtrans %}
+        </p>
     
-        <p class="entry-meta">Posted <a href="#comment-{{ comment.id }}" rel="bookmark" title="{{_('Permanent link to this comment by {full_name}') | f(full_name=comment.user.username) }}">
-            <time class="published" pubdate="pubdate" datetime="{{ comment.date_submitted | isotime }}" title="{{ comment.date_submitted | isotime }}">{{ comment.date_submitted | timesince }}</time>
-        </a></p>
+        <p class="entry-meta">
+            {% set comment_id = comment.id %}
+            {% set display_name = comment.user.username %}
+            {% set comment_isotime = comment.date_submitted | isotime %}
+            {% set comment_timesince = comment.date_submitted | timesince %}
+            {% trans %}
+                Posted <a href="#comment-{{comment_id}}" rel="bookmark" title="Permanent link to this comment by {{display_name}}"><time class="published" pubdate="pubdate" datetime="{{comment_isotime}}" title="{{comment_isotime}}">{{comment_timesince}}</time></a>
+            {% endtrans %}
+        </p>
 
         <blockquote class="entry-content">
             {{ comment.comment | nl2br }}
         </blockquote>
         
         {% if request.user.is_authenticated() %}
-        <ul class="comment-opts"><!-- only for logged-in users -->
-          {% if comment.depth < 4 %}
-          <li class="opt-reply"><a href="#comment-post" title="Reply to this comment by Naomi Bellering">Reply</a></li>
-          {% endif %}
-          {% if false %}{# TODO: Implement flagging comments #}
-              <li class="opt-report"><a href="/report/confirm" title="Report this comment">Report</a></li><!-- Do you have to be logged in to report a comment? -->
-          {% endif %}
-          {% if false %}{# TODO: Implement editing comments #}
-              <li class="opt-delete"><a href="#" title="Edit this comment">Edit</a></li><!-- shown only to demo owner and admins... can users edit their own comments? -->
-          {% endif %}
-          {% if false %}{# TODO: Implement deleting comments #}
-              <li class="opt-delete"><a href="/delete/confirm" title="Delete this comment">Delete</a></li><!-- shown only to demo owner and admins... can users delete their own comments? -->
-          {% endif %}
-        </ul>
+            <ul class="comment-opts">
+              {% if comment.depth < 4 %}
+                  <li class="opt-reply"><a href="#comment-post" title="{{_('Reply to this comment by {full_name}') | f(full_name=comment.user.username) }}">{{_('Reply')}}</a></li>
+              {% endif %}
+              {% if false %}{# TODO: Implement flagging comments #}
+                  <li class="opt-report"><a href="/report/confirm" title="{{_('Report this comment')}}">{{_('Report')}}</a></li><!-- Do you have to be logged in to report a comment? -->
+              {% endif %}
+              {% if false %}{# TODO: Implement editing comments #}
+                  <li class="opt-delete"><a href="#" title="{{_('Edit this comment')}}">{{_('Edit')}}</a></li><!-- shown only to demo owner and admins... can users edit their own comments? -->
+              {% endif %}
+              {% if false %}{# TODO: Implement deleting comments #}
+                  <li class="opt-delete"><a href="/delete/confirm" title="{{_('Delete this comment')}}">{{_('Delete')}}</a></li><!-- shown only to demo owner and admins... can users delete their own comments? -->
+              {% endif %}
+            </ul>
 
             {% if comment.depth < 4 %}
             <div class="comment-reply">
@@ -36,7 +47,7 @@
                     {{ csrf() }}
                     <fieldset>
                         <div><textarea name="comment" rows="6" cols="60"></textarea></div>
-                        <p><button type="submit">Comment</button></p>
+                        <p><button type="submit">{{_('Comment')}}</button></p>
                     </fieldset>
                 </form>
             </div>
@@ -52,5 +63,3 @@
     </li>
 
 {% endfor %}
-
-

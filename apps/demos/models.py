@@ -334,6 +334,9 @@ class Submission(caching.base.CachingMixin, models.Model):
         except Submission.DoesNotExist:
             return None
 
+    def thumbnail_url(self, index='1'):
+        return getattr(self, 'screenshot_%s' % index).url.replace('screenshot','screenshot_thumb')
+
     @classmethod
     def allows_listing_hidden_by(cls, user):
         if user.is_staff or user.is_superuser:
