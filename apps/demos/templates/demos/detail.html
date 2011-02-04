@@ -16,16 +16,18 @@
     </ol>
   </nav>
   
-  {% if False %}{# Enable when we have lateral navigation #}
   <nav class="paging">
     <ul role="navigation">
-      <li class="prev"><a href="#" title="Go to the previous demo, &ldquo;Demo Title&rdquo;">Prev</a></li>
-      <li class="next"><a href="#" title="Go to the next demo, &ldquo;Demo Title&rdquo;">Next</a></li>
+        {% set prev = submission.previous() %}
+        {% if prev %}
+            <li class="prev"><a href="{{ prev.get_absolute_url() }}" title="{{_('Go to the previous demo, {demo_title}') | f(demo_title=prev.title)}}">{{_('Prev')}}</a></li>
+        {% endif %}
+        {% set next = submission.next() %}
+        {% if next %}
+            <li class="next"><a href="{{ next.get_absolute_url() }}" title="{{_('Go to the next demo, {demo_title}') | f(demo_title=next.title)}}">{{_('Next')}}</a></li>
+        {% endif %}
     </ul>
   </nav>
-  {% else %}
-  <p class="demo-submit"><a href="{{ url('demos_submit') }}" class="button">Submit a Demo</a></p>
-  {% endif %}
 
 </div>
 </section>

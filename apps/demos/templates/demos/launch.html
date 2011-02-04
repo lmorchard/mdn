@@ -51,14 +51,18 @@
       </li>
     </ul>
 
-    <!--
     <nav class="paging">
       <ul role="navigation">
-        <li class="prev"><a href="#" title="Go to the previous demo, &ldquo;Demo Title&rdquo;">Prev</a></li>
-        <li class="next"><a href="#" title="Go to the next demo, &ldquo;Demo Title&rdquo;">Next</a></li>
+        {% set prev = submission.previous() %}
+        {% if prev %}
+            <li class="prev"><a href="{{ prev.get_absolute_url() }}/launch" title="{{_('Go to the previous demo, {demo_title}') | f(demo_title=prev.title)}}">{{_('Prev')}}</a></li>
+        {% endif %}
+        {% set next = submission.next() %}
+        {% if next %}
+            <li class="next"><a href="{{ next.get_absolute_url() }}/launch" title="{{_('Go to the next demo, {demo_title}') | f(demo_title=next.title)}}">{{_('Next')}}</a></li>
+        {% endif %}
       </ul>
-      </nav>
-      -->
+    </nav>
     
       <p id="close"><a href="{{ submission.demo_package.url.replace('.zip', '/index.html') }}" title="{{_('Remove this toolbar')}}">{{_('Remove toolbar')}}</a></p>
     

@@ -318,6 +318,22 @@ class Submission(caching.base.CachingMixin, models.Model):
         if self.demo_package:
             Submission.validate_demo_zipfile(self.demo_package)
 
+    def next(self):
+        """Find the next submission by created time, return None if not found."""
+        try:
+            obj = self.get_next_by_created()
+            return obj
+        except Submission.DoesNotExist:
+            return None
+
+    def previous(self):
+        """Find the previous submission by created time, return None if not found."""
+        try:
+            obj = self.get_previous_by_created()
+            return obj
+        except Submission.DoesNotExist:
+            return None
+
     @classmethod
     def allows_listing_hidden_by(cls, user):
         if user.is_staff or user.is_superuser:
