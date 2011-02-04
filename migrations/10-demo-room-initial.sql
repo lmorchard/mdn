@@ -134,3 +134,15 @@ CREATE TABLE `tagging_taggeditem` (
   KEY `tagging_taggeditem_e4470c6e` (`content_type_id`),
   KEY `tagging_taggeditem_829e37fd` (`object_id`)
 );
+
+--
+-- Table structure for table `tagging_tag`
+--
+
+DROP TABLE IF EXISTS `tagging_tag`;
+CREATE TABLE `tagging_tag` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+);
