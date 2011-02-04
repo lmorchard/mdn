@@ -36,6 +36,7 @@ from .models import Submission, TAG_DESCRIPTIONS, DEMO_LICENSES
 from threadedcomments.models import ThreadedComment, FreeThreadedComment
 from threadedcomments.forms import ThreadedCommentForm, FreeThreadedCommentForm
 from threadedcomments.templatetags import threadedcommentstags
+import threadedcomments.views
 
 # Monkeypatch threadedcomments URL reverse() to use devmo's
 from devmo.urlresolvers import reverse
@@ -268,6 +269,10 @@ def get_threaded_comment_form():
 @register.function
 def auto_transform_markup(comment):
     return threadedcommentstags.auto_transform_markup(comment)
+
+@register.function
+def can_delete_comment(comment, user):
+    return threadedcomments.views.can_delete_comment(comment, user)
 
 @register.filter
 def timesince(d, now=None):
