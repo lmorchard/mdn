@@ -34,7 +34,9 @@ class LocaleURLMiddleware(object):
             new_path = prefixer.fix(prefixer.shortened_path)
             query = dict((smart_str(k), request.GET[k]) for k in request.GET)
             query.pop('lang')
-            return HttpResponsePermanentRedirect(urlparams(new_path, **query))
+            response = HttpResponsePermanentRedirect(urlparams(new_path, **query))
+            response.set_cookie('lang', request.GET['lang'])
+            return response
 
         if full_path != request.path:
             query_string = request.META.get('QUERY_STRING', '')

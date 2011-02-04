@@ -76,6 +76,11 @@ class Prefixer(object):
             if lang in settings.LANGUAGE_URL_MAP:
                 return settings.LANGUAGE_URL_MAP[lang]
 
+        if 'lang' in self.request.COOKIES:
+            lang = self.request.COOKIES['lang'].lower()
+            if lang in settings.LANGUAGE_URL_MAP:
+                return settings.LANGUAGE_URL_MAP[lang]
+
         if self.request.META.get('HTTP_ACCEPT_LANGUAGE'):
             ranked_languages = parse_accept_lang_header(
                 self.request.META['HTTP_ACCEPT_LANGUAGE'])

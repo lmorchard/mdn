@@ -5,6 +5,8 @@ import shlex
 import urllib2
 
 from devmo.helpers import devmo_url
+from devmo import urlresolvers
+from devmo.middleware import LocaleURLMiddleware
 
 def parse_robots(base_url):
     """ Given a base url, retrieves the robot.txt file and
@@ -77,3 +79,27 @@ class TestDevMoHelpers(test_utils.TestCase):
         eq_(devmo_url(context, localized_page), '/de/HTML')
         req.locale = 'zh-TW'
         eq_(devmo_url(context, localized_page), '/zh_tw/HTML')
+
+class TestDevMoUrlResolvers(test_utils.TestCase):
+    def test_prefixer_get_language(self):
+        # language precedence is GET param > cookie > Accept-Language
+        req = test_utils.RequestFactory().get('/', {'lang': 'es'})
+        prefixer = urlresolvers.Prefixer(req)
+        eq_(prefixer.get_language(), 'es')
+
+        req = test_utils.RequestFactory().get('/')
+        req.COOKIES['lang'] = 'de'
+        prefixer = urlresolvers.Prefixer(req)
+        eq_(prefixer.get_language(), 'de')
+
+        req = test_utils.RequestFactory().get('/')
+        req.META['HTTP_ACCEPT_LANGUAGE'] = 'fr'
+        prefixer = urlresolvers.Prefixer(req)
+        eq_(prefixer.get_language(), 'fr')
+
+class TestDevMoMiddleWare(test_utils.TestCase):
+    def test_locale_process_request(self):
+        req = test_utils.RequestFactory().get('/', {'lang': 'es'})
+        locale_middleware = LocaleURLMiddleware()
+        response = locale_middleware.process_request(req)
+        eq_(response.cookies['lang'].value, 'es')
