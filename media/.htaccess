@@ -1,0 +1,2 @@
+# Configure ETags for optimal caching
+FileETag MTime Size

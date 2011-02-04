@@ -1,11 +1,6 @@
 # Note this file should be symlinked from the dekiwiki root
 # Example: ln -s /home/foo/mdn/configs/htaccess /var/www/dekiwiki/.htaccess
 #
-
-# Configure ETags for optimal caching
-Header unset ETag
-FileETag None
-
 # Make sure AllowOverride has FileInfo
 ReWriteEngine On
 RewriteBase /
