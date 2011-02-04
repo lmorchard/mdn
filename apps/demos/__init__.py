@@ -13,7 +13,7 @@ except ImportError:
     import Image
 
 def scale_image(img_upload, img_max_size):
-    """Crop and scale an image in-place in form upload, normalize filename."""
+    """Crop and scale an image file."""
     try:
         img = Image.open(img_upload)
     except IOError:

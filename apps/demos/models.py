@@ -24,7 +24,7 @@ from django.db.models.fields.files import FieldFile, ImageFieldFile
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 from django.template.loader import render_to_string
-from django.template.defaultfilters import slugify
+from django.template.defaultfilters import slugify, filesizeformat
 
 import caching.base
 
@@ -57,7 +57,8 @@ except ImportError:
 THUMBNAIL_MAXW = getattr(settings, 'DEMO_THUMBNAIL_MAX_WIDTH', 200)
 THUMBNAIL_MAXH = getattr(settings, 'DEMO_THUMBNAIL_MAX_HEIGHT', 150)
 
-RESIZE_METHOD = getattr(settings, 'RESIZE_METHOD', Image.ANTIALIAS)
+DEMO_MAX_ZIP_FILESIZE = getattr(settings, 'DEMO_MAX_ZIP_FILESIZE', 2 * 1024 * 1024) # 2MB
+DEMO_MAX_FILESIZE_IN_ZIP = getattr(settings, 'DEMO_MAX_FILESIZE_IN_ZIP', 1024 * 1024) # 1MB
 
 
 class ConstrainedTagField(tagging.fields.TagField):
@@ -97,6 +98,7 @@ class OverwritingFieldFile(FieldFile):
     """The built-in FieldFile alters the filename when saving, if a file with
     that name already exists. This subclass deletes an existing file first so
     that an upload will replace it."""
+    # TODO:liberate
     def save(self, name, content, save=True):
         name = self.field.generate_filename(self.instance, name)
         self.storage.delete(name)
@@ -104,11 +106,37 @@ class OverwritingFieldFile(FieldFile):
     
 
 class OverwritingFileField(models.FileField):
+    # TODO:liberate
     """This field causes an uploaded file to replace an existing one on disk."""
     attr_class = OverwritingFieldFile
 
+    def __init__(self, *args, **kwargs):
+        self.content_types = kwargs.pop("content_types")
+        self.max_upload_size = kwargs.pop("max_upload_size")
+        super(OverwritingFileField, self).__init__(*args, **kwargs)
+
+    def clean(self, *args, **kwargs):        
+        data = super(OverwritingFileField, self).clean(*args, **kwargs)
+        
+        file = data.file
+        try:
+            content_type = file.content_type
+            if content_type in self.content_types:
+                if file._size > self.max_upload_size:
+                    raise ValidationError(
+                        _('Please keep filesize under %s. Current filesize %s') % 
+                        (filesizeformat(self.max_upload_size), filesizeformat(file._size))
+                    )
+            else:
+                raise ValidationError(_('Filetype not supported.'))
+        except AttributeError:
+            pass        
+            
+        return data
+
 
 class OverwritingImageFieldFile(ImageFieldFile):
+    # TODO:liberate
     """The built-in FieldFile alters the filename when saving, if a file with
     that name already exists. This subclass deletes an existing file first so
     that an upload will replace it."""
@@ -119,6 +147,7 @@ class OverwritingImageFieldFile(ImageFieldFile):
     
 
 class OverwritingImageField(models.ImageField):
+    # TODO:liberate
     """This field causes an uploaded file to replace an existing one on disk."""
     attr_class = OverwritingImageFieldFile
 
@@ -248,6 +277,8 @@ class Submission(caching.base.CachingMixin, models.Model):
 
     demo_package = OverwritingFileField(
             _('select a ZIP file containing your demo'),
+            content_types=['application/zip'],
+            max_upload_size=DEMO_MAX_ZIP_FILESIZE,
             upload_to=mk_upload_to('demo_package.zip'),
             blank=False)
     source_code_url = models.URLField(
@@ -369,10 +400,14 @@ class Submission(caching.base.CachingMixin, models.Model):
         index_found = False
         for zi in valid_entries:
             name = zi.filename
+
             # HACK: We're accepting {index,demo}.html as the root index and
             # normalizing on unpack
             if 'index.html' == name or 'demo.html' == name:
                 index_found = True
+
+            if zi.file_size > DEMO_MAX_FILESIZE_IN_ZIP:
+                raise ValidationError(_('ZIP file contains files that are too large'))
         
         if not index_found:
             raise ValidationError(_('HTML index not found in ZIP'))

@@ -32,11 +32,19 @@ class DemoPackageTest(TestCase):
         self.user = User.objects.create_user('tester', 'tester@tester.com', 'tester')
         self.user.save()
 
+        self.submission = self._build_submission()
+
     def tearDown(self):
         self.user.delete()
 
-    def test_demo_package_validation(self):
-        """Exercise zip file validation by throwing through various invalid and valid zip files."""
+    def _build_submission(self):
+        s = Submission(title='Hello world', slug='hello-world',
+            description='This is a hello world demo',
+            tags='hello,world,demo,play', creator=self.user)
+        return s
+
+    def test_demo_package_no_files(self):
+        """Demo package with no files is invalid"""
 
         s = Submission(title='Hello world', slug='hello-world',
             description='This is a hello world demo',
@@ -56,6 +64,10 @@ class DemoPackageTest(TestCase):
 
         unlink(s.demo_package.path)
 
+    def test_demo_package_index_not_in_root(self):
+        """Demo package with no index.html at the root is invalid"""
+        s = self.submission
+
         fout = StringIO()
         zf = zipfile.ZipFile(fout, 'w')
         zf.writestr('play/index.html', """<html> </html>""")
@@ -70,6 +82,10 @@ class DemoPackageTest(TestCase):
 
         unlink(s.demo_package.path)
 
+    def test_demo_package_no_index(self):
+        """Demo package with no index.html at all is invalid"""
+        s = self.submission
+
         fout = StringIO()
         zf = zipfile.ZipFile(fout, 'w')
         zf.writestr('js/demo.js', """alert('hi')""")
@@ -83,6 +99,10 @@ class DemoPackageTest(TestCase):
             ok_('HTML index not found in ZIP' in e.messages)
 
         unlink(s.demo_package.path)
+
+    def test_demo_package_badfiles(self):
+        """Demo package with naughty file entries is invalid"""
+        s = self.submission
 
         fout = StringIO()
         zf = zipfile.ZipFile(fout, 'w')
@@ -99,6 +119,10 @@ class DemoPackageTest(TestCase):
 
         unlink(s.demo_package.path)
 
+    def test_demo_package_valid(self):
+        """Demo package with at least index.html in root is valid"""
+        s = self.submission
+
         fout = StringIO()
         zf = zipfile.ZipFile(fout, 'w')
         zf.writestr('index.html', """<html> </html>""")
@@ -112,6 +136,10 @@ class DemoPackageTest(TestCase):
             ok_(False, "The last zip file should have been okay")
 
         unlink(s.demo_package.path)
+
+    def test_demo_package_also_accept_demo_html(self):
+        """Demo package with demo.html in root is valid, too"""
+        s = self.submission
 
         fout = StringIO()
         zf = zipfile.ZipFile(fout, 'w')
@@ -128,7 +156,7 @@ class DemoPackageTest(TestCase):
         unlink(s.demo_package.path)
 
     def test_process_demo_package(self):
-        """Ensure that process_demo_package() results in a directory of demo files"""
+        """Calling process_demo_package() should result in a directory of demo files"""
         
         fout = StringIO()
         zf = zipfile.ZipFile(fout, 'w')
@@ -201,3 +229,23 @@ class DemoPackageTest(TestCase):
         ok_(isfile('%s/js/main.js' % path))
         
         rmtree(path)
+
+    def test_demo_file_size_limit(self):
+        """Demo package with any individual file >1MB in size is invalid"""
+        s = self.submission
+
+        fout = StringIO()
+        zf = zipfile.ZipFile(fout, 'w')
+        zf.writestr('index.html', """<html> </html>""")
+        zf.writestr('bigfile.txt', ''.join('x' for x in range(0, (1024 * 1024) + 1)))
+        zf.close()
+        s.demo_package.save('play_demo.zip', ContentFile(fout.getvalue()))
+
+        try:
+            s.clean()
+            ok_(False, "There should be a validation exception")
+        except ValidationError, e:
+            ok_('ZIP file contains files that are too large' in e.messages)
+
+        unlink(s.demo_package.path)
+        
