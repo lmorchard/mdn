@@ -278,12 +278,6 @@ PHPBB_COOKIE_PREFIX = 'phpbb3_jzxvr'
 
 TEST_RUNNER = 'test_utils.runner.RadicalTestSuiteRunner'
 
-# Filesystem location for uploaded media files, relative to MEDIA_ROOT
-UPLOADED_MEDIA_ROOT = 'uploads'
-
-# URL location for uploaded media files
-UPLOADED_MEDIA_URL = '%s/uploads/' % MEDIA_URL
-
 SERVE_MEDIA = False
 
 RECAPTCHA_USE_SSL = False
@@ -298,3 +292,8 @@ FLAG_REASONS = (
 
 BITLY_API_KEY = "SET ME IN SETTINGS_LOCAL"
 BITLY_USERNAME = "SET ME IN SETTINGS_LOCAL"
+
+# Filesystem path where files uploaded for demos will be written
+DEMO_UPLOADS_ROOT = path('media/uploads/demos')
+# Base URL from where files uploaded for demos will be linked and served
+DEMO_UPLOADS_URL = '/media/uploads/demos/'

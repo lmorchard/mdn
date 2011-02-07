@@ -20,7 +20,10 @@ from django.core.exceptions import ValidationError
 
 from django.db import models
 from django.db.models import Q
+
 from django.db.models.fields.files import FieldFile, ImageFieldFile
+from django.core.files.storage import FileSystemStorage
+
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 from django.template.loader import render_to_string
@@ -59,6 +62,29 @@ THUMBNAIL_MAXH = getattr(settings, 'DEMO_THUMBNAIL_MAX_HEIGHT', 150)
 
 DEMO_MAX_ZIP_FILESIZE = getattr(settings, 'DEMO_MAX_ZIP_FILESIZE', 60 * 1024 * 1024) # 60MB
 DEMO_MAX_FILESIZE_IN_ZIP = getattr(settings, 'DEMO_MAX_FILESIZE_IN_ZIP', 60 * 1024 * 1024) # 60MB
+
+# Set up a file system for demo uploads that can be kept separate from the rest
+# of /media if necessary. Lots of hackery here to ensure a set of sensible
+# defaults are tried.
+DEMO_UPLOADS_ROOT = getattr(settings, 'DEMO_UPLOADS_ROOT',
+    '%s/uploads/demos' % getattr(settings, 'MEDIA_ROOT', 'media'))
+DEMO_UPLOADS_URL = getattr(settings, 'DEMO_UPLOADS_URL',
+    '%s/uploads/demos' % getattr(settings, 'MEDIA_URL', '/media'))
+demo_uploads_fs = FileSystemStorage(location=DEMO_UPLOADS_ROOT, base_url=DEMO_UPLOADS_URL)
+
+
+def get_root_for_submission(instance):
+    """Build a root path for demo submission files"""
+    c_name = instance.creator.username
+    return '%(h1)s/%(h2)s/%(username)s/%(slug)s' % dict(
+         h1=c_name[0], h2=c_name[1], username=c_name, slug=instance.slug,)
+
+def mk_upload_to(field_fn):
+    """upload_to builder for file upload fields"""
+    def upload_to(instance, filename):
+        return '%(base)s/%(field_fn)s' % dict( 
+            base=get_root_for_submission(instance), field_fn=field_fn)
+    return upload_to
 
 
 class ConstrainedTagField(tagging.fields.TagField):
@@ -151,17 +177,6 @@ class OverwritingImageField(models.ImageField):
     """This field causes an uploaded file to replace an existing one on disk."""
     attr_class = OverwritingImageFieldFile
 
-
-def get_root_for_submission(instance):
-    c_name = instance.creator.username
-    return 'uploads/demos/%(h1)s/%(h2)s/%(username)s/%(slug)s' % dict(
-         h1=c_name[0], h2=c_name[1], username=c_name, slug=instance.slug,)
-
-def mk_upload_to(field_fn):
-    def upload_to(instance, filename):
-        return '%(base)s/%(field_fn)s' % dict( 
-            base=get_root_for_submission(instance), field_fn=field_fn)
-    return upload_to
 
 class SubmissionManager(caching.base.CachingManager):
     """Manager for Submission objects"""
@@ -257,18 +272,23 @@ class Submission(caching.base.CachingMixin, models.Model):
 
     screenshot_1 = OverwritingImageField(
             _('Screenshot #1'),
+            storage=demo_uploads_fs,
             upload_to=mk_upload_to('screenshot_1.png'), blank=False)
     screenshot_2 = OverwritingImageField(
             _('Screenshot #2'),
+            storage=demo_uploads_fs,
             upload_to=mk_upload_to('screenshot_2.png'), blank=True)
     screenshot_3 = OverwritingImageField(
             _('Screenshot #3'),
+            storage=demo_uploads_fs,
             upload_to=mk_upload_to('screenshot_3.png'), blank=True)
     screenshot_4 = OverwritingImageField(
             _('Screenshot #4'),
+            storage=demo_uploads_fs,
             upload_to=mk_upload_to('screenshot_4.png'), blank=True)
     screenshot_5 = OverwritingImageField(
             _('Screenshot #5'),
+            storage=demo_uploads_fs,
             upload_to=mk_upload_to('screenshot_5.png'), blank=True)
 
     video_url = VideoEmbedURLField(
@@ -279,6 +299,7 @@ class Submission(caching.base.CachingMixin, models.Model):
             _('select a ZIP file containing your demo'),
             content_types=['application/zip'],
             max_upload_size=DEMO_MAX_ZIP_FILESIZE,
+            storage=demo_uploads_fs,
             upload_to=mk_upload_to('demo_package.zip'),
             blank=False)
 

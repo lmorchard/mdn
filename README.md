@@ -95,19 +95,20 @@ By default on a development machine, you may not need to make any changes here.
 The location of this directory for writing files and building links is based on
 the following two settings variables:
 
-    # Filesystem path
-    MEDIA_ROOT = path('media') 
+    # Filesystem path where files uploaded for demos will be written
+    DEMO_UPLOADS_ROOT = path('media/uploads/demos')
 
-    # URL base path
-    MEDIA_URL = '/media/'
+    # Base URL from where files uploaded for demos will be linked and served
+    DEMO_UPLOADS_URL = '/media/uploads/demos/'
 
-Under the location specified by `MEDIA_ROOT`, a subdirectory named `uploads` will
-be used for storing user-submitted files (ie. screenshots and demo files). So,
-make sure whatever is configured in settings has a directory `uploads`
-available to which the Django application can write.
+The directory specified by `DEMO_UPLOADS_ROOT` should be writable by the Django
+application, and `DEMO_UPLOADS_URL` should point at a web server where those files
+written can be accessed from the web.
 
-The `MEDIA_URL` variable should point to a base URL where the contents of the
-`MEDIA_ROOT` directory can be accessed from the web.
+To help keep the application secure, be sure to configure the web server at
+`DEMO_UPLOADS_URL` so that these files are just served up as static resources
+with proper content-types. That is, ensure that no scripting is enabled for any
+files that happen to have .php or .cgi extensions.
 
 ### urls.py
 Be careful with URI design. Do a search to make sure your top level path foo doesn't 

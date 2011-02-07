@@ -3,6 +3,11 @@ from settings import *
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+# Filesystem path where files uploaded for demos will be written
+DEMO_UPLOADS_ROOT = path('media/uploads/demos')
+# Base URL from where files uploaded for demos will be linked and served
+DEMO_UPLOADS_URL = '/media/uploads/demos/'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
