@@ -281,6 +281,7 @@ class Submission(caching.base.CachingMixin, models.Model):
             max_upload_size=DEMO_MAX_ZIP_FILESIZE,
             upload_to=mk_upload_to('demo_package.zip'),
             blank=False)
+
     source_code_url = models.URLField(
             _("Is your source code also available somewhere else on the web (e.g., github)? Please share the link."),
             verify_exists=False, blank=True, null=True)

@@ -12,6 +12,12 @@ try:
 except ImportError:
     from StringIO import StringIO
 
+
+from django.conf import settings
+settings.DEMO_MAX_FILESIZE_IN_ZIP = 1 * 1024 * 1024
+settings.DEMO_MAX_ZIP_FILESIZE = 1 * 1024 * 1024
+
+
 from django.http import HttpRequest
 from django.test import TestCase
 from django.test.client import Client
@@ -25,6 +31,9 @@ from nose.tools import assert_equal, with_setup, assert_false, eq_, ok_
 from nose.plugins.attrib import attr
 
 from demos.models import Submission
+
+import demos.models
+demos.models.DEMO_MAX_FILESIZE_IN_ZIP = 1 * 1024 * 1024
 
 class DemoPackageTest(TestCase):
 
@@ -234,10 +243,14 @@ class DemoPackageTest(TestCase):
         """Demo package with any individual file >1MB in size is invalid"""
         s = self.submission
 
+        # HACK: Since the field's already defined, it won't pick up the settings change,
+        # so force it directly in the field
+        s.demo_package.field.max_upload_size = settings.DEMO_MAX_FILESIZE_IN_ZIP
+
         fout = StringIO()
         zf = zipfile.ZipFile(fout, 'w')
         zf.writestr('index.html', """<html> </html>""")
-        zf.writestr('bigfile.txt', ''.join('x' for x in range(0, (1024 * 1024) + 1)))
+        zf.writestr('bigfile.txt', ''.join('x' for x in range(0, settings.DEMO_MAX_FILESIZE_IN_ZIP + 1)))
         zf.close()
         s.demo_package.save('play_demo.zip', ContentFile(fout.getvalue()))
 
