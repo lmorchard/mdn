@@ -13,20 +13,6 @@ except ImportError:
     import Image
 
 
-# HACK: Monkey-patch jingo template rendering into threaded comments
-from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
-import jingo
-import threadedcomments.views
-def tc_render_to_response(template_name, extra_context, context_instance):
-    ctx = {}
-    for d in context_instance.dicts:
-        ctx.update(d)
-    template = jingo.env.get_template('demos/%s' % template_name)
-    return HttpResponse(template.render(ctx))
-
-threadedcomments.views.render_to_response = tc_render_to_response
-
-
 def scale_image(img_upload, img_max_size):
     """Crop and scale an image file."""
     try:

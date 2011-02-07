@@ -27,6 +27,8 @@ urlpatterns = patterns('demos.views',
     url(r'^detail/(?P<slug>[^/]+)/launch$', 'launch', name='demos_launch'),
     url(r'^detail/(?P<slug>[^/]+)/edit$', 'edit', name='demos_edit'),
     url(r'^detail/(?P<slug>[^/]+)/delete$', 'delete', name='demos_delete'),
+    url(r'^detail/(?P<slug>[^/]+)/comment/(?P<object_id>\d+)/delete/$', 
+        'delete_comment', name='demos_delete_comment'),
     url(r'^detail/(?P<slug>[^/]+)/hide$', 'hideshow', dict( hide=True ), name='demos_hide'),
     url(r'^detail/(?P<slug>[^/]+)/show$', 'hideshow', dict( hide=False ), name='demos_show'),
 

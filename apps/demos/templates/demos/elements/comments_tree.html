@@ -37,7 +37,7 @@
                   <li class="opt-delete"><a href="#" title="{{_('Edit this comment')}}">{{_('Edit')}}</a></li><!-- shown only to demo owner and admins... can users edit their own comments? -->
               {% endif %}
               {% if can_delete_comment(comment, request.user) %}
-              <li class="opt-delete"><a class="modal" href="{{ url('tc_comment_delete', comment.id) }}?next={{ object.get_absolute_url() }}" title="{{_('Delete this comment')}}">{{_('Delete')}}</a></li>
+              <li class="opt-delete"><a class="modal" href="{{ url('demos_delete_comment', object.slug, comment.id) }}" title="{{_('Delete this comment')}}">{{_('Delete')}}</a></li>
               {% endif %}
             </ul>
 

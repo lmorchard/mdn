@@ -32,6 +32,9 @@ from demos.forms import SubmissionNewForm, SubmissionEditForm
 from contentflagging.models import ContentFlag
 from contentflagging.forms import ContentFlagForm
 
+import threadedcomments.views
+from threadedcomments.models import ThreadedComment
+
 from utils import JingoTemplateLoader
 template_loader = JingoTemplateLoader()
 
@@ -230,6 +233,20 @@ def delete(request, slug):
 
     return jingo.render(request, 'demos/delete.html', { 
         'submission': submission })
+
+def delete_comment(request, slug, object_id):
+    """Delete a comment on a submission, if permitted."""
+    tc = get_object_or_404(ThreadedComment, id=int(object_id))
+    if not threadedcomments.views.can_delete_comment(tc, request.user):
+        return HttpResponseForbidden(_('access denied'))
+    submission = get_object_or_404(Submission, slug=slug)
+    if request.method == "POST":
+        tc.delete()
+        return HttpResponseRedirect(reverse(
+            'demos.views.detail', args=(submission.slug,)))
+    return jingo.render(request, 'demos/delete_comment.html', { 
+        'comment': tc 
+    })
 
 def hideshow(request, slug, hide=True):
     submission = get_object_or_404(Submission, slug=slug)
