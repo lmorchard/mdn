@@ -1,5 +1,6 @@
 import json
 import os.path
+import re
 import urllib
 from xml.etree import ElementTree
 
@@ -11,6 +12,7 @@ import commonware
 import cronjobs
 from dateutil.parser import parse as parse_date
 
+from devmo.helpers import get_localized_devmo_path, check_devmo_local_page
 
 log = commonware.log.getLogger('mdn.cron')
 
@@ -64,3 +66,25 @@ def mdc_pages():
     outputfile = os.path.join(settings.MDC_PAGES_DIR, 'popular.json')
     log.debug('Writing results to JSON file %s' % outputfile)
     json.dump(pages, open(outputfile, 'w'))
+
+@cronjobs.register
+def cache_doc_center_links():
+    devmo_url_regexp = "devmo_url\(_\('(?P<path>[\w/_]+)'\)\)"
+    """Cache MDC/DekiWiki links for devmo_url."""
+    for subdir, dirs, files in os.walk(settings.ROOT):
+        for file in files:
+            if file.endswith('html') and subdir.find('vendor') is -1:
+                f = open(os.path.join(subdir, file), 'r')
+                lines = f.readlines()
+                f.close()
+                for line in lines:
+                    if line.find('devmo_url') is -1:
+                        continue
+                    m = re.search(devmo_url_regexp, line)
+                    if not m:
+                        continue
+                    path_dict = m.groupdict()
+                    path = path_dict['path']
+                    for locale in settings.MDN_LANGUAGES:
+                        devmo_locale, devmo_path, devmo_local_path = get_localized_devmo_path(path, locale)
+                        check_devmo_local_page(devmo_local_path)

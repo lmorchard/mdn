@@ -105,23 +105,31 @@ def devmo_url(context, path):
         then default to given path
     """
     current_locale = context['request'].locale
+    devmo_locale, devmo_path, devmo_local_path = get_localized_devmo_path(path, current_locale)
+    if current_locale != devmo_locale:
+        http_status_code = cache.get('devmo_local_path:%s' % devmo_local_path)
+        if http_status_code is None:
+            http_status_code = check_devmo_local_page(devmo_local_path)
+        if http_status_code == 200:
+            path = devmo_local_path
+    return path
+
+def get_localized_devmo_path(path, locale):
     locale_regexp = "/(?P<locale>\w+)/(?P<path>.*)"
     m = re.match(locale_regexp, path, re.IGNORECASE)
     if not m:
         return path
     devmo_url_dict = m.groupdict()
     devmo_locale, devmo_path = devmo_url_dict['locale'], devmo_url_dict['path']
-    if current_locale != devmo_locale:
-        devmo_local_path = '/' + settings.LANGUAGE_DEKI_MAP[current_locale] + '/' + devmo_path
-        http_status_code = cache.get('devmo_local_path:%s' % devmo_local_path)
-        if http_status_code is None:
-            deki_tuple = urlparse.urlparse(settings.DEKIWIKI_ENDPOINT)
-            conn = httplib.HTTPSConnection(deki_tuple.netloc)
-            conn.request("GET", devmo_local_path)
-            resp = conn.getresponse()
-            http_status_code = resp.status
-            cache.set('devmo_local_path:%s' % devmo_local_path, http_status_code)
-            conn.close()
-        if http_status_code == 200:
-            path = devmo_local_path
-    return path
+    devmo_local_path = '/' + settings.LANGUAGE_DEKI_MAP[locale] + '/' + devmo_path
+    return devmo_locale, devmo_path, devmo_local_path
+
+def check_devmo_local_page(path):
+    deki_tuple = urlparse.urlparse(settings.DEKIWIKI_ENDPOINT)
+    conn = httplib.HTTPSConnection(deki_tuple.netloc)
+    conn.request("GET", path)
+    resp = conn.getresponse()
+    http_status_code = resp.status
+    cache.set('devmo_local_path:%s' % path, http_status_code)
+    conn.close()
+    return http_status_code
