@@ -139,24 +139,31 @@ head(
 <script type="text/javascript" src="./js/carousel.js"></script>
 <script type="text/javascript">
 $(".screenshots").ready(function(){
-  // Set up the carousel
-  $(".screenshots").addClass("js").jCarouselLite({
-      btnNext: ".nav-next a",
-      btnPrev: ".nav-prev a", 
-      visible: 1
-  });
+
+  var shots_len = $('.screenshots .panel').length;
+
+  // Set up the carousel if we have more than one shot
+  if ( shots_len > 1 ) {
+    $('.nav-next a').show();
+    $('.nav-prev a').show();
+
+    $(".screenshots").addClass("js").jCarouselLite({
+        btnNext: ".nav-next a",
+        btnPrev: ".nav-prev a", 
+        visible: 1
+    });
   
-  $(".screenshots").hover(
-    function() {
-      $(".nav-next a").animate({ right: "0" },{ queue:false });
-      $(".nav-prev a").animate({ left: "0" },{ queue:false });
-    },
-    function() {
-      $(".nav-next a").animate({ right: "-60px" },{ queue:false });
-      $(".nav-prev a").animate({ left: "-60px" },{ queue:false });    
-    }
-  );
-  
+    $(".screenshots").hover(
+      function() {
+        $(".nav-next a").animate({ right: "0" },{ queue:false });
+        $(".nav-prev a").animate({ left: "0" },{ queue:false });
+      },
+      function() {
+        $(".nav-next a").animate({ right: "-60px" },{ queue:false });
+        $(".nav-prev a").animate({ left: "-60px" },{ queue:false });    
+      }
+    );
+  } // endif  
 });
 </script>
 
@@ -275,12 +282,14 @@ $(".screenshots").ready(function(){
         <h3 class="mod-title">Get the Source Code</h3>
         <p class="download"><a href="#">Download the Source <span class="note">320 KB &middot; ZIP File</span></a></p>
         <p class="browse"><a href="#">Browse the Source <span class="note">Hosted on GitHub</span></a></p>
-        <p class="license copyleft">This demo is released under <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" rel="license">GPL</a>.</p>
+        <p class="license gpl">This demo is released under <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" rel="license">GPL</a>.</p>
+      <!-- The second class indicates the specific license: apache, bsd, gpl, mpl, publicdomain -->
       </div>
       
       <div class="module" id="moreby">
         <h3 class="mod-title">More by <a href="demo-gallery-author.php">Neil Gaudlin</a></h3>
         <ul class="gallery">
+          <li><a href="#"><img src="./img/fpo55.png" alt="" title="Demo Title" width="90" height="68"></a></li>
           <li><a href="#"><img src="./img/fpo55.png" alt="" title="Demo Title" width="90" height="68"></a></li>
           <li><a href="#"><img src="./img/fpo55.png" alt="" title="Demo Title" width="90" height="68"></a></li>
         </ul>

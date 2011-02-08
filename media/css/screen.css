@@ -35,8 +35,7 @@ Font sizes -
 /* @Fonts *********/
 @font-face {
 	font-family: "League Gothic";
- 	src: url("fonts/League_Gothic-webfont.eot");
- 	src: local("LeagueGothicRegular"),
+ 	src: url("fonts/League_Gothic-webfont.eot#") format("embedded-opentype"),
 	     url("fonts/League_Gothic-webfont.woff") format("woff"), 
 	     url("fonts/League_Gothic-webfont.ttf") format("truetype"), 
 	     url("fonts/League_Gothic-webfont.svg#webfont") format("svg");
@@ -46,14 +45,14 @@ Font sizes -
 
 @font-face {
   font-family: "Bebas Neue";
-  src: url("fonts/BebasNeue-webfont.eot");
-  src: local("BebasNeueRegular"),
+  src: url("fonts/BebasNeue-webfont.eot#") format("embedded-opentype"),
 	     url("fonts/BebasNeue-webfont.woff") format("woff"), 
 	     url("fonts/BebasNeue-webfont.ttf") format("truetype"), 
-	     url("fonts/BebasNeue-webfont.svg") format("svg");
+	     url("fonts/BebasNeue-webfont.svg#webfont") format("svg");
 	font-weight: normal;
 	font-style: normal;
 }
+
 
 /* @Reset *********/
 header, hgroup, nav, section, article, aside, footer { display: block; }
@@ -89,12 +88,17 @@ body { min-height: 400px; font: 14px/1.286 "Lucida Grande", "Lucida Sans Unicode
 a.go:after { content: "\00A0\000BB"; font: 1.3em Georgia, Times, "Times New Roman", serif; }
 
 /*** @Buttons *********/
-button, input[type=submit], input[type=button], a.button, span.button, #demobox .manage button span { padding: .4em 10px .1em; display: inline-block; background: #bd5642 url("../img/button-shade.png") 0 .75em repeat-x; color: #fff; font: 200 1em/1 "Bebas Neue", "League Gothic", Haettenschweiler, "Arial Narrow", sans-serif; text-decoration: none; text-transform: uppercase; letter-spacing: .5px; border: 0; -moz-border-radius: .2em; -webkit-border-radius: .2em; border-radius: .2em; }
+button, input[type=submit], input[type=button], a.button, span.button, #demobox .manage button span { padding: .45em .75em .1em; display: inline-block; background: #bd5642 url("../img/button-shade.png") 0 .75em repeat-x; color: #fff; font: 200 1em/1 "Bebas Neue", "League Gothic", Haettenschweiler, "Arial Narrow", sans-serif; text-decoration: none; text-transform: uppercase; letter-spacing: .5px; border: 0; -moz-border-radius: .2em; -webkit-border-radius: .2em; border-radius: .2em; }
 button:hover, input[type=submit]:hover, input[type=button]:hover, 
 button:focus, input[type=submit]:focus, input[type=button]:focus, 
 a.button:hover, a.button:focus, a.button:active { background-color: #ae4935; color: #fff; cursor: pointer; text-decoration: none; }
 
 a.button, span.button, #demobox .manage button span { -moz-box-shadow: 1px 1px 0 rgba(0,0,0,.25); -webkit-box-shadow: 1px 1px 0 rgba(0,0,0,.25); box-shadow: 1px 1px 0 rgba(0,0,0,.25); }
+
+.button.positive { background-color: #689032; }
+.button.positive:hover, .button.positive:focus, .button.positive:active { background-color: #78a935; }
+
+.choices .button { font-size: 1.714em; margin-right: 20px; }
 
 /*** @Headings *********/
 h1, h2, h3, h4, h5, h6 { margin: 0 0 .8em; }
@@ -471,9 +475,9 @@ ul.index { width: 100%; height: 3em; list-style: none; margin: 0; }
 ul.index a { color: #2f2f2f; text-decoration: none; }
 ul.index a:hover, ul.index a:focus, ul.index a:active { color: #2f2f2f; text-decoration: none; }
 
-/* @Sidebar *********/
-#content-sub .module, #demo-sub .module, .submission .module { background: #fff; border-bottom: 3px solid #cecabc; padding: 18px; margin: 0 0 22px; }
-#content-sub .module.hot { border-bottom: 2px solid #e9c5bb; background: #fff url("../img/bg-module-hot.png") 80% 100% no-repeat; }
+/* @Sidebar @modules *********/
+.module { background: #fff; border-bottom: 3px solid #cecabc; padding: 18px; margin: 0 0 22px; }
+.module.hot { border-bottom: 2px solid #e9c5bb; background: #fff url("../img/bg-module-hot.png") 80% 100% no-repeat; }
 .module .mod-title { margin: -18px -18px 18px; padding: 15px 18px 10px; background: #2f2f2f url("../img/bg-headings.png") 0 0 no-repeat; color: #fff; font: 200 1.285em/1.2 "Bebas Neue", "League Gothic", Haettenschweiler, "Arial Narrow", sans-serif; text-transform: uppercase; letter-spacing: .5px; }
 .module .mod-title a { color: #a8d4ff; }
 .module ul, .module ol { margin: 0; }
@@ -491,6 +495,17 @@ ul.index a:hover, ul.index a:focus, ul.index a:active { color: #2f2f2f; text-dec
 .module .hentry .entry-meta { font-size: .857em; font-weight: bold; }
 
 #demo-tags li { font-size: .786em; font-weight: bold; margin: 0 0 .75em; }
+
+/* for module-style boxes in the main content */
+.modules { clear: both; overflow: hidden; }
+.modules .module { width: 275px; float: left; margin-right: 20px; }
+
+#before-begin .mod-title { background-position: 100% -300px; }
+#prepare-demo .mod-title { background-position: 100% -200px; }
+
+#content .module.notes ul { font-size: .785em; }
+#content .module.notes li { margin: 0 0 10px; padding: 0 0 10px; background: none; border-bottom: 1px dotted #b9b6a7; }
+#content .module.notes li:last-child { padding: 0; border: 0; margin: 0; }
 
 /*** @Doc of the day *********/
 #content-sub #doc-of-the-day { border: 4px solid #f8d575; background: #000; color: #fff; }
@@ -535,7 +550,6 @@ ul.index a:hover, ul.index a:focus, ul.index a:active { color: #2f2f2f; text-dec
     border: solid 4px #D64203;
     color: #FFF;
 } 
-/*  */
 #mdn-firefox4-webdev h3 { 
     color: #D64203; font-weight: 200;
     letter-spacing: .5px;
@@ -543,7 +557,6 @@ ul.index a:hover, ul.index a:focus, ul.index a:active { color: #2f2f2f; text-dec
     font-size: 2.2em;
     margin-bottom: 0px;
 }
-/*color: #FFF;*/
 #mdn-firefox4-webdev h4 {
    font-size: 1.5em; font-weight: 200;
 }
@@ -863,9 +876,12 @@ section.boxed:after, div.boxed:after { content: "."; display: block; clear: both
 #source .browse a:hover, #source .browse a:focus, #source .browse a:active { background-position: 0 -300px; }
 #source .note { color: #666; font-weight: normal; font-size: .786em; }
 #source a:hover .note, #source a:focus .note, #source a:active .note { color: #25a; }
-#source .license { font-size: .786em; color: #666; padding-left: 50px; min-height: 40px; margin: 0; background: url("../img/download-icons.png") no-repeat; }
-#source .copyleft { background-position: 0 -400px; }
-#source .public { background-position: 0 -500px; }
+#source .license { font-size: .786em; color: #666; padding-left: 50px; min-height: 40px; margin: 0; background: url("../img/download-icons.png") 0 100px no-repeat; }
+#source .apache { background-position: 0 -400px; }
+#source .bsd { background-position: 0 -500px; }
+#source .gpl { background-position: 0 -600px; }
+#source .mpl { background-position: 0 -700px; }
+#source .publicdomain { background-position: 0 -800px; }
 
 /* @Comments *********/
 #comments { font-size: .857em; background: rgba(198,198,175,.3); margin: 0 0 40px; }
@@ -895,11 +911,11 @@ section.boxed:after, div.boxed:after { content: "."; display: block; clear: both
 
 #comment-post { padding: 20px 20px 0; }
 #comment-post legend span { display: block; margin: 0 0 .5em; font-size: 1.333em; }
-#comment-post textarea { width: 100%; margin: 0 0 1em; }
+#comment-post textarea { width: 96%; margin: 0 0 1em; }
 
 #comments-list .comment-reply { padding: 20px 0 0 0; }
 #comments-list .comment-reply legend span { display: block; margin: 0 0 .5em; font-size: 1.333em; }
-#comments-list .comment-reply textarea { width: 100%; margin: 0 0 1em; }
+#comments-list .comment-reply textarea { width: 96%; margin: 0 0 1em; }
 #comments-list.js .comment-reply { display: none; }
 #comments-list.js .comment-reply-revealed { display: block; }
 
@@ -912,7 +928,7 @@ section.boxed:after, div.boxed:after { content: "."; display: block; clear: both
 #page-head.landing .page-title { font-size: 2.571em; }
 #page-head.landing ul li { padding-left: 22px; background: url("../img/bullet.png") 0 .5em no-repeat; }
 #page-head.landing .demo-submit { margin-top: .5em; }
-#page-head.landing .demo-submit .button { float: right; color: #fff; text-shadow: none; font-size: 1.857em; padding: .35em 20px .075em; background-color: #689032; background-position: 0 .75em; }
+#page-head.landing .demo-submit .button { float: right; color: #fff; text-shadow: none; font-size: 1.857em; background-color: #689032; background-position: 0 .75em; }
 #page-head.landing .demo-submit .button:hover, #page-head.landing .demo-submit .button:focus, #page-head.landing .demo-submit .button:active { background-color: #78a935; }
 
 #page-head.gallery .main { width: 570px; padding-left: 100px; float: left; }
@@ -1038,11 +1054,7 @@ section.boxed:after, div.boxed:after { content: "."; display: block; clear: both
 .submission label, .submission .label { display: block; font-weight: bold; margin: 0 0 .5em; }
 .submission .check label, .submission .check .label { display: inline; }
 
-.submission .aside { width: 200px; margin-right: -270px; }
-.submission .aside ul { font-size: .785em; }
-#content .submission .aside li { padding-bottom: 10px; border-bottom: 1px dotted #b9b6a7; }
-#content .submission .aside li:last-child { padding: 0; border: 0; }
-#prepare-demo .mod-title { background-position: 100% -200px; }
+#content .submission .aside { float: right; width: 200px; margin-right: -270px; }
 
 .replaced input[type="file"] { position: relative; z-index: 2; opacity: 0; cursor: default; }
 .replaced .replacement { position: absolute; z-index: 1; margin-top: -1.8em; }

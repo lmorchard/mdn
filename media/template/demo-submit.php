@@ -123,14 +123,13 @@ head(
         </ul>
       </fieldset>
 
-      <div id="prepare-demo" class="module aside">
+      <div id="prepare-demo" class="module aside notes">
         <h3 class="mod-title">Preparing Your Demo</h3>
         <ul>
-          <li>Your demo’s source code should be packaged inside a Zip file.</li>
-          <li>The main page of your demo should be a file named <code>index.html</code> in the root of the Zip.</li>
-          <li>Your demo should be build on client-side technology (HTML, CSS, Javascript). Server-side languages like PHP and Ruby are not supported.</li>
-          <li>If your demo requires external resources, it should use AJAX to access them.</li>
-          <li>To submit your demo, you need an <a href="/signup/">MDN account</a>.</li>
+          <li>Your demo’s source code should be packaged inside a <strong>ZIP file</strong>.</li>
+          <li>The main page of your demo should be a file named <strong><code>index.html</code></strong> in the root of the ZIP.</li>
+          <li>Your demo should be build on <strong>client-side technology</strong> (HTML, CSS, JavaScript). Server-side languages like PHP and Ruby are not supported.</li>
+          <li>If your demo requires external resources, it should use <strong>AJAX</strong> to access them.</li>
         </ul>
       </div>
       
