@@ -69,6 +69,7 @@ def mdc_pages():
 
 @cronjobs.register
 def cache_doc_center_links():
+    paths_completed = []
     devmo_url_regexp = "devmo_url\(_\('(?P<path>[\w/_]+)'\)\)"
     """Cache MDC/DekiWiki links for devmo_url."""
     for subdir, dirs, files in os.walk(settings.ROOT):
@@ -87,4 +88,7 @@ def cache_doc_center_links():
                     path = path_dict['path']
                     for locale in settings.MDN_LANGUAGES:
                         devmo_locale, devmo_path, devmo_local_path = get_localized_devmo_path(path, locale)
-                        check_devmo_local_page(devmo_local_path)
+                        if devmo_local_path not in paths_completed:
+                            print('check_devmo_local_page(%s)' % devmo_local_path)
+                            check_devmo_local_page(devmo_local_path)
+                            paths_completed.append(devmo_local_path)
