@@ -1,7 +1,7 @@
 import cgi
 import datetime
 import re
-import httplib, urllib, urlparse
+import httplib, urllib, urlparse, socket
 
 from django.conf import settings
 from django.core.cache import cache
@@ -109,12 +109,8 @@ def devmo_url(context, path):
     if not m:
         return path
     devmo_locale, devmo_path, devmo_local_path = get_localized_devmo_path(path, current_locale)
-    if current_locale != devmo_locale:
-        http_status_code = cache.get('devmo_local_path:%s' % devmo_local_path)
-        if http_status_code is None:
-            http_status_code = check_devmo_local_page(devmo_local_path)
-        if http_status_code == 200:
-            path = devmo_local_path
+    if current_locale != devmo_locale and check_devmo_local_page(devmo_local_path) == 200:
+        path = devmo_local_path
     return path
 
 def get_localized_devmo_path(path, locale):
@@ -125,13 +121,19 @@ def get_localized_devmo_path(path, locale):
     return devmo_locale, devmo_path, devmo_local_path
 
 def check_devmo_local_page(path):
-    deki_tuple = urlparse.urlparse(settings.DEKIWIKI_ENDPOINT)
-    conn = httplib.HTTPSConnection(deki_tuple.netloc)
-    conn.request("GET", path)
-    resp = conn.getresponse()
-    http_status_code = resp.status
-    cache.set('devmo_local_path:%s' % path, http_status_code)
-    conn.close()
+    http_status_code = cache.get('devmo_local_path:%s' % path)
+    if http_status_code is None:
+        try:
+            deki_tuple = urlparse.urlparse(settings.DEKIWIKI_ENDPOINT)
+            conn = httplib.HTTPSConnection(deki_tuple.netloc)
+            conn.request("GET", path)
+            resp = conn.getresponse()
+            http_status_code = resp.status
+            cache.set('devmo_local_path:%s' % path, http_status_code)
+            conn.close()
+            return http_status_code
+        except socket.error, e:
+            pass
     return http_status_code
 
 def get_locale_path_match(path):
