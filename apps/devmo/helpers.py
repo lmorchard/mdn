@@ -105,6 +105,9 @@ def devmo_url(context, path):
         then default to given path
     """
     current_locale = context['request'].locale
+    m = get_locale_path_match(path)
+    if not m:
+        return path
     devmo_locale, devmo_path, devmo_local_path = get_localized_devmo_path(path, current_locale)
     if current_locale != devmo_locale:
         http_status_code = cache.get('devmo_local_path:%s' % devmo_local_path)
@@ -115,10 +118,7 @@ def devmo_url(context, path):
     return path
 
 def get_localized_devmo_path(path, locale):
-    locale_regexp = "/(?P<locale>\w+)/(?P<path>.*)"
-    m = re.match(locale_regexp, path, re.IGNORECASE)
-    if not m:
-        return path
+    m = get_locale_path_match(path)
     devmo_url_dict = m.groupdict()
     devmo_locale, devmo_path = devmo_url_dict['locale'], devmo_url_dict['path']
     devmo_local_path = '/' + settings.LANGUAGE_DEKI_MAP[locale] + '/' + devmo_path
@@ -133,3 +133,7 @@ def check_devmo_local_page(path):
     cache.set('devmo_local_path:%s' % path, http_status_code)
     conn.close()
     return http_status_code
+
+def get_locale_path_match(path):
+    locale_regexp = "/(?P<locale>\w+)/(?P<path>.*)"
+    return re.match(locale_regexp, path, re.IGNORECASE)
