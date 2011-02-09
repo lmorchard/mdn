@@ -1061,7 +1061,7 @@ section.boxed:after, div.boxed:after { content: "."; display: block; clear: both
 .replaced .replacement input { font-size: .857em; background: transparent; border: 0; padding: 0; margin-left: 10px; }
 .replaced .replacement .button { background-color: #a5d9f3; color: #333; font-size: 1.142em; }
 
-.submission .fm-submit button { padding: .25em 10px 0; font-size: 26px; background-color: #689032; }
+.submission .fm-submit button { font-size: 26px; background-color: #689032; }
 .submission .fm-submit button:hover, .submission .fm-submit button:focus { background-color: #78a935; }
 
 .fileslist .add { margin: 0; }
