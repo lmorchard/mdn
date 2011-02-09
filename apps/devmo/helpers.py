@@ -125,6 +125,7 @@ def get_localized_devmo_path(path, locale):
     return devmo_locale, devmo_path, devmo_local_path
 
 def check_devmo_local_page(path):
+    http_status_code = None
     try:
         deki_tuple = urlparse.urlparse(settings.DEKIWIKI_ENDPOINT)
         conn = httplib.HTTPSConnection(deki_tuple.netloc)
