@@ -94,7 +94,7 @@ def submission_key(prefix):
 # from a dict of function names and inclusion tag args, since the method bodies
 # are all identical. Might be astronaut architecture, though.
 
-@register_cached_inclusion_tag('demos/elements/submission_creator.html', submission_key('creator'))
+@register.inclusion_tag('demos/elements/submission_creator.html')
 def submission_creator(submission): return locals()
 
 @register.inclusion_tag('demos/elements/profile_link.html')
@@ -107,7 +107,7 @@ def submission_thumb(submission,extra_class=None): return locals()
 def submission_listing(request, submission_list, is_paginated, paginator, page_obj, feed_title, feed_url): 
     return locals()
 
-@register_cached_inclusion_tag('demos/elements/tags_list.html', 'demos_tags_list')
+@register.inclusion_tag('demos/elements/tags_list.html')
 def tags_list(): return locals()
 
 # Not cached, because it's small and changes based on current search query string
