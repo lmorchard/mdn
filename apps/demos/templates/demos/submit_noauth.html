@@ -1,32 +1,77 @@
 {% extends "demos/base.html" %}
+
 {% set obj = submission %}
+{% set signup_url='/Special:UserRegistration' %}
+{% set login_url=( '/Special:UserLogin?returntotitle={submit_url}' | f(submit_url=url('demos_submit')) ) %}
 
-{% block pageid %}demos{% endblock %}
-
-{% block bodyclass %}section-demos landing{% endblock %}
-
-{% block title %}{{ page_title(_('Web')) }}{% endblock %}
+{% block pageid %}{% endblock %}
+{% block bodyclass %}section-demos{% endblock %}
+{% block title %}
+    {{ page_title(_('{subtitle} | Demo Studio') | f(subtitle=_('Submit a New Demo'))) }}
+{% endblock %}
 
 {% block content %}
+<section id="nav-toolbar">
+<div class="wrap">
+  <nav class="crumbs">
+    <ol role="navigation">
+      <li><a href="{{ url('home') }}">{{_('MDN')}}</a></li>
+      <li><a href="{{ url('demos') }}">{{_('Demo Studio')}}</a></li>
+      <li><a href="{{ url('demos_submit') }}">{{_("Submit a New Demo")}}</a></li>
+    </ol>
+  </nav>
+</div>
+</section>
 
 <section id="content">
-    <div class="wrap sidebar">
-        <section id="content-main" role="main">
-            <section class="boxed">
+<div class="wrap">
 
-                <header class="head section-moz">
-                    <h2>{{_("Submit a demo")}}</h2>
-                    <p class="intro">{% trans %}
-                        Lorem ipsum dolor sit amet, consectetur
-                        adipiscing elit. Ut elementum erat quis leo
-                        placerat nec porta purus ornare.
-                    {% endtrans %}</p>
-                </header>
+  <section id="content-main" role="main">
+      <h1 class="page-title">{{_("Submit a New Demo")}}</h1>
 
-                <p>Before you begin &amp; preparing your demo sections go here</p>
+    {% trans %}
+        <p>Whether you are creating an amazing new way to experience the Web or just 
+        experimenting with the latest technologies, we invite you to submit your own 
+        demos to share with (or show off to) other web developers.</p>
+    {% endtrans %}
 
-            </section>
-        </section>
+    <div class="modules">
+      <div id="before-begin" class="module notes">
+          <h3 class="mod-title">{{_('Before You Begin')}}</h3>
+        {% trans %}
+        <ul>
+          <li>You must be prepared to <strong>provide the source code</strong> for your demo. Demos are hosted on the Demo Studio’s servers.</li>
+          <li>Your demo’s source code must be available under an <strong>open license</strong>, such as MPL, GPL, or BSD.</li>
+          <li>Your demo should showcase <strong>open web technologies</strong>, such as HTML5 and CSS3.</li>
+          <li>Your demo should support a wide range of <strong>modern web browsers</strong>, like Firefox, Chrome, Safari, and Opera.</li>
+        </ul>
+        {% endtrans %}
+      </div>
+  
+      <div id="prepare-demo" class="module notes">
+          <h3 class="mod-title">{{_('Preparing Your Demo')}}</h3>
+        {% trans %}
+        <ul>
+          <li>Your demo’s source code should be packaged inside a <strong>ZIP file</strong>.</li>
+          <li>The main page of your demo should be a file named <strong><code>index.html</code></strong> in the root of the ZIP.</li>
+          <li>Your demo should be build on <strong>client-side technology</strong> (HTML, CSS, JavaScript). Server-side languages like PHP and Ruby are not supported.</li>
+          <li>If your demo requires external resources, it should use <strong>AJAX</strong> to access them.</li>
+        </ul>
+        {% endtrans %}
+      </div>
     </div>
+
+    {% trans %}
+        <p>To submit your demo, you need an <strong><a href="{{signup_url}}">MDN account</a></strong>.</p>
+    {% endtrans %}
+    
+    <p class="choices">
+        <a href="{{signup_url}}" class="button positive">{{_('Create an Account')}}</a> 
+        <a href="{{login_url}}" class="button">{{_('Log In to Account')}}</a>
+    </p>
+
+  </section>
+
+</div>
 </section>
 {% endblock %}
