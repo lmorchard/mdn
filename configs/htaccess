@@ -14,7 +14,7 @@ RewriteRule ^(((en-US|de|es|fr|hr|ja|ko|pl|sl|sq|zh-TW|zh-CN)/)?logout/?)$  /mws
 RewriteRule ^(((en-US|de|es|fr|hr|ja|ko|pl|sl|sq|zh-TW|zh-CN)/)?mobile/?)$  /mwsgi/$1 [PT,L]
 RewriteRule ^(((en-US|de|es|fr|hr|ja|ko|pl|sl|sq|zh-TW|zh-CN)/)?mozilla/?)$ /mwsgi/$1 [PT,L]
 RewriteRule ^(((en-US|de|es|fr|hr|ja|ko|pl|sl|sq|zh-TW|zh-CN)/)?search/?)$  /mwsgi/$1 [PT,L]
-#RewriteRule ^(((en-US|de|es|fr|hr|ja|ko|pl|sl|sq|zh-TW|zh-CN)/)?web/?)$    /mwsgi/$1 [PT,L]
+RewriteRule ^(((en-US|de|es|fr|hr|ja|ko|pl|sl|sq|zh-TW|zh-CN)/)?web/?)$    /mwsgi/$1 [PT,L]
 
    # PeteE: redirect feeds to a feeds disabled page
    RewriteCond %{REQUEST_URI} ^/Special:Article$ [NC]
