@@ -21,7 +21,6 @@ ul.sortable .remove { font-family: sans-serif; margin-top: -1.25em; }
 #content .submission .aside { position: relative; right: -30px; }
 .nav-slide a { background-color: #000; }
 #featured-demos .nav-slide a { background-color: #000; }
-#demobox .demo-meta, #demobox .tools, #demobox .like, #demobox .unlike { zoom: 1; }
 #masthead.compact { position: relative; z-index: 99; }
 .compact #nav .menu:hover .sub-menu, .compact #nav .hover .sub-menu, .compact #nav a:focus + ul { left: 0; }
 .gallery .demo { height: 10em; }
@@ -30,6 +29,8 @@ ul.sortable .remove { font-family: sans-serif; margin-top: -1.25em; }
 #featured-demos { border: 1px solid #000; }
 #featured-demos header { position: relative; top: -60px; width: 580px; margin-bottom: -60px; }
 #featured-demos header h2 { zoom: 1; }
+
+#demobox, #demobox .demo-meta, #demobox .tools, #demobox .like, #demobox .unlike, #demobox .share { zoom: 1; }
 
 /* IE doesn't inherit */
 ul.sortable .remove, 

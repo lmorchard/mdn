@@ -37,6 +37,11 @@ head(
       <ul class="manage">
         <li><a href="demo-edit.php" class="button edit">Edit Demo</a></li>
         <li><a href="#" class="button remove">Remove Demo</a></li>
+        <li>
+          <form id="demo-hide" action="/path/to/handler" method="post">
+            <button type="submit"><span class="button remove">Hide Demo</span></button>
+          </form>
+        </li>
       </ul>
 
       <div class="demo-desc">

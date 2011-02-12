@@ -77,12 +77,10 @@ body { min-height: 400px; font: 14px/1.286 "Lucida Grande", "Lucida Sans Unicode
 a.go:after { content: "\00A0\000BB"; font: 1.3em Georgia, Times, "Times New Roman", serif; }
 
 /*** @Buttons *********/
-button, input[type=submit], input[type=button], a.button, span.button, #demobox .manage button span { padding: .25em .75em .2em; display: inline-block; background: #bd5642 url("../img/button-shade.png") 0 .75em repeat-x; color: #fff; font: 200 1em/1 "League Gothic", Haettenschweiler, "Arial Narrow", sans-serif; text-decoration: none; text-transform: uppercase; letter-spacing: .5px; border: 0; -moz-border-radius: .2em; -webkit-border-radius: .2em; border-radius: .2em; }
+button, .button, input[type=submit], input[type=button] { padding: .25em .75em .2em; display: inline-block; background: #bd5642 url("../img/button-shade.png") 0 .75em repeat-x; color: #fff; font: 200 1em/1 "League Gothic", Haettenschweiler, "Arial Narrow", sans-serif; text-decoration: none; text-transform: uppercase; letter-spacing: .5px; border: 0; -moz-border-radius: .2em; -webkit-border-radius: .2em; border-radius: .2em; -moz-box-shadow: 1px 1px 0 rgba(0,0,0,.25); -webkit-box-shadow: 1px 1px 0 rgba(0,0,0,.25); box-shadow: 1px 1px 0 rgba(0,0,0,.25); }
 button:hover, input[type=submit]:hover, input[type=button]:hover, 
 button:focus, input[type=submit]:focus, input[type=button]:focus, 
-a.button:hover, a.button:focus, a.button:active { background-color: #ae4935; color: #fff; cursor: pointer; text-decoration: none; }
-
-a.button, span.button, #demobox .manage button span { -moz-box-shadow: 1px 1px 0 rgba(0,0,0,.25); -webkit-box-shadow: 1px 1px 0 rgba(0,0,0,.25); box-shadow: 1px 1px 0 rgba(0,0,0,.25); }
+.button:hover, .button:focus, .button:active { background-color: #ae4935; color: #fff; cursor: pointer; text-decoration: none; }
 
 .button.positive { background-color: #689032; }
 .button.positive:hover, .button.positive:focus, .button.positive:active { background-color: #78a935; }
@@ -755,16 +753,19 @@ section.boxed:after, div.boxed:after { content: "."; display: block; clear: both
 #demobox .manage { margin: -.5em 0 1em; }
 #demobox .manage li { display: inline; }
 #demobox form { display: inline; }
+#demobox .manage button { padding: 0; background: transparent none; padding: 0; border: 0; }
+#demobox .manage button span { margin: 0; white-space: nowrap; }
 
-#demobox .button, #demobox button { margin-right: 4px; }
+#demobox .button { margin-right: 4px; }
 #demobox .button:hover, #demobox .button:focus, #demobox .button:active { background-color: #ae4935; }
 #demobox .button strong { font-weight: normal; }
 
-#demobox .button.edit { color: #2f2f2f; background-color: #a5d9f3; }
-#demobox .button.edit:hover, #demobox .button.edit:focus, #demobox .button.edit:active { color: #000; background-color: #80cdf3; }
+#demobox .edit { color: #2f2f2f; background-color: #a5d9f3; }
+#demobox .edit:hover, #demobox .edit:focus, #demobox .edit:active { color: #000; background-color: #80cdf3; }
 
-#demobox a.button.remove { color: #2f2f2f; background-color: #f07b7b; }
-#demobox a.button.remove:hover, #demobox a.button.remove:focus, #demobox a.button.remove:active { color: #000; background-color: #f05b5b; }
+#demobox .remove { color: #2f2f2f; background-color: #f07b7b; }
+#demobox .remove:hover, #demobox .remove:focus, #demobox .remove:active, 
+#demobox button:hover .remove, #demobox button:focus .remove { color: #000; background-color: #f05b5b; }
 
 #demobox .tools li { float: left; margin: 10px 10px 0 0; font-size: 1.143em; }
 #demobox .tools .launch { margin-top: -5px; font-size: 1.571em; }
@@ -773,20 +774,20 @@ section.boxed:after, div.boxed:after { content: "."; display: block; clear: both
 #demobox .tools .unlike span { padding: 2px 0 2px 26px; background: url("../img/demobox-icons.png") 0 -350px no-repeat; }
 #demobox .tools .like:hover span, #demobox .tools .like:focus span, #demobox .tools .unlike:hover span, #demobox .tools .unlike:focus span { text-decoration: underline; }
 #demobox .tools .share a { display: block; padding-left: 25px; background: url("../img/demobox-icons.png") 0 -400px no-repeat; }
-#demobox .tools .share { position: relative; }
+#demobox .tools .share { position: relative; z-index: 99; }
 
 #share-opts { margin: .75em 0; float: right; width: 210px; }
-#share-opts.js { position: absolute; top: -11px; left: -11px; z-index: 99; float: none; margin: 0; padding: 10px; background: #000; border: 1px solid #808080; -moz-box-shadow: 5px 5px 0 rgba(0,0,0,.5); -webkit-box-shadow: 5px 5px 0 rgba(0,0,0,.5); box-shadow: 5px 5px 0 rgba(0,0,0,.5); }
+#share-opts.js { position: absolute; top: -11px; left: -11px; z-index: 999; float: none; margin: 0; padding: 10px; background: #000; border: 1px solid #808080; -moz-box-shadow: 5px 5px 0 rgba(0,0,0,.5); -webkit-box-shadow: 5px 5px 0 rgba(0,0,0,.5); box-shadow: 5px 5px 0 rgba(0,0,0,.5); }
 #demobox #share-opts li { font-size: .857em; float: none; border-top: 1px dotted #3f3f3f; padding: 7px 0; margin: 0; background: none; }
 #demobox #share-opts .sharetitle { font-size: 16px; color: #666; position: static; padding: 0 0 7px 25px; background: url("../img/demobox-icons.png") 0 -450px no-repeat; border: 0; }
 #demobox #share-opts .twitter a { background-position: 0 -500px; color: #ff4675; }
 #demobox #share-opts .facebook a { background-position: 0 -550px; color: #54aaff; }
 #demobox #share-opts .link { padding-left: 25px; background: url("../img/demobox-icons.png") 0 -593px no-repeat; }
 #demobox #shorturl { border: 0; background: #000; color: #ffc145; width: auto; padding: 0; }
-#demobox #shorturl.focus { color: #000; }
+#demobox #shorturl.focus { color: #000; background: #ffc145; }
 
-#share-opts .link ::-moz-selection { color: #000; background: #ffc145; }
-#share-opts .link ::selection { color: #000; background: #ffc145; }
+#share-opts #shorturl ::-moz-selection { color: #000; background: #ffc145; }
+#share-opts #shorturl ::selection { color: #000; background: #ffc145; }
 
 #demobox .demo-meta { position: absolute; left: 0; bottom: 0; padding-left: 20px; font-size: .857em; }
 
@@ -892,7 +893,7 @@ section.boxed:after, div.boxed:after { content: "."; display: block; clear: both
 #comments-list .comment-opts a { color: #666; }
 #comments-list .comment-opts a:hover, #comments-list .comment-opts a:focus, #comments-list .comment-opts a:active { color: #25a; }
 #comments-list .comment-opts form { display: inline; }
-#comments-list .comment-opts button { color: #666; font-family: inherit; font-weight: normal; letter-spacing: normal; background: transparent none; display: inline; padding: 0;  }
+#comments-list .comment-opts button { color: #666; font-family: inherit; font-weight: normal; letter-spacing: normal; background: transparent none; display: inline; padding: 0; -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none; }
 #comments-list .comment-opts button:hover span, #comments-list .comment-opts button:focus span { color: #25a; text-decoration: underline; }
 
 #comment-post { padding: 20px 20px 0; }

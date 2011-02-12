@@ -55,15 +55,15 @@
 
         {% if submission.allows_deletion_by(request.user) %}
             <li><a href="{{ url('demos_delete', slug=submission.slug) }}" 
-                class="button remove modal"><span>{{_("Remove demo")}}</span></a></li>
+                class="button remove modal">{{_("Remove demo")}}</a></li>
         {% endif %}
         {% if submission.allows_hiding_by(request.user) %}
             {% if submission.hidden %}
                 <li><form id="demo-show" method="post" action="{{ url('demos_show', slug=submission.slug) }}">{{ csrf() }}
-                    <button type="submit" class="button remove">{{_("Show demo")}}</button></form></li>
+                    <button type="submit"><span class="button remove">{{_("Show demo")}}</span></button></form></li>
             {% else %}
                 <li><form id="demo-hide" method="post" action="{{ url('demos_hide', slug=submission.slug) }}">{{ csrf() }}
-                    <button type="submit" class="button remove">{{_("Hide demo")}}</button></form></li>
+                    <button type="submit"><span class="button remove">{{_("Hide demo")}}</span></button></form></li>
             {% endif %}
         {% endif %}
 
