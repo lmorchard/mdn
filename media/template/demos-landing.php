@@ -115,7 +115,6 @@ head(
 <script type="text/javascript">
 document.getElementById('featured-demos').className += ' js';
 $("#featured-demos").ready(function(){
-
   var page_len = 3;
   var demos_len = $('#featured-demos .slider .demo').length;
   
@@ -135,7 +134,6 @@ $("#featured-demos").ready(function(){
 });
 </script>
 
-
   <section id="content-main" role="main">
 
     <div id="gallery-sort">
@@ -151,9 +149,8 @@ $("#featured-demos").ready(function(){
 <script type="text/javascript" src="./js/jquery.hoverIntent.minified.js"></script>
 <script type="text/javascript">
 // <![CDATA[
-	$(".gallery").ready(function(){
+	$(document).ready(function(){
 		$(".gallery").addClass("js");
-
     $(".gallery .demo").hoverIntent({
       interval: 250,
       over: function() {
@@ -170,7 +167,7 @@ $("#featured-demos").ready(function(){
           });
         });
       }, 
-      out: function() { /* do nothing */ },
+      out: function() { /* do nothing */ }
     });
 
 	});	
@@ -213,7 +210,7 @@ $("#featured-demos").ready(function(){
             <li class="likes" title="151 people liked this demo">151</li>
             <li class="comments"><a href="demo-detail.php#comments" title="There are 3 comments for this demo">3</a></li>
           </ul>
-          <p class="desc">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p class="desc">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum ipsum dolor sit amet consecutor minum elit.</p>
           <p class="launch"><a href="#" class="button" title="Launch &ldquo;Fantastic Voyage&rdquo;">Launch</a></p>
         </div>
       </li>

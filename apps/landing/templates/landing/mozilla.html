@@ -14,7 +14,7 @@
 <header id="section-head">
 <div class="wrap">
   <p class="intro">{{ _('Welcome to the Mozilla Developer Community:') }}</p> 
-  <h1 id="logo-moz" class="moz">{{ _('Mozilla') }}</h1>
+  <h1 id="logo-moz" class="mozilla">{{ _('Mozilla') }}</h1>
   
   <div class="util">
     <p><strong>{{ _('Are you ready to make browsing better?') }}</strong></p>
@@ -33,9 +33,9 @@
   
     <section class="boxed">
       <div id="popular-docs" class="articles-list">
-        <header class="head section-moz">
+        <header class="head section-mozilla">
           {# L10n: Please escape HTML entities here, like &amp; #}
-          <h2>{{ _('Popular <span class="moz">Mozilla</span> Documentation')|safe }}</h2>
+          <h2>{{ _('Popular <span class="mozilla">Mozilla</span> Documentation')|safe }}</h2>
         </header>
         
         <ul class="hfeed">
@@ -95,7 +95,7 @@
       <div id="fave-tools">
         <header class="subhead">
           {# L10n: Please escape HTML entities here, like &amp; #}
-          <h3>{{ _('Favorite <span class="moz">Mozilla</span> Tools')|safe }}</h3>
+          <h3>{{ _('Favorite <span class="mozilla">Mozilla</span> Tools')|safe }}</h3>
         </header>
         <ul class="tools">
           <li>
@@ -113,7 +113,7 @@
       <div id="recent-news" class="articles-list">
         <header class="subhead">
           {# L10n: Please escape HTML entities here, like &amp; #}
-          <h3>{{ _('Recent <span class="moz">Mozilla</span> News &amp; Updates')|safe }}</h3>
+          <h3>{{ _('Recent <span class="mozilla">Mozilla</span> News &amp; Updates')|safe }}</h3>
         </header>
 
         {{ newsfeed(updates) }}

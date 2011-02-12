@@ -22,6 +22,7 @@ function head(
   <link rel="copyright" href="#legal-copyright">
   
   <!--[if !IE 6]><!--><link rel="stylesheet" type="text/css" media="screen,projection" href="./css/screen.css"><!--<![endif]-->
+  <!--[if IE]><link rel="stylesheet" type="text/css" media="all" href="./css/ie.css"><![endif]-->
   <!--[if lte IE 7]><link rel="stylesheet" type="text/css" media="all" href="./css/ie7.css"><![endif]-->
   <!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="all" href="./css/ie6.css"><![endif]-->
   <link rel="stylesheet" type="text/css" media="print" href="./css/print.css">
@@ -31,7 +32,7 @@ function head(
   <!--[if IE]>
   <meta http-equiv="imagetoolbar" content="no">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <script src="./js/html5.js"></script>
   <![endif]-->
   
 </head>
@@ -72,7 +73,7 @@ function head(
           <li id="nav-main-web"><a href="section-web.php" class="web">Web</a></li>
           <li id="nav-main-mobile"><a href="section-mobile.php" class="mobile">Mobile</a></li>
           <li id="nav-main-addons"><a href="section-addons.php" class="addons">Add-ons</a></li>
-          <li id="nav-main-moz"><a href="section-apps.php" class="moz">Mozilla</a></li>
+          <li id="nav-main-mozilla"><a href="section-apps.php" class="mozilla">Mozilla</a></li>
           <li id="nav-extra-docs"><a href="docs-landing.php">Doc Center</a></li>
           <li id="nav-extra-forums"><a href="./forum">Forums</a></li>      
         </ul>
@@ -124,7 +125,7 @@ function head(
         <li id="nav-main-web"><a href="section-web.php" class="web">Web</a></li>
         <li id="nav-main-mobile"><a href="section-mobile.php" class="mobile">Mobile</a></li>
         <li id="nav-main-addons"><a href="section-addons.php" class="addons">Add-ons</a></li>
-        <li id="nav-main-moz"><a href="section-apps.php" class="moz">Mozilla</a></li>
+        <li id="nav-main-mozilla"><a href="section-apps.php" class="mozilla">Mozilla</a></li>
       </ul>
   
       <ul id="nav-extra" role="navigation">

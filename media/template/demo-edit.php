@@ -126,7 +126,7 @@ Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut
         </ul>
       </fieldset>
 
-      <div id="prepare-demo" class="module aside">
+      <div id="prepare-demo" class="module aside notes">
         <h3 class="mod-title">Preparing Your Demo</h3>
         <ul>
           <li>Your demo’s source code should be packaged inside a Zip file.</li>

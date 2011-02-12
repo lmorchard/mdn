@@ -63,7 +63,7 @@ head(
           });
         });
       }, 
-      out: function() { /* do nothing */ },
+      out: function() { /* do nothing */ }
     });
 
 	});

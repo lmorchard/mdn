@@ -1,14 +1,14 @@
 <?php include "./inc/template.php";
 head(
-  $title = 'Applications | Mozilla Developer Network',
-  $pageid = 'moz',
-  $bodyclass = 'section-moz landing',
+  $title = 'Mozilla | Mozilla Developer Network',
+  $pageid = 'mozilla',
+  $bodyclass = 'section-mozilla landing',
   $headerclass = ''
 ); ?>
 <header id="section-head">
 <div class="wrap">
     <p class="intro">Welcome to the Mozilla Developer Community:</p> 
-    <h1 id="logo-moz" class="moz">Mozilla</h1>
+    <h1 id="logo-moz" class="mozilla">Mozilla</h1>
     
     <div class="util">
       <p><strong>Are you ready to make browsing better?</strong></p>
@@ -27,8 +27,8 @@ head(
   
     <section class="boxed">
       <div id="popular-docs" class="articles-list">
-        <header class="head section-moz">
-          <h2>Popular <span class="moz">Mozilla</span> Documentation</h2>
+        <header class="head section-mozilla">
+          <h2>Popular <span class="mozilla">Mozilla</span> Documentation</h2>
         </header>
         
         <ul class="hfeed">
@@ -63,7 +63,7 @@ head(
 
       <div id="fave-tools">
         <header class="subhead">
-          <h3>Favorite <span class="moz">Mozilla</span> Tools</h3>
+          <h3>Favorite <span class="mozilla">Mozilla</span> Tools</h3>
         </header>
         <ul class="tools">
           <li>
@@ -92,7 +92,7 @@ head(
       
       <div id="recent-news" class="articles-list">
         <header class="subhead">
-          <h3>Recent <span class="moz">Mozilla</span> News &amp; Updates</h3>
+          <h3>Recent <span class="mozilla">Mozilla</span> News &amp; Updates</h3>
         </header>
         <ul class="hfeed">
           <li class="hentry">
@@ -130,7 +130,7 @@ head(
   <aside id="content-sub" role="complementary">
   
     <div class="module" id="section-trends">
-      <h3 class="mod-title"><span class="moz">Mozilla</span> Developer Trends</h3>
+      <h3 class="mod-title"><span class="mozilla">Mozilla</span> Developer Trends</h3>
       <p class="mod-intro">Up to date trends and popular content based on number of tags on a given entry/doc/tool. Alphabetical order.</p>
       <ol class="heat-graph">
         <li><span style="width:50%;"><a href="#">Accessory <b>50</b></a></span></li>
@@ -153,7 +153,7 @@ head(
     </div>
   
     <div class="module" id="active">
-      <h3 class="mod-title">Active <span class="moz">Mozilla</span> Developers</h3>
+      <h3 class="mod-title">Active <span class="mozilla">Mozilla</span> Developers</h3>
       <ol class="gallery">
         <li><a href="#" title="Leia Organa"><img src="img/fpo55.png" alt="Leia Organa" width="32" height="32" /></a></li>
         <li><a href="#" title="Han Solo"><img src="img/fpo55.png" alt="Han Solo" width="32" height="32" /></a></li>
@@ -189,7 +189,7 @@ head(
   
   <div id="latest-forums" class="boxed">
     <header>
-      <h3>Latest <span class="moz">Mozilla</span> Discussions from Our Forums:</h3>
+      <h3>Latest <span class="mozilla">Mozilla</span> Discussions from Our Forums:</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
     </header>
     <ul class="hfeed">
@@ -214,7 +214,7 @@ head(
   
   <div id="latest-comments" class="boxed">
     <header>
-      <h3>Latest <span class="moz">Mozilla</span> Comments from Our Community:</h3>
+      <h3>Latest <span class="mozilla">Mozilla</span> Comments from Our Community:</h3>
       <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
     </header>
     <ul class="hfeed">

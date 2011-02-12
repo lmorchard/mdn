@@ -18,6 +18,7 @@
   <!--[if !IE 6]><!-->
   {{ css('common') }}
   <!--<![endif]-->
+  <!--[if IE]><link rel="stylesheet" type="text/css" media="all" href="{{ MEDIA_URL }}css/ie.css"><![endif]-->
   <!--[if lte IE 7]><link rel="stylesheet" type="text/css" media="all" href="{{ MEDIA_URL }}css/ie7.css"><![endif]-->
   <!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="all" href="{{ MEDIA_URL }}css/ie6.css"><![endif]-->
   <link rel="stylesheet" type="text/css" media="print" href="{{ MEDIA_URL }}css/print.css">
@@ -26,7 +27,7 @@
   <!--[if IE]>
   <meta http-equiv="imagetoolbar" content="no">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <script src="{{ MEDIA_URL }}js/html5.js"></script>
   <![endif]-->
 
   {% block extrahead %}{% endblock %}
@@ -74,7 +75,7 @@
 
         <ul id="nav-extra" role="navigation">
           <li id="nav-extra-docs"><a href="{{ url('docs') }}">{{ _('Doc Center') }}</a></li>
-          <li id="nav-extra-demos"><a href="{{ url('demos') }}" class="apps">{{ _('Demo Studio') }}</a></li>
+          <li id="nav-extra-demos"><a href="{{ url('demos') }}">{{ _('Demo Studio') }}</a></li>
           <li id="nav-extra-community"><a href="/forums">{{ _('Forums') }}</a></li>
         </ul>
       </nav>

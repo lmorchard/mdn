@@ -120,17 +120,17 @@ head(
         
         <div id="other-sections">
           <div class="section">
-            <h4><a href="/en-US/mobile" class="mobile">Mobile</a></h4>
+            <h4><a href="section-mobile.php" class="mobile">Mobile</a></h4>
             <p>Learn more about <a href="https://developer.mozilla.org/en/Mobile">Fennec</a>
             and mobile-specific technologies like <a href="https://developer.mozilla.org/En/Using_geolocation">geolocation</a>.</p>
           </div>
           <div class="section">
-            <h4><a href="/en-US/addons" class="addons">Add-ons</a></h4>
+            <h4><a href="section-addons.php" class="addons">Add-ons</a></h4>
             <p><a href="https://builder.mozillalabs.com/">Build your own add-ons</a> and discuss them
             with the <a href="https://addons.mozilla.org/en-US/developers/">add-on developer community</a>.</p>
           </div>
           <div class="section">
-            <h4><a href="/en-US/apps" class="apps">Applications</a></h4>
+            <h4><a href="section-apps.php" class="mozilla">Mozilla</a></h4>
             <p>See how you can <a href="https://developer.mozilla.org/En/Participating_in_the_Mozilla_project">
             participate</a> in <a href="https://developer.mozilla.org/en/Localization">localization</a>,
             <a href="https://developer.mozilla.org/en/QA">quality assurance</a>, and other Mozilla projects.</p>
@@ -147,7 +147,7 @@ head(
             <p class="entry-meta">Modified by: <cite class="author vcard"><a href="#" class="url fn">Han Solo</a></cite> and filed under: <a href="#" rel="tag">CSS3</a>, <a href="#" rel="tag">HTML5</a></p>
           </li>
           <li class="hentry">
-            <h5 class="category"><a href="#" rel="tag" class="apps">Applications</a></h5>
+            <h5 class="category"><a href="#" rel="tag" class="mozilla">Mozilla</a></h5>
             <h4 class="entry-title"><a href="#" rel="bookmark">Lorem ipsum dolor sit amet</a></h4>
             <p class="entry-summary">Ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Aenean dignissim pellentesque felis.</p>
             <p class="entry-meta">Created by: <cite class="author vcard"><a href="#" class="url fn">Jay Patel</a></cite> and filed under: <a href="#" rel="tag">Firefox</a>, <a href="#" rel="tag">Thunderbird</a>, <a href="#" rel="tag">Seamonkey</a></p>
@@ -238,7 +238,7 @@ head(
       <p class="mod-intro">Correspondance on Twitter from the Mozilla Developer Community staff.</p>
       <ul class="hfeed">
         <li class="hentry">
-          <h4 class="entry-title vcard">@<a href="http://twitter.com/mozillaweb" class="author url fn nickname">mozillaweb</a> from <a href="#" class="category apps">applications</a> says:</h4>
+          <h4 class="entry-title vcard">@<a href="http://twitter.com/mozillaweb" class="author url fn nickname">mozillaweb</a> from <a href="#" class="category mozilla">Mozilla</a> says:</h4>
           <p class="entry-content">Check out the hot new features in Firefox 4: <a href="#">http://mzl.la/bOnGEN</a> HTML5 Forms, Web Sockets, CSS transitions, WebGL, WebM, IndexedDB &amp; more</p>
           <p class="entry-meta"><a href="#" rel="bookmark">about 17 hours ago</a> via <a href="#">Twitter for iPhone</a></p>
         </li>
@@ -282,7 +282,7 @@ head(
       <li class="hentry">
         <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> Jay Patel</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque&hellip;</a> 
-        in <a href="#" rel="tag" class="category apps">Applications</a></p>
+        in <a href="#" rel="tag" class="category mozilla">Mozilla</a></p>
       </li>
       <li class="hentry">
         <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> Han</a></cite> 
@@ -306,7 +306,7 @@ head(
       <li class="hentry">
         <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> Jay Patel</a></cite> 
         wrote <a href="#" class="entry-summary entry-title">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque&hellip;</a> 
-        in <a href="#" rel="tag" class="category apps">Applications</a></p>
+        in <a href="#" rel="tag" class="category mozilla">Mozilla</a></p>
       </li>
       <li class="hentry">
         <cite class="author vcard"><a href="#" class="url fn"><img src="img/fpo55.png" alt="" class="photo" width="38" height="38" /> morgamic</a></cite> 
@@ -406,7 +406,7 @@ head(
     </div>
     
     <div class="mdn-section">
-      <h3><a href="#" class="apps">Applications</a></h3>
+      <h3><a href="#" class="mozilla">Mozilla</a></h3>
       <ul>
         <li>
           <h5 class="type doc">Doc</h5>
