@@ -215,10 +215,16 @@
             {# TODO: Show "hosted by {{domain}}?" #}
             {% if false %}<span class="note">Hosted on GitHub</span>{% endif %}</a></p>
         {% endif %}
-        {% if submission.license_name == 'publicdomain' %}
-            {% set license_class = 'public' %}
+        {% if submission.license_name == 'mpl' %}
+            {% set license_class = 'mpl' %}
+        {% elif submission.license_name == 'gpl' %}
+            {% set license_class = 'gpl' %}
+        {% elif submission.license_name == 'bsd' %}
+            {% set license_class = 'bsd' %}
+        {% elif submission.license_name == 'apache' %}
+            {% set license_class = 'apache' %}
         {% else %}
-            {% set license_class = 'copyleft' %}
+            {% set license_class = 'publicdomain' %}
         {% endif %}
         <p class="license {{ license_class }}">
             {% trans link=license_link(submission.license_name), title=license_title(submission.license_name) %}
