@@ -49,7 +49,7 @@
         <ul class="slider gallery">
             {% for submission in featured_submission_list %}
                 {% set extra_class = loop.cycle(' row-first panel', ' panel', ' panel')%}
-                {{ submission_thumb(submission, extra_class) }}</li>
+                {{ submission_thumb(submission, extra_class) }}
             {% endfor %}
         </ul>
     </div>
