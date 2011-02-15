@@ -131,7 +131,7 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
     },
     { 
         "tag_name": "javascript",
-        "title": _("Javascript"), 
+        "title": _("JavaScript"), 
         "description": _("JavaScript is a lightweight, object-oriented programming language, commonly used for scripting interactive behavior on web pages and in web applications."),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/en/javascript')),
