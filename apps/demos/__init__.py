@@ -64,7 +64,7 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
     { 
         "tag_name": "canvas", 
         "title": _("Canvas"),
-        "description": _("The HTML5 canvas element allows to display scriptable renderings of 2D shapes and bitmap images."),
+        "description": _("The HTML5 canvas element allows you to display scriptable renderings of 2D shapes and bitmap images."),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/en/HTML/Canvas')),
             (_('Wikipedia Article'), _('http://en.wikipedia.org/wiki/Canvas_element')),
