@@ -415,7 +415,7 @@ class Submission(caching.base.CachingMixin, models.Model):
 
     @classmethod
     def get_valid_demo_zipfile_entries(cls, zf):
-        """Filter a zip file's entries for only accepted entries"""
+        """Filter a ZIP file's entries for only accepted entries"""
         # TODO: Should we restrict to a certain set of {css,js,html,wot} extensions?
         return [ x for x in zf.infolist() if 
             not (x.filename.startswith('/') or '/..' in x.filename) and
@@ -454,7 +454,7 @@ class Submission(caching.base.CachingMixin, models.Model):
             raise ValidationError(_('HTML index not found in ZIP'))
 
     def process_demo_package(self):
-        """Unpack the demo zipfile into the appropriate directory, filtering
+        """Unpack the demo ZIP file into the appropriate directory, filtering
         out any invalid file entries and normalizing demo.html to index.html if
         present."""
 
