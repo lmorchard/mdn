@@ -4,7 +4,7 @@
 {% set signup_url='/Special:UserRegistration' %}
 {% set login_url=( '/Special:UserLogin?returntotitle={submit_url}' | f(submit_url=url('demos_submit')) ) %}
 
-{% block pageid %}{% endblock %}
+{% block pageid %}demos-submit{% endblock %}
 {% block bodyclass %}section-demos{% endblock %}
 {% block title %}
     {{ page_title(_('{subtitle} | Demo Studio') | f(subtitle=_('Submit a New Demo'))) }}
