@@ -43,7 +43,7 @@ def scale_image(img_upload, img_max_size):
     if img.mode != "RGB":
         img = img.convert("RGB")
     new_img = StringIO()
-    img.save(new_img, "PNG")
+    img.save(new_img, "JPEG")
     img_data = new_img.getvalue()
 
     return ContentFile(img_data)
