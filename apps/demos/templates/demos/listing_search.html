@@ -12,7 +12,7 @@
 {% block extrahead %}
   <link rel="alternate" type="application/atom+xml" 
       title="{{ _('Search results for "{q}"') | f(q=query) }}"
-      href="{{ url('demos_feed_search', format='atom', query_string=query) }}" />
+      href="{{ url('demos_feed_search', format='atom') | urlparams(None, q=query) }}" />
 {% endblock %}
 
 {% block content %}
@@ -42,7 +42,7 @@
     {{ submission_listing(
         request, submission_list, is_paginated, paginator, page_obj,
         _('Subscribe to a feed of search results for "{q}"') | f(q=query),
-        url('demos_feed_search', format='atom', query_string=query) 
+        url('demos_feed_search', format='atom') | urlparams(None, q=query) 
     ) }}
   </section>{# /#content-main #}
 

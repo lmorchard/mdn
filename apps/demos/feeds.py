@@ -208,7 +208,8 @@ class ProfileSubmissionsFeed(SubmissionsFeed):
 
 class SearchSubmissionsFeed(SubmissionsFeed):
 
-    def get_object(self, request, format, query_string):
+    def get_object(self, request, format):
+        query_string = request.GET.get('q', '')
         super(SearchSubmissionsFeed, self).get_object(request, format)
         self.title = _('MDN demo search for "%s"') % query_string
         self.subtitle = _('Search results for demo submissions matching "%s"') % query_string
