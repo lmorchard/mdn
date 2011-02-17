@@ -161,10 +161,12 @@
     
     <section class="demo-more">
 
+      {% if submission.description %}
       <section class="moreabout">
         <h1>{{_('More About This Demo From The Author')}}</h1>
         <p>{{ submission.description | nl2br }}</p>
       </section>   
+      {% endif %}
       
       <section id="comments">
         <header>
