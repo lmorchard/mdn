@@ -137,7 +137,6 @@ class OverwritingFileField(models.FileField):
     attr_class = OverwritingFieldFile
 
     def __init__(self, *args, **kwargs):
-        self.content_types = kwargs.pop("content_types")
         self.max_upload_size = kwargs.pop("max_upload_size")
         super(OverwritingFileField, self).__init__(*args, **kwargs)
 
@@ -146,15 +145,11 @@ class OverwritingFileField(models.FileField):
         
         file = data.file
         try:
-            content_type = file.content_type
-            if content_type in self.content_types:
-                if file._size > self.max_upload_size:
-                    raise ValidationError(
-                        _('Please keep filesize under %s. Current filesize %s') % 
-                        (filesizeformat(self.max_upload_size), filesizeformat(file._size))
-                    )
-            else:
-                raise ValidationError(_('Filetype not supported.'))
+            if file._size > self.max_upload_size:
+                raise ValidationError(
+                    _('Please keep filesize under %s. Current filesize %s') % 
+                    (filesizeformat(self.max_upload_size), filesizeformat(file._size))
+                )
         except AttributeError:
             pass        
             
@@ -297,7 +292,6 @@ class Submission(caching.base.CachingMixin, models.Model):
 
     demo_package = OverwritingFileField(
             _('select a ZIP file containing your demo'),
-            content_types=['application/zip'],
             max_upload_size=DEMO_MAX_ZIP_FILESIZE,
             storage=demo_uploads_fs,
             upload_to=mk_upload_to('demo_package.zip'),
