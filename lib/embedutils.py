@@ -14,6 +14,7 @@ import re
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from jinja2.utils import Markup
+from django.core.exceptions import ValidationError
 
 YOUTUBE_URL_RE = re.compile('''
     ^ # start
