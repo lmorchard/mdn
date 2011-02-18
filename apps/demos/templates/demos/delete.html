@@ -37,7 +37,7 @@
     
         <h2>{{_('Remove this demo?')}}</h2>
 
-        {% trans demo_title=submission.title %}
+        {% trans demo_title=submission.title | e %}
             <p>You are about to remove <strong>{{ demo_title }}</strong> from the Demo Studio.</p>
             <p>The Demo's listing, source code, and statistics will be <strong>deleted</strong>.</p>
             <p>This action <strong>cannot be undone</strong>.

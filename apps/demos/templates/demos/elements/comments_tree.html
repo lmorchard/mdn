@@ -12,10 +12,10 @@
         </p>
     
         <p class="entry-meta">
-            {% set comment_id = comment.id %}
-            {% set display_name = comment.user.username %}
-            {% set comment_isotime = comment.date_submitted | isotime %}
-            {% set comment_timesince = comment.date_submitted | timesince %}
+            {% set comment_id = comment.id | e %}
+            {% set display_name = comment.user.username | e %}
+            {% set comment_isotime = comment.date_submitted | isotime | e %}
+            {% set comment_timesince = comment.date_submitted | timesince | e %}
             {% trans %}
                 Posted <a href="#comment-{{comment_id}}" rel="bookmark" title="Permanent link to this comment by {{display_name}}"><time class="published" pubdate="pubdate" datetime="{{comment_isotime}}" title="{{comment_isotime}}">{{comment_timesince}}</time></a>
             {% endtrans %}
