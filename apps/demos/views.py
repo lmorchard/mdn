@@ -59,7 +59,7 @@ def detail(request, slug):
     """Detail page for a submission"""
     submission = get_object_or_404(Submission, slug=slug)
     if not submission.allows_viewing_by(request.user):
-        return HttpResponseForbidden(_('access denied'))
+        return HttpResponseForbidden(_('access denied')+'')
 
     more_by = Submission.objects.filter(creator=submission.creator)\
             .exclude(hidden=True)\
@@ -205,7 +205,7 @@ def submit(request):
 def edit(request, slug):
     submission = get_object_or_404(Submission, slug=slug)
     if not submission.allows_editing_by(request.user):
-        return HttpResponseForbidden(_('access denied'))
+        return HttpResponseForbidden(_('access denied')+'')
 
     if request.method != "POST":
         form = SubmissionEditForm(instance=submission)
@@ -229,7 +229,7 @@ def delete(request, slug):
     """Delete a submission"""
     submission = get_object_or_404(Submission, slug=slug)
     if not submission.allows_deletion_by(request.user):
-        return HttpResponseForbidden(_('access denied'))
+        return HttpResponseForbidden(_('access denied')+'')
 
     if request.method == "POST":
         submission.delete()
@@ -242,7 +242,7 @@ def delete_comment(request, slug, object_id):
     """Delete a comment on a submission, if permitted."""
     tc = get_object_or_404(ThreadedComment, id=int(object_id))
     if not threadedcomments.views.can_delete_comment(tc, request.user):
-        return HttpResponseForbidden(_('access denied'))
+        return HttpResponseForbidden(_('access denied')+'')
     submission = get_object_or_404(Submission, slug=slug)
     if request.method == "POST":
         tc.delete()
@@ -255,7 +255,7 @@ def delete_comment(request, slug, object_id):
 def hideshow(request, slug, hide=True):
     submission = get_object_or_404(Submission, slug=slug)
     if not submission.allows_hiding_by(request.user):
-        return HttpResponseForbidden(_('access denied'))
+        return HttpResponseForbidden(_('access denied')+'')
 
     if request.method == "POST":
         submission.hidden = hide
