@@ -75,7 +75,7 @@
 
       <ul class="tools">
 
-        <li><a href="{{ url('demos_launch', slug=submission.slug) }}" class="button launch"><strong>{{_('Launch Demo')}}</strong></a></li>
+          <li><a href="{{ url('demos_launch', slug=submission.slug) }}" target="{{ "_blank" if submission.navbar_optout }}" class="button launch"><strong>{{_('Launch Demo')}}</strong></a></li>
 
         <li>
             {% set likes = submission.likes.get_total_for_request(request) %}
