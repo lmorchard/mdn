@@ -256,14 +256,6 @@ class Submission(caching.base.CachingMixin, models.Model):
     featured = models.BooleanField()
     hidden = models.BooleanField()
 
-    navbar_optout = models.BooleanField(
-        _('control how your demo is launched'),
-        choices=( 
-            (True, _('Disable navigation bar, launch demo in a new window')),
-            (False, _('Use navigation bar, display demo in <iframe>'))
-        )
-    )
-
     comments_total = models.PositiveIntegerField(default=0)
 
     launches = ActionCounterField()

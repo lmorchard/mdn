@@ -107,14 +107,11 @@ class SubmissionEditForm(MyModelForm):
 
     class Meta:
         model = Submission
-        widgets = {
-            'navbar_optout': forms.Select
-        }
         fields = (
             'title', 'summary', 'description', 'tags',
             'screenshot_1', 'screenshot_2', 'screenshot_3', 
             'screenshot_4', 'screenshot_5', 
-            'video_url', 'navbar_optout',
+            'video_url', 
             'demo_package', 'source_code_url', 'license_name',
         )
 

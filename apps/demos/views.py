@@ -171,12 +171,8 @@ def launch(request, slug):
     """Demo launch view with action counting"""
     submission = get_object_or_404(Submission, slug=slug)
     submission.launches.increment(request)
-    if submission.navbar_optout:
-        return HttpResponseRedirect(
-            submission.demo_package.url.replace('.zip', '/index.html'))
-    else:
-        return jingo.render(request, 'demos/launch.html', {
-            'submission': submission })
+    return jingo.render(request, 'demos/launch.html', {
+        'submission': submission })
 
 def submit(request):
     """Accept submission of a demo"""
