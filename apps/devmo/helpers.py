@@ -7,6 +7,7 @@ from django.conf import settings
 from django.core.cache import cache
 from django.template import defaultfilters
 from django.utils.html import strip_tags
+from django.utils.encoding import smart_str
 
 from bleach import Bleach
 from jingo import register
