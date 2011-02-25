@@ -502,13 +502,19 @@ class Submission(caching.base.CachingMixin, models.Model):
                 index_found = True
 
             if zi.file_size > DEMO_MAX_FILESIZE_IN_ZIP:
-                raise ValidationError(_('ZIP file contains files that are too large'))
+                raise ValidationError(
+                    _('ZIP file contains a file that is too large: %(filename)s') % 
+                    { "filename": name }
+                )
 
             file_data = zf.read(zi)
             file_mime_type = m_mime.from_buffer(file_data)
 
             if file_mime_type in DEMO_MIMETYPE_BLACKLIST:
-                raise ValidationError(_('ZIP file contains unacceptable files'))
+                raise ValidationError(
+                    _('ZIP file contains an unacceptable file: %(filename)s') % 
+                    { "filename": name }
+                )
         
         if not index_found:
             raise ValidationError(_('HTML index not found in ZIP'))
