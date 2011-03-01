@@ -510,6 +510,7 @@ class Submission(caching.base.CachingMixin, models.Model):
 
             file_data = zf.read(zi)
             file_mime_type = m_mime.from_buffer(file_data)
+            logging.debug("FILE TYPE DETECTED: %s" % ( file_mime_type ))
 
             if file_mime_type in DEMO_MIMETYPE_BLACKLIST:
                 raise ValidationError(

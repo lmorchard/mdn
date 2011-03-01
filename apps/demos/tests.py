@@ -283,6 +283,7 @@ class DemoPackageTest(TestCase):
         )
 
         for blist, fdata in types:
+            logging.debug("BLIST %s" % ( blist, ))
             demos.models.DEMO_MIMETYPE_BLACKLIST = blist
 
             s = self.submission
