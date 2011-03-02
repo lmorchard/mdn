@@ -152,7 +152,7 @@ TAG_DESCRIPTIONS = dict( (x['tag_name'], x) for x in getattr(settings, 'TAG_DESC
     { 
         "tag_name": "indexeddb", 
         "title": _("IndexedDB"), 
-        "description": _("IndexedDB is an API for client-side storage of significant amounts of structured data and for high performance searches on this data using indexes. "),
+        "description": _("IndexedDB is an API for client-side storage of significant amounts of structured data and for high performance searches on this data using indexes."),
         "learn_more": (
             (_('MDN Documentation'), _('https://developer.mozilla.org/en/IndexedDB')),
             (_('Wikipedia Article'), _('http://en.wikipedia.org/wiki/IndexedDB')),
