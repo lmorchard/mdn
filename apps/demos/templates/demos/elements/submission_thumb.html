@@ -17,6 +17,6 @@
         <li class="comments"><a href="{{ submission.get_absolute_url() }}#comments" title="{{ ngettext('There is {count} comment for this demo', 'There are {count} comments for this demo', comments) | f(count=comments) }}">{{ comments }}</a></li>
       </ul>
       <p class="desc">{{ submission.summary }}</p>
-      <p class="launch"><a href="{{ url('demos_launch', slug=submission.slug) }}" target="{{ "_blank" if submission.navbar_optout }}" class="button" title="{{ _('Launch {title}') | f(title=submission.title) }}">Launch</a></p>
+      <p class="launch"><a href="{{ url('demos_launch', slug=submission.slug) }}" target="{{ "_blank" if submission.navbar_optout }}" class="button" title="{{ _('Launch {title}') | f(title=submission.title) }}">{{_('Launch')}}</a></p>
     </div>
 </li>
