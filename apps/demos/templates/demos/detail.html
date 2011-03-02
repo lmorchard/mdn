@@ -92,7 +92,7 @@
             {% endif %}
         </li>
 
-        <li class="share"><a href="#share-opts" id="sharetoggle" title="{{_('Share this demo with your social network')}}">Share It</a>
+        <li class="share"><a href="#share-opts" id="sharetoggle" title="{{_('Share this demo with your social network')}}">{{_('Share It')}}</a>
           <ul id="share-opts">
             {% set full_url = request.build_absolute_uri(submission.get_absolute_url()) %}
             {% set short_url = full_url | bitly_shorten %}
