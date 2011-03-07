@@ -91,3 +91,8 @@ RewriteRule ^(admin(/.*)?)$                                                     
 	RewriteCond %{REQUEST_URI} !/block_f90c2.html
 	RewriteCond %{QUERY_STRING} ^$ [OR] %{REQUEST_URI} ^/Special:Search
 	RewriteRule ^(.*)$ index.php?title=$1 [L,QSA,NE]
+
+# Media file mimetypes
+AddType video/webm .webm
+AddType video/ogg .ogv
+AddType audio/ogg .ogg
