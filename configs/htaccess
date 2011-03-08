@@ -6,6 +6,7 @@
 AddType video/webm .webm
 AddType video/ogg .ogv
 AddType audio/ogg .ogg
+AddType image/svg+xml .svg .svgz
 
 ReWriteEngine On
 RewriteBase /
