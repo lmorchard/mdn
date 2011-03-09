@@ -43,6 +43,10 @@ RewriteRule ^(admin(/.*)?)$                                                     
 #   RewriteCond %{REQUEST_URI} ^/@api/deki/users/[0-9]+/favorites/feed(/)?$ [NC]
 #   RewriteRule (.*) https://developer.mozilla.org/deki/feeds_disabled.php? [L,R]
 #   # END FEEDS DISABLED
+
+	RewriteRule ^devnews(.*) /data/www/devnews$1 [L]
+	RewriteRule ^web-tech(.*) /data/www/web-tech$1 [L]
+
 #    RewriteRule ^En/JavaScript/Reference/Objects/Array$ en/JavaScript/Reference/Global_Objects/Array [R=301,L,NC]
 #    RewriteRule ^En/JavaScript/Reference/Objects$ en/JavaScript/Reference/Global_Objects/Object [R=301,L,NC]
 #
