@@ -45,6 +45,7 @@
           {% set full_url = request.build_absolute_uri(submission.get_absolute_url()) %}
           {% set short_url = full_url | bitly_shorten %}
           <li class="twitter"><a href="http://twitter.com/share?{{ urlencode({"url":short_url, "text":submission.title, "via":"mozhacks"}) }}">{{_('Share on Twitter')}}</a></li>
+          <li class="link"><input id="shorturl" type="text" readonly="readonly" value="{{ short_url }}"></li>
           <li class="facebook">
                 <iframe src="http://www.facebook.com/plugins/like.php?{{ urlencode({ 
                     "href": full_url, "locale": LANG, "layout":"button_count", 
@@ -54,7 +55,6 @@
                 style="border:none; overflow:hidden; width:180px; height:21px;" 
                 allowTransparency="true"></iframe>
           </li>
-          <li class="link"><input id="shorturl" type="text" readonly="readonly" value="{{ short_url }}"></li>
         </ul>
       </li>
     </ul>
