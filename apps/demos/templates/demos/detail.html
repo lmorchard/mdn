@@ -98,7 +98,15 @@
             {% set short_url = full_url | bitly_shorten %}
             <li class="sharetitle">{{_('Share It')}}</li>
             <li class="twitter"><a href="http://twitter.com/share?{{ urlencode({"url":short_url, "text":submission.title, "via":"mozhacks"}) }}">{{_('Share on Twitter')}}</a></li>
-            <li class="facebook"><a href="http://www.facebook.com/sharer.php?{{ urlencode({"u":short_url, "t":submission.title}) }}">{{_('Share on Facebook')}}</a></li>
+            <li class="facebook">
+                <iframe src="http://www.facebook.com/plugins/like.php?{{ urlencode({ 
+                    "href": full_url, "locale": LANG, "layout":"button_count", 
+                    "show_faces":"false", "width":"180", "action":"like", "font":"arial", 
+                    "colorscheme":"dark", "height":"21" }) 
+                }} scrolling="no" frameborder="0" 
+                style="border:none; overflow:hidden; width:180px; height:21px;" 
+                allowTransparency="true"></iframe>
+            </li>
             <li class="link"><input id="shorturl" type="text" readonly="readonly" value="{{ short_url }}"></li>
           </ul>
           <script type="text/javascript">
@@ -327,6 +335,7 @@
         $("#shorturl").blur(function() {
           $(this).removeClass("focus");
         });
+
       
       });
       </script>
