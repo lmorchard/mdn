@@ -208,6 +208,7 @@ JAVA_BIN = '/usr/bin/java'
 
 MIDDLEWARE_CLASSES = (
     'devmo.middleware.LocaleURLMiddleware',
+    'devmo.middleware.Forbidden403Middleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

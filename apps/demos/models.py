@@ -9,7 +9,7 @@ import logging
 
 import zipfile
 import tarfile
-import magic
+#import magic
 
 from django.conf import settings
 

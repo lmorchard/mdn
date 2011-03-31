@@ -269,4 +269,5 @@ def hideshow(request, slug, hide=True):
             'demos.views.detail', args=(submission.slug,)))
 
 def terms(request):
-    return jingo.render(request, 'demos/terms.html', {})
+    return HttpResponseForbidden(_('access denied')+'')
+    #return jingo.render(request, 'demos/terms.html', {})
